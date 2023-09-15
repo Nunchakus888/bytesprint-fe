@@ -15,7 +15,7 @@ import Router from 'next/router'
 
 import {useEffect} from "react";
 
-import SignIn from './auth/sign-in';
+import SignIn from '../components/sign-in';
 
 function Home() {
 
@@ -23,15 +23,11 @@ function Home() {
 
   useEffect(() => {
     if (session.status === 'authenticated') {
-      console.log('------session', session);
       Router.push('/admin/home')
     }
-  }, []);
+  }, [session]);
 
   return <SignIn />
-
 }
-
-Home.Layout = Layout
 
 export default Home

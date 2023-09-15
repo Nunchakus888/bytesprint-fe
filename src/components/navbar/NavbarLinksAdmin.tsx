@@ -1,3 +1,4 @@
+
 // Chakra Imports
 import {
 	Avatar,
@@ -26,11 +27,14 @@ import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
 import routes from 'routes/routes';
 import { Image } from 'components/image/Image';
-import {useSession} from "next-auth/react";
+import { useDisconnect } from "wagmi"
+
+import { signOut, useSession } from "next-auth/react";
 import Router from "next/router";
 export default function HeaderLinks(props: { secondary: boolean }) {
 	const { secondary } = props;
 	const session = useSession()
+	const { disconnect } = useDisconnect()
 
 	const { colorMode, toggleColorMode } = useColorMode();
 	// Chakra Color Mode
@@ -47,6 +51,13 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 		'14px 17px 40px 4px rgba(112, 144, 176, 0.06)'
 	);
 	const borderButton = useColorModeValue('secondaryGray.500', 'whiteAlpha.200');
+
+	const handleLogout = async () => {
+		disconnect()
+		await signOut().catch(e => e);
+		Router.push('/')
+	};
+
 	return (
 		<Flex
 			w={{ sm: '100%', md: 'auto' }}
@@ -218,7 +229,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
 							color='red.400'
 							borderRadius='8px'
 							px='14px'>
-							<Text fontSize='sm' onClick={() => Router.push('/auth')}>Log out</Text>
+							<Text fontSize='sm' onClick={handleLogout}>Log out</Text>
 						</MenuItem>
 					</Flex>
 				</MenuList>

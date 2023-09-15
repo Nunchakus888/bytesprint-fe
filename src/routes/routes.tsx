@@ -15,7 +15,7 @@ import Tasks from 'pages/admin/tasks'
 import RTL from 'pages/rtl/rtl-default'
 
 // Auth Imports
-import SignInCentered from 'pages/auth/sign-in'
+import SignInCentered from 'components/sign-in'
 import { IRoute } from 'types/navigation'
 
 const routes: IRoute[] = [

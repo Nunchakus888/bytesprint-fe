@@ -23,6 +23,7 @@
 import { getCsrfToken, signIn, useSession, signOut } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 
 import React from 'react';
 
@@ -54,31 +55,34 @@ export default function SignIn() {
 	const textColor = useColorModeValue('navy.700', 'white');
 	const textColorSecondary = 'gray.400';
 
+	const { connect, connectors } = useConnect({
+		connector: new InjectedConnector(),
+	});
+
 	const session = useSession()
 
-	console.log('------session', session);
-	const [{ data: connectData }, connect] = useConnect()
-	const [, signMessage] = useSignMessage()
-	const [{ data: networkData }] = useNetwork()
-	const [{ data: accountData }] = useAccount()
+	const { signMessageAsync } = useSignMessage()
+	const { chain } = useNetwork()
+	const { address, isConnected } = useAccount()
+
+	const [loading, setLoading] = React.useState(!1);
 
 	const handleLogin = async () => {
 		try {
-			await connect(connectData.connectors[0])
-			const callbackUrl = '/protected'
+			const callbackUrl = "/protected"
 			const message = new SiweMessage({
 				domain: window.location.host,
-				address: accountData?.address,
-				statement: 'Sign in with Ethereum to the app.',
+				address: address,
+				statement: "Sign in with Ethereum to the app.",
 				uri: window.location.origin,
-				version: '1',
-				chainId: networkData?.chain?.id,
+				version: "1",
+				chainId: chain?.id,
 				nonce: await getCsrfToken(),
 			})
-			const { data: signature, error } = await signMessage({
+			const signature = await signMessageAsync({
 				message: message.prepareMessage(),
 			})
-			signIn('credentials', {
+			signIn("credentials", {
 				message: JSON.stringify(message),
 				redirect: false,
 				signature,
@@ -89,11 +93,12 @@ export default function SignIn() {
 		}
 	}
 
-	const handleLogout = async () => {
-		signOut({ redirect: false })
-	}
-
-	const ethereumPresent = typeof window !== 'undefined' && !!window.ethereum
+	React.useEffect(() => {
+		console.log(isConnected);
+		if (isConnected && !session) {
+			handleLogin()
+		}
+	}, [isConnected])
 
 	return (
 		<DefaultAuthLayout>
@@ -132,10 +137,16 @@ export default function SignIn() {
 
 
 						<Button
+							isLoading={session.status === "authenticated" && !session.data}
 							fontSize='sm' variant="brand" fontWeight='500' w='100%' h='50' mb='24px'
-							onClick={
-								session.status === 'authenticated' ? handleLogout : handleLogin
-							}
+							onClick={(e) => {
+								e.preventDefault()
+								if (!isConnected) {
+									connect()
+								} else {
+									handleLogin()
+								}
+							}}
 						>
 							{session.status === 'authenticated' ? `Connected as ${session.data?.user?.name}` : 'MateMask 授权登录'}
 						</Button>
