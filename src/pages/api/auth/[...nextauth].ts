@@ -64,7 +64,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     callbacks: {
       async session({ session, token }) {
         if (session) {
-          session.address = token?.sub
           session.user!.name = token?.sub
           return session
         }
