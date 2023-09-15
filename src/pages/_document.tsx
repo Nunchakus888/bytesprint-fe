@@ -7,7 +7,7 @@ export default function Document () {
       <Head>
         {/*<link rel='apple-touch-icon' href='/logo192.png' />*/}
         <link rel='manifest' href='/manifest.json' />
-        <link rel='icon' href={config.favicon} />
+        <link rel="icon" type="image/x-icon" href={config.favicon} />
       </Head>
       <body id='root'>
         <Main />
