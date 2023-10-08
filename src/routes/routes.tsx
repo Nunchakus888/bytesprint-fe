@@ -34,6 +34,20 @@ const routes: IRoute[] = [
     component: Home,
   },
   {
+    name: '用户中心',
+    layout: '/admin',
+    path: '/me',
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Home,
+  },
+  {
+    name: '钱包管理',
+    layout: '/admin',
+    path: '/account',
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Home,
+  },
+  {
     name: '发布需求',
     layout: '/admin',
     path: '/send-requirements',
