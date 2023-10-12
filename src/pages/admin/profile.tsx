@@ -35,8 +35,12 @@ import Upload from 'views/admin/profile/components/Upload'
 // Assets
 import banner from 'img/auth/banner.png'
 import avatar from 'img/avatars/avatar4.png'
+import {useSession} from "next-auth/react";
 
 export default function ProfileOverview () {
+  const session = useSession()
+
+  console.log('---session', session);
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
@@ -44,7 +48,7 @@ export default function ProfileOverview () {
         <Grid
           templateColumns={{
             base: '1fr',
-            lg: '1.34fr 1fr 1.62fr'
+            lg: '1fr'
           }}
           templateRows={{
             base: 'repeat(3, 1fr)',
@@ -56,13 +60,13 @@ export default function ProfileOverview () {
             gridArea='1 / 1 / 2 / 2'
             banner={banner}
             avatar={avatar}
-            name='Adela Parkson'
-            job='Product Designer'
-            posts='17'
-            followers='9.7k'
-            following='274'
+            name={session?.data?.user?.name}
+            job="普通用户"
+            posts=''
+            followers=''
+            following=''
           />
-          <Storage
+          {/*<Storage
             gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
             used={25.6}
             total={50}
@@ -75,7 +79,7 @@ export default function ProfileOverview () {
             minH={{ base: 'auto', lg: '420px', '2xl': '365px' }}
             pe='20px'
             pb={{ base: '100px', lg: '20px' }}
-          />
+          />*/}
         </Grid>
         <Grid
           mb='20px'
