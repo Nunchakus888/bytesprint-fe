@@ -9,7 +9,7 @@ import {
 
 // Admin Imports
 import MainDashboard from 'pages/admin/send-requirements'
-import Home from 'pages/admin/home'
+import Index from 'pages/admin'
 import Profile from 'pages/admin/profile'
 import Tasks from 'pages/admin/tasks'
 import RTL from 'pages/rtl/rtl-default'
@@ -29,9 +29,9 @@ const routes: IRoute[] = [
   {
     name: '项目大厅',
     layout: '/admin',
-    path: '/home',
+    path: '/',
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Home,
+    component: Index,
   },
   {
     name: '用户中心',
@@ -45,7 +45,7 @@ const routes: IRoute[] = [
     layout: '/admin',
     path: '/account',
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: Home,
+    component: Index,
   },
   {
     name: '发布需求',

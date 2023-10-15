@@ -1,4 +1,5 @@
 import { extendTheme, HTMLChakraProps, ThemingProps } from '@chakra-ui/react';
+import { theme } from '@chakra-ui/theme';
 import { CardComponent } from './additions/card/card';
 import { buttonStyles } from './components/button';
 import { badgeStyles } from './components/badge';
@@ -11,9 +12,21 @@ import { linkStyles } from './components/link';
 import { breakpoints } from './foundations/breakpoints';
 import { globalStyles } from './styles';
 
+
+// @ts-ignore
+// import resolveConfig from "tailwindcss/resolveConfig";
+// import tailwindConfig from "../../tailwind.config";
+//
+// const tailwind = resolveConfig(tailwindConfig);
+
+// tailwind.theme.colors = theme.colors
+
 export default extendTheme(
 	{ breakpoints }, // Breakpoints
-	globalStyles,
+	{
+		...globalStyles,
+		// ...tailwind.theme,
+	},
 	badgeStyles, // badge styles
 	buttonStyles, // button styles
 	linkStyles, // link styles

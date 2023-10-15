@@ -25,7 +25,7 @@ import { SiweMessage } from 'siwe'
 import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // Chakra imports
 import {
@@ -93,12 +93,19 @@ export default function SignIn() {
 		}
 	}
 
+
 	React.useEffect(() => {
 		console.log(isConnected);
 		if (isConnected && !session) {
 			handleLogin()
 		}
 	}, [isConnected])
+
+	useEffect(() => {
+		if (session.status === 'authenticated') {
+			Router.push('/')
+		}
+	}, [session]);
 
 	return (
 		<DefaultAuthLayout>

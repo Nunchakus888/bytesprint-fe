@@ -37,7 +37,7 @@ export default function AdminLayout (props: DashboardLayoutProps) {
 
   useEffect(() => {
     if (session.status !== 'authenticated') {
-      Router.push('/')
+      Router.push('/login')
     }
   }, [session]);
 
