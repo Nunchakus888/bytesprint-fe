@@ -8,7 +8,6 @@ import { WagmiConfig, createClient, configureChains, chain } from "wagmi"
 import { SessionProvider } from 'next-auth/react'
 import { publicProvider } from "wagmi/providers/public"
 
-import 'styles/tw.css'
 import 'styles/Fonts.css'
 import 'styles/App.css'
 import 'styles/Contact.css'
