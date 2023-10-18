@@ -467,6 +467,9 @@ export const SpotifyLogo = createIcon({
 export const HorizonLogo = createIcon({
   displayName: 'horizonLogo',
   viewBox: '0 0 220 50',
+  defaultProps: {
+    className: 'cursor-pointer',
+  },
   path: (
     <g fill='none' xmlns='http://www.w3.org/2000/svg'>
       <image href="/img/layout/logo.png" height="100%" width="100%" />

@@ -12,9 +12,9 @@ export default function Header() {
   const name = session.data?.user?.name;
 
   return (
-    <header className="flex flex-col xs:flex-row justify-between items-center w-full mt-3 border-b pb-7 sm:px-4 px-2 border-gray-500 gap-2">
+    <header className="flex flex-col xs:flex-row justify-between items-center w-full border-b sm:px-4 px-20 border-gray-500 gap-2">
 
-      <HorizonLogo h='50px' w='220px' mb="32px" color={logoColor} />
+      <HorizonLogo h='50px' w='220px' my="18px" color={logoColor} />
 
       <Link
         href={
