@@ -5,16 +5,20 @@ import {HorizonLogo} from "../icons/Icons";
 import {useColorModeValue} from "@chakra-ui/react";
 import {useSession} from "next-auth/react";
 
-export default function Header() {
+export default function Header({ className = '', ...props }) {
   let logoColor = useColorModeValue('navy.700', 'white');
   const session = useSession();
 
   const name = session.data?.user?.name;
 
   return (
-    <header className="flex flex-col xs:flex-row justify-between items-center w-full border-b sm:px-4 px-20 border-gray-500 gap-2">
+    <header className={`flex flex-row justify-between items-center w-full border-b sm:px-4 px-20 border-gray-500 gap-2 ${className}`}>
 
       <HorizonLogo h='50px' w='220px' my="18px" color={logoColor} />
+
+      {
+        props.children
+      }
 
       <Link
         href={

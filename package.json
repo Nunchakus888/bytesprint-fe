@@ -20,6 +20,8 @@
     "@vercel/examples-ui": "^2.0.3",
     "apexcharts": "^3.35.2",
     "ethers": "^5.7.2",
+    "flowbite-react": "^0.6.4",
+    "focus-visible": "^5.2.0",
     "framer-motion": "^4.1.17",
     "next": "^13.2",
     "next-auth": "^4.12.2",

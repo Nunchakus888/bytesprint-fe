@@ -5,6 +5,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/views/**/*.{js,ts,jsx,tsx}",
     "./src/layouts/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -37,5 +38,9 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }*/
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@headlessui/tailwindcss")],
+  plugins: [
+    require('flowbite/plugin'),
+    require("@tailwindcss/forms"),
+    require("@headlessui/tailwindcss"),
+  ],
 };
