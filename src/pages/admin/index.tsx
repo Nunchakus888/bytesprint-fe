@@ -256,7 +256,7 @@ export default function Index () {
               </SimpleGrid>
             </Flex>
           </Flex>
-          <Flex
+          {/*<Flex
             flexDirection='column'
             gridArea={{ xl: '1 / 3 / 2 / 4', '2xl': '1 / 2 / 2 / 3' }}
           >
@@ -323,7 +323,7 @@ export default function Index () {
                 price='0.91 ETH'
               />
             </Card>
-          </Flex>
+          </Flex>*/}
         </Grid>
         {/* Delete Product */}
       </Box>
