@@ -26,7 +26,7 @@ export default function HomePage() {
           />*/}
         </Header>
         <TabPanels>
-          <TabPanel>
+          <TabPanel className="!p-0">
             <main className="flex w-full flex-col items-center justify-center text-center background-gradient">
               <Carousel indicators={false}>
                 {/*<img alt="banner" src="/img/index/01.png" className="w-full h-full object-contain relative" />*/}
@@ -42,7 +42,7 @@ export default function HomePage() {
             </main>
           </TabPanel>
 
-          <TabPanel>
+          <TabPanel className="!p-0">
             <main className="flex w-full flex-col items-center justify-center text-center background-gradient">
               <img src="/img/index/operator/01.png" className="w-full object-contain" />
               <img src="/img/index/operator/02.png" className="w-full object-contain" />
