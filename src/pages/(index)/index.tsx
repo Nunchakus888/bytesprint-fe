@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#060A23] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
-      <Tabs position="relative">
+      <Tabs position="relative" className="w-full flex-1">
         <Header className="sticky top-0 z-10 bg-[#060A23]">
           <TabList>
             <Tab className="outline-none">Home</Tab>
@@ -30,15 +30,15 @@ export default function HomePage() {
             <main className="flex w-full flex-col items-center justify-center text-center background-gradient">
               <Carousel indicators={false}>
                 {/*<img alt="banner" src="/img/index/01.png" className="w-full h-full object-contain relative" />*/}
-                <img alt="banner" src="/img/index/01-1.png" className="w-full object-contain relative" />
+                {/*<img alt="banner" src="/img/index/01-1.png" className="w-full object-contain relative" />
                 <img alt="banner" src="/img/index/01-2.png" className="w-full object-contain relative" />
-                <img alt="banner" src="/img/index/01-3.png" className="w-full object-contain relative" />
+                <img alt="banner" src="/img/index/01-3.png" className="w-full object-contain relative" />*/}
               </Carousel>
 
-              <img src="/img/index/03.png" className="w-full object-contain" />
+              {/*<img src="/img/index/03.png" className="w-full object-contain" />
               <img src="/img/index/04.png" className="w-full object-contain" />
               <img src="/img/index/05.png" className="w-full object-contain" />
-              <img src="/img/index/06.png" className="w-full object-contain" />
+              <img src="/img/index/06.png" className="w-full object-contain" />*/}
             </main>
           </TabPanel>
 

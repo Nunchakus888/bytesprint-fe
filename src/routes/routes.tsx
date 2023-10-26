@@ -12,6 +12,8 @@ import MainDashboard from 'pages/admin/send-requirements'
 import Index from 'pages/admin'
 import Profile from 'pages/admin/profile'
 import Tasks from 'pages/admin/tasks'
+import Home from 'pages/(index)/Index'
+
 import RTL from 'pages/rtl/rtl-default'
 
 // Auth Imports
@@ -26,6 +28,13 @@ const routes: IRoute[] = [
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard
   },*/
+  {
+    name: '主页',
+    layout: '/',
+    path: '/',
+    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+    component: Home,
+  },
   {
     name: '项目大厅',
     layout: '/admin',

@@ -1,3 +1,3 @@
-import Index from 'components/index/Index';
+import Index from './(index)/Index';
 
 export default Index
