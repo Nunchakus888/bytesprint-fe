@@ -1,9 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
 import Footer from "./Footer";
 import Header from "./Header";
-import SquigglyLines from "./SquigglyLines";
-import {useSession} from "next-auth/react";
 import { Carousel } from 'flowbite-react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator } from '@chakra-ui/react'
 
@@ -11,20 +7,23 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#060A23] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
-      <Tabs position="relative" className="w-full flex-1">
+      <Tabs position="relative" variant="unstyled" className="w-full flex-1">
         <Header className="sticky top-0 z-10 bg-[#060A23]">
           <TabList>
-            <Tab className="outline-none">Home</Tab>
-            {/*<Tab className="outline-none">White Paper</Tab>*/}
-            <Tab className="outline-none">Captain</Tab>
+            <Tab>Home</Tab>
+            <Tab>White Paper</Tab>
+            <Tab>Captain</Tab>
           </TabList>
-          {/*<TabIndicator
-            mt="40px"
+
+          <TabIndicator
+            mt="-1.5px"
             height="2px"
             bg="blue.500"
             borderRadius="1px"
-          />*/}
+          />
         </Header>
+
+
         <TabPanels>
           <TabPanel className="!p-0">
             <main className="flex w-full flex-col items-center justify-center text-center background-gradient">
