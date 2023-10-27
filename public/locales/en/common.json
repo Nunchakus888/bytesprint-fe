@@ -1,0 +1,10 @@
+{
+  "home": {
+    "tabs": [
+      "Home",
+      "Whitepaper",
+      "Team"
+    ],
+    "login": "login"
+  }
+}
