@@ -6,6 +6,8 @@ import {useColorModeValue} from "@chakra-ui/react";
 import {useSession} from "next-auth/react";
 import Logo from "components/image/Logo";
 import MobileNav from "components/MobileNav";
+import { Button } from '@chakra-ui/react';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 
 export default function Header({ className = '', ...props }) {
   let logoColor = useColorModeValue('navy.700', 'white');
@@ -24,21 +26,30 @@ export default function Header({ className = '', ...props }) {
         }
       </div>
 
-      <Link
-        href={
-          name ? '/admin' : '/login'
-        }
-        className="
-        sm:hidden
-        md:block
-        truncate
-        flex
-        max-w-fit items-center justify-center space-x-2 rounded-full border border-blue-600 text-white px-5 py-2 text-sm shadow-md hover:bg-blue-500 bg-blue-600 font-medium transition"
+      <Button
+        display={{ md: 'flex', sm: 'none' }}
+        variant='darkBrand'
+        color='white'
+        fontSize='sm'
+        fontWeight='500'
+        borderRadius='70px'
+        px='24px'
+        py='5px'
+        pill
+        outline
+        gradientDuoTone="purpleToPink"
       >
-        {
-          name ? '大厅' : '登录'
-        }
-      </Link>
+        <Link
+          className="truncate w-40"
+          href={name ? '/admin' : '/login'}
+        >
+          {
+            name || '登录'
+          }
+        </Link>
+        <HiOutlineArrowRight className="ml-2 h-5 w-5" />
+      </Button>
+
 
       <MobileNav />
 

@@ -6,7 +6,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator } from '@chakra-u
 export default function HomePage() {
 
   return (
-    <div className="bg-[#060A23] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
+    <div className="bg-[#0C0B35] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
       <Tabs position="relative" variant="unstyled" className="w-full flex-1">
         <Header className="sticky top-0 z-10 bg-[#060A23]">
           <TabList>
