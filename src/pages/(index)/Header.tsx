@@ -8,10 +8,13 @@ import Logo from "components/image/Logo";
 import MobileNav from "components/MobileNav";
 import { Button } from '@chakra-ui/react';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+// import { useDynamicContent } from 'hooks/useDynamicContent';
+import { useTranslation } from "next-i18next";
 
 export default function Header({ className = '', ...props }) {
   let logoColor = useColorModeValue('navy.700', 'white');
   const session = useSession();
+  const { t } = useTranslation("common");
 
   const name = session.data?.user?.name;
 
@@ -44,7 +47,7 @@ export default function Header({ className = '', ...props }) {
           href={name ? '/admin' : '/login'}
         >
           {
-            name || '登录'
+            name || t("home.login")
           }
         </Link>
         <HiOutlineArrowRight className="ml-2 h-5 w-5" />

@@ -2,9 +2,12 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { Carousel } from 'flowbite-react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator } from '@chakra-ui/react'
+import { useTranslation } from "next-i18next";
 
 export default function HomePage() {
+  const trans = useTranslation("common");
 
+  console.log('----trans', trans);
   return (
     <div className="bg-[#0C0B35] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
       <Tabs position="relative" variant="unstyled" className="w-full flex-1">
