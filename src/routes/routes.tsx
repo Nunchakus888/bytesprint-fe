@@ -12,7 +12,7 @@ import MainDashboard from 'pages/admin/send-requirements'
 import Index from 'pages/admin'
 import Profile from 'pages/admin/profile'
 import Tasks from 'pages/admin/tasks'
-import Home from 'pages/(index)/Index'
+import Home from 'pages/(index)/index'
 
 import RTL from 'pages/rtl/rtl-default'
 

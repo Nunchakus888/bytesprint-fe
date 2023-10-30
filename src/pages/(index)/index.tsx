@@ -3,18 +3,23 @@ import Header from "./Header";
 import { Carousel } from 'flowbite-react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator } from '@chakra-ui/react'
 import { useTranslation, i18n } from "next-i18next";
-import { pdfjs, Document, Page } from 'react-pdf';
 import {useEffect, useState} from "react";
 
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 
+const homeData = {
+  "tabs": {
+    "home": "Home",
+    "whitePaper": "White Paper",
+    "captain": "Captain"
+  },
+  "login": "login"
+};
+
 export default function HomePage() {
   const trans = useTranslation("common");
-  const [file, setFile] = useState(`/pdf/${i18n.language}-whitePaper.pdf`);
-
-  const homeData = i18n.store.data[i18n.language]?.common?.home;
-
+  const [file, setFile] = useState(`/pdf/${i18n?.language || 'en'}-whitePaper.pdf`);
   const [numPages, setNumPages] = useState<number>();
   const [pageNumber, setPageNumber] = useState<number>(1);
 
@@ -24,14 +29,15 @@ export default function HomePage() {
 
   useEffect(() => {
     setFile(`/pdf/${i18n.language}-whitePaper.pdf`);
-  }, [i18n.language])
+  }, [i18n?.language]);
+
   return (
     <div className="bg-[#0C0B35] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
       <Tabs position="relative" variant="unstyled" className="w-full flex-1">
         <Header className="sticky top-0 z-10 bg-[#060A23]">
           <TabList>
             {
-              Object.keys(homeData.tabs).map((i) => (<Tab key={i}>{trans.t('home.tabs.' + i)}</Tab>))
+              Object.keys(homeData.tabs || {}).map((i) => (<Tab key={i}>{trans.t('home.tabs.' + i)}</Tab>))
             }
           </TabList>
 

@@ -1,4 +1,4 @@
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useLanguage } from "contexts/LanguageContext";
 import { useState, useEffect } from "react";
 export interface IStaticText {
   footer: string;

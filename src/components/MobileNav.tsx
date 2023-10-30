@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from './Link'
-import {i18n} from "next-i18next";
 
 const headerNavLinks = [
   { href: '/', title: 'Home' },
@@ -11,7 +10,6 @@ const headerNavLinks = [
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
-  const homeData = i18n.store.data[i18n.language]?.common?.home;
 
   const onToggleNav = () => {
     setNavShow((status) => {
