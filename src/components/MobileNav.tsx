@@ -2,17 +2,16 @@
 
 import { useState } from 'react'
 import Link from './Link'
+import {i18n} from "next-i18next";
 
 const headerNavLinks = [
   { href: '/', title: 'Home' },
-  { href: '/blog', title: 'Blog' },
-  { href: '/tags', title: 'Tags' },
-  { href: '/projects', title: 'Projects' },
-  { href: '/about', title: 'About' },
+  { href: '/admin', title: 'admin' }
 ]
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
+  const homeData = i18n.store.data[i18n.language]?.common?.home;
 
   const onToggleNav = () => {
     setNavShow((status) => {

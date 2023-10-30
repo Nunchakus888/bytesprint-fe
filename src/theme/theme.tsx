@@ -1,5 +1,4 @@
 import { extendTheme, HTMLChakraProps, ThemingProps } from '@chakra-ui/react';
-import { theme } from '@chakra-ui/theme';
 import { CardComponent } from './additions/card/card';
 import { buttonStyles } from './components/button';
 import { badgeStyles } from './components/badge';
@@ -26,6 +25,8 @@ export default extendTheme(
 	{
 		...globalStyles,
 		// ...tailwind.theme,
+		initialColorMode: 'dark',
+		// useSystemColorMode: !0,
 	},
 	badgeStyles, // badge styles
 	buttonStyles, // button styles

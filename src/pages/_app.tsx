@@ -41,31 +41,31 @@ const queryClient = new QueryClient();
 function App ({Component, pageProps }: AppProps<{ session: Session; }>) {
   return (
     <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <LanguageProvider>
-          <Head>
-            <title>{ config.title }</title>
-            <meta name='viewport' content='width=device-width, initial-scale=1' />
-            <meta name='theme-color' content='#000000' />
-          </Head>
+      <Head>
+        <title>{ config.title }</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name='theme-color' content='#000000' />
+      </Head>
 
-          {/*// Use of the <SessionProvider> is mandatory to allow components that call
-      // `useSession()` anywhere in your application to access the `session` object.*/}
-          <WagmiConfig client={client}>
-            <SessionProvider session={pageProps.session} refetchInterval={0}>
-              <Component {...pageProps} />
-            </SessionProvider>
-          </WagmiConfig>
-
-          {/*<WagmiProvider autoConnect>
+      {/*// Use of the <SessionProvider> is mandatory to allow components that call
+  // `useSession()` anywhere in your application to access the `session` object.*/}
+      <WagmiConfig client={client}>
         <SessionProvider session={pageProps.session} refetchInterval={0}>
-          <React.StrictMode>
-            <Component {...pageProps} />
-          </React.StrictMode>
+          <QueryClientProvider client={queryClient}>
+            <LanguageProvider>
+              <Component {...pageProps} />
+            </LanguageProvider>
+          </QueryClientProvider>
         </SessionProvider>
-      </WagmiProvider>*/}
-        </LanguageProvider>
-      </QueryClientProvider>
+      </WagmiConfig>
+
+      {/*<WagmiProvider autoConnect>
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <React.StrictMode>
+          <Component {...pageProps} />
+        </React.StrictMode>
+      </SessionProvider>
+    </WagmiProvider>*/}
     </ChakraProvider>
   )
 }

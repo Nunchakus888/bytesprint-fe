@@ -1,10 +1,10 @@
 {
   "home": {
-    "tabs": [
-      "首页",
-      "白皮书",
-      "供应商"
-    ],
-    "login": "登录"
+    "tabs": {
+      "home": "Home",
+      "whitePaper": "White Paper",
+      "captain": "Captain"
+    },
+    "login": "login"
   }
 }
