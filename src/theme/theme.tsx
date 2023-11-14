@@ -10,6 +10,7 @@ import { switchStyles } from './components/switch';
 import { linkStyles } from './components/link';
 import { breakpoints } from './foundations/breakpoints';
 import { globalStyles } from './styles';
+import config from './config';
 
 
 // @ts-ignore
@@ -21,12 +22,11 @@ import { globalStyles } from './styles';
 // tailwind.theme.colors = theme.colors
 
 export default extendTheme(
+	{ config }, // Config
 	{ breakpoints }, // Breakpoints
 	{
 		...globalStyles,
 		// ...tailwind.theme,
-		initialColorMode: 'dark',
-		// useSystemColorMode: !0,
 	},
 	badgeStyles, // badge styles
 	buttonStyles, // button styles

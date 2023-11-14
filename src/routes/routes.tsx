@@ -17,7 +17,7 @@ import Home from 'pages/(index)/index'
 import RTL from 'pages/rtl/rtl-default'
 
 // Auth Imports
-import SignInCentered from 'components/sign-in'
+import SignInCentered from 'pages/login/sign-in'
 import { IRoute } from 'types/navigation'
 
 const routes: IRoute[] = [

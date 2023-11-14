@@ -134,13 +134,13 @@ export default function SignIn() {
 					me='auto'
 					mb={{ base: '20px', md: 'auto' }}>
 					<img
-						src="/img/layout/logo.png"
+						src="/img/logo/light.png"
 						className="w-full"
 					/>
 
 					<FormControl>
 
-						<Text textAlign="center" fontSize="3xl" py={16} onClick={() => Router.push('/admin/home')}>欢迎登录</Text>
+						<Text color="secondaryGray.900" textAlign="center" fontSize="3xl" py={16} onClick={() => Router.push('/admin')}>欢迎登录</Text>
 
 
 						<Button

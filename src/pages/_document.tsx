@@ -1,5 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import config from 'layouts/websiteConfig'
+import { ColorModeScript } from '@chakra-ui/react'
+import theme from 'theme/theme'
 
 export default function Document () {
   return (
@@ -10,6 +12,7 @@ export default function Document () {
         <link rel="icon" type="image/x-icon" href={config.favicon} />
       </Head>
       <body id='root'>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Main />
         <NextScript />
       </body>
