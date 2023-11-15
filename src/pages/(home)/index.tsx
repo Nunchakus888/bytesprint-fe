@@ -142,7 +142,7 @@ export default function HomePage() {
                     <div className="flex flex-row flex-wrap justify-between items-baseline gap-4">
                       {
                         user_role_guidelines.data.map((item) => (
-                          <div className="grow md:basis-1/4 border bg-[#666675] p-4 md:p-8 rounded-lg flex flex-col gap-4 md:h-96">
+                          <div className="grow md:basis-1/4 border bg-[#666675] p-4 md:p-8 rounded-lg flex flex-col gap-4 md:h-72">
                             <h2 className="text-xl font-bold text-white">{item.title}</h2>
                             <div className="flex flex-col items-start gap-2 grow">
                               {
