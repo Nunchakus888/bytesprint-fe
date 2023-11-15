@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 export interface LanguageContextType {

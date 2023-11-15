@@ -1,0 +1,253 @@
+{
+  "home": {
+    "tabs": {
+      "home": "Home Page",
+      "whitePaper": "White Paper",
+      "captain": "Captain"
+    },
+    "login": "Login In",
+    "banners": [
+      {
+        "H1": "Project Mining",
+        "H2": "Sending and receiving projectscan also earn tokens",
+        "bg": "img/index/banners/02.png",
+        "button": "Learn more"
+      },
+      {
+        "H1": "Addressing trust issues in crowadsourcing platforms",
+        "H2": "Blockchain smart contract+pledge",
+        "bg": "img/index/banners/03.png",
+        "button": "Learn more"
+      },
+      {
+        "H1": "Attributing Data And Assets To Users",
+        "H2": "A truly decentralized web3.0 croddsourcing platform",
+        "bg": "img/index/banners/04.png",
+        "button": "Learn more"
+      },
+      {
+        "H1": "Captain do not profit from price differences",
+        "H2": "Engineer quotation,open and transparent",
+        "bg": "img/index/banners/02.png",
+        "button": "Learn more"
+      }
+    ],
+    "our_platform_advantages": {
+      "title": "Our platform advantages",
+      "data": [
+        {
+          "H1": "Decentralization",
+          "bg": "img/index/advantages/decentralization.png",
+          "H2": "The natural decentralized nature of web3 allows for asset and data ownership"
+        },
+        {
+          "H1": "Open And Transparent",
+          "bg": "img/index/advantages/open.png",
+          "H2": "The engineer's quotation has achieved true openness and transparency"
+        },
+        {
+          "H1": "Stable Currency Payment",
+          "bg": "img/index/advantages/currency.png",
+          "H2": "The international stable currency USDT solves theproblem of payment and internationalization"
+        },
+        {
+          "H1": "DAO",
+          "bg": "img/index/advantages/dao.png",
+          "H2": "Decentralized DAO organization intervenesto solve problems fairly and impartially"
+        },
+        {
+          "H1": "Smart Contracts",
+          "bg": "img/index/advantages/contract.png",
+          "H2": "Blockchain smart contract technologyand token pledge solve trust"
+        },
+        {
+          "H1": "Crowdsourcing",
+          "bg": "img/index/advantages/dao.png",
+          "H2": "Crowdsourcing model, low cost, high efficiency"
+        }
+      ]
+    },
+    "is_this_the_current_you": {
+      "title": "Is this the current you ?",
+      "bg": "img/index/is_this_the_current_you.png",
+      "data": [
+        "1. Want to increase income.",
+        "2. Expect flexible offce work.",
+        "3. It's difficult to find a high paying job ",
+        "4. Insuffcientproject experience"
+      ]
+    },
+    "byteSprint_changes_the_way_you_work": {
+      "title": "ByteSprint changes the way you work!",
+      "data": [
+        {
+          "H1": "Branding",
+          "H2": "Promotional Materials/Packaging/Offce/LOGO"
+        },
+        {
+          "H1": "UI Design",
+          "H2": "Application UI Design/E-Commerce Design"
+        },
+        {
+          "H1": "Anime Game Design",
+          "H2": "Comic Design/Game Design"
+        },
+        {
+          "H1": "Mobile Development",
+          "H2": "Mini Program Development/Wechat Development/APP Development"
+        },
+        {
+          "H1": "Website Construction",
+          "H2": "Website Development/Website Operation/And Maintenance"
+        },
+        {
+          "H1": "Software Development",
+          "H2": "Business Software/Industry Software"
+        },
+        {
+          "H1": "Film/Animation",
+          "H2": "Film And Television Production/Animation Production/Film And Television Post Production/lmage Photography"
+        },
+        {
+          "H1": "Plan",
+          "H2": "Brand Copywriting/Marketing Planning/Film And Television Animation/Business Planning"
+        }
+      ],
+      "button-1": "Generate crowdsourcing requirements to obtain BTYD",
+      "button-2": "Receiving crowdsourcing tasks to obtain BTYD"
+    },
+    "user_role_guidelines": {
+      "title": "User Role Guidelines",
+      "data": [
+        {
+          "title": "Shipper",
+          "data": [
+            "1. Crowdsourcing requirements can bereleased at any time",
+            "2. Can participate in BTYD token pledgeto obtain wealth management income;",
+            "3. New hires can be recommended to enjoy second-generation benefits"
+          ],
+          "button": "Go log in"
+        },
+        {
+          "title": "Sailor",
+          "data": [
+            "1. Enjoy the same rights and interests asmembers",
+            "2. Participate in task quotations for corresponding positions at any time;",
+            "3. Complete the task and receive USDT rewards and token rewards cerrwsponding to the quotation"
+          ],
+          "button": "To authenticate"
+        },
+        {
+          "title": "Captain",
+          "data": [
+            "1. Enjoy the same rights and interests asmembers",
+            "2. Gain from token pledge",
+            "3. Obtain full package project benefits and token rewards",
+            "4. Obtain compensation for product relatedtasks",
+            "5. Obtain withdrawal fees from promotionengineers"
+          ],
+          "button": "To authenticate"
+        }
+      ]
+    },
+    "Partners": "Partners",
+    "Bottom_Navigation": {
+      "ABOUT_US": {
+        "Title": "ABOUT_US",
+        "Community": "Community",
+        "User_agreement": "User agreement",
+        "Rate_description": "Rate description"
+      },
+      "SERVICE_CENTER": {
+        "Title": "SERVICE CENTER",
+        "Announcement_centel": "Announcement centel",
+        "Help_Center": "Help Center",
+        "White_Paper": "White Paper"
+      },
+      "FRIENDLY_LINKS": {
+        "Title": "FRIENDLY LINKS",
+        "links-1": "Friendly links",
+        "links-2": "Friendly links",
+        "links-3": "Friendly links",
+        "links-4": "Friendly links"
+      },
+      "Copyright": "Copyright Bytesprint"
+    }
+  },
+  "whitePaper": {
+    "whitePaper": "White Papers",
+    "button": "Download"
+  },
+  "captain": {
+    "Captain_Introduction": {
+      "title": "Captain Introduction",
+      "introduce": "Business captain play a very important role on the ByteSprint platform. Unlike the lT crowdsourcing platform of WEB2.0.ByteSprint is a gradually decentralized platform where captain serve as a bridge between the contracting party and SailorEspecially for IT outsourcing projects or some relatively complex IT tasks, we encourage legal entities with traditional ITsoftware outsourcing experience and resources to apply for captain. When a wallet account applies to become an captain.After passing the platform review, pledging a certain amount of BTYD tokens can become a certifhed captain of the ByteSprintcrowdsourcing platform.",
+      "button": "captain Registration"
+    },
+    "Profitability_analysis": {
+      "title": "Proftability analysis",
+      "1": "Enjoy the same benefts as members",
+      "2": "Obtain token pledge  rewards",
+      "3": "Obtain compensation for product related tasks",
+      "4": "Obtain 8% profit and loan currency rewards for the entire package project",
+      "5": "Obtain withdrawal fees from promotion engineers"
+    },
+    "Cases": {
+      "title": "Crowdsourcing project cases",
+      "case-1": {
+        "name": "Manufacturing traceability MES system",
+        "Traditional": "Traditional development model",
+        "Traditional_money": "￥24000.00",
+        "Bytesprint": "ByteSprint crowdsourcing development",
+        "Bytesprint_money": "￥15000.00"
+      },
+      "case-2": {
+        "name": "Cross border e-commerce platform offcial website",
+        "Traditional": "Traditional development model",
+        "Traditional_money": "￥32000.00",
+        "Bytesprint": "ByteSprint crowdsourcing development",
+        "Bytesprint_money": "￥14000.00"
+      },
+      "case-3": {
+        "name": "Aggregated Payment System",
+        "Traditional": "Traditional development model",
+        "Traditional_money": "￥40000.00",
+        "Bytesprint": "ByteSprint crowdsourcing development",
+        "Bytesprint_money": "￥13000.00"
+      },
+      "button": "View more cases"
+    },
+    "Benefits": {
+      "title": "Benefts of becoming an captain",
+      "1": "Flexible engineer resources",
+      "2": "Trading mining income",
+      "3": "Pledge transaction",
+      "4": "Devops tool"
+    },
+    "Cooperative_operator": {
+      "title": "Cooperative Captain"
+    },
+    "Bottom_Navigation": {
+      "ABOUT_US": {
+        "Title": "ABOUT US",
+        "Community": "Community",
+        "User_agreement": "User agreement",
+        "Rate_description": "Rate description"
+      },
+      "SERVICE_CENTER": {
+        "Title": "SERVICE CENTER",
+        "Announcement_centel": "Announcement center",
+        "Help_Center": "Help Center",
+        "White_Paper": "White Paper"
+      },
+      "FRIENDLY_LINKS": {
+        "Title": "FRIENDLY LINKS",
+        "links-1": "Friendly links",
+        "links-2": "Friendly links",
+        "links-3": "Friendly links",
+        "links-4": "Friendly links"
+      },
+      "Copyright": "Copyright Bytesprint"
+    }
+  }
+}
