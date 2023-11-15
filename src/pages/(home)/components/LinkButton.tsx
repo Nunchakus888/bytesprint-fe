@@ -3,10 +3,13 @@ import {Button} from "@chakra-ui/react";
 import React from "react";
 import {useTranslation} from "next-i18next";
 import {useSession} from "next-auth/react";
+import { ButtonProps } from "@chakra-ui/button";
 
-export default function LinkButton({ children, ...props }) {
+export default function LinkButton(props: ButtonProps) {
 	const {t} = useTranslation("home");
 	const session = useSession();
+
+	const { children, ...rest } = props;
 
 	const name = session.data?.user?.name
 	return (
@@ -20,7 +23,7 @@ export default function LinkButton({ children, ...props }) {
 			borderRadius='70px'
 			px='24px'
 			py='5px'
-			{...props}
+			{...rest}
 		>
 			<Link
 				className="truncate w-40"
