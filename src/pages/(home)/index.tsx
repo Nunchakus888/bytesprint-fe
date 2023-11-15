@@ -1,7 +1,7 @@
 'use client'
 
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import { Carousel } from 'flowbite-react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, TabIndicator, Box, Show, Hide } from '@chakra-ui/react'
 import { useTranslation } from "next-i18next";
@@ -12,14 +12,6 @@ import Card from './components/Card';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-
-export const getServerSideProps = async ({ locale }: any) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["home", "common"])),
-    },
-  };
-};
 
 export default function HomePage() {
   const { t, i18n } = useTranslation("home");

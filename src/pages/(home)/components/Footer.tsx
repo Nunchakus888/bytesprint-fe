@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="text-gray-500 mx-auto">
         Powered by{" "}
         <a
-          href="#"
+          href="pages/(home)/components/Footer#"
           rel="noreferrer"
           className="font-bold hover:underline transition hover:text-gray-300 underline-offset-2"
         >

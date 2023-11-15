@@ -4,7 +4,7 @@ import Logo from "components/image/Logo";
 // import { useDynamicContent } from 'hooks/useDynamicContent';
 import { useTranslation } from "next-i18next";
 import LanguageSwitcher from "components/LanguageSwitcher";
-import LinkButton from './components/LinkButton';
+import LinkButton from './LinkButton';
 import React from "react";
 
 export default function Header({ className = '', ...props }) {
