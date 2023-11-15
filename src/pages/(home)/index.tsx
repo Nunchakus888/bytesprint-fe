@@ -11,6 +11,15 @@ import Card from './components/Card';
 
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+
+export const getServerSideProps = async ({ locale }: any) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["home", "common"])),
+    },
+  };
+};
 
 export default function HomePage() {
   const { t, i18n } = useTranslation("home");
