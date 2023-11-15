@@ -1,3 +1,5 @@
+'use client'
+
 import Footer from "./Footer";
 import Header from "./Header";
 import { Carousel } from 'flowbite-react';
