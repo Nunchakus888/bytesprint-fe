@@ -66,7 +66,7 @@ export default function HomePage() {
                 banners && (
                   <Carousel indicators={!0} pauseOnHover>
                     {
-                      banners.map((item) => <Card {...item} />)
+                      banners.map((item) => <Card key={item.bg} {...item} />)
                     }
                   </Carousel>
                 )
@@ -79,7 +79,7 @@ export default function HomePage() {
                     <div className="flex flex-row flex-wrap justify-center items-center gap-10">
                       {
                         advantages.data.map((item) => (
-                          <div className="flex flex-row grow justify-between items-center border p-4 md:p-10 md:basis-5/12">
+                          <div key={item.bg} className="flex flex-row grow justify-between items-center border p-4 md:p-10 md:basis-5/12">
                             <div className="text-left flex flex-col gap-4">
                               <h2 className="text-xl font-bold text-white">{item.H1}</h2>
                               <p className="text-base text-gray-300">{item.H2}</p>
@@ -106,7 +106,7 @@ export default function HomePage() {
                           <h1 className="text-2xl md:text-4xl font-bold text-white mb-10">{is_this_the_current_you.title}</h1>
                         </Show>
                         {
-                          is_this_the_current_you.data.map((item) => <p className="text-sm md:text-xl font-bold text-white">{item}</p>)
+                          is_this_the_current_you.data.map((item) => <p key={item} className="text-sm md:text-xl font-bold text-white">{item}</p>)
                         }
                       </div>
                     </div>
@@ -121,7 +121,7 @@ export default function HomePage() {
                     <div className="flex flex-row flex-wrap justify-center items-baseline gap-10 rounded-2xl bg-[#46466b] bg-opacity-50 p-4 md:p-8">
                       {
                         byteSprint_changes_the_way_you_work.data.map((item) => (
-                          <div className="flex flex-row justify-between items-baseline p-4 grow md:basis-1/5 md:h-48">
+                          <div key={item.H1} className="flex flex-row justify-between items-baseline p-4 grow md:basis-1/5 md:h-48">
                             {/*<img src={item.bg} className="w-20 h-20 object-contain flex-1/2 flex-shrink-0" />*/}
                             <div className="text-left flex flex-col gap-4">
                               <h2 className="text-xl font-bold text-white">{item.H1}</h2>
@@ -142,11 +142,11 @@ export default function HomePage() {
                     <div className="flex flex-row flex-wrap justify-between items-baseline gap-4">
                       {
                         user_role_guidelines.data.map((item) => (
-                          <div className="grow md:basis-1/4 border bg-[#666675] p-4 md:p-8 rounded-lg flex flex-col gap-4 md:h-72">
+                          <div key={item.title} className="grow md:basis-1/4 border bg-[#666675] p-4 md:p-8 rounded-lg flex flex-col gap-4 md:h-72">
                             <h2 className="text-xl font-bold text-white">{item.title}</h2>
                             <div className="flex flex-col items-start gap-2 grow">
                               {
-                                item.data.map(i => <h2 className="text-base text-gray-300 text-left">{i}</h2>)
+                                item.data.map(i => <h2 key={i} className="text-base text-gray-300 text-left">{i}</h2>)
                               }
                             </div>
                             {/*<p className="text-base text-gray-300 text-left">{item.button}</p>*/}
