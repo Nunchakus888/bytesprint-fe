@@ -14,7 +14,7 @@ export default function HomePage() {
   const { t, i18n } = useTranslation("home");
   const [file, setFile] = useState(`/pdf/${i18n?.language || 'en'}-whitePaper.pdf`);
 
-  const homeTrans = i18n.store?.data[i18n.language]['home'] || {};
+  const homeTrans = i18n.store?.data?.[i18n.language]?.['home'] || {};
   // console.log('----homeTrans', homeTrans);
 
   useEffect(() => {
