@@ -179,8 +179,9 @@
     "button": "下载"
   },
   "captain": {
-    "Captain_Introduction": {
+    "captain_introduction": {
       "title": "船长介绍",
+      "bg": "img/index/captain/ci_bg.png",
       "introduce": "商运营商是ByteSprint平台非常重要的角色，区别于WEB2.0的IT众包平台，ByteSprint是一个逐步去中心化的平台，运营商起到了沟通发包方和IT工程师的桥梁，尤其针对IT整包项目或一些业务相对复杂的IT任务，我们鼓励有着传统IT软件外包经验和资源的法人组织来申请运营商，当某个钱包帐号申请成为运营商，并通过平台审核后，质押一定数量的BTYD代币，就可以成为ByteSprint众包平台的认证运营商；",
       "button": "船长注册"
     },

@@ -179,8 +179,9 @@
     "button": "Download"
   },
   "captain": {
-    "Captain_Introduction": {
+    "captain_introduction": {
       "title": "Captain Introduction",
+      "bg": "img/index/captain/ci_bg.png",
       "introduce": "Business captain play a very important role on the ByteSprint platform. Unlike the lT crowdsourcing platform of WEB2.0.ByteSprint is a gradually decentralized platform where captain serve as a bridge between the contracting party and SailorEspecially for IT outsourcing projects or some relatively complex IT tasks, we encourage legal entities with traditional ITsoftware outsourcing experience and resources to apply for captain. When a wallet account applies to become an captain.After passing the platform review, pledging a certain amount of BTYD tokens can become a certifhed captain of the ByteSprintcrowdsourcing platform.",
       "button": "captain Registration"
     },

@@ -31,6 +31,8 @@ export default function HomePage() {
     user_role_guidelines,
   } = homeTrans.home || {};
 
+  const { captain_introduction } = homeTrans.captain || {};
+
   return (
     <div className="bg-[#0C0B35] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
       <Tabs
@@ -171,7 +173,25 @@ export default function HomePage() {
           </TabPanel>
 
           <TabPanel className="!p-0" key={'captain'}>
-            <main className="flex w-full flex-col items-center justify-center text-center background-gradient">
+            <main className="flex w-full flex-col items-center justify-center gap-5 md:gap-10 text-center background-gradient">
+              {
+                captain_introduction && (
+                  <div className="relative py-4">
+                    <Show below="md">
+                      <h1 className="text-xl md:text-4xl font-bold text-white mb-10">{captain_introduction.title}</h1>
+                    </Show>
+
+                    <img src={captain_introduction.bg} className="w-full object-contain" />
+                    <div className="mx-8 md:mx-20 px-8 md:px-20 absolute top-1/2 -translate-y-1/2 flex flex-col justify-center text-center bg-gradient-to-br from-[#bfc0cf] h-full md:h-4/5 rounded-2xl">
+                      <Hide below="md">
+                        <h1 className="text-xl md:text-4xl font-bold text-white mb-10">{captain_introduction.title}</h1>
+                      </Hide>
+                      <div className="text-sm md:text-base text-left">{captain_introduction.introduce}</div>
+                    </div>
+                  </div>
+
+                )
+              }
               <img src="/img/index/operator/01.png" className="w-full object-contain" />
               <img src="/img/index/operator/02.png" className="w-full object-contain" />
               <img src="/img/index/operator/03.png" className="w-full object-contain" />
