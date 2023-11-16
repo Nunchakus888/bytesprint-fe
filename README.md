@@ -55,7 +55,8 @@ All commands are run from the root of the project, from a terminal:
 
 # deploy
 
-push code to main branch, then vercel will deploy automatically
+* push code to main branch, then vercel will deploy automatically
+* 后期按需自托管
 
 # environments
 
