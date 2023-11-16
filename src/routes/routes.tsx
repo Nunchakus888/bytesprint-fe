@@ -3,8 +3,6 @@ import {
   MdBarChart,
   MdPerson,
   MdHome,
-  MdLock,
-  MdOutlineShoppingCart
 } from 'react-icons/md'
 
 // Admin Imports
@@ -14,20 +12,9 @@ import Profile from 'pages/admin/profile'
 import Tasks from 'pages/admin/tasks'
 import Home from 'pages/(home)/index'
 
-import RTL from 'pages/rtl/rtl-default'
-
-// Auth Imports
-import SignInCentered from 'pages/login/sign-in'
 import { IRoute } from 'types/navigation'
 
 const routes: IRoute[] = [
-  /*{
-    name: 'Main Dashboard',
-    layout: '/admin',
-    path: '/default',
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: MainDashboard
-  },*/
   {
     name: '主页',
     layout: '/',
@@ -70,28 +57,6 @@ const routes: IRoute[] = [
     path: '/tasks',
     component: Tasks,
   },
-  /*{
-    name: 'Profile',
-    layout: '/admin',
-    path: '/profile',
-    disabled: !0,
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-    component: Profile
-  },*/
-  /*{
-    name: 'Sign In',
-    layout: '/auth',
-    path: '/sign-in',
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: SignInCentered
-  },*/
-  /*{
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: '/rtl-default',
-    icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-    component: RTL
-  }*/
 ]
 
 export default routes

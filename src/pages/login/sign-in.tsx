@@ -140,7 +140,7 @@ export default function SignIn() {
 
 					<FormControl>
 
-						<Text color="secondaryGray.900" textAlign="center" fontSize="3xl" py={16} onClick={() => Router.push('/admin')}>欢迎登录</Text>
+						<Text color="secondaryGray.900" textAlign="center" fontSize="3xl" py={16}>欢迎登录</Text>
 
 
 						<Button
