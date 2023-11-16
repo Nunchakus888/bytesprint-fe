@@ -34,7 +34,10 @@ export default function HomePage() {
     user_role_guidelines,
   } = homeTrans.home || {};
 
-  const { captain_introduction } = homeTrans.captain || {};
+  const {
+    captain_introduction,
+    profitability_analysis,
+  } = homeTrans.captain || {};
 
   return (
     <div className="bg-[#0C0B35] text-white flex m-0 w-full flex-col items-center py-2 min-h-screen">
@@ -56,7 +59,6 @@ export default function HomePage() {
             </TabList>
 
             <TabIndicator
-              mt="-1.5px"
               height="2px"
               bg="blue.500"
               borderRadius="1px"
@@ -195,10 +197,28 @@ export default function HomePage() {
 
                 )
               }
-              <img src="/img/index/operator/01.png" className="w-full object-contain" />
-              <img src="/img/index/operator/02.png" className="w-full object-contain" />
+
+              {
+                profitability_analysis && (
+                  <div className="flex flex-col items-center justify-center text-center px-4 md:px-20">
+                    <h1 className="text-2xl md:text-4xl font-bold text-white mt-5 mb-10">{profitability_analysis.title}</h1>
+                    <div className="flex flex-row flex-wrap md:flex-nowrap justify-between items-baseline gap-10 p-4 md:p-8">
+                      {
+                        profitability_analysis.data.map((item: any) => (
+                          <div key={item.title} className="flex flex-col justify-between items-center grow md:grow-0 md:basis-1/5 gap-2">
+                            <img src={item.icon} className="w-24 h-24 object-contain" />
+                            <h2 className="text-base font-bold text-gray-300 text-left">{item.title}</h2>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                )
+              }
               <img src="/img/index/operator/03.png" className="w-full object-contain" />
               <img src="/img/index/operator/04.png" className="w-full object-contain" />
+              {/*<img src="/img/index/operator/02.png" className="w-full object-contain" />*/}
+              {/*<img src="/img/index/operator/01.png" className="w-full object-contain" />*/}
             </main>
           </TabPanel>
         </TabPanels>

@@ -10,25 +10,25 @@
       {
         "H1": "Project Mining",
         "H2": "Sending and receiving projectscan also earn tokens",
-        "bg": "img/index/banners/02.png",
+        "bg": "img/index/banners/01.png",
         "button": "Learn more"
       },
       {
         "H1": "Addressing trust issues in crowadsourcing platforms",
         "H2": "Blockchain smart contract+pledge",
-        "bg": "img/index/banners/03.png",
+        "bg": "img/index/banners/02.png",
         "button": "Learn more"
       },
       {
         "H1": "Attributing Data And Assets To Users",
         "H2": "A truly decentralized web3.0 croddsourcing platform",
-        "bg": "img/index/banners/04.png",
+        "bg": "img/index/banners/03.png",
         "button": "Learn more"
       },
       {
         "H1": "Captain do not profit from price differences",
         "H2": "Engineer quotation,open and transparent",
-        "bg": "img/index/banners/02.png",
+        "bg": "img/index/banners/04.png",
         "button": "Learn more"
       }
     ],
@@ -185,15 +185,32 @@
       "introduce": "Business captain play a very important role on the ByteSprint platform. Unlike the lT crowdsourcing platform of WEB2.0.ByteSprint is a gradually decentralized platform where captain serve as a bridge between the contracting party and SailorEspecially for IT outsourcing projects or some relatively complex IT tasks, we encourage legal entities with traditional ITsoftware outsourcing experience and resources to apply for captain. When a wallet account applies to become an captain.After passing the platform review, pledging a certain amount of BTYD tokens can become a certifhed captain of the ByteSprintcrowdsourcing platform.",
       "button": "captain Registration"
     },
-    "Profitability_analysis": {
+    "profitability_analysis": {
       "title": "Proftability analysis",
-      "1": "Enjoy the same benefts as members",
-      "2": "Obtain token pledge  rewards",
-      "3": "Obtain compensation for product related tasks",
-      "4": "Obtain 8% profit and loan currency rewards for the entire package project",
-      "5": "Obtain withdrawal fees from promotion engineers"
+      "data": [
+        {
+          "title": "Enjoy the same benefts as members",
+          "icon": "img/index/captain/profitability/member.png"
+        },
+        {
+          "title": "Obtain token pledge  rewards",
+          "icon": "img/index/captain/profitability/token.png"
+        },
+        {
+          "title": "Obtain compensation for product related tasks",
+          "icon": "img/index/captain/profitability/compensation.png"
+        },
+        {
+          "title": "Obtain 8% profit and loan currency rewards for the entire package project",
+          "icon": "img/index/captain/profitability/currency.png"
+        },
+        {
+          "title": "Obtain withdrawal fees from promotion engineers",
+          "icon": "img/index/captain/profitability/fees.png"
+        }
+      ]
     },
-    "Cases": {
+    "crowdsourcing_project_cases": {
       "title": "Crowdsourcing project cases",
       "case-1": {
         "name": "Manufacturing traceability MES system",
