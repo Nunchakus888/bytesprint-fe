@@ -181,7 +181,7 @@ export default function HomePage() {
             <main className="flex w-full flex-col items-center justify-center gap-5 md:gap-10 text-center background-gradient">
               {
                 captain_introduction && (
-                  <div className="relative py-4">
+                  <div className="relative py-4 h-[28rem]	 md:h-auto">
                     <Show below="md">
                       <h1 className="text-xl md:text-4xl font-bold text-white mb-10">{captain_introduction.title}</h1>
                     </Show>
@@ -189,9 +189,9 @@ export default function HomePage() {
                     <img src={captain_introduction.bg} className="w-full object-contain" />
                     <div className="mx-8 md:mx-20 px-8 md:px-20 absolute top-1/2 -translate-y-1/2 flex flex-col justify-center text-center bg-gradient-to-br from-[#bfc0cf] h-full md:h-4/5 rounded-2xl">
                       <Hide below="md">
-                        <h1 className="text-xl md:text-4xl font-bold text-white mb-10">{captain_introduction.title}</h1>
+                        <h1 className="text-xl md:text-4xl font-bold text-white mb-10	">{captain_introduction.title}</h1>
                       </Hide>
-                      <div className="text-sm md:text-base text-left">{captain_introduction.introduce}</div>
+                      <div className="text-sm md:text-base md:!leading-10 text-left">{captain_introduction.introduce}</div>
                     </div>
                   </div>
 
