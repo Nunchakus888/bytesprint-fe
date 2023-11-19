@@ -1,0 +1,13 @@
+.git
+.husky
+**/*.html
+
+
+.next
+out
+node_modules
+.github
+.changeset
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

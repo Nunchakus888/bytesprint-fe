@@ -12,7 +12,6 @@ import { breakpoints } from './foundations/breakpoints';
 import { globalStyles } from './styles';
 import config from './config';
 
-
 // @ts-ignore
 // import resolveConfig from "tailwindcss/resolveConfig";
 // import tailwindConfig from "../../tailwind.config";
@@ -22,21 +21,21 @@ import config from './config';
 // tailwind.theme.colors = theme.colors
 
 export default extendTheme(
-	{ config }, // Config
-	{ breakpoints }, // Breakpoints
-	{
-		...globalStyles,
-		// ...tailwind.theme,
-	},
-	badgeStyles, // badge styles
-	buttonStyles, // button styles
-	linkStyles, // link styles
-	progressStyles, // progress styles
-	sliderStyles, // slider styles
-	inputStyles, // input styles
-	textareaStyles, // textarea styles
-	switchStyles, // switch styles
-	CardComponent // card component
+  { config }, // Config
+  { breakpoints }, // Breakpoints
+  {
+    ...globalStyles,
+    // ...tailwind.theme,
+  },
+  badgeStyles, // badge styles
+  buttonStyles, // button styles
+  linkStyles, // link styles
+  progressStyles, // progress styles
+  sliderStyles, // slider styles
+  inputStyles, // input styles
+  textareaStyles, // textarea styles
+  switchStyles, // switch styles
+  CardComponent // card component
 );
 
 export interface CustomCardProps extends HTMLChakraProps<'div'>, ThemingProps {}

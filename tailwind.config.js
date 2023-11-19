@@ -1,28 +1,28 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/views/**/*.{js,ts,jsx,tsx}",
-    "./src/layouts/**/*.{js,ts,jsx,tsx}",
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/views/**/*.{js,ts,jsx,tsx}',
+    './src/layouts/**/*.{js,ts,jsx,tsx}',
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
       screens: {
-        xs: "320px",
+        xs: '320px',
       },
     },
     screens: {
       // sm: "320px",
-      "sm": "375px",
-      md: "768px",
-      lg: "960px",
-      xl: "1200px",
-      "2xl": "1600px",
-      "3xl": "1920px",
+      sm: '375px',
+      md: '768px',
+      lg: '960px',
+      xl: '1200px',
+      '2xl': '1600px',
+      '3xl': '1920px',
 
       /*'sm': '640px',
       // => @media (min-width: 640px) { ... }
@@ -42,7 +42,7 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin'),
-    require("@tailwindcss/forms"),
-    require("@headlessui/tailwindcss"),
+    require('@tailwindcss/forms'),
+    require('@headlessui/tailwindcss'),
   ],
 };

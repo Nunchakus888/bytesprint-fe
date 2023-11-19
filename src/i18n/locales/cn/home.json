@@ -70,12 +70,7 @@
     "is_this_the_current_you": {
       "title": "这是不是当前的你？",
       "bg": "img/index/is_this_the_current_you.png",
-      "data": [
-        "1. 想提升收入",
-        "2. 期望灵活办公",
-        "3. 找高薪工作很难",
-        "4. 项目经验不足"
-      ]
+      "data": ["1. 想提升收入", "2. 期望灵活办公", "3. 找高薪工作很难", "4. 项目经验不足"]
     },
     "byteSprint_changes_the_way_you_work": {
       "title": "ByteSprint改变你的工作方式!",
@@ -126,7 +121,7 @@
             "2. 可参与BTYD代币质押获得理财收益",
             "3. 可推荐新人享受2代收益"
           ],
-            "button": "去登录"
+          "button": "去登录"
         },
         {
           "title": "水手",
@@ -210,29 +205,34 @@
         }
       ]
     },
-    "Cases": {
+    "crowdsourcing_project_cases": {
       "title": "众包项目案例",
-      "case-1": {
-        "name": "生产制造追溯MES系统",
-        "Traditional": "传统开发模式",
-        "Traditional_money": "￥24000.00",
-        "Bytesprint": "ByteSprint众包开发",
-        "Bytesprint_money": "￥15000.00"
-      },
-      "case-2": {
-        "name": "跨境电商平台官网",
-        "Traditional": "传统开发模式",
-        "Traditional_money": "￥32000.00",
-        "Bytesprint": "ByteSprint众包开发",
-        "Bytesprint_money": "￥14000.00"
-      },
-      "case-3": {
-        "name": "聚合支付系统",
-        "Traditional": "传统开发模式",
-        "Traditional_money": "￥40000.00",
-        "Bytesprint": "ByteSprint众包开发",
-        "Bytesprint_money": "￥13000.00"
-      },
+      "data": [
+        {
+          "name": "生产制造追溯MES系统",
+          "bg": "img/index/captain/case/mes.png",
+          "traditional": "传统开发模式",
+          "traditional_cost": "￥24000.00",
+          "btyd": "ByteSprint众包开发",
+          "btyd_cost": "￥15000.00"
+        },
+        {
+          "name": "跨境电商平台官网",
+          "bg": "img/index/captain/case/e-commerce.png",
+          "traditional": "传统开发模式",
+          "traditional_cost": "￥32000.00",
+          "btyd": "ByteSprint众包开发",
+          "btyd_cost": "￥14000.00"
+        },
+        {
+          "name": "聚合支付系统",
+          "bg": "img/index/captain/case/payment.png",
+          "traditional": "传统开发模式",
+          "traditional_cost": "￥40000.00",
+          "btyd": "ByteSprint众包开发",
+          "btyd_cost": "￥13000.00"
+        }
+      ],
       "button": "查看更多案例"
     },
     "Benefits": {

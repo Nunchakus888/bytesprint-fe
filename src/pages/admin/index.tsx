@@ -20,7 +20,7 @@
 
 */
 
-import React from 'react'
+import React from 'react';
 
 // Chakra imports
 import {
@@ -31,159 +31,112 @@ import {
   Text,
   useColorModeValue,
   SimpleGrid,
-  Link
-} from '@chakra-ui/react'
+  Link,
+} from '@chakra-ui/react';
 
 // Custom components
-import Banner from 'views/admin/marketplace/components/Banner'
-import TableTopCreators from 'views/admin/marketplace/components/TableTopCreators'
-import HistoryItem from 'views/admin/marketplace/components/HistoryItem'
-import NFT from 'components/card/NFT'
-import Card from 'components/card/Card'
+import Banner from 'views/admin/marketplace/components/Banner';
+import TableTopCreators from 'views/admin/marketplace/components/TableTopCreators';
+import HistoryItem from 'views/admin/marketplace/components/HistoryItem';
+import NFT from 'components/card/NFT';
+import Card from 'components/card/Card';
 
 // Assets
-import Nft1 from 'img/nfts/Nft1.png'
-import Nft2 from 'img/nfts/Nft2.png'
-import Nft3 from 'img/nfts/Nft3.png'
-import Nft4 from 'img/nfts/Nft4.png'
-import Nft5 from 'img/nfts/Nft5.png'
-import Nft6 from 'img/nfts/Nft6.png'
-import Avatar1 from 'img/avatars/avatar1.png'
-import Avatar2 from 'img/avatars/avatar2.png'
-import Avatar3 from 'img/avatars/avatar3.png'
-import Avatar4 from 'img/avatars/avatar4.png'
-import tableDataTopCreators from 'views/admin/marketplace/variables/tableDataTopCreators.json'
-import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/tableColumnsTopCreators'
-import AdminLayout from 'layouts/admin'
-import { TableData } from 'views/admin/default/variables/columnsData'
-import NextLink from 'next/link'
+import Nft1 from 'img/nfts/Nft1.png';
+import Nft2 from 'img/nfts/Nft2.png';
+import Nft3 from 'img/nfts/Nft3.png';
+import Nft4 from 'img/nfts/Nft4.png';
+import Nft5 from 'img/nfts/Nft5.png';
+import Nft6 from 'img/nfts/Nft6.png';
+import Avatar1 from 'img/avatars/avatar1.png';
+import Avatar2 from 'img/avatars/avatar2.png';
+import Avatar3 from 'img/avatars/avatar3.png';
+import Avatar4 from 'img/avatars/avatar4.png';
+import tableDataTopCreators from 'views/admin/marketplace/variables/tableDataTopCreators.json';
+import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/tableColumnsTopCreators';
+import AdminLayout from 'layouts/admin';
+import { TableData } from 'views/admin/default/variables/columnsData';
+import NextLink from 'next/link';
 
-export default function Index () {
+export default function Index() {
   // Chakra Color Mode
-  const textColor = useColorModeValue('secondaryGray.900', 'white')
-  const textColorBrand = useColorModeValue('brand.500', 'white')
+  const textColor = useColorModeValue('secondaryGray.900', 'white');
+  const textColorBrand = useColorModeValue('brand.500', 'white');
   return (
     <AdminLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Grid
-          mb='20px'
+          mb="20px"
           gridTemplateColumns={{ xl: 'repeat(3, 1fr)', '2xl': '1fr 0.46fr' }}
           gap={{ base: '20px', xl: '20px' }}
           display={{ base: 'block', xl: 'grid' }}
         >
-          <Flex
-            flexDirection='column'
-            gridArea={{ xl: '1 / 1 / 2 / 3', '2xl': '1 / 1 / 2 / 2' }}
-          >
+          <Flex flexDirection="column" gridArea={{ xl: '1 / 1 / 2 / 3', '2xl': '1 / 1 / 2 / 2' }}>
             {/*<Banner />*/}
-            <Flex direction='column'>
+            <Flex direction="column">
               <Flex
-                mt='45px'
-                mb='20px'
-                justifyContent='space-between'
+                mt="45px"
+                mb="20px"
+                justifyContent="space-between"
                 direction={{ base: 'column', md: 'row' }}
                 align={{ base: 'start', md: 'center' }}
               >
-                <Text
-                  color={textColor}
-                  fontSize='2xl'
-                  ms='24px'
-                  fontWeight='700'
-                >
+                <Text color={textColor} fontSize="2xl" ms="24px" fontWeight="700">
                   任务需求
                 </Text>
                 <Flex
-                  align='center'
-                  me='20px'
+                  align="center"
+                  me="20px"
                   ms={{ base: '24px', md: '0px' }}
                   mt={{ base: '20px', md: '0px' }}
                 >
-                  <NextLink href='#frontend' passHref>
-                    <Link
-                      color={textColorBrand}
-                      fontWeight='500'
-                      me={{ base: '34px', md: '44px' }}
-                    >
+                  <NextLink href="#frontend" passHref>
+                    <Link color={textColorBrand} fontWeight="500" me={{ base: '34px', md: '44px' }}>
                       前端开发
                     </Link>
                   </NextLink>
-                  <NextLink href='#backend' passHref>
-                    <Link
-                      color={textColorBrand}
-                      fontWeight='500'
-                      me={{ base: '34px', md: '44px' }}
-                    >
+                  <NextLink href="#backend" passHref>
+                    <Link color={textColorBrand} fontWeight="500" me={{ base: '34px', md: '44px' }}>
                       后端开发
                     </Link>
                   </NextLink>
-                  <NextLink href='#ui' passHref>
-                    <Link
-                      color={textColorBrand}
-                      fontWeight='500'
-                      me={{ base: '34px', md: '44px' }}
-                    >
+                  <NextLink href="#ui" passHref>
+                    <Link color={textColorBrand} fontWeight="500" me={{ base: '34px', md: '44px' }}>
                       UI设计
                     </Link>
                   </NextLink>
-                  <NextLink href='#qa' passHref>
-                    <Link color={textColorBrand} fontWeight='500'>
+                  <NextLink href="#qa" passHref>
+                    <Link color={textColorBrand} fontWeight="500">
                       测试
                     </Link>
                   </NextLink>
                 </Flex>
               </Flex>
-              <SimpleGrid columns={{ base: 1, md: 3 }} gap='20px'>
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                 <NFT
-                  name='办公网络信息化系统'
-                  author='By Esthera Jackson'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="办公网络信息化系统"
+                  author="By Esthera Jackson"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft1}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
                 <NFT
-                  name='ETH AI Brain'
-                  author='By Nick Wilson'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="ETH AI Brain"
+                  author="By Nick Wilson"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft2}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
                 <NFT
-                  name='Mesh Gradients '
-                  author='By Will Smith'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="Mesh Gradients "
+                  author="By Will Smith"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft3}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
               </SimpleGrid>
               {/*<Text
@@ -197,61 +150,30 @@ export default function Index () {
                 Recently Added
               </Text>*/}
               <Box h="20px" />
-              <SimpleGrid
-                columns={{ base: 1, md: 3 }}
-                gap='20px'
-                mb={{ base: '20px', xl: '0px' }}
-              >
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px" mb={{ base: '20px', xl: '0px' }}>
                 <NFT
-                  name='Swipe Circles'
-                  author='By Peter Will'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="Swipe Circles"
+                  author="By Peter Will"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft4}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
                 <NFT
-                  name='Colorful Heaven'
-                  author='By Mark Benjamin'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="Colorful Heaven"
+                  author="By Mark Benjamin"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft5}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
                 <NFT
-                  name='3D Cubes Art'
-                  author='By Manny Gates'
-                  bidders={[
-                    Avatar1,
-                    Avatar2,
-                    Avatar3,
-                    Avatar4,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1,
-                    Avatar1
-                  ]}
+                  name="3D Cubes Art"
+                  author="By Manny Gates"
+                  bidders={[Avatar1, Avatar2, Avatar3, Avatar4, Avatar1, Avatar1, Avatar1, Avatar1]}
                   image={Nft6}
-                  currentbid='0.91 ETH'
-                  download='#'
+                  currentbid="0.91 ETH"
+                  download="#"
                 />
               </SimpleGrid>
             </Flex>
@@ -328,5 +250,5 @@ export default function Index () {
         {/* Delete Product */}
       </Box>
     </AdminLayout>
-  )
+  );
 }

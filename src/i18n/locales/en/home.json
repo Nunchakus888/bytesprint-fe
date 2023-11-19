@@ -212,27 +212,32 @@
     },
     "crowdsourcing_project_cases": {
       "title": "Crowdsourcing project cases",
-      "case-1": {
-        "name": "Manufacturing traceability MES system",
-        "Traditional": "Traditional development model",
-        "Traditional_money": "￥24000.00",
-        "Bytesprint": "ByteSprint crowdsourcing development",
-        "Bytesprint_money": "￥15000.00"
-      },
-      "case-2": {
-        "name": "Cross border e-commerce platform offcial website",
-        "Traditional": "Traditional development model",
-        "Traditional_money": "￥32000.00",
-        "Bytesprint": "ByteSprint crowdsourcing development",
-        "Bytesprint_money": "￥14000.00"
-      },
-      "case-3": {
-        "name": "Aggregated Payment System",
-        "Traditional": "Traditional development model",
-        "Traditional_money": "￥40000.00",
-        "Bytesprint": "ByteSprint crowdsourcing development",
-        "Bytesprint_money": "￥13000.00"
-      },
+      "data": [
+        {
+          "name": "Manufacturing traceability MES system",
+          "bg": "img/index/captain/case/mes.png",
+          "traditional": "Traditional development model",
+          "traditional_cost": "￥24000.00",
+          "btyd": "ByteSprint crowdsourcing development",
+          "btyd_cost": "￥15000.00"
+        },
+        {
+          "name": "Cross border e-commerce platform offcial website",
+          "bg": "img/index/captain/case/e-commerce.png",
+          "traditional": "Traditional development model",
+          "traditional_cost": "￥32000.00",
+          "btyd": "ByteSprint crowdsourcing development",
+          "btyd_cost": "￥14000.00"
+        },
+        {
+          "name": "Aggregated Payment System",
+          "bg": "img/index/captain/case/payment.png",
+          "traditional": "Traditional development model",
+          "traditional_cost": "￥40000.00",
+          "btyd": "ByteSprint crowdsourcing development",
+          "btyd_cost": "￥13000.00"
+        }
+      ],
       "button": "View more cases"
     },
     "Benefits": {

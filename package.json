@@ -19,11 +19,13 @@
     "@types/react-dom": "^18.0.6",
     "@vercel/examples-ui": "^2.0.3",
     "apexcharts": "^3.35.2",
+    "ethers": "^5.7.2",
     "flowbite-react": "^0.6.4",
     "focus-visible": "^5.2.0",
     "framer-motion": "^4.1.17",
     "i18next": "^23.6.0",
     "next": "13.3.0",
+    "next-auth": "^4.12.2",
     "next-i18next": "^14.0.3",
     "react": "^18",
     "react-apexcharts": "^1.4.0",
@@ -37,13 +39,11 @@
     "react-pdf": "^7.5.1",
     "react-query": "^3.39.3",
     "react-table": "^7.8.0",
-    "next-auth": "^4.12.2",
-    "ethers": "^5.7.2",
     "siwe": "^2.0.5",
-    "wagmi": "^0.6.7",
     "stylis": "^4.1.1",
     "stylis-plugin-rtl": "2.0.2",
     "typescript": "^4.7.4",
+    "wagmi": "^0.6.7",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
@@ -52,7 +52,10 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "prepare": "husky install",
+    "prettier": "prettier --write --ignore-unknown .",
+    "prettier:check": "prettier --check --ignore-unknown ."
   },
   "browserslist": {
     "production": [
@@ -66,6 +69,9 @@
       "last 1 safari version"
     ]
   },
+  "lint-staged": {
+    "src/*": "prettier --write --ignore-unknown"
+  },
   "devDependencies": {
     "@types/node": "^18.7.6",
     "@types/react": "^18.0.17",
@@ -75,7 +81,10 @@
     "eslint": "^8.23.0",
     "eslint-config-next": "^12.2.5",
     "gh-pages": "^3.2.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "postcss": "^8.4.31",
+    "prettier": "3.1.0",
     "tailwindcss": "^3.3.3"
   }
 }
