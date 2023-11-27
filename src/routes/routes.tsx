@@ -6,18 +6,10 @@ import MainDashboard from 'pages/admin/send-requirements';
 import Index from 'pages/admin';
 import Profile from 'pages/admin/profile';
 import Tasks from 'pages/admin/tasks';
-import Home from 'pages/(home)/index';
 
 import { IRoute } from 'types/navigation';
 
 const routes: IRoute[] = [
-  {
-    name: '主页',
-    layout: '/',
-    path: '/',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: Home,
-  },
   {
     name: '项目大厅',
     layout: '/admin',

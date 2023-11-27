@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import Index from 'pages/(home)/index';
+import Index from 'pages/admin/index';
 
 export default Index;
 
