@@ -54,9 +54,9 @@ import { isWindowAvailable } from 'utils/navigation';
 import AdminLayout from 'layouts/admin';
 import { Image } from 'components/image/Image';
 import Usa from 'img/dashboards/usa.png';
-import { columnsDataDevelopment } from '../../views/admin/dataTables/variables/columnsData';
-import tableDataDevelopment from '../../views/admin/dataTables/variables/tableDataDevelopment.json';
-import DevelopmentTable from '../../views/admin/dataTables/components/DevelopmentTable';
+import { columnsDataDevelopment } from '../views/admin/dataTables/variables/columnsData';
+import tableDataDevelopment from '../views/admin/dataTables/variables/tableDataDevelopment.json';
+import DevelopmentTable from '../views/admin/dataTables/components/DevelopmentTable';
 import React from 'react';
 
 export default function UserReports() {

@@ -2,10 +2,10 @@ import { Icon } from '@chakra-ui/react';
 import { MdBarChart, MdPerson, MdHome } from 'react-icons/md';
 
 // Admin Imports
-import MainDashboard from 'pages/admin/send-requirements';
-import Index from 'pages/admin';
-import Profile from 'pages/admin/profile';
-import Tasks from 'pages/admin/tasks';
+import MainDashboard from 'pages/send-requirements';
+import Index from 'pages';
+import Profile from 'pages/profile';
+import Tasks from 'pages/tasks';
 
 import { IRoute } from 'types/navigation';
 
