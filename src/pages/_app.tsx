@@ -57,7 +57,7 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
           </QueryClientProvider>
         </SessionProvider>
       </WagmiConfig>
-
+      {/* ttt */}
       {/*<WagmiProvider autoConnect>
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         <React.StrictMode>
