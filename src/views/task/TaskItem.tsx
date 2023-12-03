@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Tag } from "@chakra-ui/react"
 import { Image } from '@chakra-ui/react'
+import Link from "next/link"
 import styles from './index.module.scss'
 export default function TaskItem(props: {
 	item: any
@@ -26,7 +27,7 @@ export default function TaskItem(props: {
 							前端开发
 						</Tag>
 						<Button background="#7551FF" size='md' color="#fff">
-							查看详情
+							<Link href='/task/11'> 查看详情</Link>
 						</Button>
 					</Box>
 				</Box>
