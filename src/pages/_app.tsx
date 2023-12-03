@@ -24,6 +24,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import Head from 'next/head';
 
 import config from 'layouts/websiteConfig';
+import ReduxProvider from 'components/reduxProvider';
 
 export const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
@@ -48,15 +49,17 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
 
       {/*// Use of the <SessionProvider> is mandatory to allow components that call
   // `useSession()` anywhere in your application to access the `session` object.*/}
-      <WagmiConfig client={client}>
-        <SessionProvider session={pageProps.session} refetchInterval={0}>
-          <QueryClientProvider client={queryClient}>
-            <LanguageProvider>
-              <Component {...pageProps} />
-            </LanguageProvider>
-          </QueryClientProvider>
-        </SessionProvider>
-      </WagmiConfig>
+      <ReduxProvider>
+        <WagmiConfig client={client}>
+          <SessionProvider session={pageProps.session} refetchInterval={0}>
+            <QueryClientProvider client={queryClient}>
+              <LanguageProvider>
+                <Component {...pageProps} />
+              </LanguageProvider>
+            </QueryClientProvider>
+          </SessionProvider>
+        </WagmiConfig>
+      </ReduxProvider>
       {/* ttt */}
       {/*<WagmiProvider autoConnect>
       <SessionProvider session={pageProps.session} refetchInterval={0}>
