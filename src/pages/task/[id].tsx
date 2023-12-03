@@ -76,7 +76,7 @@ const TaskDetail = () => {
           </Box>
   </>
         }
-        {/* <Auth /> */}
+        <Auth />
       </Box>
     </AdminLayout>
   )
