@@ -79,13 +79,15 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
   // `useSession()` anywhere in your application to access the `session` object.*/}
       <ReduxProvider>
         <WagmiConfig client={wagmiClient}>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
-            <QueryClientProvider client={queryClient}>
-              <LanguageProvider>
-                <Component {...pageProps} />
-              </LanguageProvider>
-            </QueryClientProvider>
-          </SessionProvider>
+          <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
+            <SessionProvider session={pageProps.session} refetchInterval={0}>
+              <QueryClientProvider client={queryClient}>
+                <LanguageProvider>
+                  <Component {...pageProps} />
+                </LanguageProvider>
+              </QueryClientProvider>
+            </SessionProvider>
+          </RainbowKitProvider>
         </WagmiConfig>
       </ReduxProvider>
     </ChakraProvider>

@@ -9,7 +9,6 @@ import { useAccount, useBalance, useNetwork } from 'wagmi';
 import classnames from 'classnames';
 //@ts-ignore
 import { maxDecimal, shortAddress, toNumber } from 'utils';
-import { useRouter } from 'next/navigation';
 import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
 
