@@ -17,22 +17,50 @@ import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import theme from 'theme/theme';
-import { WagmiConfig, createClient, configureChains, chain } from 'wagmi';
+import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { mainnet, goerli } from 'wagmi/chains';
 import { SessionProvider } from 'next-auth/react';
 import { publicProvider } from 'wagmi/providers/public';
+import { darkTheme, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
+import {
+  injectedWallet,
+  metaMaskWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
 
 import Head from 'next/head';
 
 import config from 'layouts/websiteConfig';
 import ReduxProvider from 'components/reduxProvider';
 
-export const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [publicProvider()]
+const projectId = '467f25289c817c42bc541efb8f04be1d';
+
+const { chains, provider } = configureChains(
+  [mainnet, goerli],
+  [
+    // alchemyProvider({
+    //   apiKey: alchemyKey, //process.env.REACT_APP_ALCHEMY_ID,
+    // }),
+    publicProvider(),
+  ]
 );
 
-const client = createClient({
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains }),
+      //@ts-ignore
+      metaMaskWallet({ projectId, chains, shimDisconnect: true }),
+      //@ts-ignore
+      walletConnectWallet({ projectId, chains }),
+    ],
+  },
+]);
+
+const wagmiClient = createClient({
   autoConnect: true,
+  connectors,
   provider,
 });
 
@@ -50,24 +78,18 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
       {/*// Use of the <SessionProvider> is mandatory to allow components that call
   // `useSession()` anywhere in your application to access the `session` object.*/}
       <ReduxProvider>
-        <WagmiConfig client={client}>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
-            <QueryClientProvider client={queryClient}>
-              <LanguageProvider>
-                <Component {...pageProps} />
-              </LanguageProvider>
-            </QueryClientProvider>
-          </SessionProvider>
+        <WagmiConfig client={wagmiClient}>
+          <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
+            <SessionProvider session={pageProps.session} refetchInterval={0}>
+              <QueryClientProvider client={queryClient}>
+                <LanguageProvider>
+                  <Component {...pageProps} />
+                </LanguageProvider>
+              </QueryClientProvider>
+            </SessionProvider>
+          </RainbowKitProvider>
         </WagmiConfig>
       </ReduxProvider>
-      {/* ttt */}
-      {/*<WagmiProvider autoConnect>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <React.StrictMode>
-          <Component {...pageProps} />
-        </React.StrictMode>
-      </SessionProvider>
-    </WagmiProvider>*/}
     </ChakraProvider>
   );
 }

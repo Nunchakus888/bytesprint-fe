@@ -1,17 +1,15 @@
-import { ethers, BigNumber } from "ethers";
-// import placeholderImg from "../../public/img/img-placeholder.png";
-// import placeholderImgBig from "../../public/img/img-placeholder-big.png";
+import { ethers, BigNumber } from 'ethers';
 
-export const isProduction = () => process.env.NODE_ENV === "production";
+export const isProduction = () => process.env.NODE_ENV === 'production';
 
 export function shortAddress(address: string | any, start = 6, end = 4) {
-  if (!address) return "";
+  if (!address) return '';
   if (address.length <= start * 2) return address;
-  return address.slice(0, start) + "..." + address.slice(address.length - end);
+  return address.slice(0, start) + '...' + address.slice(address.length - end);
 }
 
 export function shortAddress2(address: string | any, end = 6) {
-  if (!address) return "";
+  if (!address) return '';
   return address.slice(address.length - end);
 }
 
@@ -24,18 +22,17 @@ export const parseEther = (value: string) => {
   try {
     return ethers.utils.parseEther(value);
   } catch (error) {
-    return BigNumber.from("0");
+    return BigNumber.from('0');
   }
 };
 
 //转成字符串（除以10e18）
-export const formatEther = (value: BigNumber | string) => {
-  if (Number(value) === 0) return "0";
-
+export const formatEther = (value: BigNumber) => {
+  if (Number(value) === 0) return '-';
   try {
     return ethers.utils.formatEther(value);
   } catch (error) {
-    return "";
+    return '-';
   }
 };
 
@@ -50,21 +47,21 @@ export function setAll(state: any, properties: any) {
 }
 
 export const maxDecimal = (number: number | string, decimal = 4) => {
-  // if (Number(number) < 0.01 && Number(number) > 0 && decimal === 2) {
-  //   return "<0.01";
-  // }
+  if (Number(number) < 0.01 && Number(number) > 0 && decimal === 2) {
+    return '<0.01';
+  }
 
   if (Number(number) < 0.0001 && Number(number) > 0) {
-    return "<0.0001";
+    return '<0.0001';
   }
   const regex = new RegExp(`^(.*\\..{${decimal}}).*`);
-  return String(number).replace(regex, "$1");
+  return String(number).replace(regex, '$1');
 };
 
-const isClient = typeof window !== "undefined";
+const isClient = typeof window !== 'undefined';
 
 export function setItem(key: string, val: string) {
-  isClient && localStorage.setItem(key, JSON.stringify(val) || "{}");
+  isClient && localStorage.setItem(key, JSON.stringify(val) || '{}');
 }
 
 export function getItem(key: string): any {
@@ -74,10 +71,10 @@ export function getItem(key: string): any {
     if (isClient && localStorageItem !== null) {
       storageContent = JSON.parse(localStorageItem);
     } else {
-      storageContent = "";
+      storageContent = '';
     }
   } catch (error) {
-    storageContent = "";
+    storageContent = '';
   }
   return storageContent;
 }
@@ -86,34 +83,20 @@ export function removeItem(key: string) {
   localStorage?.removeItem(key);
 }
 
-export const parseJson = (data: string, type = "{}") => {
-  let result = "";
+export const parseJson = (data: string, type = '{}') => {
+  let result = '';
   try {
     result = JSON.parse(data);
   } catch (error) {
-    console.log(error, "====JSON.parse===");
+    console.log(error, '====JSON.parse===');
     result = JSON.parse(type);
   }
   return result;
 };
 
-export const imgOnError = (e: any) => {
-  e.currentTarget.onerror = null;
-//   e.currentTarget.src = placeholderImg.src;
-  e.currentTarget.className = "error";
-  return;
-};
-
-export const imgOnError2 = (e: any) => {
-  e.currentTarget.onerror = null;
-//   e.currentTarget.src = placeholderImgBig.src;
-  e.currentTarget.className = "error";
-  return;
-};
-
-export function tranNumber(num: any, point = ",") {
-  if (num === 0) return "-";
-  const numStr = num.toString().split(".")[0];
+export function tranNumber(num: any, point = ',') {
+  if (num === 0) return '-';
+  const numStr = num.toString().split('.')[0];
   if (numStr.length < 4) {
     return numStr;
   } else if (numStr.length >= 4 && numStr.length <= 6) {
@@ -132,8 +115,8 @@ export function tranNumber(num: any, point = ",") {
   }
 }
 
-export function tranNumber2(num: any, point = ",") {
-  const numStr = num.toString().split(".")[0];
+export function tranNumber2(num: any, point = ',') {
+  const numStr = num.toString().split('.')[0];
   if (numStr.length <= 4) {
     return numStr;
   } else if (numStr.length > 4 && numStr.length <= 7) {
@@ -154,11 +137,11 @@ export function tranNumber2(num: any, point = ",") {
 
 export const transferNum = (num: any, decimal = 2) => {
   if (!num && num !== 0) {
-    return "";
+    return '';
   }
   // 粉丝数为0，展示-
   if (num <= 0) {
-    return "-";
+    return '-';
   }
   // 大于9999，换成k为单位, K为单位的情况保留1位小数
   if (num <= 9999) {
@@ -170,3 +153,24 @@ export const transferNum = (num: any, decimal = 2) => {
   }
   return `${(num / 1000000000).toFixed(decimal)}B`;
 };
+
+export function toLowerCase(target: string) {
+  return target.replace(/([A-Z])/g, function (s, s1) {
+    return s1.toLowerCase();
+  });
+}
+
+export function setSessionItem(key: any, val: any) {
+  isClient && sessionStorage.setItem(key, val);
+}
+
+export function getSessionItem(key: any) {
+  let storageContent;
+  try {
+    storageContent = isClient && sessionStorage.getItem(key);
+  } catch (error) {
+    storageContent = {};
+  }
+
+  return storageContent;
+}
