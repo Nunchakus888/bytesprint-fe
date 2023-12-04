@@ -1,4 +1,6 @@
 import { ethers, BigNumber } from 'ethers';
+import placeholderImg from '../../public/img/img-placeholder.png';
+import placeholderImgBig from '../../public/img/img-placeholder-big.png';
 
 export const isProduction = () => process.env.NODE_ENV === 'production';
 
@@ -96,7 +98,14 @@ export const parseJson = (data: string, type = '{}') => {
 
 export const imgOnError = (e: any) => {
   e.currentTarget.onerror = null;
-  e.currentTarget.src = '111';
+  e.currentTarget.src = placeholderImg.src;
+  e.currentTarget.className = 'error';
+  return;
+};
+
+export const imgOnError2 = (e: any) => {
+  e.currentTarget.onerror = null;
+  e.currentTarget.src = placeholderImgBig.src;
   e.currentTarget.className = 'error';
   return;
 };

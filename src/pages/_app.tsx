@@ -31,6 +31,7 @@ import {
 import Head from 'next/head';
 
 import config from 'layouts/websiteConfig';
+import ReduxProvider from 'components/reduxProvider';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
@@ -74,8 +75,10 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
         <meta name="theme-color" content="#000000" />
       </Head>
 
-      <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
+      {/*// Use of the <SessionProvider> is mandatory to allow components that call
+  // `useSession()` anywhere in your application to access the `session` object.*/}
+      <ReduxProvider>
+        <WagmiConfig client={wagmiClient}>
           <SessionProvider session={pageProps.session} refetchInterval={0}>
             <QueryClientProvider client={queryClient}>
               <LanguageProvider>
@@ -83,8 +86,8 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
               </LanguageProvider>
             </QueryClientProvider>
           </SessionProvider>
-        </RainbowKitProvider>
-      </WagmiConfig>
+        </WagmiConfig>
+      </ReduxProvider>
     </ChakraProvider>
   );
 }

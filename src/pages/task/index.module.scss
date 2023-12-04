@@ -1,0 +1,40 @@
+.tabswrap {
+	// borderRadius="40px" backgroundColor="rgba(255,255,255, 0.1)" padding="10px" display="inline-block"
+	border-radius: 40px;
+	background-color: rgba(255,255,255, 0.06);
+	padding: 10px;
+	display: inline-block;
+	.tabs {
+		display: inline-block;
+		button {
+			display: inline-block;
+			margin-right: 10px;
+			color: #7551FF;
+			background-color: rgba(255,255,255, 0.05);
+			&[aria-selected=true] {
+				background-color: #7551FF;
+				color: #fff;
+			}
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.detail {
+	background: rgba(255,255,255, 0.05);
+	border-radius: 10px;
+	padding: 25px;
+	.itemTitle {
+		font-size: 22px;
+		margin: 20px 0;
+		color: #fff;
+	}
+}
+
+.visitor {
+	.itemTitle {
+		color: rgba(255,255,255, 0.6);;
+	}
+}
