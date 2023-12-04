@@ -9,10 +9,13 @@ export const useUserInfo = () => {
 
 	// 普通用户
 	const user = useMemo(() => {
-		if (!identification) {
-			return Identification.VISITOR
-		}
-		return identification
+		// if (!identification) {
+		// 	return Identification.VISITOR
+		// }
+		// return identification
+
+		// test
+		return Identification.ENGINEER
 	}, [identification])
 	
 	

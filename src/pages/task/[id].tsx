@@ -5,8 +5,10 @@ import { useTaskDetail } from "hooks/task";
 import { useUserInfo } from "hooks/user";
 import AdminLayout from "layouts/admin"
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Identification } from "utils/constant";
 import Auth from "views/task/Auth";
+import Evaluate from "views/task/Evaluate";
 import styles from './index.module.scss';
 
 const TaskDetail = () => {
@@ -19,6 +21,8 @@ const TaskDetail = () => {
   const {data, isLoading } = useTaskDetail(id)
 
   const {identification } = useUserInfo()
+
+  const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
 
   return (
     <AdminLayout>
@@ -45,7 +49,7 @@ const TaskDetail = () => {
             </Box>
             {
               identification === Identification.ENGINEER && 
-              <Button position="absolute" right="40px" top="40px" background="#7551FF" fontSize="20px" size='lg' width="150px" height="50px" borderRadius="30px">
+              <Button position="absolute" right="40px" top="40px" background="#7551FF" fontSize="20px" size='lg' width="150px" height="50px" borderRadius="30px" onClick={() => setIsOpenEvaluate(true)}>
                 参与评估
               </Button>
             }
@@ -78,6 +82,8 @@ const TaskDetail = () => {
         }
         <Auth />
       </Box>
+
+      {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
     </AdminLayout>
   )
 }
