@@ -32,9 +32,7 @@ export function SearchInput(props: {
 	}
 
 	const handleChangeText = (e:any) => {
-		return _.debounce(() => {
-			setSearch(e.target.value)
-		}, 300)
+		setSearch(e.target.value)
 	}
 	return (
 		<InputGroup w={{ base: '100%', md: '400px' }} {...rest}>

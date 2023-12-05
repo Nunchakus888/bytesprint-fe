@@ -2,7 +2,8 @@ import API_ROUTERS from "api";
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Get } from "utils/axios";
 import useSWR from "swr";
-const PAGE_SIZE = 40;
+import useChange from "hooks/useChange";
+const PAGE_SIZE = 10;
 
 export const enum TabsEnum {
 	SINGLE_TASK= '单一任务',
@@ -103,36 +104,51 @@ export const useSingleTaskFilter = () => {
       };
     });
   };
-  return { filter, onChange };
+
+  const refreshFilter = () => {
+    setFilter({
+      proType: '',
+      taskType: '',
+      professionType: '',
+      name: ''
+    })
+  }
+
+  return { filter, onChange,refreshFilter };
 }
 
-export const useTaskList = (filter: any, triger: number) => {
+// 任务大厅列表
+export const useTaskList = (filter: any, activeTab: string) => {
 	const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
+  const {triger, toggleTiger} = useChange()
   const oldFilterRef = useRef({});
   const getList = async (params: any) => {
     setLoading(params.page === 1);
-
     try {
       const _params = {
         page,
         page_size: PAGE_SIZE,
         ...params,
       };
-			// TODO 参数 不同类型的区分请求
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_LIST({})
-      );
-      const { count, result } = res || {};
-  
+			// TODO 参数 不同类型的区分请求 activeTab
+      // const res = await Get(
+      //   API_ROUTERS.tasks.TASKS_LIST({})
+      // );
+      // let { count, result } = res || {};
+      
+      // test
+      let result = [{}, {}, {},{}, {}, {}]
+      let count = 30
+
       setTotal(count);
       if (params.page === 1) {
         setData(result);
       } else {
         //@ts-ignore
-        setData((prevData) => [...prevData, ..._result]);
+        setData((prevData) => [...prevData, ...result]);
       }
     } catch (error) {
       // handle error
@@ -142,6 +158,7 @@ export const useTaskList = (filter: any, triger: number) => {
   };
 
   const fetchMoreData = useCallback(() => {
+    console.log("fetchMoreData")
     if (total > page * PAGE_SIZE) {
       setPage((prevPage) => prevPage + 1);
     }
@@ -160,7 +177,7 @@ export const useTaskList = (filter: any, triger: number) => {
       filter,
       triger,
     };
-
+    console.log("params>>>", params, activeTab)
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
       oldFilterRef.current = params;
       getList({
@@ -177,7 +194,7 @@ export const useTaskList = (filter: any, triger: number) => {
     data,
     hasMore: total > page * PAGE_SIZE,
     fetchMoreData,
-    // refetchData: toggleTiger,
+    refetchData: toggleTiger,
   };
 }
 
