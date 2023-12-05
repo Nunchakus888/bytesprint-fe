@@ -12,38 +12,6 @@ export default function BYTable(props: {
   dataSource: any[]
 }) {
   const {columns, dataSource} = props
-
-  // const columns: ColumnsType<API_Article.Response.ListItem> = [
-	// 	{
-	// 		title: 'ID ',
-	// 		dataIndex: 'article_id',
-	// 		key: 'article_id',
-	// 	},
-	// 	{
-	// 		title: 'Title ',
-	// 		dataIndex: 'title',
-	// 		key: 'title',
-	// 	},
-	// 	{
-	// 		title: 'Content',
-	// 		dataIndex: 'content',
-	// 		key: 'content',
-	// 		// render: (_, { content }) => {
-	// 		// 	return <div dangerouslySetInnerHTML={{__html: content || ''}}></div>
-	// 		// },
-	// 	},
-	// 	{
-	// 		title: 'Flash Time',
-	// 		dataIndex: 'article_date',
-	// 		key: 'article_date',
-	// 		render: (_, { article_date }) => {
-	// 			const date = formatDate(new Date(Number(article_date)))
-	// 			return <span>
-	// 				<span style={{display: 'block', whiteSpace: 'nowrap'}}>{date[0]}</span>
-	// 				<span style={{display: 'block', whiteSpace: 'nowrap'}}>{date[1]}</span>
-	// 			</span>;
-	// 		},
-	// 	},
   return (
     <TableContainer>
       <Table variant='simple'>
@@ -61,7 +29,7 @@ export default function BYTable(props: {
       {
         dataSource?.map((data, index) => {
           return (
-            <Tr key={`${data.key}`}>
+            <Tr key={`line_${index}`}>
               {
                 columns?.map((c, ci) => {
                   const isRender = c.render
@@ -70,10 +38,10 @@ export default function BYTable(props: {
                   return (
                     <>
                       {
-                        isRender ? <Td key={value} borderBottom="none" padding="10px">
+                        isRender ? <Td key={`${value}_${index}_${ci}`} borderBottom="none" padding="10px">
                           {c.render(dataSource, data, index)}
                         </Td>:
-                        <Td key={value} borderBottom="none" padding="10px">{value}</Td>
+                        <Td key={`${value}_${index}_${ci}`} borderBottom="none" padding="10px">{value}</Td>
                       }
                     </>
                     
