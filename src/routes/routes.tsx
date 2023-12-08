@@ -6,7 +6,7 @@ import MainDashboard from 'pages/send-requirements';
 import Index from 'pages';
 import Profile from 'pages/profile';
 import Task from 'pages/task';
-
+import MyRequirements from 'pages/requirement'
 import { IRoute } from 'types/navigation';
 
 const routes: IRoute[] = [
@@ -38,13 +38,13 @@ const routes: IRoute[] = [
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     component: Task,
   },
-  // {
-  //   name: '我的需求',
-  //   layout: '/',
-  //   icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-  //   path: '/requirements',
-  //   component: MyRequirements,
-  // },
+  {
+    name: '我的需求',
+    layout: '/',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    path: '/requirement',
+    component: MyRequirements,
+  },
   
   // {
   //   name: '我的任务',

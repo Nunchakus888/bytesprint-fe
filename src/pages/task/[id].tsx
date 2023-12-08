@@ -1,4 +1,5 @@
 import { Box, Button, Code, Container, Tag } from "@chakra-ui/react"
+import Back from "components/back";
 import FileReviewer from "components/fileReviewer";
 import Loading from "components/loading";
 import { useTaskDetail } from "hooks/task";
@@ -27,9 +28,7 @@ const TaskDetail = () => {
   return (
     <AdminLayout>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
-        <Button background="rgba(255,255,255,0.05)" size='sm' borderRadius={4} onClick={() => router.back()}>
-          Back
-        </Button>
+        <Back />
         {isLoading ? <Loading /> :
           <>
           <Box display="flex" flexDirection="column" position="relative" marginTop="20px" className={styles.detail}>

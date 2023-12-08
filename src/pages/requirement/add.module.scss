@@ -1,0 +1,40 @@
+.single {
+  background: url('../../../public/img/add1.png') no-repeat left center;
+  background-size: 90px 90px;
+  // padding-left: 100px;
+  padding: 25px 15px 25px 110px;
+}
+
+.person {
+  background: url('../../../public/img/add2.png') no-repeat left center;
+  background-size: 90px 90px;
+  padding: 25px 15px 25px 110px;
+  
+}
+
+.global {
+  background: url('../../../public/img/add3.png') no-repeat left center;
+  background-size: 90px 90px;
+  padding: 25px 15px 25px 110px;
+}
+
+.content {
+  height: calc(100vh - 182px);
+  
+  .selected {
+    width: 0px;
+    height: 0px;
+    border-radius: 4px;
+    border-top: 30px solid #2460F7;
+    border-left: 30px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    .checkIcon {
+      position: absolute;
+      top: -30px;
+      right: -1px;
+    }
+  }
+}

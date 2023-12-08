@@ -3,74 +3,8 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Get } from "utils/axios";
 import useSWR from "swr";
 import useChange from "hooks/useChange";
+import { RequirementType, Tabs } from "utils/constant";
 const PAGE_SIZE = 10;
-
-export const enum TabsEnum {
-	SINGLE_TASK= '单一任务',
-	PERSON_TASK= '人员需求',
-	ALL_TASK = '整包项目'
-}
-// 需求类型
-const Tabs = [
-	{
-		label: TabsEnum.SINGLE_TASK,
-		value: '1'
-	},
-	{
-		label: TabsEnum.PERSON_TASK,
-		value: '2'
-	},
-	{
-		label: TabsEnum.ALL_TASK,
-		value: '3'
-	},
-]
-
-// 众包方式
-export const ProTypes = [
-	{
-		label: '竞标',
-		value: '1'
-	},
-	{
-		label: '比稿',
-		value: '2'
-	},
-	{
-		label: '出价',
-		value: '3'
-	}
-]
-// 任务类型
-export const TaskTypes = [
-	{
-		label: '普通任务',
-		value: '1'
-	},
-	{
-		label: '船长任务',
-		value: '2'
-	}
-]
-// 职位类型
-export const ProfessionTypes = [
-	{
-		label: '前端开发',
-		value: '1'
-	},
-	{
-		label: '后端开发',
-		value: '2'
-	},
-	{
-		label: 'UI设计',
-		value: '3'
-	},
-	{
-		label: '测试',
-		value: '4'
-	},
-]
 
 // 根据角色返回对应的任务数据
 // 任务tab
@@ -78,8 +12,9 @@ export const ProfessionTypes = [
 export const useTasks = () => {
 	const [tabs, setTabs] = useState(Tabs)
 	const [activeTab, setActiveTab] = useState(tabs?.[0].value)
-	const handleTabChange = (val: string) => {
-		setActiveTab(tabs.filter(it => it.value === val)[0].label)
+	const handleTabChange = (val: RequirementType) => {
+    const value = tabs.filter(it => it.value === val)[0].value
+		setActiveTab(value)
 	}
   return {
 		tabs,

@@ -1,12 +1,14 @@
 // import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
-import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import { Box, Button, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { SearchInput } from "components/search";
 import FilSelect from "components/select";
+import { useMyRequirements } from "hooks/myrequirements";
 import { ProfessionTypes, ProTypes, TabsEnum, TaskTypes, useSingleTaskFilter, useTaskList, useTasks } from "hooks/task";
 import TaskTemplate from "views/task/Template";
+import { IoMdAdd } from "react-icons/io";
 
 
-export default function Task() {
+export default function MyRequirements() {
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
@@ -15,7 +17,7 @@ export default function Task() {
     hasMore,
     fetchMoreData,
     refetchData
-	} = useTaskList(filter, activeTab)
+	} = useMyRequirements(filter, activeTab)
 	// 搜索任务
   const handleSearch = (searchVal: string) => {
     console.log("searchval", searchVal)
@@ -33,6 +35,8 @@ export default function Task() {
 		handleSearch
 	}
   return (
-		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange} />
+		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange}>
+      <Button background="#7551FF" color="#fff"><IoMdAdd />发布需求</Button>
+    </TaskTemplate>
 	)
 }
