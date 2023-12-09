@@ -6,6 +6,12 @@ export enum Identification {
 	OPERATOR = 2
 }
 
+export enum IPath {
+	TASKS=`task`,
+	MYREQUIREMENT=`myrequirement`,
+	MYTASKS=`mytasks`
+}
+
 export const enum TabsEnum {
 	SINGLE_TASK= '单一任务',
 	PERSON_TASK= '人员需求',
@@ -65,61 +71,72 @@ export const TaskTypes = [
 	}
 ]
 
+export enum IStatus {
+	CLOSED='1',  //已关闭
+	EVALUATION='2', // 评估中
+	WAIT_SIGN='3', // 待签约
+	SIGNED= '4', // 已签约
+	CODEING='5', // 进行中
+	WAIT_ACCEPT='6', //待验收
+	COMPLETE= '7', // 已完成
+	UN_BID='8' // 未中标
+} 
+
 export const RequirementStatus = [
 	{
 		label: '已关闭',
-		value: '1'
+		value: IStatus.CLOSED
 	},
 	{
 		label: '评估中',
-		value: '2'
+		value: IStatus.EVALUATION
 	},
 	{
 		label: '待签约',
-		value: '3'
+		value: IStatus.WAIT_SIGN
 	},
 	{
 		label: '已签约',
-		value: '4'
+		value: IStatus.SIGNED
 	},
 	{
 		label: '进行中',
-		value: '5'
+		value: IStatus.CODEING
 	},
 	{
 		label: '待验收',
-		value: '6'
+		value: IStatus.WAIT_ACCEPT
 	},
 	{
 		label: '已完成',
-		value: '7'
+		value: IStatus.COMPLETE
 	}
 ]
 
 export const TaskStatus = [
 	{
 		label: '待签约',
-		value: '1'
+		value: IStatus.WAIT_SIGN
 	},
 	{
 		label: '未中标',
-		value: '2'
+		value: IStatus.UN_BID
 	},
 	{
 		label: '已签约',
-		value: '3'
+		value: IStatus.SIGNED
 	},
 	{
 		label: '进行中',
-		value: '4'
+		value: IStatus.CODEING
 	},
 	{
 		label: '待验收',
-		value: '6'
+		value: IStatus.WAIT_ACCEPT
 	},
 	{
 		label: '已完成',
-		value: '7'
+		value: IStatus.COMPLETE
 	}
 ]
 
@@ -146,7 +163,7 @@ export const ProfessionTypes = [
 
 export interface IRequirement {
   projectName: string
-  descrpiton: string
+  description: string
   categoryId: number
   fileList: string[]
   requirementList: string[]

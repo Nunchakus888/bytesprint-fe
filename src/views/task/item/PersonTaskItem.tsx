@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Tag } from "@chakra-ui/react"
 import { Image } from '@chakra-ui/react'
 import Link from "next/link"
-import { RequirementStatus, TaskStatus } from "utils/constant"
+import { IPath, RequirementStatus, TaskStatus } from "utils/constant"
 import styles from './index.module.scss'
 export default function PersonTaskItem(props: {
 	item: any
@@ -48,16 +48,15 @@ export default function PersonTaskItem(props: {
 							技能标签
 						</Tag>
 						<Button background="#7551FF" size='md' color="#fff">
-							<Link href='/task/11'> 查看详情</Link>
+							<Link href={`/taskdetail/${props.from || IPath.TASKS}/11`}> 查看详情</Link>
 						</Button>
 					</Box>
 				</Box>
-				{props.isMine && props.from === 'myrequirement'
+				{props.isMine && props.from === IPath.MYREQUIREMENT
 					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{RequirementStatus.filter(it => it.value === '2')[0].label}</Tag>
-					
 				}
-				{props.isMine && props.from === 'mytask'
-					 && <Tag position="absolute" top="0" right="0" variant='outline' size="md">{TaskStatus.filter(it => it.value === '1')[0].label}</Tag>
+				{props.isMine && props.from === IPath.MYTASKS
+					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{TaskStatus.filter(it => it.value === '1')[0].label}</Tag>
 				}
 			</Flex>
 		</Box>

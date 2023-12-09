@@ -5,9 +5,11 @@ import { MdBarChart, MdPerson, MdHome } from 'react-icons/md';
 import MainDashboard from 'pages/send-requirements';
 import Index from 'pages';
 import Profile from 'pages/profile';
-import Task from 'pages/task';
-import MyRequirements from 'pages/requirement'
+import Task from 'pages/tasks';
+import MyRequirements from 'pages/myrequirement'
+import MyTasks from 'pages/mytasks'
 import { IRoute } from 'types/navigation';
+import { IPath } from 'utils/constant';
 
 const routes: IRoute[] = [
   // {
@@ -34,7 +36,7 @@ const routes: IRoute[] = [
   {
     name: '任务大厅',
     layout: '/',
-    path: '/task',
+    path: `/${IPath.TASKS}`,
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     component: Task,
   },
@@ -42,17 +44,17 @@ const routes: IRoute[] = [
     name: '我的需求',
     layout: '/',
     icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-    path: '/requirement',
+    path: `/${IPath.MYREQUIREMENT}`,
     component: MyRequirements,
   },
   
-  // {
-  //   name: '我的任务',
-  //   layout: '/',
-  //   icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-  //   path: '/tasks',
-  //   component: Tasks,
-  // },
+  {
+    name: '我的任务',
+    layout: '/',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    path: `/${IPath.MYTASKS}`,
+    component: MyTasks,
+  },
 ];
 
 export default routes;

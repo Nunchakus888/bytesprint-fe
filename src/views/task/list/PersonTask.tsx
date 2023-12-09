@@ -9,7 +9,7 @@ import PersonTaskItem from "../item/PersonTaskItem"
 import useChange from "hooks/useChange"
 import { useEffect } from "react"
 import Loading from "components/loading"
-import { ProfessionTypes, ProTypes, RequirementStatus, TaskTypes } from "utils/constant"
+import { IPath, ProfessionTypes, ProTypes, RequirementStatus, TaskTypes } from "utils/constant"
 
 
 function PersonTask(props: {
@@ -31,7 +31,7 @@ function PersonTask(props: {
 			<Box display="flex" justifyContent="flex-end">
 			{props.isMine ? 
           <>
-          <FilSelect options={props.from === 'requirement' ? RequirementStatus : RequirementStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
+          <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : RequirementStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
           <FilSelect options={ProTypes} placeholder="学历要求" change={(val) => onChange('educational', val)} />
 				<FilSelect options={TaskTypes} placeholder="经验要求" change={(val) => onChange('experience', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="工作地点" change={(val) => onChange('workPlace', val)} />

@@ -16,7 +16,7 @@ export const useAddRequirement = () => {
   const router = useRouter()
   const currentRequire = useMemo(() => {
     const {requireType = ''} = router.query
-    console.log(requireType)
+    console.log("requireType>>>", requireType)
     // @ts-ignore
     return requirementTypes.filter(it => it.type === requireType)[0]
   }, [router])

@@ -9,7 +9,7 @@ import Auth from "../Auth"
 import useChange from "hooks/useChange"
 import { useEffect } from "react"
 import Loading from "components/loading"
-import { ProfessionTypes, ProTypes, RequirementStatus, TaskStatus, TaskTypes } from "utils/constant"
+import { IPath, ProfessionTypes, ProTypes, RequirementStatus, TaskStatus, TaskTypes } from "utils/constant"
 
 
 function SingleTask(props: {
@@ -32,7 +32,7 @@ function SingleTask(props: {
 			<Box display="flex" justifyContent="flex-end">
         {props.isMine ? 
           <>
-          <FilSelect options={props.from === 'myrequirement' ? RequirementStatus : TaskStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
+          <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
           <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
 				  <FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
           </>:

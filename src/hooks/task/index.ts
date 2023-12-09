@@ -53,7 +53,7 @@ export const useSingleTaskFilter = () => {
 }
 
 // 任务大厅列表
-export const useTaskList = (filter: any, activeTab: string) => {
+export const useTaskList = (filter: any, activeTab: RequirementType) => {
 	const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);

@@ -43,7 +43,7 @@ export default function AddRequirement(props: {}) {
   const onSubmit = handleSubmit(async (data) => {
     console.log('On Submit: ', data)
     await saveRequirement(data)
-    router.push('/requirement')
+    router.push('/myrequirement')
   });
 
   const validatePhone = (value: string) => {
@@ -63,11 +63,11 @@ export default function AddRequirement(props: {}) {
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
-        <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire.title}</Text>
+        <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire?.title}</Text>
         <Box margin="20px 0">
           <Text fontSize={18} fontWeight="bold">基础信息</Text>
           {
-            currentRequire.value === RequirementType.Single &&
+            currentRequire?.value === RequirementType.Single &&
             <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
               <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
@@ -84,10 +84,10 @@ export default function AddRequirement(props: {}) {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!errors.descrpiton} isRequired margin="20px 0">
+            <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
               <FormLabel>填写任务描述</FormLabel>
-              <ReactQuillComponent placeholder="任务描述" value={getValues('descrpiton')} onChange={(val) => setValue('descrpiton', val)} />
-              <FormErrorMessage>{errors.descrpiton && errors.descrpiton.message}</FormErrorMessage>
+              <ReactQuillComponent placeholder="任务描述" value={getValues('description')} onChange={(val) => setValue('description', val)} />
+              <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
@@ -178,7 +178,7 @@ export default function AddRequirement(props: {}) {
             </Flex>
           </form>
           }
-          {currentRequire.value === RequirementType.Person &&
+          {currentRequire?.value === RequirementType.Person &&
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
               <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
@@ -195,10 +195,10 @@ export default function AddRequirement(props: {}) {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!errors.descrpiton} isRequired margin="20px 0">
+            <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
               <FormLabel>填写任务描述</FormLabel>
-              <ReactQuillComponent placeholder="任务描述" value={getValues('descrpiton')} onChange={(val) => setValue('descrpiton', val)} />
-              <FormErrorMessage>{errors.descrpiton && errors.descrpiton.message}</FormErrorMessage>
+              <ReactQuillComponent placeholder="任务描述" value={getValues('description')} onChange={(val) => setValue('description', val)} />
+              <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">

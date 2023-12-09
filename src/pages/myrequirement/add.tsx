@@ -37,7 +37,7 @@ export default function AddRequirement() {
                   }
                 </Flex>
                 <Box margin="20px 0">
-                  <Link href={`/requirement/${selectType}`}><Button background="#7551FF" size="md" borderRadius={4}>下一步</Button></Link>
+                  <Link href={`/myrequirement/${selectType}`}><Button background="#7551FF" size="md" borderRadius={4}>下一步</Button></Link>
                 </Box>
             </Flex>
         </Box>
