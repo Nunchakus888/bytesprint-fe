@@ -15,6 +15,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useRadioGroup,
 } from '@chakra-ui/react';
 import FileUpload from 'components/fileupload';
 import FilSelect from 'components/select';
@@ -25,11 +26,11 @@ import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { IoCheckmarkOutline } from 'react-icons/io5';
-import { IRequirement, ProfessionTypes, ProType, ProTypes } from 'utils/constant';
-
-
+import { IRequirement, IRequirementPerson, IRequirementSingle, ProfessionTypes, ProType, ProTypes, RequirementType } from 'utils/constant';
+import styles from './index.module.scss'
+const ReactQuillComponent = dynamic(() => import("../../../components/richTextBlock"), { ssr: false })
 export default function AddRequirement(props: {}) {
-  const { currentRequire, form, handleInputChange } = useAddRequirement();
+  const { currentRequire, saveRequirement,router } = useAddRequirement();
 
   const {
     register,
@@ -37,9 +38,13 @@ export default function AddRequirement(props: {}) {
     formState: { errors },
     control,
     setValue,
-    getFieldState
-  } = useForm<IRequirement>();
-  const onSubmit = handleSubmit((data) => console.log('On Submit: ', data));
+    getValues
+  } = useForm<IRequirementPerson | IRequirementSingle>();
+  const onSubmit = handleSubmit(async (data) => {
+    console.log('On Submit: ', data)
+    await saveRequirement(data)
+    router.push('/requirement')
+  });
 
   const validatePhone = (value: string) => {
     if (!value) {
@@ -51,22 +56,25 @@ export default function AddRequirement(props: {}) {
     return true;
   };
 
-  const ReactQuillComponent = dynamic(() => import("../../../components/richTextBlock"), { ssr: false })
-
+  // 草稿
+  const handleTempSave = () => {
+    console.log("getValues>>", getValues())
+  }
   return (
     <AdminLayout>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
-        <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire}</Text>
+      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
+        <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire.title}</Text>
         <Box margin="20px 0">
           <Text fontSize={18} fontWeight="bold">基础信息</Text>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
+          {
+            currentRequire.value === RequirementType.Single &&
+            <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
               <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
               <Input
                 color="#fff"
                 id="projectName"
-                placeholder="name"
+                placeholder="任务名称"
                 {...register('projectName', {
                   required: '必填项',
                 })}
@@ -78,42 +86,23 @@ export default function AddRequirement(props: {}) {
 
             <FormControl isInvalid={!!errors.descrpiton} isRequired margin="20px 0">
               <FormLabel>填写任务描述</FormLabel>
-              {/* <RichTextBlock/> */}
-              {/* <Textarea
-                color="#fff"
-                placeholder="任务描述"
-                size="sm"
-                resize="vertical"
-                id="descrpiton"
-                {...register('descrpiton', {
-                  required: '必填项',
-                })}
-              /> */}
-              {/* @ts-ignore */}
-              <ReactQuillComponent value={getFieldState('descrpiton')} onChange={(val) => setValue('descrpiton', val)} />
+              <ReactQuillComponent placeholder="任务描述" value={getValues('descrpiton')} onChange={(val) => setValue('descrpiton', val)} />
               <FormErrorMessage>{errors.descrpiton && errors.descrpiton.message}</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!errors.fileList} isRequired>
+            <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
               <FileUpload
-                accept={["JPG", "PNG", "GIF"]}
+                accept={["jpg","png","doc","docx","pptx","pdf"]}
                 multiple
                 max={3}
+                maxSize={50*1024*1024}
                 register={register('fileList')}
                />
               <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={!!errors.professionType} isRequired margin="20px 0">
+            <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).professionType} isRequired margin="20px 0">
               <FormLabel htmlFor="professionType">选择职位类型</FormLabel>
-              {/* <Input
-                id='professionType'
-                placeholder='name'
-                {...register('professionType', {
-                  required: 'This is required',
-                  minLength: { value: 4, message: 'Minimum length should be 4' },
-                })}
-              /> */}
               <Select placeholder="职位类型" iconSize="16" {...register('professionType', {
                   required: '必选项',
                 })}>
@@ -123,11 +112,11 @@ export default function AddRequirement(props: {}) {
                   })
                 }
               </Select>
-              <FormErrorMessage>
-                {errors.professionType && errors.professionType.message}
-              </FormErrorMessage>
+              {/* <FormErrorMessage>
+                {(errors as unknown as IRequirementSingle).professionType && (errors as unknown as IRequirementSingle).professionType.message}
+              </FormErrorMessage> */}
             </FormControl>
-            <FormControl isInvalid={!!errors.crowSourcingMethod} isRequired margin="20px 0">
+            <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod} isRequired margin="20px 0">
               <FormLabel htmlFor="crowSourcingMethod">众包方式</FormLabel>
               <RadioGroup>
                 <Stack direction="row">
@@ -140,20 +129,22 @@ export default function AddRequirement(props: {}) {
                         padding="10px 20px"
                         borderRadius={4}
                         cursor="pointer"
-                        _hover={{ background: 'rgba(255,255,255,0.9)', color: '#7551FF' }}
+                        _hover={{color: '#7551FF' }}
+                        className={styles.radios}
                       >
                         <Radio {...register('crowSourcingMethod', {required: '必选项',})} value={it.value}>
-                          <i>
-                            <IoCheckmarkOutline fontSize={18} />
+                          <Flex>
+                            <i>
+                            <IoCheckmarkOutline className={styles.checkIcon} fontSize={18} />
                           </i>
-                          <Box>
+                          <Box display="flex" alignItems="center" flexDirection="column">
                             <Text fontSize={22} fontWeight="bold">
                               {it.label}
                             </Text>
                             <Text fontSize={14} whiteSpace="nowrap">
                               {it.label}
                             </Text>
-                          </Box>
+                          </Box></Flex>
                         </Radio>
                       </Box>
                     );
@@ -168,7 +159,7 @@ export default function AddRequirement(props: {}) {
               <Input
                 color="#fff"
                 id="contactInfo"
-                placeholder="contactInfo"
+                placeholder="手机号"
                 {...register('contactInfo', {
                   validate: validatePhone,
                 })}
@@ -177,10 +168,122 @@ export default function AddRequirement(props: {}) {
                 {errors.contactInfo && errors?.contactInfo.message}
               </FormErrorMessage>
             </FormControl>
-            <Button mt={4} colorScheme='teal' type='submit' margin="20px 0">
-              Submit
+            <Flex>
+            <Button background="#7551FF" size="md" borderRadius={4} type='submit' margin="20px 0">
+              发布任务
             </Button>
+            <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
+              保存草稿
+            </Button>
+            </Flex>
           </form>
+          }
+          {currentRequire.value === RequirementType.Person &&
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
+              <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
+              <Input
+                color="#fff"
+                id="projectName"
+                placeholder="任务名称"
+                {...register('projectName', {
+                  required: '必填项',
+                })}
+              />
+              <FormErrorMessage>
+                {errors.projectName && errors.projectName.message}
+              </FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.descrpiton} isRequired margin="20px 0">
+              <FormLabel>填写任务描述</FormLabel>
+              <ReactQuillComponent placeholder="任务描述" value={getValues('descrpiton')} onChange={(val) => setValue('descrpiton', val)} />
+              <FormErrorMessage>{errors.descrpiton && errors.descrpiton.message}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
+              <FileUpload
+                accept={["jpg","png","doc","docx","pptx","pdf"]}
+                multiple
+                max={3}
+                maxSize={50*1024*1024}
+                register={register('fileList')}
+               />
+              <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!(errors as unknown as IRequirementPerson).educational} isRequired margin="20px 0">
+              <FormLabel htmlFor="educational">选择学历要求</FormLabel>
+              <Select placeholder="学历要求" iconSize="16" {...register('educational', {
+                  required: '必选项',
+                })}>
+                {
+                  ProfessionTypes?.map((it, index) => {
+                    return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>
+                  })
+                }
+              </Select>
+            </FormControl>
+            <FormControl isInvalid={!!(errors as unknown as IRequirementPerson).experience} isRequired margin="20px 0">
+              <FormLabel htmlFor="experience">选择经验要求</FormLabel>
+              <Select placeholder="学历要求" iconSize="16" {...register('experience', {
+                  required: '必选项',
+                })}>
+                {
+                  ProfessionTypes?.map((it, index) => {
+                    return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>
+                  })
+                }
+              </Select>
+            </FormControl>
+            <FormControl isInvalid={!!(errors as unknown as IRequirementPerson).workPlace} isRequired margin="20px 0">
+              <FormLabel htmlFor="workPlace">工作地点</FormLabel>
+              <Select placeholder="工作地点" iconSize="16" {...register('workPlace', {
+                  required: '必选项',
+                })}>
+                {
+                  ProfessionTypes?.map((it, index) => {
+                    return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>
+                  })
+                }
+              </Select>
+            </FormControl>
+            <FormControl isInvalid={!!(errors as unknown as IRequirementPerson).workTime} isRequired margin="20px 0">
+              <FormLabel htmlFor="workTime">工作时长</FormLabel>
+              <Select placeholder="工作时长" iconSize="16" {...register('workTime', {
+                  required: '必选项',
+                })}>
+                {
+                  ProfessionTypes?.map((it, index) => {
+                    return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>
+                  })
+                }
+              </Select>
+            </FormControl>
+            
+            <FormControl isInvalid={!!errors.contactInfo} isRequired margin="20px 0">
+              <FormLabel>手机号</FormLabel>
+              <Input
+                color="#fff"
+                id="contactInfo"
+                placeholder="手机号"
+                {...register('contactInfo', {
+                  validate: validatePhone,
+                })}
+              />
+              <FormErrorMessage>
+                {errors.contactInfo && errors?.contactInfo.message}
+              </FormErrorMessage>
+            </FormControl>
+            <Flex>
+            <Button background="#7551FF" size="md" borderRadius={4} type='submit' margin="20px 0">
+              发布任务
+            </Button>
+            <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
+              保存草稿
+            </Button>
+            </Flex>
+          </form>}
         </Box>
       </Box>
     </AdminLayout>

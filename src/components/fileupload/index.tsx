@@ -5,12 +5,15 @@ import { FiFile } from 'react-icons/fi'
 import { FileUploader } from "react-drag-drop-files";
 import styles from './index.module.scss'
 type FileUploadProps = {
+  children?: React.ReactNode
   register: UseFormRegisterReturn
   accept?: string[]
   multiple?: boolean
   max?: number
+  maxSize?: number,
+  isDrag?: boolean
 }
-const MAX_SIZE_BYTES = 50 * 1024 * 1024
+
 const getSizeInfo = (size: number) => {
   if (Math.floor(size / 1024 / 1024) !== 0) {
     return Number(size / 1024 / 1024).toFixed(2) + `M`
@@ -19,7 +22,7 @@ const getSizeInfo = (size: number) => {
 }
 
 export default function FileUpload(props: FileUploadProps){
-  const { register, accept, multiple , max=3 } = props
+  const { register, accept, multiple , max=3, maxSize, children, isDrag } = props
   const { ref, ...rest } = register as {ref: (instance: HTMLInputElement | null) => void}
   const toast = useToast()
 
@@ -36,15 +39,18 @@ export default function FileUpload(props: FileUploadProps){
     // newFile 内截取前resetLength file
     const needUploadFiles = Array.from(newFile).slice(0, resetLength)
     // 校验文件大小
-    let isInvalid = Array.from(newFile).some((it:any) => it.size > MAX_SIZE_BYTES)
-    if (isInvalid) {
-      toast({
-        title: `文件大小不能超出50M`,
-        status: `error`,
-        isClosable: true,
-      })
-      return;
+    if (maxSize) {
+      let isInvalid = Array.from(newFile).some((it:any) => it.size > maxSize)
+      if (isInvalid) {
+        toast({
+          title: `文件大小不能超出50M`,
+          status: `error`,
+          isClosable: true,
+        })
+        return;
+      }
     }
+    
     // TODO 自动上传
     console.log("needUploadFiles>>>", needUploadFiles)
 
@@ -69,7 +75,7 @@ export default function FileUpload(props: FileUploadProps){
   return (
       <Box>
         <FileUploader multiple={multiple} handleChange={handleChange} name="file" types={accept}>
-          <Flex cursor="pointer" direction="column" justify="center" alignItems="center" color="#7551FF" fontSize={14} width="100%" height="100px" background="rgba(255,255,255,0.03)" border="dashed 2px #0658c2;">
+          <Flex cursor="pointer" direction="column" justify="center" alignItems="center" color="#fff" fontSize={14} width="100%" height="100px" background="rgba(255,255,255,0.03)" border="solid 1px rgba(255,255,255,0.25);">
             <Text>将文件拖到此处，或点击上传</Text>
             <Text>({files.length}/{max})</Text>
             <Text>50M以内，仅限{accept.join('、')}</Text>
@@ -90,7 +96,6 @@ export default function FileUpload(props: FileUploadProps){
                 </Flex>
               )
             })
-            
           }
         </Box>
       </Box>

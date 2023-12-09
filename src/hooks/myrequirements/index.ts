@@ -1,10 +1,11 @@
 import useChange from "hooks/useChange";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { RequirementType } from "utils/constant";
 
 const PAGE_SIZE = 10;
 
 // 我的需求列表
-export const useMyRequirements = (filter: any, activeTab: string) => {
+export const useMyRequirements = (filter: any, activeTab: RequirementType) => {
 	const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);

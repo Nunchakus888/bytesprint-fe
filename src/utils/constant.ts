@@ -64,6 +64,66 @@ export const TaskTypes = [
 		value: '2'
 	}
 ]
+
+export const RequirementStatus = [
+	{
+		label: '已关闭',
+		value: '1'
+	},
+	{
+		label: '评估中',
+		value: '2'
+	},
+	{
+		label: '待签约',
+		value: '3'
+	},
+	{
+		label: '已签约',
+		value: '4'
+	},
+	{
+		label: '进行中',
+		value: '5'
+	},
+	{
+		label: '待验收',
+		value: '6'
+	},
+	{
+		label: '已完成',
+		value: '7'
+	}
+]
+
+export const TaskStatus = [
+	{
+		label: '待签约',
+		value: '1'
+	},
+	{
+		label: '未中标',
+		value: '2'
+	},
+	{
+		label: '已签约',
+		value: '3'
+	},
+	{
+		label: '进行中',
+		value: '4'
+	},
+	{
+		label: '待验收',
+		value: '6'
+	},
+	{
+		label: '已完成',
+		value: '7'
+	}
+]
+
+
 // 职位类型
 export const ProfessionTypes = [
 	{
@@ -91,6 +151,16 @@ export interface IRequirement {
   fileList: string[]
   requirementList: string[]
   contactInfo: string
-  crowSourcingMethod: number
-  professionType: number
+}
+
+export interface IRequirementSingle extends IRequirement{
+	crowSourcingMethod: number
+	professionType: number
+}
+export interface IRequirementPerson extends IRequirement {
+	educational: string
+	experience: string
+	workPlace: string
+	workTime: string
+
 }

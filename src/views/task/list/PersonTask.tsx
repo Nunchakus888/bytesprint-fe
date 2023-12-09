@@ -4,17 +4,18 @@ import FilSelect from "components/select"
 import { useSingleTaskFilter, usePersonTaskFilter, useTaskList } from "hooks/task"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
-import TaskItem from "../item/TaskItem"
 import Auth from "../Auth"
 import PersonTaskItem from "../item/PersonTaskItem"
 import useChange from "hooks/useChange"
 import { useEffect } from "react"
 import Loading from "components/loading"
-import { ProfessionTypes, ProTypes, TaskTypes } from "utils/constant"
+import { ProfessionTypes, ProTypes, RequirementStatus, TaskTypes } from "utils/constant"
 
 
 function PersonTask(props: {
 	isCurrent?: boolean
+	isMine?: boolean
+  from?: string
 	person: {loading:boolean, data:any[], hasMore: boolean, fetchMoreData: ()=> void, handleSearch: (val:string) => void, onChange: (val:string, s: string) => void}
 }) {
 	const {loading, data, hasMore, fetchMoreData, handleSearch, onChange} = props.person
@@ -28,11 +29,23 @@ function PersonTask(props: {
 				placeholder="需求名称"
 				search={handleSearch}></SearchInput>
 			<Box display="flex" justifyContent="flex-end">
-				<FilSelect options={ProTypes} placeholder="学历要求" change={(val) => onChange('educational', val)} />
+			{props.isMine ? 
+          <>
+          <FilSelect options={props.from === 'requirement' ? RequirementStatus : RequirementStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
+          <FilSelect options={ProTypes} placeholder="学历要求" change={(val) => onChange('educational', val)} />
+				<FilSelect options={TaskTypes} placeholder="经验要求" change={(val) => onChange('experience', val)} />
+				<FilSelect options={ProfessionTypes} placeholder="工作地点" change={(val) => onChange('workPlace', val)} />
+				<FilSelect options={ProfessionTypes} placeholder="工作时长" change={(val) => onChange('workTime', val)} />
+          </>:
+          <>
+            <FilSelect options={ProTypes} placeholder="学历要求" change={(val) => onChange('educational', val)} />
 				<FilSelect options={TaskTypes} placeholder="经验要求" change={(val) => onChange('experience', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="工作地点" change={(val) => onChange('workPlace', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="工作时长" change={(val) => onChange('workTime', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="任务类型" change={(val) => onChange('taskType', val)} />
+          </>
+        }
+				
 			</Box>
 		</Flex>
 
@@ -51,9 +64,11 @@ function PersonTask(props: {
           >
             {data.map((item: any, index:number) => {
               return (
-                <TaskItem
+                <PersonTaskItem
                   key={`${item.categoryId}-${index}`}
                   item={item}
+									isMine={props.isMine}
+                  from={props.from}
                 />
               );
             })}

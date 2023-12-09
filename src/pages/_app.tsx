@@ -15,7 +15,7 @@ import { Session } from 'next-auth';
 import { LanguageProvider } from 'contexts/LanguageContext';
 import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
+import './global.css'
 import theme from 'theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, goerli } from 'wagmi/chains';

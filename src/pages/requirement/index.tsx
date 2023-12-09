@@ -1,13 +1,11 @@
-// import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
-import { Box, Button, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { SearchInput } from "components/search";
-import FilSelect from "components/select";
+import { Button, } from "@chakra-ui/react";
 import { useMyRequirements } from "hooks/myrequirements";
-import { ProfessionTypes, ProTypes, TabsEnum, TaskTypes, useSingleTaskFilter, useTaskList, useTasks } from "hooks/task";
+import {useSingleTaskFilter, useTaskList, useTasks } from "hooks/task";
 import TaskTemplate from "views/task/Template";
 import { IoMdAdd } from "react-icons/io";
+import Link from "next/link";
 
-
+// 我的需求
 export default function MyRequirements() {
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
@@ -35,8 +33,8 @@ export default function MyRequirements() {
 		handleSearch
 	}
   return (
-		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange}>
-      <Button background="#7551FF" color="#fff"><IoMdAdd />发布需求</Button>
+		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange} isMine={true} from="myrequirement">
+      <Link href={`/requirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />发布需求</Button></Link>
     </TaskTemplate>
 	)
 }

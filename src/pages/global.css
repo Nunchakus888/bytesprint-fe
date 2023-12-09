@@ -1,0 +1,17 @@
+.ql-toolbar, .ql-container {
+  border-color: rgba(255, 255, 255, 0.25)!important;
+  border-radius: 4px;
+  /* span {
+    color: #fff;
+  }
+  svg {
+    color: #fff!important;
+  } */
+}
+.ql-container {
+  border-radius: 0;
+}
+.ql-snow .ql-stroke, .ql-picker {
+  /* color: #fff!important;
+  stroke: #fff!important; */
+}

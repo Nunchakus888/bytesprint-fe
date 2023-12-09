@@ -1,18 +1,21 @@
 // import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { ProfessionTypes, ProTypes, TabsEnum, TaskTypes, useSingleTaskFilter, useTaskList, useTasks } from "hooks/task";
+import {  useSingleTaskFilter, useTaskList, useTasks } from "hooks/task";
 
 import AdminLayout from "layouts/admin";
 import { useEffect } from "react";
+import { RequirementType, TabsEnum } from "utils/constant";
 import styles from './index.module.scss'
 import PersonTask from "./list/PersonTask";
 import SingleTask from "./list/SingleTask";
 
 export default function TaskTemplate (props: {
 	children?: React.ReactNode,
+	isMine?: boolean // 是否是我的
+	from?: string // 来自我的需求、大厅、我的任务
   tabs: any[],
-  activeTab: string,
-  handleTabChange: (val:string) => void,
+  activeTab: RequirementType,
+  handleTabChange: (val:RequirementType) => void,
   data: {loading:boolean, data:any[], hasMore: boolean, fetchMoreData: ()=> void, refetchData: () => void, handleSearch: (val:string) => void, onChange: (val:string, s: string) => void,refreshFilter:() => void},
   // person: {loading:boolean, data:any[], hasMore: boolean, fetchMoreData: ()=> void, refetchData: () => void, handleSearch: (val:string) => void, onChange: (val:string, s: string) => void,refreshFilter:() => void}
 }){
@@ -56,8 +59,8 @@ export default function TaskTemplate (props: {
 							tabs?.map(it => {
 								return (
 									<TabPanel padding="0" key={`${it.label}_tabcontent`}>
-										{it.label === TabsEnum.SINGLE_TASK && <SingleTask single={data} />}
-										{it.label === TabsEnum.PERSON_TASK && <PersonTask person={data } />}
+										{it.label === TabsEnum.SINGLE_TASK && <SingleTask single={data} isMine={props.isMine} from={props.from}/>}
+										{it.label === TabsEnum.PERSON_TASK && <PersonTask person={data} isMine={props.isMine} from={props.from}/>}
 									</TabPanel>
 								)
 							})

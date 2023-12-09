@@ -1,13 +1,16 @@
 import { Box, Button, Flex, Tag } from "@chakra-ui/react"
 import { Image } from '@chakra-ui/react'
 import Link from "next/link"
+import { RequirementStatus, TaskStatus } from "utils/constant"
 import styles from './index.module.scss'
 export default function PersonTaskItem(props: {
 	item: any
+	isMine?: boolean
+	from?: string
 }) {
 	return (
 		<Box className={styles.personItemContainer}>
-			<Flex justify="space-between">
+			<Flex justify="space-between" position="relative">
 				<Box className={styles.imgbox}><Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' /></Box>
 				<Box display="flex" flexDirection="column" width="-webkit-fill-available">
 					<Box>
@@ -49,6 +52,13 @@ export default function PersonTaskItem(props: {
 						</Button>
 					</Box>
 				</Box>
+				{props.isMine && props.from === 'myrequirement'
+					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{RequirementStatus.filter(it => it.value === '2')[0].label}</Tag>
+					
+				}
+				{props.isMine && props.from === 'mytask'
+					 && <Tag position="absolute" top="0" right="0" variant='outline' size="md">{TaskStatus.filter(it => it.value === '1')[0].label}</Tag>
+				}
 			</Flex>
 		</Box>
 	)

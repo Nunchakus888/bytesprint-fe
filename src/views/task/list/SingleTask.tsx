@@ -9,12 +9,13 @@ import Auth from "../Auth"
 import useChange from "hooks/useChange"
 import { useEffect } from "react"
 import Loading from "components/loading"
-import { ProfessionTypes, ProTypes, TaskTypes } from "utils/constant"
+import { ProfessionTypes, ProTypes, RequirementStatus, TaskStatus, TaskTypes } from "utils/constant"
 
-// TODO 切换tab刷新接口
-// TODO 任务详情
+
 function SingleTask(props: {
 	isCurrent?: boolean,
+  isMine?: boolean
+  from?: string
 	single: {loading:boolean, data:any[], hasMore: boolean, fetchMoreData: ()=> void, handleSearch: (val:string) => void, onChange: (val:string, s: string) => void}
 }) {
 	
@@ -29,9 +30,19 @@ function SingleTask(props: {
 				placeholder="任务名称"
 				search={handleSearch}></SearchInput>
 			<Box display="flex" justifyContent="flex-end">
-				<FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
+        {props.isMine ? 
+          <>
+          <FilSelect options={props.from === 'myrequirement' ? RequirementStatus : TaskStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
+          <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
+				  <FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
+          </>:
+          <>
+            <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
 				<FilSelect options={TaskTypes} placeholder="任务类型" change={(val) => onChange('taskType', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
+          </>
+        }
+				
 			</Box>
 		</Flex>
 		<Box mt={{base: '20px'}}>
@@ -52,6 +63,8 @@ function SingleTask(props: {
                 <TaskItem
                   key={`${item.categoryId}-${index}`}
                   item={item}
+                  isMine={props.isMine}
+                  from={props.from}
                 />
               );
             })}

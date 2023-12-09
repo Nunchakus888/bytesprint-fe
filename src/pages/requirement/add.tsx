@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Back from "components/back";
-import { RequirementType, requirementTypes } from "hooks/myrequirements/add";
+import { requirementTypes } from "hooks/myrequirements/add";
 import AdminLayout from "layouts/admin";
 import Image from 'next/image'
 import { useState } from "react";
@@ -28,8 +28,8 @@ export default function AddRequirement() {
                         <Box key={it.type} background="rgba(255,255,255,0.05)" position="relative" padding="10px 20px" borderRadius={4} cursor="pointer" _hover={{background: "rgba(255,255,255,0.9)", color: '#7551FF'}} onClick={(e) => handleClick(it)}>
                           {selectType === it.type && <i className={styles.selected}><IoCheckmarkOutline fontSize={18} className={styles.checkIcon}/></i>}
                           <Box className={styles[it.type]}>
-                            <Text fontSize={22} fontWeight="bold">{it.title}</Text>
-                            <Text fontSize={14} whiteSpace="nowrap">{it.desc}</Text>
+                            <Text fontSize={14} fontWeight="bold">{it.title}</Text>
+                            <Text fontSize={12} whiteSpace="nowrap">{it.desc}</Text>
                           </Box>
                         </Box>
                       )

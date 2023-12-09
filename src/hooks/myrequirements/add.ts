@@ -1,6 +1,6 @@
 import _ from "lodash"
 import { useRouter } from "next/router"
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { IRequirement, RequirementType } from "utils/constant"
 
 
@@ -18,25 +18,17 @@ export const useAddRequirement = () => {
     const {requireType = ''} = router.query
     console.log(requireType)
     // @ts-ignore
-    return requirementTypes.filter(it => it.type === requireType)[0]?.title
+    return requirementTypes.filter(it => it.type === requireType)[0]
   }, [router])
 
-  // 表单
-  const [form, setForm] = useState<IRequirement>(null)
-  const [errors, setErrors] = useState<any>({})
-
-  const handleInputChange = (e:any, key: string) => {
-    const val = e.target.value
-    setForm({
-      ...form,
-      [key]: val
-    })
-    // TODO set errors
-  }
+  // 保存需求 TODO currentRequire 创建的类型 
+  const saveRequirement = useCallback(async (data: any) => {
+    // 任务类型，根据身份匹配
+    return true
+  }, [])
   return {
     currentRequire,
-    form,
-    errors,
-    handleInputChange
+    saveRequirement,
+    router
   }
 }
