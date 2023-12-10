@@ -1,11 +1,12 @@
 import { Avatar, Box, Button, Flex, Link, Text } from "@chakra-ui/react"
 import { useCallback, useMemo } from "react"
 import { shortAddress } from "utils"
-import { IPath, IStatus, RequirementStatus, TaskBidStatus, TaskStatus } from "utils/constant"
+import { IPath, IStatus, RequirementStatus, RequirementType, TaskBidStatus, TaskStatus } from "utils/constant"
 import styles from './index.module.scss'
 import dayjs from 'dayjs'
 import { MdKeyboardArrowRight } from "react-icons/md";
 export default function TaskBidRecords(props: {
+  from?: IPath
   recordList: {bidStatus: TaskBidStatus, [key: string]: string}[]
   taskStatus: IStatus  // 需求状态
   signBid?: (recordId: string) => void // 签约TA
@@ -47,17 +48,37 @@ export default function TaskBidRecords(props: {
               <Flex alignItems="center" gap="20px">
                 <Link display="flex" alignItems="center" color="#7551FF" fontWeight="bold" onClick={() => openRecordDetail(it.id)}>详情<MdKeyboardArrowRight color="#2350AD" fontSize={14}/></Link>
                 <Box width="1px" background="#fff" height="40px"></Box>
-                {/* 淘汰 */}
-                {TaskBidStatus.BID_FAIL === it.bidStatus && <Box width="100px" className={styles.unbid}></Box>}
+                {
+                  props.from === IPath.MYREQUIREMENT && (
+                    <>
+                    {/* 淘汰 */}
+                    {TaskBidStatus.BID_FAIL === it.bidStatus && <Box width="100px" className={styles.unbid}></Box>}
+                    {/* 中标 */}
+                    {TaskBidStatus.BID_SUCCESS === it.bidStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
 
-                {/* 中标 */}
-                {TaskBidStatus.BID_SUCCESS === it.bidStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
+                    {/* 待签约 */}
+                    {!it.bidStatus && taskStatus === IStatus.WAIT_SIGN && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
+                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it.id)}>签约TA</Button>
+                      <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it.id)}>淘汰TA</Link>
+                    </Box>}
+                    </>
+                  )
+                }
 
-                {/* 待签约 */}
-                {!it.bidStatus && taskStatus && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
-                  <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it.id)}>签约TA</Button>
-                  <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it.id)}>淘汰TA</Link>
-                </Box>}
+                {
+                  props.from === IPath.MYTASKS && (
+                    <>
+                      {/* 淘汰 */}
+                      {TaskBidStatus.BID_FAIL === it.bidStatus && <Box width="100px" className={styles.unbid}></Box>}
+                      {/* 中标 */}
+                      {TaskBidStatus.BID_SUCCESS === it.bidStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
+
+                      {/* 待签约 */}
+                      {!it.bidStatus && taskStatus === IStatus.WAIT_SIGN && <Text width="100px" textAlign="center" color="#7551FF" fontWeight="bold" fontSize={16}>待签约</Text>}
+                    </>
+                  )
+                }
+                
               </Flex>
             </Flex>
           )
