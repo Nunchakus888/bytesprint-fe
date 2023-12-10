@@ -1,24 +1,21 @@
 //@ts-nocheck
 import styles from './index.module.scss';
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
 import classnames from 'classnames';
 //@ts-ignore
-import { maxDecimal, shortAddress, toNumber } from 'utils';
+import { maxDecimal } from 'utils';
 import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
+import useConect from 'hooks/useConnect';
 
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
-  const { chain } = useNetwork();
-  const { data: balance } = useBalance({
-    address,
-    chainId: chain?.id,
-  });
+  const { disconnect } = useConect();
 
   return (
     <ConnectButton.Custom>
@@ -79,11 +76,10 @@ export const CustomConnectButton = () => {
                           padding: '8px 12px',
                           borderRadius: '8px',
                         }}
-                        className="display-item display-text"
+                        className="display-item display-text cursor-pointer"
                       >
                         <span>
-                          {toNumber(maxDecimal(account?.balanceFormatted || 0))}{' '}
-                          {account?.balanceSymbol}
+                          {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol}
                         </span>
                         <Box className="px-1" color={'#3a3a3a'}>
                           |
@@ -126,7 +122,7 @@ export const CustomConnectButton = () => {
                       borderRadius={4}
                       fontSize={'14px'}
                       px={1}
-                      // onClick={disconnect}
+                      onClick={disconnect}
                       style={{ display: 'flex', justifyContent: 'flex-start' }}
                     >
                       Disconnect
