@@ -4,50 +4,25 @@ import { Get } from "utils/axios";
 import { IStatus } from "utils/constant";
 
 // detail status operator
-export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
+export const useMyTaskDetailStatusAction = (id: string | string[]) => {
   
   
 
-  // 打开任务
-  const openTask = () => {
-    // prompt
-    // open
-    // refresh
+  // 任务排期
+  const scheduleTask = () => {
   }
-
-  // 关闭任务
-  const closeTask = () => {
-
-  }
-
-  // 验收任务
-  const acceptTask = () => {
-
-  }
-
-  // 签约TA
-  const signBid = () => {
-
-  }
-  // 淘汰TA
-  const unSignBid = () => {
-
-  }
-  // 打开详情
-  const openRecordDetail = () => {
-
-  }
+  const submitAccept = () => {}
+  const withdrawMyRewards = () => {}
 
   return {
-    openTask,
-    closeTask,
-    acceptTask,
-    signBid,unSignBid, openRecordDetail
+    scheduleTask,
+    submitAccept,
+    withdrawMyRewards
   }
 }
 
 // 任务详情
-export const useMyRequirementDetail = (id: string | string[]) => {
+export const useMyTaskDetail = (id: string | string[]) => {
   // const { data, isLoading } = useSWR(
   //   id
   //     ? API_ROUTERS.tasks.TASKS_DETAIL({

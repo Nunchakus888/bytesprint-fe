@@ -52,7 +52,7 @@ export default function TaskStatusInfo(props: {
     else if (from === IPath.MYTASKS) {
       switch(taskStatus) {
         case IStatus.WAIT_SIGN:
-          return <Text>等待货主签约</Text>
+          return <Text className={styles.statustext}>等待货主签约</Text>
           break;
         case IStatus.UN_BID:
           return <Box className={styles.unbid}></Box>
@@ -64,7 +64,7 @@ export default function TaskStatusInfo(props: {
           return <Button onClick={props?.submitAccept}>提交验收</Button>
           break;
         case IStatus.WAIT_ACCEPT:
-          return <Text>等待货主验收</Text>
+          return <Text className={styles.statustext}>等待货主验收</Text>
           break;
         case IStatus.COMPLETE:
           return <Button onClick={props?.withdrawMyRewards}>提取我的报酬</Button>

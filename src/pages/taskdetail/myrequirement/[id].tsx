@@ -46,7 +46,7 @@ const TaskDetail = () => {
           <Box display="flex" gap="20px">
             <Flex direction="column">
               <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate}/>
-              <TaskBidRecords recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={()=>{}}/>
+              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={()=>{}}/>
               <TaskDescription />
             </Flex>
             <Flex direction="column">
