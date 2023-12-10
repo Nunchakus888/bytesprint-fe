@@ -53,10 +53,10 @@ export default function PersonTaskItem(props: {
 					</Box>
 				</Box>
 				{props.isMine && props.from === IPath.MYREQUIREMENT
-					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{RequirementStatus.filter(it => it.value === '2')[0].label}</Tag>
+					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{RequirementStatus.filter(it => it.value === '2')[0]?.label}</Tag>
 				}
 				{props.isMine && props.from === IPath.MYTASKS
-					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{TaskStatus.filter(it => it.value === '1')[0].label}</Tag>
+					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{TaskStatus.filter(it => it.value === '1')[0]?.label}</Tag>
 				}
 			</Flex>
 		</Box>

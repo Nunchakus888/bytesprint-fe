@@ -6,6 +6,8 @@ import { IStatus } from "utils/constant";
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   
+  
+
   // 打开任务
   const openTask = () => {
     // prompt
@@ -23,10 +25,24 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 
   }
 
+  // 签约TA
+  const signBid = () => {
+
+  }
+  // 淘汰TA
+  const unSignBid = () => {
+
+  }
+  // 打开详情
+  const openRecordDetail = () => {
+
+  }
+
   return {
     openTask,
     closeTask,
-    acceptTask
+    acceptTask,
+    signBid,unSignBid, openRecordDetail
   }
 }
 

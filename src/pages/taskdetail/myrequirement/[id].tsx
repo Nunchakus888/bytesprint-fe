@@ -8,9 +8,10 @@ import { useUserInfo } from "hooks/user";
 import AdminLayout from "layouts/admin"
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
-import { Identification, IPath, IStatus } from "utils/constant";
+import { Identification, IPath, IStatus, TaskBidStatus } from "utils/constant";
 import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
+import TaskBidRecords from "views/task/detail/taskBidRecords";
 import TaskDescription from "views/task/detail/taskDescription";
 import TaskMovement from "views/task/detail/taskMovement";
 import TaskSignedReward from "views/task/detail/taskSignedReward";
@@ -29,7 +30,7 @@ const TaskDetail = () => {
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
   const { openTask, closeTask,
-    acceptTask } = useMyRequirementDetailStatusAction(id)
+    acceptTask, signBid,unSignBid, openRecordDetail  } = useMyRequirementDetailStatusAction(id)
   
   const isShowExtendTaskInfo = useMemo(() => {
     if ([IStatus.SIGNED, IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data.taskStatus)) {
@@ -45,6 +46,7 @@ const TaskDetail = () => {
           <Box display="flex" gap="20px">
             <Flex direction="column">
               <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate}/>
+              <TaskBidRecords recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={()=>{}}/>
               <TaskDescription />
             </Flex>
             <Flex direction="column">
