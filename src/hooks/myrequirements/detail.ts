@@ -58,7 +58,7 @@ export const useMyRequirementDetail = (id: string | string[]) => {
   // );
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({taskStatus: IStatus.SIGNED})
+  const [data, setData] = useState({taskStatus: IStatus.WAIT_SIGN})
   const getData = async () => {
     try {
       setLoading(true)
