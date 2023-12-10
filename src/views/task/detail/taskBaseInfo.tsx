@@ -43,7 +43,7 @@ export default function TaskBaseInfo(props:{
           width="150px"
           height="50px"
           borderRadius="30px"
-          onClick={() => setIsOpenEvaluate(true)}
+          onClick={() => props.setIsOpenEvaluate(true)}
         >
           参与评估
         </Button>

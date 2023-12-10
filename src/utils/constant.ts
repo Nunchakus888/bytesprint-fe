@@ -178,3 +178,9 @@ export interface IRequirementPerson extends IRequirement {
   workPlace: string;
   workTime: string;
 }
+
+// 任务投标状态
+export enum TaskBidStatus {
+  BID_SUCCESS = '1',
+  BID_FAIL = '2',
+}

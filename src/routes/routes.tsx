@@ -5,7 +5,7 @@ import { MdBarChart, MdPerson, MdHome } from 'react-icons/md';
 import MainDashboard from 'pages/send-requirements';
 import Index from 'pages';
 import Profile from 'pages/profile';
-import Task from 'pages/tasks';
+import Task from 'pages/tasks/index';
 import MyRequirements from 'pages/myrequirement'
 import MyTasks from 'pages/mytasks'
 import { IRoute } from 'types/navigation';
