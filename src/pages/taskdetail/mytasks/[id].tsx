@@ -2,18 +2,21 @@ import { Box, Button, Code, Container, Flex, Tag } from "@chakra-ui/react"
 import Back from "components/back";
 import FileReviewer from "components/fileReviewer";
 import Loading from "components/loading";
+import { useMyTaskDetail, useMyTaskDetailStatusAction } from "hooks/mytasks/detail";
 import { useTaskDetail } from "hooks/task";
-import { useMyTaskDetail, useMyTaskDetailStatusAction } from "hooks/task/detai";
+import { useTaskPlanList } from "hooks/task/detai";
 import { useUserInfo } from "hooks/user";
 import AdminLayout from "layouts/admin"
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Identification, IPath, IStatus, TaskBidStatus } from "utils/constant";
 import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
 import TaskBidRecords from "views/task/detail/taskBidRecords";
 import TaskDescription from "views/task/detail/taskDescription";
 import TaskMovement from "views/task/detail/taskMovement";
+import TaskPlanList from "views/task/detail/taskPlanList";
+import TaskSchedule from "views/task/detail/taskSchedule";
 import TaskSignedReward from "views/task/detail/taskSignedReward";
 import TaskStatusInfo from "views/task/detail/taskStatusInfo";
 import TaskUserInfo from "views/task/detail/taskUserInfo";
@@ -28,14 +31,32 @@ const TaskDetail = () => {
   // detail
   const {data, isLoading } = useMyTaskDetail(id)
   const {identification } = useUserInfo()
-  const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
-  const { scheduleTask, submitAccept, withdrawMyRewards } = useMyTaskDetailStatusAction(id)
+  const { scheduleTask, startTask, submitAccept, withdrawMyRewards, getTaskEvaluateInfo } = useMyTaskDetailStatusAction(id)
+  // 打开任务排期
+  const [openschedule, setSchedule] = useState(false)
+  const [scheduledata, setScheduledata] = useState([])
+  useEffect(() => {
+    if (openschedule) {
+      getTaskEvaluateInfo().then(res => {
+        setScheduledata(res)
+      })
+    }
+  }, [openschedule])
+
   const isShowExtendTaskInfo = useMemo(() => {
-    if ([IStatus.SIGNED, IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data.taskStatus)) {
+    if ([IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data.taskStatus)) {
       return true
     }
     return false
   }, [data.taskStatus])
+  // 任务计划列表
+  const {data: planList, refresh} = useTaskPlanList(id as string, isShowExtendTaskInfo)
+  const { completePlanItem } = useMyTaskDetailStatusAction(id)
+  // 完成任务计划
+  const completePlan = async (planId: string) => {
+    await completePlanItem(planId)
+    refresh()
+  }
   return (
     <AdminLayout>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
@@ -43,13 +64,14 @@ const TaskDetail = () => {
         {isLoading ? <Loading /> :
         <Box display="flex" gap="20px">
           <Flex direction="column">
-            <TaskBaseInfo from={IPath.MYTASKS} setIsOpenEvaluate={setIsOpenEvaluate} />
+            <TaskBaseInfo from={IPath.MYTASKS} />
+            {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYTASKS} completePlan={completePlan} planlist={planList}/>}
             {/* TODO 待签约-我的投标； 其他： 投标记录 */}
-            <TaskBidRecords from={IPath.MYTASKS} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} openRecordDetail={()=>{}}/>
+            <TaskBidRecords from={IPath.MYTASKS} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: TaskBidStatus.BID_SUCCESS, id:"2"}]} taskStatus={data.taskStatus} openRecordDetail={()=>{}}/>
             <TaskDescription />
           </Flex>
           <Flex direction="column">
-            <TaskStatusInfo from={IPath.MYTASKS} taskStatus={data.taskStatus} scheduleTask={scheduleTask} submitAccept={submitAccept} withdrawMyRewards={withdrawMyRewards}/>
+            <TaskStatusInfo from={IPath.MYTASKS} taskStatus={data.taskStatus} scheduleTask={() => setSchedule(true)} submitAccept={submitAccept} withdrawMyRewards={withdrawMyRewards}/>
             {data.taskStatus !== IStatus.WAIT_SIGN && <TaskSignedReward totalUsdt={"1000.00"} completeTime={Date.now()}/>}
             <TaskUserInfo title="我的信息" userInfo={{}}/>
             <TaskMovement movementList={[{time: Date.now(), taskStatus: IStatus.CLOSED},{time: Date.now(), taskStatus: IStatus.EVALUATION},{time: Date.now(), taskStatus: IStatus.WAIT_SIGN},{time: Date.now(), taskStatus: IStatus.CLOSED}]}/>
@@ -57,9 +79,8 @@ const TaskDetail = () => {
         </Box>
         }
         <Auth />
+        {openschedule && scheduledata.length && <TaskSchedule onClose={() => setSchedule(false)} taskId={id as string} scheduleTask={scheduleTask} startTask={startTask} scheduledata={scheduledata}/>}
       </Box>
-
-      {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
     </AdminLayout>
   )
 }

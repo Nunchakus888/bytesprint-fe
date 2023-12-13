@@ -6,10 +6,11 @@ export default function ModalDialog(props: {
   onClose?: () => void,
   title?: string,
   buttonText?: string,
-  onSure: () => void
+  onSure?: () => void
   size?: string
+  btnGroup?: React.ReactNode
 }) {
-  const {isOpen, onClose, title, buttonText, onSure, children, size} = props
+  const {isOpen, onClose, title, buttonText, onSure, children, size, btnGroup} = props
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={size || "6xl"}>
         <ModalOverlay />
@@ -21,10 +22,15 @@ export default function ModalDialog(props: {
           </ModalBody>
 
           <ModalFooter>
-            <Button background="#7551FF" mr={3} onClick={onSure}>
-              {buttonText || '确定'}
-            </Button>
-            <Button variant='ghost' onClick={onClose}>取消</Button>
+            {btnGroup ? btnGroup :
+              <>
+                <Button background="#7551FF" mr={3} onClick={onSure}>
+                  {buttonText || '确定'}
+                </Button>
+                <Button variant='ghost' onClick={onClose}>取消</Button>
+              </>
+            }
+            
           </ModalFooter>
         </ModalContent>
       </Modal>

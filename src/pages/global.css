@@ -15,3 +15,10 @@
   /* color: #fff!important;
   stroke: #fff!important; */
 }
+
+.chakra-form-control input {
+  color: #fff;
+}
+.chakra-input {
+  color: #fff!important;
+}
