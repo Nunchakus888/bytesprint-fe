@@ -13,7 +13,9 @@ export default function TaskBidRecords(props: {
   unSignBid?: (recordId: string) => void // 淘汰TA
   openRecordDetail ?: (recordId: string) => void  // 详情
 }) {
-  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail } = props
+  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail, from } = props
+
+
   return (
     <Box
       display="flex"
@@ -26,7 +28,9 @@ export default function TaskBidRecords(props: {
       minHeight="200px"
       className={styles.container}
     >
-      <Text fontSize={18} fontWeight="bold">投标记录：{recordList.length}</Text>
+      <Text fontSize={18} fontWeight="bold">
+        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `投标记录：${recordList.length}`}
+      </Text>
       <Box marginTop="30px"  width="100%">
         {recordList.map((it,index) => {
           return (

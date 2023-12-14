@@ -1,6 +1,6 @@
 import { Box, Button, Code, Container, Tag } from "@chakra-ui/react"
 import Back from "components/back";
-import FileReviewer from "components/fileReviewer";
+import FileReviewer from "components/fileReview";
 import Loading from "components/loading";
 import { useTaskDetail } from "hooks/task";
 import { useUserInfo } from "hooks/user";

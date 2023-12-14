@@ -1,6 +1,6 @@
 import { Box, Button, Code, Container, Flex, Tag } from "@chakra-ui/react"
 import Back from "components/back";
-import FileReviewer from "components/fileReviewer";
+import FileReviewer from "components/fileReview";
 import Loading from "components/loading";
 import { useMyTaskDetail, useMyTaskDetailStatusAction } from "hooks/mytasks/detail";
 import { useTaskDetail } from "hooks/task";
@@ -14,6 +14,7 @@ import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
 import TaskBidRecords from "views/task/detail/taskBidRecords";
 import TaskDescription from "views/task/detail/taskDescription";
+import TaskEvaluateDetail from "views/task/detail/taskEvaluateDetail";
 import TaskMovement from "views/task/detail/taskMovement";
 import TaskPlanList from "views/task/detail/taskPlanList";
 import TaskSchedule from "views/task/detail/taskSchedule";
@@ -50,13 +51,17 @@ const TaskDetail = () => {
     return false
   }, [data.taskStatus])
   // 任务计划列表
-  const {data: planList, refresh} = useTaskPlanList(id as string, isShowExtendTaskInfo)
+  const {data: planList, refresh, 
+    openRecordDetailId,
+    handleOpenRecordDetail,
+    closeRecordDetail} = useTaskPlanList(id as string, isShowExtendTaskInfo)
   const { completePlanItem } = useMyTaskDetailStatusAction(id)
   // 完成任务计划
   const completePlan = async (planId: string) => {
     await completePlanItem(planId)
     refresh()
   }
+  
   return (
     <AdminLayout>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
@@ -66,20 +71,21 @@ const TaskDetail = () => {
           <Flex direction="column">
             <TaskBaseInfo from={IPath.MYTASKS} />
             {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYTASKS} completePlan={completePlan} planlist={planList}/>}
-            {/* TODO 待签约-我的投标； 其他： 投标记录 */}
-            <TaskBidRecords from={IPath.MYTASKS} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: TaskBidStatus.BID_SUCCESS, id:"2"}]} taskStatus={data.taskStatus} openRecordDetail={()=>{}}/>
+            {/* 待签约-我的投标； 其他： 投标记录 */}
+            <TaskBidRecords from={IPath.MYTASKS} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: TaskBidStatus.BID_SUCCESS, id:"2"}]} taskStatus={data.taskStatus} openRecordDetail={handleOpenRecordDetail}/>
             <TaskDescription />
           </Flex>
           <Flex direction="column">
             <TaskStatusInfo from={IPath.MYTASKS} taskStatus={data.taskStatus} scheduleTask={() => setSchedule(true)} submitAccept={submitAccept} withdrawMyRewards={withdrawMyRewards}/>
-            {data.taskStatus !== IStatus.WAIT_SIGN && <TaskSignedReward totalUsdt={"1000.00"} completeTime={Date.now()}/>}
+            {data.taskStatus !== IStatus.WAIT_SIGN && <TaskSignedReward totalUsdt={"1000.00"} completeTime={1702545889368}/>}
             <TaskUserInfo title="我的信息" userInfo={{}}/>
-            <TaskMovement movementList={[{time: Date.now(), taskStatus: IStatus.CLOSED},{time: Date.now(), taskStatus: IStatus.EVALUATION},{time: Date.now(), taskStatus: IStatus.WAIT_SIGN},{time: Date.now(), taskStatus: IStatus.CLOSED}]}/>
+            <TaskMovement movementList={[{time: 1702545889368, taskStatus: IStatus.CLOSED},{time: 1702545889368, taskStatus: IStatus.EVALUATION},{time: 1702545889368, taskStatus: IStatus.WAIT_SIGN},{time: 1702545889368, taskStatus: IStatus.CLOSED}]}/>
           </Flex>
         </Box>
         }
         <Auth />
         {openschedule && scheduledata.length && <TaskSchedule onClose={() => setSchedule(false)} taskId={id as string} scheduleTask={scheduleTask} startTask={startTask} scheduledata={scheduledata}/>}
+        {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYTASKS} recordId={openRecordDetailId} onClose={closeRecordDetail}/>}
       </Box>
     </AdminLayout>
   )
