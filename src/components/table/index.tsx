@@ -13,14 +13,15 @@ export default function BYTable(props: {
 }) {
   const {columns, dataSource} = props
   return (
-    <TableContainer>
+    <TableContainer display="flex" justifyContent="space-between" overflow="visible" width="100%">
       <Table variant='simple'>
     {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
     <Thead>
       <Tr>
         {
           columns?.map((it, index) => {
-            return <Th key={`${it.key}`} padding="10px">{it.title}</Th>
+            const {width, textAlign } = it
+            return <Th key={`${it.key}_${Date.now()}` } width={width} textAlign={textAlign}  padding="10px">{it.title}</Th>
           })
         }
       </Tr>
@@ -38,10 +39,10 @@ export default function BYTable(props: {
                   return (
                     <>
                       {
-                        isRender ? <Td key={`${value}_${index}_${ci}`} borderBottom="none" padding="10px">
+                        isRender ? <Td key={`${value || Date.now()}_${index}_${ci}`} borderBottom="none" padding="10px">
                           {c.render(dataSource, data, index)}
                         </Td>:
-                        <Td key={`${value}_${index}_${ci}`} borderBottom="none" padding="10px">{value}</Td>
+                        <Td key={`${value || Date.now()}_${index}_${ci}`} borderBottom="none" padding="10px">{value}</Td>
                       }
                     </>
                     

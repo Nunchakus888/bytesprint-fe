@@ -1,77 +1,31 @@
-import { Box, Flex, Input, InputGroup, InputRightElement, Link, styled, Text } from "@chakra-ui/react";
+import { Box, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputRightElement, Link, styled, Text } from "@chakra-ui/react";
 import ModalDialog from "components/modal";
-import BYTable from "components/table";
-import { getExchangeRate, useEvaluate } from "hooks/task/evaluate";
-import { useEffect, useState } from "react";
+import { useEvaluate } from "hooks/task/evaluate";
 import { IoIosAdd } from "react-icons/io";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import styles from './index.module.scss'
 import _ from "lodash";
+
+
 export default function Evaluate(props: {
   isOpen?: boolean,
   onClose?: () => void
 }) {
   const {isOpen, onClose} = props
-  const {dataSource,
-    tasknames,
-    handleTaskNameChange,
-    usdts,
-    cnys,
-    addEvaluate,
-    deleteEvaluate,
-    handleUsdtChange,
-    handleSure, 
+  const {
+    fields,
+    append,
+    remove,
     totalCnys,
-    totalUsdt,} = useEvaluate()
+    totalUsdt,
+    cnys,
+    errors,
+    register,
+    handleSure,
+    setValue,
+    getValues,
+    } = useEvaluate()
   
-
-  const columns = [
-    {
-      title: '序号',
-			dataIndex: 'xuhao',
-			key: 'xuhao',
-      render: (_:any, record:any, index:number) => {
-				return <Box paddingLeft="5px">{index+1}</Box>
-			},
-    },
-    {
-      title: '任务名称',
-			dataIndex: 'renwumingcheng',
-			key: 'renwumingcheng',
-      render: (_:any, record: any,index: number) => {
-				return <Input value={tasknames[index]} color="#fff" placeholder='请输入' size='md' autoFocus onChange={(e) => handleTaskNameChange(e, index)}/>
-			},
-    },
-    {
-      title: '费用（USDT）',
-			dataIndex: 'usdt',
-			key: 'usdt',
-      render: (_:any, record:any, index: number) => {
-				return <Input value={usdts[index]} type="number" min={0} color="#fff" placeholder='请输入' size='md' onChange={(e) => handleUsdtChange(e, index)}/>
-			},
-    },
-    {
-      title: '价值(CNY)',
-			dataIndex: 'cny',
-			key: 'cny',
-      render: (_:any, record:any, index:number) => {
-				return <Box paddingLeft="5px">{cnys[index]}</Box>
-			},
-    },
-    {
-      title: '操作',
-			dataIndex: 'cny',
-			key: 'cny',
-      render: (_:any, record: any, index: number) => {
-				return <Link color="#7551FF" onClick={() => deleteEvaluate(index)}>删除</Link>
-			},
-    }
-  ]
-  
-  // 完成时间
-  const [date, setDate] = useState(new Date());
-  
-
   return (
     <ModalDialog 
       title="参与评估"
@@ -80,12 +34,44 @@ export default function Evaluate(props: {
       buttonText="评估质押"
       onSure={handleSure}
     >
-
       <Box>
         <Text fontSize='lg'>任务清单</Text>
-        <Box background="rgba(255,255,255,0.05)" padding="0 0 20px" margin="10px 0 20px 0">
-          <BYTable columns={columns} dataSource={dataSource}></BYTable>
-          <Link onClick={addEvaluate} color="#7551FF" display="flex" justifyContent="center" alignItems="center">
+        <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
+          <Flex justify="space-between">
+            <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
+            <Flex alignItems="center" justifyContent="center" width="400px">任务名称</Flex>
+            <Flex alignItems="center" justifyContent="center" width="400px">费用（USDT）</Flex>
+            <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex>
+            <Flex width="100px" alignItems="center" justifyContent="center" >操作</Flex>
+          </Flex>
+          {
+            fields.map((it,index) => {
+              return (
+                <Flex key={`line_${index}`} justify="space-between" padding="10px 0">
+                  <Flex alignItems="center" justifyContent="center" width="100px">{index+1}</Flex>
+                  <Flex alignItems="center" justifyContent="center" width="400px" paddingRight="10px">
+                    <FormControl isInvalid={!!errors?.datas?.[index]?.taskname} isRequired>
+                      <Input id={`id.${index}.taskname`} name={`datas.${index}.taskname`} color="#fff" placeholder='请输入任务名称' size='md' {...register(`datas.${index}.taskname`, { required: true })}  />
+                      <FormErrorMessage>
+                        {errors?.datas?.[index]?.taskname && <>{errors?.datas?.[index]?.taskname.message}</>}
+                      </FormErrorMessage>
+                    </FormControl>
+                  </Flex>
+                  <Flex alignItems="center" justifyContent="center" width="400px" paddingRight="10px">
+                    <FormControl isInvalid={!!errors?.datas?.[index]?.usdt} isRequired>
+                      <Input id={`id.${index}.usdt`} name={`datas.${index}.usdt`} color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.usdt`, { required: true, min: 0 })}  /> 
+                      <FormErrorMessage>
+                        {errors?.datas?.[index]?.usdt && <>{errors?.datas?.[index]?.usdt.message}</>}
+                      </FormErrorMessage>
+                    </FormControl>
+                  </Flex>
+                  <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex>
+                  <Flex width="100px" alignItems="center" justifyContent="center" ><Link color="#7551FF" onClick={() => remove(index)}>删除</Link></Flex>
+                </Flex>
+              )
+            })
+          }
+          <Link onClick={() => append({taskname: '', usdt: ''})} color="#7551FF" display="flex" justifyContent="center" alignItems="center">
             <IoIosAdd />
             添加任务
           </Link>
@@ -101,15 +87,17 @@ export default function Evaluate(props: {
           <Box margin="10px 0 20px 0" className={styles.datepicker}>
             <SingleDatepicker
               name="date-input"
-              date={date}
-              onDateChange={setDate}
+              date={getValues().endTime}
+              onDateChange={(date) => setValue("endTime", date)}
+              {...register("endTime", { required: true })}
             />
             <Text fontSize='lg' margin="10px 0 0 0">需质押USDT数量</Text>
             <InputGroup margin="10px 0 5px 0">
               <InputRightElement>USDT</InputRightElement>
-              <Input isReadOnly value={(Number(totalUsdt)*0.1).toFixed(2)} color="#fff"></Input>
+              <Input name="need-usdt" isReadOnly value={(Number(totalUsdt)*0.1).toFixed(2)} color="#fff"></Input>
             </InputGroup>
             <Text fontSize='xs' color="#7551FF">质押数量=费用合计*10%</Text>
+            
         </Box>
       </Box>
     </ModalDialog>

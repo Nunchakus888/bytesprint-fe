@@ -58,16 +58,16 @@ export default function TaskStatusInfo(props: {
           return <Box className={styles.unbid}></Box>
           break;
         case IStatus.SIGNED:
-          return <Button onClick={props?.scheduleTask}>任务排期</Button>
+          return <Button className={styles.statusbtn} onClick={props?.scheduleTask}>任务排期</Button>
           break;
         case IStatus.CODEING:
-          return <Button onClick={props?.submitAccept}>提交验收</Button>
+          return <Button className={styles.statusbtn} onClick={props?.submitAccept}>提交验收</Button>
           break;
         case IStatus.WAIT_ACCEPT:
           return <Text className={styles.statustext}>等待货主验收</Text>
           break;
         case IStatus.COMPLETE:
-          return <Button onClick={props?.withdrawMyRewards}>提取我的报酬</Button>
+          return <Button className={styles.statusbtn} onClick={props?.withdrawMyRewards}>提取我的报酬</Button>
           break;
         default:
           return <></>

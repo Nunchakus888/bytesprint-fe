@@ -1,52 +1,57 @@
-import axios from 'axios';
-import _ from 'lodash';
-import { useEffect, useMemo, useState } from 'react';
+import axios from "axios"
+import _ from "lodash"
+import { useEffect, useMemo, useState } from "react"
+import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 
-export const useEvaluate = () => {
-  // 源数据
-  const [dataSource, setDataSource] = useState([{}, {}, {}]);
-  // 任务名称
-  const [tasknames, setTaskNames] = useState(['', '', '']);
-  // usdt
-  const [usdts, setUsdts] = useState(['', '', '']);
 
+export const useEvaluate = () => { 
   // 汇率
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState(0)
+
   useEffect(() => {
     getExchangeRate().then((res) => {
       setRate(+res);
     });
   }, []);
 
+  const { register, control, handleSubmit, reset, watch, formState:{ errors, }, setValue , getValues} = useForm({
+    defaultValues: {
+      datas: [{taskname: '', usdt: ''}],
+      endTime: new Date()
+    },
+    mode:'onChange'
+  });
+  const {
+    fields,
+    append,
+    prepend,
+    remove,
+    swap,
+    move,
+    insert,
+    replace
+  } = useFieldArray({
+    control,
+    name: "datas"
+  });
+
+  const results = watch() 
+  useEffect(() => {
+    console.log("result>>", results)
+  }, [results])
   // cnys
   const cnys = useMemo(() => {
-    return usdts.map((it) => {
+    const datas = results.datas.map(it => {
       try {
-        //@ts-ignore
-        if (it && +it < 0) it = 0;
-        //@ts-ignore
-        return Number(it * rate).toFixed(2);
-      } catch (e) {
-        return 0;
-      }
-    });
-  }, [usdts, rate]);
-
-  const totalUsdt = useMemo(() => {
-    console.log('usdts', usdts);
-    const total = usdts.reduce((pre, cur) => {
-      try {
-        if (cur && +cur > 0) {
-          return pre + Number(cur);
+        const usdt = Number(it.usdt || 0)
+        if (it) {
+          return  Number(usdt * rate).toFixed(2)
         }
-        return pre;
-      } catch (e) {
-        return pre;
-      }
-    }, 0);
-    console.log('total', total);
-    return Number(total || 0).toFixed(2);
-  }, [usdts]);
+        return ''
+      }catch(e) {return 0}
+    })
+    return datas
+  }, [results, rate])
 
   const totalCnys = useMemo(() => {
     const total = cnys.reduce((pre: number, cur: any) => {
@@ -54,92 +59,48 @@ export const useEvaluate = () => {
         if (cur && +cur > 0) {
           return Number(pre) + Number(cur);
         }
-        return pre;
-      } catch (e) {
-        return pre;
-      }
-    }, 0);
-    return Number(total || 0).toFixed(2);
-  }, [cnys]);
+        return pre
+      }catch(e) {return pre}
+    }, 0)
+    return Number(total || 0).toFixed(2)
+  }, [cnys])
+ 
+  const totalUsdt = useMemo(() => {
+    const total = results.datas.reduce((pre, cur) => {
+      const usdt = +cur.usdt || 0
+      try {
+        if (usdt) {
+          return pre + Number(usdt)
+        }
+        return pre
+      }catch(e) {return pre}
+    }, 0)
+    console.log("total", total)
+    return Number(total || 0).toFixed(2)
+  }, [results])
 
-  const handleTaskNameChange = (e: any, index: number) => {
-    const tasks = _.cloneDeep(tasknames);
-    tasks[index] = e.target.value;
-    setTaskNames(tasks);
-  };
-
-  const handleUsdtChange = (e: any, index: number) => {
-    const usdts_ = _.cloneDeep(usdts);
-    usdts_[index] = e.target.value;
-    setUsdts(usdts_);
-  };
-
-  const addEvaluate = () => {
-    const t = _.cloneDeep(tasknames);
-    t.push('');
-    setTaskNames(t);
-
-    const u = _.cloneDeep(usdts);
-    u.push('');
-    setUsdts(u);
-
-    const d = _.cloneDeep(dataSource);
-    d.push({});
-    setDataSource(d);
-  };
-  const deleteEvaluate = (index: number) => {
-    console.log('delete ', index);
-    const t = _.cloneDeep(tasknames);
-    t.splice(index, 1);
-    console.log('tasknames>>>>', t);
-    setTaskNames(t);
-
-    const u = _.cloneDeep(usdts);
-    u.splice(index, 1);
-    console.log('usdts>>>>', u);
-    setUsdts(u);
-
-    const d = _.cloneDeep(dataSource);
-    d.splice(index, 1);
-    setDataSource(d);
-  };
-
-  // const handleChange = (e:any, dataIndex:string, index:number) => {
-  //   let val = e.target.value
-  //   let newData = _.cloneDeep(dataSource)
-  //   console.log("handleChange index,dataIndex ", index, dataIndex)
-  //   // @ts-ignore
-  //   newData[index][dataIndex] = val
-  //   console.log("handleChange newData>>", newData)
-  //   if (dataIndex == 'usdt') {
-
-  //     try {
-  //       if (val && +val < 0) {
-  //         val = 0
-  //       }
-  //       newData[index]['cny'] = Number(val * rate).toFixed(2)
-  //     } catch(e) {
-
-  //     }
-  //   }
-  //   setDataSource(newData)
-  // }
-
-  const handleSure = () => {};
+  const handleSure = () => {
+    handleSubmit(onSubmit)()
+  }
+  const onSubmit = (data:any) => {
+    console.log("提交数据>>>>", data)
+  }
   return {
-    dataSource,
-    addEvaluate,
-    deleteEvaluate,
-    handleUsdtChange,
+    fields,
+    append,
+    remove,
     handleSure,
     totalCnys,
     totalUsdt,
-    tasknames,
-    handleTaskNameChange,
-    usdts,
     cnys,
-  };
-};
+    rate,
+    errors,
+    register,
+    control,
+    setValue,
+    getValues
+  }
+}
 
 // 计算汇率
 export const getExchangeRate = async () => {

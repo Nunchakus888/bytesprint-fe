@@ -1,9 +1,10 @@
 import { Box, Button, Code, Container, Flex, Tag } from "@chakra-ui/react"
 import Back from "components/back";
-import FileReviewer from "components/fileReviewer";
+import FileReviewer from "components/fileReview";
 import Loading from "components/loading";
 import { useMyRequirementDetail, useMyRequirementDetailStatusAction } from "hooks/myrequirements/detail";
 import { useTaskDetail } from "hooks/task";
+import { useTaskPlanList } from "hooks/task/detai";
 import { useUserInfo } from "hooks/user";
 import AdminLayout from "layouts/admin"
 import { useRouter } from "next/router";
@@ -13,7 +14,9 @@ import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
 import TaskBidRecords from "views/task/detail/taskBidRecords";
 import TaskDescription from "views/task/detail/taskDescription";
+import TaskEvaluateDetail from "views/task/detail/taskEvaluateDetail";
 import TaskMovement from "views/task/detail/taskMovement";
+import TaskPlanList from "views/task/detail/taskPlanList";
 import TaskSignedReward from "views/task/detail/taskSignedReward";
 import TaskStatusInfo from "views/task/detail/taskStatusInfo";
 import TaskUserInfo from "views/task/detail/taskUserInfo";
@@ -38,6 +41,10 @@ const TaskDetail = () => {
     }
     return false
   }, [data.taskStatus])
+  // 任务计划列表
+  const {data: planList,openRecordDetailId,
+    handleOpenRecordDetail,
+    closeRecordDetail} = useTaskPlanList(id as string, isShowExtendTaskInfo)
   return (
     <AdminLayout>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
@@ -46,7 +53,8 @@ const TaskDetail = () => {
           <Box display="flex" gap="20px">
             <Flex direction="column">
               <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate}/>
-              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={()=>{}}/>
+              {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYREQUIREMENT} planlist={planList}/>}
+              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={handleOpenRecordDetail}/>
               <TaskDescription />
             </Flex>
             <Flex direction="column">
@@ -62,6 +70,7 @@ const TaskDetail = () => {
       </Box>
 
       {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
+      {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYREQUIREMENT} recordId={openRecordDetailId} onClose={closeRecordDetail}/>}
     </AdminLayout>
   )
 }

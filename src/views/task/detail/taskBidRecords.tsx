@@ -13,7 +13,9 @@ export default function TaskBidRecords(props: {
   unSignBid?: (recordId: string) => void // 淘汰TA
   openRecordDetail ?: (recordId: string) => void  // 详情
 }) {
-  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail } = props
+  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail, from } = props
+
+
   return (
     <Box
       display="flex"
@@ -26,11 +28,13 @@ export default function TaskBidRecords(props: {
       minHeight="200px"
       className={styles.container}
     >
-      <Text fontSize={18} fontWeight="bold">投标记录：{recordList.length}</Text>
+      <Text fontSize={18} fontWeight="bold">
+        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `投标记录：${recordList.length}`}
+      </Text>
       <Box marginTop="30px"  width="100%">
-        {recordList.map(it => {
+        {recordList.map((it,index) => {
           return (
-            <Flex key={it.id} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
+            <Flex key={`${it.id}_${index}`} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
               <Flex>
                 <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
                 <Flex direction="column" marginLeft="20px">

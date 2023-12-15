@@ -1,6 +1,6 @@
 import { Box, Button, Code, Container, Tag } from "@chakra-ui/react"
 import Back from "components/back";
-import FileReviewer from "components/fileReviewer";
+import FileReviewer from "components/fileReview";
 import Loading from "components/loading";
 import { useTaskDetail } from "hooks/task";
 import { useUserInfo } from "hooks/user";
@@ -12,6 +12,7 @@ import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
 import TaskDescription from "views/task/detail/taskDescription";
 import Evaluate from "views/task/Evaluate";
+import Test from "views/task/Test";
 import styles from '../index.module.scss';
 
 const TaskDetail = () => {
@@ -36,7 +37,7 @@ const TaskDetail = () => {
         }
         <Auth />
       </Box>
-
+      {/* {isOpenEvaluate && <Test></Test>} */}
       {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
     </AdminLayout>
   )

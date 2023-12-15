@@ -37,9 +37,9 @@ export default function TaskMovement(props:{
         <Flex direction="column"  height="100%" justifyContent="space-around" className={styles.bubles}>
           {/* <Box display="flex" justifyItems="center" width="1px" height="100%"><Box className={styles.line}></Box></Box> */}
           <Box className={styles.line} overflow="hidden"></Box>
-          {movementList.map(it => {
+          {movementList.map((it,index) => {
             return (
-              <Box marginTop="30px"  key={`${it.time}_buble`} className={styles.buble}>
+              <Box marginTop="30px"  key={`${it.time}_buble_${index}}`} className={styles.buble}>
               </Box>
             )
           }
