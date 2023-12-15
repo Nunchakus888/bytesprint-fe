@@ -9,7 +9,9 @@ export enum Identification {
 export enum IPath {
 	TASKS=`tasks`,
 	MYREQUIREMENT=`myrequirement`,
-	MYTASKS=`mytasks`
+	MYTASKS=`mytasks`,
+	OPERATOR=`operator`, // 船长管理
+	MYOPERATOR=`myoperator` // 我的船长
 }
 
 export const enum TabsEnum {

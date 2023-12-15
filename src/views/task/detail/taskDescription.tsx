@@ -13,7 +13,7 @@ export default function TaskDescription(){
 
   // 是否预览
   const [isReviewer, setIsReviewer] = useState(false)
-  const [reviewFile, setReviewFile] = useState({url: '/pdf/cn-whitePaper.pdf', name: ''})
+  const [reviewFile, setReviewFile] = useState({url: '', name: ''})
   const handleClick = ({url, name}: {url: string, name: string}) => {
     setIsReviewer(true)
     setReviewFile({url, name})
@@ -38,22 +38,22 @@ export default function TaskDescription(){
               <Flex key={index} justify="space-between" background="rgba(255,255,255,0.05)" marginBottom="10px" padding="10px" fontSize="14px">
                 <Box className={styles.filename} position="relative"><i></i>需求描述文件.pdf</Box>
                 <Box>200kb</Box>
-                <Link color="#7551FF" fontWeight="bold" onClick={() => handleClick({url: "http://127.0.0.1:3000/pdf/cn-whitePaper.pdf", name: '需求描述'})}><a href="#">预览</a></Link>
+                <Link color="#7551FF" fontWeight="bold" onClick={() => handleClick({url: "https://temp3.admin.ec2.gamemag.link/pwa%E6%95%99%E7%A8%8B.pptx", name: '需求描述'})}><a href="#">预览</a></Link>
               </Flex>
               )
             })
           }
         </Box>
       </Box>
-      <ModalDialog 
+      {/* <ModalDialog 
         title={reviewFile.name}
         isOpen={isReviewer}
         onClose={handleCloseReviewer}
         onSure={handleCloseReviewer}
       >
-        <FileReview url={reviewFile.url}/>
-      </ModalDialog>
-      
+        
+      </ModalDialog> */}
+      {reviewFile.url && <FileReview url={reviewFile.url}/>}
     </Box>
   )
 }

@@ -8,6 +8,8 @@ import Profile from 'pages/profile';
 import Task from 'pages/tasks/index';
 import MyRequirements from 'pages/myrequirement'
 import MyTasks from 'pages/mytasks'
+import Operator from 'pages/operator'
+import MyOperator from 'pages/operator/myOperator'
 import { IRoute } from 'types/navigation';
 import { IPath } from 'utils/constant';
 
@@ -55,6 +57,21 @@ const routes: IRoute[] = [
     path: `/${IPath.MYTASKS}`,
     component: MyTasks,
   },
+  {
+    name: '船长管理',
+    layout: '/',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    path: `/${IPath.OPERATOR}`,
+    component: Operator,
+  },
+  {
+    name: '我的船长',
+    layout: '/',
+    icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+    path: `/${IPath.OPERATOR}/${IPath.MYOPERATOR}`,
+    component: MyOperator,
+  },
+  
 ];
 
 export default routes;
