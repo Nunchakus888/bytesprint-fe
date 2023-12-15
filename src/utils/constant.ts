@@ -11,7 +11,13 @@ export enum IPath {
 	MYREQUIREMENT=`myrequirement`,
 	MYTASKS=`mytasks`,
 	OPERATOR=`operator`, // 船长管理
-	MYOPERATOR=`myoperator` // 我的船长
+	MYOPERATOR=`myoperator`, // 我的船长
+	OperatorCheck=`operatorcheck`, // 船长 认证审核
+	MYOPERATORDetail = `myoperatordetail`, // 我的船长 详情
+	ENGINEERManage = `engineer`, // 水手 管理
+	ENGINEERCheck=`engineercheck`, // 水手 审核
+	MYENGINEER=`myengineer`, // 我的水手
+	MYENGINEERDetail=`myengineerdetail` // 我的水手详情
 }
 
 export const enum TabsEnum {

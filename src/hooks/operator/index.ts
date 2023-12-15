@@ -34,7 +34,7 @@ const PAGE_SIZE = 10
 // 船长列表
 export const useOperatorList = (filter: any) => {
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
@@ -72,7 +72,7 @@ export const useOperatorList = (filter: any) => {
   };
 
   const fetchMoreData = useCallback(() => {
-    console.log('fetchMoreData');
+    console.log('fetchMoreData', total, page, PAGE_SIZE);
     if (total > page * PAGE_SIZE) {
       setPage((prevPage) => prevPage + 1);
     }

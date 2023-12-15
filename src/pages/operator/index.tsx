@@ -22,32 +22,35 @@ export default function OperatorManage() {
     console.log("searchval", searchVal)
     onChange('name', searchVal)
   }
+  console.log("hasMore", hasMore)
   return (
     <AdminLayout>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
-        <Box mt={{base: "30px"}}>
-          <Flex justify="space-between">
-            <SearchInput 
-              background="rgba(255,255,255,0.05)" 
-              searchIconColor="#7551FF" 
-              placeholder="用户昵称"
-              search={handleSearch}></SearchInput>
-              <Box display="flex" justifyContent="flex-end">
-                <FilSelect options={[]} placeholder="团队规模" change={(val) => onChange('taskStatus', val)} />
-                <FilSelect options={[]} placeholder="认证类型" change={(val) => onChange('proType', val)} />
-                <FilSelect options={[]} placeholder="提交时间" change={(val) => onChange('professionType', val)} />
-              </Box>
-          </Flex>
-          <Box mt={{base: '20px'}} >
+      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" >
+        <Box mt={{base: "30px"}} >
+          <Box position="sticky">
+            <Flex justify="space-between">
+              <SearchInput 
+                background="rgba(255,255,255,0.05)" 
+                searchIconColor="#7551FF" 
+                placeholder="用户昵称"
+                search={handleSearch}></SearchInput>
+                <Box display="flex" justifyContent="flex-end">
+                  <FilSelect options={[]} placeholder="团队规模" change={(val) => onChange('taskStatus', val)} />
+                  <FilSelect options={[]} placeholder="认证类型" change={(val) => onChange('proType', val)} />
+                  <FilSelect options={[]} placeholder="提交时间" change={(val) => onChange('professionType', val)} />
+                </Box>
+            </Flex>
+          </Box>
+          <Box mt={{base: '20px'}} id="operator-list" height="800px" overflow="scroll">
           {loading ? (
               <Loading />
             ) : (
               <InfiniteScroll
                 dataLength={data.length}
                 next={fetchMoreData}
-                hasMore={hasMore}
+                hasMore={true}
                 loader={<AiOutlineLoading3Quarters />}
-                scrollableTarget="items_list_scrollable_box"
+                scrollableTarget="operator-list"
                 // className={styles.scrollBox}
                 scrollThreshold="10px"
               >

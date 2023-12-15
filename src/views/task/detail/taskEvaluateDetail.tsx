@@ -21,6 +21,8 @@ export default function TaskEvaluateDetail(props: {
     {
       title: '序号',
 			dataIndex: 'xuhao',
+      width: '50px',
+      textAlign: 'center',
 			key: 'xuhao',
       render: (_:any, record:any, index:number) => {
 				return <Box width="30px" paddingLeft="5px" margin="5px 0" fontSize={14}>{index+1}</Box>
@@ -29,9 +31,11 @@ export default function TaskEvaluateDetail(props: {
     {
       title: '任务名称',
 			dataIndex: 'taskname',
+      width: '60%',
+      textAlign: 'left',
 			key: 'taskname',
       render: (_:any, record:any, index:number) => {
-				return <Box paddingLeft="5px" margin="5px 0" fontSize={14}>{record.taskname}</Box>
+				return <Box paddingLeft="5px" width="60%" margin="5px 0" fontSize={14}>{record.taskname}</Box>
 			},
     },
     {
@@ -107,8 +111,8 @@ export default function TaskEvaluateDetail(props: {
       </Flex>
       <Box marginTop="20px" background="rgba(255,255,255,0.05)" borderRadius={8}>
         <BYTable columns={columns} dataSource={data.list}></BYTable>
-        <Flex marginTop="30px" padding="20px" justifyContent="space-between">
-          <Text textAlign="left" fontSize='lg' width="50%">报酬合计</Text>
+        <Flex marginTop="30px" padding="20px" justifyContent="space-around">
+          <Text textAlign="left" fontSize='lg' width="40%">报酬合计</Text>
           <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalUsdt} USDT</Text>
           <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text>
         </Flex>

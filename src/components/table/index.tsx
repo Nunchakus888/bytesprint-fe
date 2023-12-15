@@ -20,7 +20,8 @@ export default function BYTable(props: {
       <Tr>
         {
           columns?.map((it, index) => {
-            return <Th key={`${it.key}_${Date.now()}`} padding="10px">{it.title}</Th>
+            const {width, textAlign } = it
+            return <Th key={`${it.key}_${Date.now()}` } width={width} textAlign={textAlign}  padding="10px">{it.title}</Th>
           })
         }
       </Tr>

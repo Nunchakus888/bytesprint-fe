@@ -9,7 +9,7 @@ import Task from 'pages/tasks/index';
 import MyRequirements from 'pages/myrequirement'
 import MyTasks from 'pages/mytasks'
 import Operator from 'pages/operator'
-import MyOperator from 'pages/operator/myOperator'
+import MyOperator from 'pages/operator/myoperator'
 import { IRoute } from 'types/navigation';
 import { IPath } from 'utils/constant';
 
