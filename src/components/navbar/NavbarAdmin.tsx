@@ -16,12 +16,13 @@ import { isWindowAvailable } from 'utils/navigation';
 import { CustomConnectButton } from 'components/navbar/CustomConnectButton';
 
 export default function AdminNavbar(props: {
-  secondary: boolean;
-  message: string | boolean;
-  brandText: string;
-  logoText: string;
-  fixed: boolean;
-  onOpen: (...args: any[]) => any;
+  // secondary: boolean;
+  // message: string | boolean;
+  // brandText: string;
+  // logoText: string;
+  // fixed: boolean;
+  // onOpen: (...args: any[]) => any;
+  paths: any[]
 }) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -36,7 +37,7 @@ export default function AdminNavbar(props: {
     }
   });
 
-  const { secondary, message, brandText } = props;
+  // const { secondary, message, brandText } = props;
 
   // Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
   let mainText = useColorModeValue('navy.700', 'white');
@@ -76,7 +77,7 @@ export default function AdminNavbar(props: {
       transition-property="box-shadow, background-color, filter, border"
       transitionTimingFunction="linear, linear, linear, linear"
       alignItems={{ xl: 'center' }}
-      display={secondary ? 'block' : 'flex'}
+      display={'flex'}
       minH="75px"
       justifyContent={{ xl: 'center' }}
       lineHeight="25.6px"
@@ -112,17 +113,20 @@ export default function AdminNavbar(props: {
       >
         <Box mb={{ sm: '8px', md: '0px' }}>
           <Breadcrumb>
-            <BreadcrumbItem color={secondaryText} fontSize="sm" mb="10px">
-              <BreadcrumbLink href="#" color={secondaryText}>
-                首页
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+            {props.paths?.map(it => {
+              return <BreadcrumbItem key={`${it.path}_${it.name}`} color={secondaryText} fontSize="md" fontWeight="bold" mb="10px">
+                <BreadcrumbLink href={it.path} color={secondaryText}>
+                  {it.name}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            })}
+            
 
-            <BreadcrumbItem color={secondaryText} fontSize="sm">
+            {/* <BreadcrumbItem color={secondaryText} fontSize="sm">
               <BreadcrumbLink href="#" color={secondaryText}>
                 {brandText}
               </BreadcrumbLink>
-            </BreadcrumbItem>
+            </BreadcrumbItem> */}
           </Breadcrumb>
           {/* Here we create navbar brand, based on route name */}
           {/* <Link

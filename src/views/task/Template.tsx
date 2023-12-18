@@ -1,14 +1,14 @@
 // import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
-import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Flex, Portal, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
 import AdminLayout from 'layouts/admin';
 import { useEffect } from 'react';
-import { RequirementType, TabsEnum } from 'utils/constant';
+import { IPath, RequirementType, TabsEnum } from 'utils/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
-
+import Navbar from 'components/navbar/NavbarAdmin';
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
   isMine?: boolean; // 是否是我的
@@ -47,8 +47,19 @@ export default function TaskTemplate(props: {
   //   console.log("searchval", searchVal)
   //   onChange('name', searchVal)
   // }
+
+  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: '我的需求'}: 
+  props.from === IPath.MYTASKS ? {path: `#`, name: '我的任务'} : 
+  {path: `#`, name: '任务大厅'}
   return (
     <AdminLayout>
+      <Portal>
+        <Box>
+          <Navbar
+            paths={[{path: '#', name: '众包管理'},path]}
+          />
+        </Box>
+      </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         <Tabs variant="soft-rounded" colorScheme="purple">
           <Box className={styles.tabswrap}>

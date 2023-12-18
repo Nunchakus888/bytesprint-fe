@@ -9,6 +9,7 @@ import {
   FormLabel,
   Icon,
   Input,
+  Portal,
   Radio,
   RadioGroup,
   Select,
@@ -26,8 +27,9 @@ import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { IoCheckmarkOutline } from 'react-icons/io5';
-import { IRequirement, IRequirementPerson, IRequirementSingle, ProfessionTypes, ProType, ProTypes, RequirementType } from 'utils/constant';
+import { IPath, IRequirement, IRequirementPerson, IRequirementSingle, ProfessionTypes, ProType, ProTypes, RequirementType } from 'utils/constant';
 import styles from './index.module.scss'
+import Navbar from 'components/navbar/NavbarAdmin';
 const ReactQuillComponent = dynamic(() => import("../../../components/richTextBlock"), { ssr: false })
 export default function AddRequirement(props: {}) {
   const { currentRequire, saveRequirement,router } = useAddRequirement();
@@ -62,6 +64,13 @@ export default function AddRequirement(props: {}) {
   }
   return (
     <AdminLayout>
+      <Portal>
+        <Box>
+          <Navbar
+            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYREQUIREMENT}`, name: '我的需求'}, {path: '#', name: '发布需求'}]}
+          />
+        </Box>
+      </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
         <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire?.title}</Text>
         <Box margin="20px 0">

@@ -21,7 +21,7 @@
 */
 
 // Chakra imports
-import { Box, Grid } from '@chakra-ui/react';
+import { Box, Grid, Portal } from '@chakra-ui/react';
 import AdminLayout from 'layouts/admin';
 
 // Custom components
@@ -31,7 +31,7 @@ import Notifications from 'views/admin/profile/components/Notifications';
 import Projects from 'views/admin/profile/components/Projects';
 import Storage from 'views/admin/profile/components/Storage';
 import Upload from 'views/admin/profile/components/Upload';
-
+import Navbar from 'components/navbar/NavbarAdmin';
 // Assets
 import banner from 'img/auth/banner.png';
 import avatar from 'img/avatars/avatar4.png';
@@ -39,6 +39,7 @@ import { useSession } from 'next-auth/react';
 import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { getActiveNavbar, getActiveNavbarText } from 'utils/navigation';
 
 export default function ProfileOverview() {
   const session = useSession();
@@ -55,6 +56,13 @@ export default function ProfileOverview() {
   }, [])
   return (
     <AdminLayout>
+      <Portal>
+        <Box>
+          <Navbar
+            paths={[{path: '#', name: '用户中心'}]}
+          />
+        </Box>
+      </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Grid

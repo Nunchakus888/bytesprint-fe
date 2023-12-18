@@ -83,20 +83,6 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           transitionProperty="top, bottom, width"
           transitionTimingFunction="linear, linear, ease"
         >
-          <Portal>
-            <Box>
-              <Navbar
-                onOpen={onOpen}
-                logoText={'ByteSprint'}
-                brandText={getActiveRoute(routers)}
-                secondary={getActiveNavbar(routers)}
-                message={getActiveNavbarText(routers)}
-                fixed={fixed}
-                {...rest}
-              />
-            </Box>
-          </Portal>
-
           <Box mx="auto" p={{ base: '20px', md: '30px' }} pe="20px" minH="100vh" pt="50px">
             {children}
           </Box>

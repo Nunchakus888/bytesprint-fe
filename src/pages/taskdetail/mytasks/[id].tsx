@@ -1,4 +1,4 @@
-import { Box, Button, Code, Container, Flex, Tag } from "@chakra-ui/react"
+import { Box, Button, Code, Container, Flex, Portal, Tag } from "@chakra-ui/react"
 import Back from "components/back";
 import FileReviewer from "components/fileReview";
 import Loading from "components/loading";
@@ -23,7 +23,7 @@ import TaskStatusInfo from "views/task/detail/taskStatusInfo";
 import TaskUserInfo from "views/task/detail/taskUserInfo";
 import Evaluate from "views/task/Evaluate";
 import styles from '../index.module.scss';
-
+import Navbar from 'components/navbar/NavbarAdmin';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
@@ -64,6 +64,13 @@ const TaskDetail = () => {
   
   return (
     <AdminLayout>
+      <Portal>
+        <Box>
+          <Navbar
+            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYTASKS}`, name: '我的任务'}, {path: '#', name: '任务详情'}]}
+          />
+        </Box>
+      </Portal>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
         <Back />
         {isLoading ? <Loading /> :
