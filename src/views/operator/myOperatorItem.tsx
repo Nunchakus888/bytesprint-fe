@@ -37,7 +37,7 @@ export default function MyOperatorItem(props: {
             {/* 过期：红色字体 */}
             <Box fontSize={20}>到期时间：2023/11/12 10:12:12</Box>
             <Button width="100px" background="#7551FF" size='md' color="#fff">
-              <Link href={`/taskdetail/${IPath.TASKS}/11`}> 查看详情</Link>
+              <Link href={`/${IPath.OPERATOR}/${IPath.MYOPERATOR}/11`}> 查看详情</Link>
             </Button>
           </Flex>
         </Flex>

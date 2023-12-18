@@ -36,11 +36,23 @@ import Upload from 'views/admin/profile/components/Upload';
 import banner from 'img/auth/banner.png';
 import avatar from 'img/avatars/avatar4.png';
 import { useSession } from 'next-auth/react';
+import { useUserInfo } from 'hooks/user';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function ProfileOverview() {
   const session = useSession();
 
   console.log('---session', session);
+
+  const {identification} = useUserInfo()
+  const router = useRouter()
+  useEffect(() => {
+    console.log("identification>>>>>>>>>>?", identification)
+    if (!identification) {
+      router.replace('/tasks')
+    }
+  }, [])
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>

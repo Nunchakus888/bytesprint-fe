@@ -3,6 +3,7 @@ export enum Identification {
   VISITOR = 99,
   ENGINEER = 1,
   OPERATOR = 2,
+  SYSTEM=3
 }
 
 export enum IPath {

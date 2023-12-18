@@ -1,11 +1,10 @@
-import API_ROUTERS from "api";
 import useChange from "hooks/useChange";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Get } from "utils/axios";
 
-// 船长 查询条件
-export const useOperatorFilter = () => {
+// 水手 查询条件
+export const useMyEngineerFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
     taskType: '',
@@ -34,8 +33,8 @@ export const useOperatorFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 船长列表
-export const useOperatorList = (filter: any) => {
+// 水手列表
+export const useMyEngineerList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -114,67 +113,3 @@ export const useOperatorList = (filter: any) => {
     refetchData: toggleTiger,
   };
 };
-
-// 船长详情
-export const useOperatorDetail = (id: string) => {
-  // const { data, isLoading } = useSWR(
-  //   id
-  //     ? API_ROUTERS.tasks.TASKS_DETAIL({
-  //         id
-  //       })
-  //     : null,
-  //   Get
-  // );
-  // console.log("useTaskDetail>>>", data);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({})
-  const getData = async () => {
-    try {
-      setLoading(true)
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_DETAIL({
-          id
-        })
-      )
-      setLoading(false)
-      setData(res?.result || {})
-      return res
-    }catch(e) {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
-
-  return {
-    data,
-    isLoading: loading,
-  };
-}
-
-// 船长认证
-export const useOperatorCheck = (id: string) => {
-  const [loading, setLoading] = useState(false);
-  // const [data, setData] = useState(null)
-  // 是否验证通过
-  const getData = async (isCentify: boolean) => {
-    try {
-      setLoading(true)
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_DETAIL({
-          id
-        })
-      )
-      setLoading(false)
-      // setData(res?.result || {})
-      return res
-    }catch(e) {
-      setLoading(false)
-    }
-  }
-  return {
-    fetchData: getData
-  }
-}

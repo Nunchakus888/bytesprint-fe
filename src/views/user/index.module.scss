@@ -1,17 +1,13 @@
-.container {
-  background: rgba(255,255,255, 0.05);
-	border-radius: 10px;
-	padding: 25px;
-}
+@import '../common.module.scss';
 .positionIcon {
-  background: url('../../../../public/img/positionIcon.png') no-repeat left center rgba(255,255,255,0.05)!important;
+  background: url('../../../public/img/workplace.png') no-repeat left center;
   background-size: 20px 20px!important;
   padding-left: 30px!important;
 }
 
 
 .numsIcon {
-  background: url('../../../../public/img/numsIcon.png') no-repeat left center rgba(255,255,255,0.05)!important;
+  background: url('../../../public/img/worktime.png') no-repeat left center;
   background-size: 20px 20px!important;
   padding-left: 30px!important;
 }

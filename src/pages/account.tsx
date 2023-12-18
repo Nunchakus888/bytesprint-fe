@@ -20,7 +20,7 @@
 
 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Chakra imports
 import {
@@ -57,11 +57,15 @@ import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/table
 import AdminLayout from 'layouts/admin';
 import { TableData } from 'views/admin/default/variables/columnsData';
 import NextLink from 'next/link';
+import { useUserInfo } from 'hooks/user';
+import { useRouter } from 'next/router';
 
 export default function Home() {
   // Chakra Color Mode
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
+
+ 
   return (
     <AdminLayout>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>

@@ -33,7 +33,7 @@ function PersonTask(props: {
           <>
           <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : RequirementStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
           <FilSelect options={ProTypes} placeholder="学历要求" change={(val) => onChange('educational', val)} />
-				<FilSelect options={TaskTypes} placeholder="经验要求" change={(val) => onChange('experience', val)} />
+				  <FilSelect options={TaskTypes} placeholder="经验要求" change={(val) => onChange('experience', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="工作地点" change={(val) => onChange('workPlace', val)} />
 				<FilSelect options={ProfessionTypes} placeholder="工作时长" change={(val) => onChange('workTime', val)} />
           </>:

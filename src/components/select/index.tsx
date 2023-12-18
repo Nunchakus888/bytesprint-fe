@@ -7,8 +7,9 @@ function FilSelect (props: {
 	defaultVal?: string
 	placeholder?: string
 	change?: (val: string) => void
+	width?: string
 }) {
-	let {options, defaultVal, placeholder} = props
+	let {options, defaultVal, placeholder, width} = props
 	if (!defaultVal) {
 		defaultVal = options?.[0]?.value
 	}
@@ -16,7 +17,7 @@ function FilSelect (props: {
 		props?.change(e.target.value)
 	}
 	return (
-		<Select placeholder={placeholder} border="none" icon={<TriangleDownIcon />} iconSize="16" onChange={(e) => handleChange(e)}>
+		<Select width={width} placeholder={placeholder} border="none" icon={<TriangleDownIcon />} iconSize="16" onChange={(e) => handleChange(e)}>
 			{
 				options?.map((it, index) => {
 					return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>

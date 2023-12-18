@@ -28,9 +28,10 @@ export default function Copy({ text, size = 14 }: IProps) {
       placement="top"
       label={isCopied ? <Text>Copied!</Text> : "Copy"}
     >
-      <span onClick={() => handleCopy()}>
-        <FaRegCopy size={(size = 14)} className={styles.copy} />
-      </span>
+      <Text color="#7551FF" cursor="pointer" onClick={() => handleCopy()}>
+        复制
+        {/* <FaRegCopy size={(size = 14)} className={styles.copy} /> */}
+      </Text>
     </Tooltip>
   );
 }

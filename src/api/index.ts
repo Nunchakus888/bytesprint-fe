@@ -28,6 +28,8 @@ const API_ROUTERS = {
   },
   users: {
     LOGIN: (params: any) => createRoute(`/user/info`, params),
+    SIG_STATUS: (params: any) =>createRoute(`/user/info`, params), 
+    LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
   },
   
   bidorder: {

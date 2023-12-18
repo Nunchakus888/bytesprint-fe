@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Get } from "utils/axios";
 
-// 船长 查询条件
-export const useOperatorFilter = () => {
+// 水手 查询条件
+export const useEngineerFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
     taskType: '',
@@ -34,8 +34,8 @@ export const useOperatorFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 船长列表
-export const useOperatorList = (filter: any) => {
+// 水手列表
+export const useEngineerList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -115,8 +115,8 @@ export const useOperatorList = (filter: any) => {
   };
 };
 
-// 船长详情
-export const useOperatorDetail = (id: string) => {
+// 水手详情
+export const useEngineerDetail = (id: string) => {
   // const { data, isLoading } = useSWR(
   //   id
   //     ? API_ROUTERS.tasks.TASKS_DETAIL({
@@ -154,8 +154,8 @@ export const useOperatorDetail = (id: string) => {
   };
 }
 
-// 船长认证
-export const useOperatorCheck = (id: string) => {
+// 水手认证
+export const useEngineerCheck = (id: string) => {
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState(null)
   // 是否验证通过

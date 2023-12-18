@@ -23,7 +23,7 @@ import { IRoute } from 'types/navigation';
 import { isWindowAvailable } from 'utils/navigation';
 
 interface SidebarResponsiveProps {
-  routes: IRoute[];
+  routes?: IRoute[];
 }
 
 interface SidebarProps extends SidebarResponsiveProps {

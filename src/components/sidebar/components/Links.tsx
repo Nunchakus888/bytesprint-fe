@@ -1,18 +1,18 @@
 /* eslint-disable */
 
 // chakra imports
-import { Box, Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, HStack, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { IRoute } from 'types/navigation';
+import { useUserRoute } from 'hooks/user';
 
 interface SidebarLinksProps {
-  routes: IRoute[];
+  routes?: IRoute[];
 }
 
 export function SidebarLinks(props: SidebarLinksProps) {
-  const { routes } = props;
-
+  const routers = useUserRoute()
   //   Chakra color mode
   const router = useRouter();
 
@@ -28,7 +28,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
   };
 
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
-  const createLinks = (routes: IRoute[]) => {
+  const createLinks = (routes: any[]) => {
     return routes.map((route, index: number) => {
       if (route.layout === '/' || route.layout === '/auth' || route.layout === '/rtl') {
         return (
@@ -86,10 +86,133 @@ export function SidebarLinks(props: SidebarLinksProps) {
           </Link>
         );
       }
+
+      return ( 
+        <>
+          {route.children ? 
+          <Accordion defaultIndex={[0]} allowMultiple >
+            <AccordionItem>
+              <AccordionButton paddingLeft="0" justifyContent="space-between">
+                {/* <Box as="span" flex='1' textAlign='left'>
+                  {route.name}
+                </Box> */}
+
+                <Box>
+                  <HStack
+                    // spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
+                    py="5px"
+                    ps="10px"
+                  >
+                    <Flex w="100%" alignItems="center" justifyContent="center">
+                      <Box
+                        // color={activeRoute(route.path.toLowerCase()) ? activeIcon : textColor}
+                        me="18px"
+                      >
+                        {/* {route.icon} */}
+                        <Icon as={route.icon} width="20px" height="20px" color="inherit" />
+                      </Box>
+                      <Text
+                        me="auto"
+                        // color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
+                        // fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
+                      >
+                        {route.name}
+                      </Text>
+                    </Flex>
+                    <Box
+                      h="36px"
+                      w="4px"
+                      // bg={activeRoute(route.path.toLowerCase()) ? brandColor : 'transparent'}
+                      borderRadius="5px"
+                    />
+                  </HStack>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            
+              <AccordionPanel paddingTop="0" paddingBottom="0">
+                {route.children?.map((cit:any) => {
+                  return (<Link key={index} href={cit.path}>
+                    {/* <Box
+                      color={activeRoute(cit.path.toLowerCase()) ? activeIcon : textColor}
+                      me="18px"
+                    >
+                      {cit.name}
+                    </Box> */}
+                    <Box>
+                      <HStack
+                        spacing={activeRoute(cit.path.toLowerCase()) ? '22px' : '26px'}
+                        py="5px"
+                        ps="10px"
+                      >
+                        <Flex w="100%" alignItems="center" justifyContent="center">
+                          <Box
+                            color={activeRoute(cit.path.toLowerCase()) ? activeIcon : textColor}
+                            me="18px"
+                          >
+                            {/* {route.icon} */}
+                          </Box>
+                          <Text
+                            me="auto"
+                            color={activeRoute(cit.path.toLowerCase()) ? activeColor : textColor}
+                            fontWeight={activeRoute(cit.path.toLowerCase()) ? 'bold' : 'normal'}
+                          >
+                            {cit.name}
+                          </Text>
+                        </Flex>
+                        <Box
+                          h="36px"
+                          w="4px"
+                          bg={activeRoute(cit.path.toLowerCase()) ? brandColor : 'transparent'}
+                          borderRadius="5px"
+                        />
+                      </HStack>
+                    </Box>
+                  </Link>)
+                })}
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>: 
+            <Link key={index} href={route.path}>
+              <Box>
+                  <HStack
+                    spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
+                    py="5px"
+                    ps="10px"
+                  >
+                    <Flex w="100%" alignItems="center" justifyContent="center">
+                      <Box
+                        color={activeRoute(route.path.toLowerCase()) ? activeIcon : textColor}
+                        me="18px"
+                      >
+                        {/* {route.icon} */}
+                        <Icon as={route.icon} width="20px" height="20px" color="inherit" />
+                      </Box>
+                      <Text
+                        me="auto"
+                        color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
+                        fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
+                      >
+                        {route.name}
+                      </Text>
+                    </Flex>
+                    <Box
+                      h="36px"
+                      w="4px"
+                      bg={activeRoute(route.path.toLowerCase()) ? brandColor : 'transparent'}
+                      borderRadius="5px"
+                    />
+                  </HStack>
+                </Box>
+            </Link>
+          }
+        </>
+      )
+
     });
   };
   //  BRAND
-  return <>{createLinks(routes)}</>;
+  return <>{createLinks(routers)}</>;
 }
 
 export default SidebarLinks;

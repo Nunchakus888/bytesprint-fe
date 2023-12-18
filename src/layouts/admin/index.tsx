@@ -6,14 +6,16 @@ import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import routes from 'routes/routes';
 import {
+  findCurrentRoute,
   getActiveNavbar,
   getActiveNavbarText,
   getActiveRoute,
   isWindowAvailable,
 } from 'utils/navigation';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
+import { useUserRoute } from 'hooks/user';
+import _ from 'lodash';
 // import { useSession } from 'next-auth/react';
 
 interface DashboardLayoutProps extends PropsWithChildren {
@@ -22,6 +24,7 @@ interface DashboardLayoutProps extends PropsWithChildren {
 
 // Custom Chakra theme
 export default function AdminLayout(props: DashboardLayoutProps) {
+  const routers = useUserRoute()
   const { children, ...rest } = props;
   // states and functions
   const [fixed] = useState(false);
@@ -41,6 +44,22 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   //   }
   // }, [session]);
 
+  // useEffect(() => {
+  //   const cur = findCurrentRoute(routers)
+  //   const paths = routers.map(r => {
+  //     if (r.path) return r.path
+  //     if (r.children) {
+  //       const ps = r.children.map((it:any) => it.path)
+  //       return ps
+  //     }
+  //   })
+  //   console.log('_.flatten(paths)>>>', _.flatten(paths))
+  //   const validPaths = _.flatten(paths)
+  //   // if (!validPaths.some(it => it === router.pathname)) {
+  //   //   router.replace('/')
+  //   // }
+  //   console.log("cur.path>>>>", cur?.path, validPaths)
+  // }, [routers])
   return (
     <Box>
       <SidebarContext.Provider
@@ -49,7 +68,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           setToggleSidebar,
         }}
       >
-        <Sidebar routes={routes} display="none" {...rest} />
+        <Sidebar display="none" {...rest} />
         <Box
           float="right"
           minHeight="100vh"
@@ -69,9 +88,9 @@ export default function AdminLayout(props: DashboardLayoutProps) {
               <Navbar
                 onOpen={onOpen}
                 logoText={'ByteSprint'}
-                brandText={getActiveRoute(routes)}
-                secondary={getActiveNavbar(routes)}
-                message={getActiveNavbarText(routes)}
+                brandText={getActiveRoute(routers)}
+                secondary={getActiveNavbar(routers)}
+                message={getActiveNavbarText(routers)}
                 fixed={fixed}
                 {...rest}
               />
