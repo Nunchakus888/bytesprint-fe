@@ -26,10 +26,11 @@ export const useTasks = () => {
 // 单一任务的查询
 export const useSingleTaskFilter = () => {
   const [filter, setFilter] = useState({
-    proType: '',
-    taskType: '',
-    professionType: '',
-    name: '',
+    crowdsourcingType: '', // 众包类型
+    categoryType: '',  //项目类别
+    positionType: '', // 职位类型
+    name: '', // 项目名称
+    status: ''
   });
   const onChange = (key: string, value: string) => {
     setFilter((pre) => {
@@ -42,10 +43,11 @@ export const useSingleTaskFilter = () => {
 
   const refreshFilter = () => {
     setFilter({
-      proType: '',
-      taskType: '',
-      professionType: '',
-      name: '',
+      crowdsourcingType: '', // 众包类型
+      categoryType: '',  //项目类别
+      positionType: '', // 职位类型
+      name: '', // 项目名称
+      status: ''
     });
   };
 
@@ -55,35 +57,59 @@ export const useSingleTaskFilter = () => {
 // 任务大厅列表
 export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [time, setTime] = useState('');
+  // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
+  const [hadMore, setHasMore] = useState(true)
   const oldFilterRef = useRef({});
+  
   const getList = async (params: any) => {
-    setLoading(params.page === 1);
+    setLoading(!time);
     try {
       const _params = {
-        page,
-        page_size: PAGE_SIZE,
+        pageSize: PAGE_SIZE,
         ...params,
+        time,
       };
       // TODO 参数 不同类型的区分请求 activeTab
       // const res = await Get(
-      //   API_ROUTERS.tasks.TASKS_LIST({})
+      //   API_ROUTERS.tasks.TASKS_LIST(_params)
       // );
-      // let { count, result } = res || {};
-
-      // test
-      let result = [{}, {}, {}, {}, {}, {}];
-      let count = 30;
-
-      setTotal(count);
-      if (params.page === 1) {
-        setData(result);
+      const list = [1,2,3,4,5].map(it => {
+        return {
+          id: it,
+          number: 'BYSD123456',
+          name: '测试任务 海鸥灰',
+          categoryType: 1,
+          categoryName: '普通任务',
+          positionType: 1,
+          positionName: `前端开发`,
+          crowdsourcingType: 1,
+          crowdsourcingName: `竞标`,
+          description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
+          status: [0, 1, 2],
+          statusTime: [Date.now(),Date.now(), Date.now()],
+          startTime: Date.now(),
+          endTime: Date.now()
+        }
+      })
+      const res = {
+        projectRawInfoList: list
+      } 
+      // // test
+      // let result = [{}, {}, {}, {}, {}, {}];
+      // let count = 30;
+      const data = res.projectRawInfoList
+      // 当返回的数量跟每页比小，没有更多
+      if (data.length < PAGE_SIZE) {
+        setHasMore(false)
+      }
+      if (!time) {
+        setData(data);
       } else {
         //@ts-ignore
-        setData((prevData) => [...prevData, ...result]);
+        setData((prevData) => [...prevData, ...data]);
       }
     } catch (error) {
       // handle error
@@ -93,41 +119,36 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   };
 
   const fetchMoreData = useCallback(() => {
-    console.log('fetchMoreData');
-    if (total > page * PAGE_SIZE) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  }, [page, total]);
+    const time = data[data.length - 1].createTime;
+    setTime(time)
+  }, [data]);
+
 
   useEffect(() => {
-    setPage(1);
-    setTotal(0);
+    setTime('');
+    setHasMore(true);
   }, [filter]);
 
   useEffect(() => {
     console.log('triger', triger);
     // console.log(JSON.stringify({ user_addresses, page, filter, triger }));
     const params = {
-      page,
+      time,
       filter,
-      triger,
+      triger
     };
     console.log('params>>>', params, activeTab);
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
       oldFilterRef.current = params;
-      getList({
-        page,
-        collection_addresses: filter?.collections,
-      });
+      getList(filter);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, filter, triger]);
+  }, [time, filter, triger]);
 
   return {
     loading,
-    page,
     data,
-    hasMore: total > page * PAGE_SIZE,
+    hasMore: hadMore,
     fetchMoreData,
     refetchData: toggleTiger,
   };
@@ -154,7 +175,7 @@ export const usePersonTaskFilter = () => {
 };
 
 // 任务详情
-export const useTaskDetail = (id: string | string[]) => {
+export const useTaskDetail = (id: string | string[], address: string) => {
   // const { data, isLoading } = useSWR(
   //   id
   //     ? API_ROUTERS.tasks.TASKS_DETAIL({
@@ -165,17 +186,46 @@ export const useTaskDetail = (id: string | string[]) => {
   // );
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any>();
   const getData = async () => {
     try {
-      setLoading(true);
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_DETAIL({
-          id,
-        })
-      );
-      setLoading(false);
-      setData(res?.result || []);
+      // setLoading(true);
+      // const res = await Get(
+      //   API_ROUTERS.tasks.TASKS_DETAIL({
+      //     id,
+      //     address
+      //   })
+      // );
+      // setLoading(false);
+      console.log("111")
+      const res = {
+        projectDetailInfo: {
+          projectRawInfo: {
+            id: "11",
+            number: 'BYSD123456',
+            name: '测试任务 海鸥灰',
+            categoryType: 1,
+            categoryName: '普通任务',
+            positionType: 1,
+            positionName: `前端开发`,
+            crowdsourcingType: 1,
+            crowdsourcingName: `竞标`,
+            description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
+            status: [0, 1, 2],
+            statusTime: [Date.now(),Date.now(), Date.now()],
+            startTime: Date.now(),
+            endTime: Date.now()
+          },
+          fileList: [
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'}
+          ]
+        }
+      }
+      console.log("res?.projectDetailInfo>>>", res)
+      setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
       setLoading(false);
@@ -185,8 +235,6 @@ export const useTaskDetail = (id: string | string[]) => {
   useEffect(() => {
     getData();
   }, []);
-
-  
 
   return {
     data,

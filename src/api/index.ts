@@ -25,6 +25,12 @@ const API_ROUTERS = {
   tasks: {
     TASKS_LIST: (params: any) => createRoute(`/project/list`, params),
     TASKS_DETAIL: (params: any) => createRoute(`/project/detail`, params),
+    EVALUATE: (params: any) => createRoute(`/project/evaluate`, params),
+    PLANSUBMIT: (params: any) => createRoute(`/requirement/plan/submit`, params),
+    PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
+    REQUIREMENT_SUBMIT: (params: any) => createRoute(`/requirement/submit`, params),
+    PROJECT_SIGN: (params: any) => createRoute(`/project/sign`, params),
+    PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
   },
   users: {
     LOGIN: (params: any) => createRoute(`/user/info`, params),

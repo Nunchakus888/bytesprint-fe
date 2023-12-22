@@ -17,7 +17,8 @@ export enum IPath {
 	ENGINEERManage = `engineer`, // 水手 管理
 	ENGINEERCheck=`engineercheck`, // 水手 审核
 	MYENGINEER=`myengineer`, // 我的水手
-	MYENGINEERDetail=`myengineerdetail` // 我的水手详情
+	MYENGINEERDetail=`myengineerdetail`, // 我的水手详情
+  PROFILE=`profile`, // 用户中心
 }
 
 export const enum TabsEnum {
@@ -46,8 +47,9 @@ export const Tabs = [
   },
 ];
 
+// 众包方式
 export enum ProType {
-  BIDDING = '1',
+  BIDDING = '1', 
   PITCH = '2',
   BID = '3',
 }
@@ -80,14 +82,15 @@ export const TaskTypes = [
 ];
 
 export enum IStatus {
-  CLOSED = '1', //已关闭
-  EVALUATION = '2', // 评估中
-  WAIT_SIGN = '3', // 待签约
-  SIGNED = '4', // 已签约
-  CODEING = '5', // 进行中
-  WAIT_ACCEPT = '6', //待验收
-  COMPLETE = '7', // 已完成
-  UN_BID = '8', // 未中标
+  CLOSED = '8', //已关闭
+  EVALUATION = '0', // 评估中
+  WAIT_SIGN = '1', // 待签约
+  SIGNED = '2', // 已签约
+  CODEING = '3', // 进行中
+  WAIT_ACCEPT = '4', //待验收
+  ACCEPTED = '5', //已验收
+  COMPLETE = '6', // 已完成
+  UN_BID = '7', // 未中标
 }
 
 export const RequirementStatus = [
@@ -191,5 +194,6 @@ export interface IRequirementPerson extends IRequirement {
 // 任务投标状态
 export enum TaskBidStatus {
   BID_SUCCESS = '1',
-  BID_FAIL = '2',
+  BID_FAIL = '0',
+  WAIT_BID = '2'
 }

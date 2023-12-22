@@ -7,10 +7,12 @@ import {useCookies} from 'react-cookie'
 export const useUserInfo = () => {
 	const [cookies, setCookie, removeCookie] = useCookies();
 	// 身份
-  const { identification } =
+  const { identification, userInfo } =
     useSelector((state: any) => state.common);
+
 	return {
-		identification
+		identification,
+		userInfo
 	}
 }
 

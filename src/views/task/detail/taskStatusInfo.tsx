@@ -13,6 +13,7 @@ export default function TaskStatusInfo(props: {
   withdrawMyRewards?: () => void,
 }) {
   const {from, taskStatus} = props
+  
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
       return RequirementStatus.filter(it => it.value === taskStatus)[0]?.label

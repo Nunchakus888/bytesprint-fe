@@ -13,7 +13,8 @@ export default function UserMyPledge(props: {
     position="relative"
     marginTop="20px"
     paddingBottom="20px"
-    height="300px"
+    height="500px"
+    overflow="scroll"
     className={styles.container}
   >
     <Text fontSize={18} fontWeight="bold">我的质押</Text>

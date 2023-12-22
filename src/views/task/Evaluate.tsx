@@ -10,21 +10,22 @@ import _ from "lodash";
 export default function Evaluate(props: {
   isOpen?: boolean,
   onClose?: () => void
+  projectId: string
 }) {
-  const {isOpen, onClose} = props
+  const {isOpen, onClose, projectId} = props
   const {
     fields,
     append,
     remove,
-    totalCnys,
+    // totalCnys,
     totalUsdt,
-    cnys,
+    // cnys,
     errors,
     register,
     handleSure,
     setValue,
     getValues,
-    } = useEvaluate()
+    } = useEvaluate(projectId)
   
   return (
     <ModalDialog 
@@ -41,7 +42,7 @@ export default function Evaluate(props: {
             <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
             <Flex alignItems="center" justifyContent="center" width="400px">任务名称</Flex>
             <Flex alignItems="center" justifyContent="center" width="400px">费用（USDT）</Flex>
-            <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex>
+            {/* <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex> */}
             <Flex width="100px" alignItems="center" justifyContent="center" >操作</Flex>
           </Flex>
           {
@@ -65,7 +66,7 @@ export default function Evaluate(props: {
                       </FormErrorMessage>
                     </FormControl>
                   </Flex>
-                  <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex>
+                  {/* <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex> */}
                   <Flex width="100px" alignItems="center" justifyContent="center" ><Link color="#7551FF" onClick={() => remove(index)}>删除</Link></Flex>
                 </Flex>
               )
@@ -78,7 +79,7 @@ export default function Evaluate(props: {
           <Flex width="70%" justifyContent="space-between" padding="20px 0 0 20px">
             <Text fontSize='lg'>报酬合计</Text>
             <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalUsdt} USDT</Text>
-            <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text>
+            {/* <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text> */}
           </Flex>
         </Box>
       </Box>

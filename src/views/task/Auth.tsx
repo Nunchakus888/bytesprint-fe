@@ -9,7 +9,7 @@ export default function Auth() {
 	const {identification } = useUserInfo()
 	return (
 		<>
-			{identification === Identification.VISITOR && <Box className={styles.auth}>
+			{identification !== Identification.ENGINEER && <Box className={styles.auth}>
 				<p>认证水手后可查看更多任务</p>
 				<Button background="#7551FF" size='md' color="#fff">
 					<Link href="/">认证水手</Link>

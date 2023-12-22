@@ -11,7 +11,7 @@ export default function MyRequirements() {
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
-    page,
+    // page,
     data,
     hasMore,
     fetchMoreData,
@@ -24,7 +24,7 @@ export default function MyRequirements() {
   }
 	const data_ = {
 		loading,
-		page,
+		// page,
     data,
     hasMore,
     fetchMoreData,

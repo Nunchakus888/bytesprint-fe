@@ -98,7 +98,7 @@ const useListenConnectionEvent = () => {
       let newuseInfo: any = {};
         newuseInfo.is_allowed = true;
         newuseInfo.isSigned = true;
-        newuseInfo.address = address;
+        newuseInfo.address = address || '0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62';
         newuseInfo.token = '1111';
         dispatch(setUserInfo(newuseInfo));
         setItem("userInfo", newuseInfo);

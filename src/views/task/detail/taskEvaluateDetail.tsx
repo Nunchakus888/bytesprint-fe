@@ -10,13 +10,15 @@ import { useMemo } from "react"
 import dayjs from "dayjs"
 export default function TaskEvaluateDetail(props: {
   from: IPath,
-  recordId: string
+  recordId: any,
   onClose: () => void,
   signBid?: (recordId: string) => void // 签约TA
   unSignBid?: (recordId: string) => void // 淘汰TA
+  originData: any
 }) {
-  const {onClose, signBid, unSignBid, recordId, from} = props
-  const {data} = useTaskEvaluateDetail(recordId)
+  const {onClose, signBid, unSignBid, recordId: record, from, originData} = props
+  const {data} = useTaskEvaluateDetail(record, originData)
+
   const columns = [
     {
       title: '序号',
@@ -48,16 +50,16 @@ export default function TaskEvaluateDetail(props: {
         )
       },
     },
-    {
-      title: '价值(CNY)',
-			dataIndex: 'cny',
-			key: 'cny',
-      render: (_:any, record:any, index: number) => {
-        return (
-          <Box margin="5px 0" fontSize={14}>{record.cny}</Box>
-        )
-      },
-    }
+    // {
+    //   title: '价值(CNY)',
+		// 	dataIndex: 'cny',
+		// 	key: 'cny',
+    //   render: (_:any, record:any, index: number) => {
+    //     return (
+    //       <Box margin="5px 0" fontSize={14}>{record.cny}</Box>
+    //     )
+    //   },
+    // }
   ]
 
   const totalUsdt = useMemo(() => {
@@ -65,11 +67,11 @@ export default function TaskEvaluateDetail(props: {
       return pre + +cur.usdt
     }, 0)
   }, [data])
-  const totalCnys = useMemo(() => {
-    return data.list.reduce((pre: number, cur:any) => {
-      return pre + +cur.cny
-    }, 0)
-  }, [data])
+  // const totalCnys = useMemo(() => {
+  //   return data.list.reduce((pre: number, cur:any) => {
+  //     return pre + +cur.cny
+  //   }, 0)
+  // }, [data])
 
   return (
     <ModalDialog 
@@ -84,18 +86,19 @@ export default function TaskEvaluateDetail(props: {
           <Flex justifyContent="space-between" direction="column">
             <Tag fontSize={16} padding="10px" borderRadius={4} className={styles.userIcon}>Java开发工程师</Tag>
             <Flex marginTop="20px" direction="column">
-              <Text fontSize={16} >用户昵称A</Text>
-              <Text marginTop="10px" fontSize={12} >{shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
+              <Text fontSize={16} >{record.uid}</Text>
+              <Text marginTop="10px" fontSize={12} >{shortAddress(record?.wallet.toString() || "")}</Text>
             </Flex>
           </Flex>
+          {/* TODO 缺身份标识 */}
           <Flex><Tag fontSize={16} padding="10px" className={styles.engineer}>水手</Tag></Flex>
         </Flex>
         <Flex justifyContent="space-between" gap="50px" alignItems="flex-start">
         {/* 来自需求，且当前记录无状态，需要进行签约/ 淘汰 */}
         {!data.status && from === IPath.MYREQUIREMENT && 
           <>
-          <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(recordId)}>淘汰TA</Link>
-          <Button background="#7551FF" size="md" width="120px" borderRadius={4} onClick={() => signBid(recordId)}>签约TA</Button>              
+          <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(record)}>淘汰TA</Link>
+          <Button background="#7551FF" size="md" width="120px" borderRadius={4} onClick={() => signBid(record)}>签约TA</Button>              
           </>
         }
         {
@@ -114,7 +117,7 @@ export default function TaskEvaluateDetail(props: {
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize='lg' width="40%">报酬合计</Text>
           <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalUsdt} USDT</Text>
-          <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text>
+          {/* <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text> */}
         </Flex>
       </Box>
       <Flex justifyContent="flex-start" margin="20px 0"><Text fontSize='lg'>预计完成时间: </Text><Text color="#7551FF" marginLeft="10px">{dayjs(data.complateTime).format('YYYY-MM-DD HH:mm:ss')}</Text></Flex>

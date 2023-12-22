@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response?.data || {};
 
-    if (res?.code !== 200) {
+    if (res?.code !== 0) {
       if (res?.code === 10005) {
         // expires token
         localStorage.removeItem("userInfo");

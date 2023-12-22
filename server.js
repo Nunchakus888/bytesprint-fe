@@ -4,20 +4,8 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const http = require("http");
 
 const devProxy = {
-  "/api/v1": {
-    target: "https://test.app.composablelabs.link",
-    // target: "https://hub.composablelabs.io",
-    changeOrigin: true,
-    secure: false,
-  },
-  "/reader": {
-    target: "https://temp3.admin.ec2.gamemag.link/",
-    // target: "https://hub.composablelabs.io",
-    changeOrigin: true,
-    secure: false,
-  },
-  "/send-notification": {
-    target: "https://temp2.admin.ec2.gamemag.link/",
+  "/project": {
+    target: "https://yapi.pro/mock/83860/",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,

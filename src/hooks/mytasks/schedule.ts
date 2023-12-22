@@ -3,6 +3,7 @@ import _ from "lodash"
 import { useEffect, useMemo, useState } from "react"
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import dayjs from "dayjs";
+import { toast, useToast } from "@chakra-ui/react";
 
 
 export interface ISchedule {
@@ -15,7 +16,8 @@ export interface ISchedule {
 
 export const useSchedule = ({scheduleTask, startTask, taskId, scheduledata}:any) => { 
   // 是否可以开始任务
-  const [isStartTask, setIsStartTask] = useState(false)
+  const [isStartTask, setIsStartTask] = useState(true)
+  const toast = useToast()
 
   const datas: ISchedule[] = scheduledata.map((it:ISchedule) => {
     const {startTime, endTime, workhours} = it
@@ -54,19 +56,29 @@ export const useSchedule = ({scheduleTask, startTask, taskId, scheduledata}:any)
   const saveSchedule = () => {
     handleSubmit(onSubmit)()
   }
-  const onSubmit = (data:any) => {
+  const onSubmit = async (data:any) => {
     console.log("提交数据>>>>", data.datas)
     console.log("调用任务排期接口>>>>", data.datas)
-    scheduleTask(data.datas)
+    const res = await scheduleTask(data.datas)
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: true,
+      onCloseComplete: () => {
+        window.location.reload()
+      }
+    })
     // 保存成功后，可以开始任务
-    setIsStartTask(true)
+    // setIsStartTask(true)
   }
 
   // 开始任务
   const startMyTask = () => {
     // TODO 状态流转
-    console.log("调用开始任务接口>>>>", )
-    startTask(taskId)
+    // console.log("调用开始任务接口>>>>", )
+    // startTask(taskId)
+
+    handleSubmit(onSubmit)()
   }
   return {
     fields,

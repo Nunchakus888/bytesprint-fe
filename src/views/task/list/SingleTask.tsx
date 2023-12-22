@@ -38,15 +38,15 @@ function SingleTask(props: {
           </>:
           <>
             <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
-				<FilSelect options={TaskTypes} placeholder="任务类型" change={(val) => onChange('taskType', val)} />
-				<FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
+				    <FilSelect options={TaskTypes} placeholder="任务类型" change={(val) => onChange('taskType', val)} />
+				    <FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
           </>
         }
 				
 			</Box>
 		</Flex>
 		<Box mt={{base: '20px'}}>
-			{loading ? (
+			{!data ? (
           <Loading />
         ) : (
           <InfiniteScroll
