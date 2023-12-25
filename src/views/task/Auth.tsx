@@ -10,9 +10,9 @@ export default function Auth() {
 	return (
 		<>
 			{identification !== Identification.ENGINEER && <Box className={styles.auth}>
-				<p>认证水手后可查看更多任务</p>
+				<p>Participate after Tasker Certification</p>
 				<Button background="#7551FF" size='md' color="#fff">
-					<Link href="/">认证水手</Link>
+					<Link href="/">Tasker Certification</Link>
 				</Button>
 			</Box>
 			}

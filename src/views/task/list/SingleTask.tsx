@@ -27,19 +27,19 @@ function SingleTask(props: {
 			<SearchInput 
 				background="rgba(255,255,255,0.05)" 
 				searchIconColor="#7551FF" 
-				placeholder="任务名称"
+				placeholder="Task Name"
 				search={handleSearch}></SearchInput>
 			<Box display="flex" justifyContent="flex-end">
         {props.isMine ? 
           <>
-          <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus} placeholder="任务状态" change={(val) => onChange('taskStatus', val)} />
-          <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
-				  <FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
+          <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus} placeholder="Task Status" change={(val) => onChange('taskStatus', val)} />
+          <FilSelect options={ProTypes} placeholder="Crowdsourcing Method" change={(val) => onChange('proType', val)} />
+				  <FilSelect options={ProfessionTypes} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
           </>:
           <>
-            <FilSelect options={ProTypes} placeholder="众包方式" change={(val) => onChange('proType', val)} />
-				    <FilSelect options={TaskTypes} placeholder="任务类型" change={(val) => onChange('taskType', val)} />
-				    <FilSelect options={ProfessionTypes} placeholder="职位类型" change={(val) => onChange('professionType', val)} />
+            <FilSelect options={ProTypes} placeholder="Crowdsourcing Method" change={(val) => onChange('proType', val)} />
+				    <FilSelect options={TaskTypes} placeholder="Task Type" change={(val) => onChange('taskType', val)} />
+				    <FilSelect options={ProfessionTypes} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
           </>
         }
 				

@@ -21,7 +21,7 @@ export default function UserMajor(props: {
     height="150px"
     className={styles.container}
     >
-    {/* 船长 */}
+    {/* Navigator */}
     {
       from.includes(IPath.OPERATOR) || isOperator && 
       <Flex justifyContent="space-around" alignItems="center" width="100%">

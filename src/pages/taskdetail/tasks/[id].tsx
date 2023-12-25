@@ -39,7 +39,7 @@ const TaskDetail = () => {
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.TASKS}`, name: '任务大厅'}, {path: '#', name: '任务详情'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.TASKS}`, name: 'Task Hall'}, {path: '#', name: 'Task Details'}]}
           />
         </Box>
       </Portal>

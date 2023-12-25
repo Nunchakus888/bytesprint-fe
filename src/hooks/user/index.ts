@@ -29,22 +29,22 @@ let defaultRoutes: any[] = [
 	//   component: Index,
 	// },
 	{
-		name: '众包管理',
+		name: 'Crowdsourcing Management ',
 		icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
 		children: [
 			{
-				name: '任务大厅',
+				name: 'Task Hall',
 				path: `/${IPath.TASKS}`,
 				// icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
 			},
 			{
-				name: '我的需求',
+				name: 'My Requirements',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.MYREQUIREMENT}`,
 			},
 			
 			{
-				name: '我的任务',
+				name: 'My Task',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.MYTASKS}`
 			},
@@ -56,17 +56,17 @@ let defaultRoutes: any[] = [
 
 const system = [
 	{
-		name: '船长管理',
+		name: 'Navigator管理',
 		icon: MdPerson,  // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 
 		children: [
 			{
-				name: '船长审核',
+				name: 'Navigator审核',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.OPERATOR}`,
 			},
 			{
-				name: '我的船长',
+				name: '我的Navigator',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.MYOPERATOR}`,
 			},
@@ -77,16 +77,16 @@ const system = [
 const operator = [
 	...defaultRoutes,
 	{
-		name: '水手管理',
+		name: 'Tasker管理',
 		icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 		children: [
 			{
-				name: '水手审核',
+				name: 'Tasker审核',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.ENGINEERManage}`
 			},
 			{
-				name: '我的水手',
+				name: '我的Tasker',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/${IPath.MYENGINEER}`
 			},
@@ -102,7 +102,7 @@ const operator = [
 				path: `/system/certposition`,
 			},
 			{
-				name: '水手认证设置',
+				name: 'Tasker认证设置',
 				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 				path: `/system/certengineersetting`
 			},
@@ -112,7 +112,7 @@ const operator = [
 
 const loginNav = [
 	{
-		name: '用户中心',
+		name: 'User Center',
 		path: '/profile',
 		icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
 	},

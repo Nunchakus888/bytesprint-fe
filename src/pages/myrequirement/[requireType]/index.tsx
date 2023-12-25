@@ -67,7 +67,7 @@ export default function AddRequirement(props: {}) {
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYREQUIREMENT}`, name: '我的需求'}, {path: '#', name: '发布需求'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements'}, {path: '#', name: 'Publish Requirement'}]}
           />
         </Box>
       </Portal>
@@ -83,7 +83,7 @@ export default function AddRequirement(props: {}) {
               <Input
                 color="#fff"
                 id="projectName"
-                placeholder="任务名称"
+                placeholder="Task Name"
                 {...register('projectName', {
                   required: '必填项',
                 })}
@@ -95,7 +95,7 @@ export default function AddRequirement(props: {}) {
 
             <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
               <FormLabel>填写任务描述</FormLabel>
-              <ReactQuillComponent placeholder="任务描述" value={getValues('description')} onChange={(val) => setValue('description', val)} />
+              <ReactQuillComponent placeholder="Task Description" value={getValues('description')} onChange={(val) => setValue('description', val)} />
               <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
             </FormControl>
 
@@ -112,7 +112,7 @@ export default function AddRequirement(props: {}) {
 
             <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).professionType} isRequired margin="20px 0">
               <FormLabel htmlFor="professionType">选择职位类型</FormLabel>
-              <Select placeholder="职位类型" iconSize="16" {...register('professionType', {
+              <Select placeholder="Job Type" iconSize="16" {...register('professionType', {
                   required: '必选项',
                 })}>
                 {
@@ -126,7 +126,7 @@ export default function AddRequirement(props: {}) {
               </FormErrorMessage> */}
             </FormControl>
             <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod} isRequired margin="20px 0">
-              <FormLabel htmlFor="crowSourcingMethod">众包方式</FormLabel>
+              <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
               <RadioGroup>
                 <Stack direction="row">
                   {ProTypes.map((it) => {
@@ -194,7 +194,7 @@ export default function AddRequirement(props: {}) {
               <Input
                 color="#fff"
                 id="projectName"
-                placeholder="任务名称"
+                placeholder="Task Name"
                 {...register('projectName', {
                   required: '必填项',
                 })}
@@ -206,7 +206,7 @@ export default function AddRequirement(props: {}) {
 
             <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
               <FormLabel>填写任务描述</FormLabel>
-              <ReactQuillComponent placeholder="任务描述" value={getValues('description')} onChange={(val) => setValue('description', val)} />
+              <ReactQuillComponent placeholder="Task Description" value={getValues('description')} onChange={(val) => setValue('description', val)} />
               <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
             </FormControl>
 

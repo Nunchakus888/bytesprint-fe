@@ -13,7 +13,7 @@ export default function TaskItem(props: {
 		<Box className={styles.itemContainer}>
 			<Flex justify="space-between" position="relative">
 				
-				<Box className={styles.imgbox}><Image src='https://bit.ly/dan-abramov' alt='Dan Abramov' /></Box>
+				<Box className={styles.imgbox}><Image src={`https://picsum.photos/200/250?random=${Math.ceil(Math.random() * 100)}`} alt={item.categoryName} /></Box>
 				<Box display="flex" flexDirection="column">
 					<Box>
 						<Tag size="lg" variant='solid' background='#7551FF' marginRight="10px">
@@ -32,7 +32,7 @@ export default function TaskItem(props: {
 							{item.positionName}
 						</Tag>
 						<Button background="#7551FF" size='md' color="#fff">
-							<Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}> 查看详情</Link>
+							<Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}> Details</Link>
 						</Button>
 					</Box>
 				</Box>

@@ -31,7 +31,7 @@ export default function CertPosition() {
 			},
     },
     {
-      title: '职位类型名称',
+      title: 'Job Type',
 			dataIndex: 'name',
 			key: 'name',
       render: (_:any, record:any, index:number) => {

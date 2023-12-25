@@ -43,7 +43,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[]) => {
       }
     })
   }
-  // 提取我的报酬
+  // 提取My Rewards
   const withdrawMyRewards = () => {}
   // const startTask = () => {}
   // 完成任务计划某项

@@ -13,16 +13,16 @@ export default function UserSkillsTag() {
   height="150px"
   className={styles.container}
   >
-    <Text fontSize={18} fontWeight="bold">技能标签</Text>
+    <Text fontSize={18} fontWeight="bold">Skills Tags</Text>
     <Flex justifyContent="center" margin="20px 0" gap="50px">
       <Tag size="lg" variant="solid" background="#7551FF">
-        技能标签
+      Skills Tags
       </Tag>
       <Tag size="lg" variant="solid" background="#7551FF">
-        技能标签
+      Skills Tags
       </Tag>
       <Tag size="lg" variant="solid" background="#7551FF">
-        技能标签
+      Skills Tags
       </Tag>
     </Flex>
 </Box>

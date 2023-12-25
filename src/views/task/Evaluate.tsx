@@ -40,7 +40,7 @@ export default function Evaluate(props: {
         <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
           <Flex justify="space-between">
             <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
-            <Flex alignItems="center" justifyContent="center" width="400px">任务名称</Flex>
+            <Flex alignItems="center" justifyContent="center" width="400px">Task Name</Flex>
             <Flex alignItems="center" justifyContent="center" width="400px">费用（USDT）</Flex>
             {/* <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex> */}
             <Flex width="100px" alignItems="center" justifyContent="center" >操作</Flex>
@@ -84,7 +84,7 @@ export default function Evaluate(props: {
         </Box>
       </Box>
       <Box>
-        <Text fontSize='lg'>预计完成时间</Text>
+        <Text fontSize='lg'>Estimated Completion Time</Text>
           <Box margin="10px 0 20px 0" className={styles.datepicker}>
             <SingleDatepicker
               name="date-input"
@@ -97,7 +97,7 @@ export default function Evaluate(props: {
               <InputRightElement>USDT</InputRightElement>
               <Input name="need-usdt" isReadOnly value={(Number(totalUsdt)*0.1).toFixed(2)} color="#fff"></Input>
             </InputGroup>
-            <Text fontSize='xs' color="#7551FF">质押数量=费用合计*10%</Text>
+            <Text fontSize='xs' color="#7551FF">质押数量=Total Cost*10%</Text>
             
         </Box>
       </Box>

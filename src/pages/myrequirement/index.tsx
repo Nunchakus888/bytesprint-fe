@@ -9,7 +9,7 @@ import { useUserInfo } from "hooks/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-// 我的需求
+// My Requirements
 export default function MyRequirements() {
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
@@ -47,7 +47,7 @@ export default function MyRequirements() {
   }, [])
   return (
 		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange} isMine={true} from={IPath.MYREQUIREMENT}>
-      <Link href={`/myrequirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />发布需求</Button></Link>
+      <Link href={`/myrequirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />Publish Requirement</Button></Link>
     </TaskTemplate>
 	)
 }

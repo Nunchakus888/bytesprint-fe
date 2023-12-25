@@ -84,7 +84,7 @@ const TaskDetail = () => {
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYTASKS}`, name: '我的任务'}, {path: '#', name: '任务详情'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.MYTASKS}`, name: 'My Task'}, {path: '#', name: 'Task Details'}]}
           />
         </Box>
       </Portal>
@@ -104,7 +104,7 @@ const TaskDetail = () => {
             {/* TODO 待获取 */}
             {data.taskStatus !== IStatus.WAIT_SIGN && <TaskSignedReward totalUsdt={"1000.00"} completeTime={1702545889368}/>}
             {/* TODO 待获取 */}
-            <TaskUserInfo title="我的信息" userInfo={{}}/>
+            <TaskUserInfo title="My Information" userInfo={{}}/>
             <TaskMovement data={data} />
           </Flex>
         </Box>

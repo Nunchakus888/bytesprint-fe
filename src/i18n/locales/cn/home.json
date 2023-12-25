@@ -124,7 +124,7 @@
           "button": "去登录"
         },
         {
-          "title": "水手",
+          "title": "Tasker",
           "data": [
             "1. 享有货主同等权益；",
             "2. 随时参与对应岗位的任务报价",
@@ -133,7 +133,7 @@
           "button": "去认证"
         },
         {
-          "title": "船长",
+          "title": "Navigator",
           "data": [
             "1. 享有货主同等权益；",
             "2. 获得代币质押的收益",
@@ -175,10 +175,10 @@
   },
   "captain": {
     "captain_introduction": {
-      "title": "船长介绍",
+      "title": "Navigator介绍",
       "bg": "img/index/captain/ci_bg.png",
       "introduce": "商运营商是ByteSprint平台非常重要的角色，区别于WEB2.0的IT众包平台，ByteSprint是一个逐步去中心化的平台，运营商起到了沟通发包方和IT工程师的桥梁，尤其针对IT整包项目或一些业务相对复杂的IT任务，我们鼓励有着传统IT软件外包经验和资源的法人组织来申请运营商，当某个钱包帐号申请成为运营商，并通过平台审核后，质押一定数量的BTYD代币，就可以成为ByteSprint众包平台的认证运营商；",
-      "button": "船长注册"
+      "button": "Navigator注册"
     },
     "profitability_analysis": {
       "title": "盈利能力分析",
@@ -236,14 +236,14 @@
       "button": "查看更多案例"
     },
     "Benefits": {
-      "title": "当船长的好处",
+      "title": "当Navigator的好处",
       "1": "灵活的工程师资源",
       "2": "交易挖矿收益",
       "3": "质押交易",
       "4": "devops工具"
     },
     "Cooperative_operator": {
-      "title": "合作的船长"
+      "title": "合作的Navigator"
     },
     "Bottom_Navigation": {
       "ABOUT_US": {

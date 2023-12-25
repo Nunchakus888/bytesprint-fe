@@ -51,7 +51,7 @@ const TaskDetail = () => {
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYREQUIREMENT}`, name: '我的需求'}, {path: '#', name: '需求详情'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements'}, {path: '#', name: '需求详情'}]}
           />
         </Box>
       </Portal>
@@ -68,7 +68,7 @@ const TaskDetail = () => {
             <Flex direction="column">
               <TaskStatusInfo from={IPath.MYREQUIREMENT} taskStatus={data?.taskStatus} openTask={openTask} closeTask={closeTask} acceptTask={acceptTask}/>
               {isShowExtendTaskInfo && <TaskSignedReward totalUsdt={"1000.00"} completeTime={Date.now()}/>}
-              <TaskUserInfo title="我的信息" userInfo={{}}/>
+              <TaskUserInfo title="My Information" userInfo={{}}/>
               {isShowExtendTaskInfo && <TaskUserInfo title="签约水手信息" userInfo={{email: '133'}} /> }
               <TaskMovement data={data}/>
             </Flex>

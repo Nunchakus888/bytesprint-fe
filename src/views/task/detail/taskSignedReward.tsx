@@ -21,7 +21,7 @@ export default function TaskSignedReward(props:{
       <Text fontSize={18} fontWeight="bold">签约报酬</Text>
       <Box marginTop="20px">
         <Text fontSize={16} whiteSpace="nowrap" display="flex"><Text letterSpacing="5px">报  酬  合  计：</Text>{totalUsdt.toString()} USDT</Text>
-        <Text marginTop="10px" fontSize={16} >预计完成时间：{dayjs(completeTime).format('YYYY/MM/DD')}</Text>
+        <Text marginTop="10px" fontSize={16} >Estimated Completion Time：{dayjs(completeTime).format('YYYY/MM/DD')}</Text>
       </Box>
     </Box>
   )

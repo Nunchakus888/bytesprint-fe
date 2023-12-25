@@ -20,7 +20,7 @@ export default function AddRequirement() {
         <Back />
         <Box className={styles.content} marginTop="20px" background="rgba(255,255,255,0.05)" display="flex" justifyContent="center" alignItems="center">
             <Flex direction="column" alignItems="center" gap={20}>
-                <Text color="#fff" fontSize={20} fontWeight="bold">请选择需求类型</Text>
+                <Text color="#fff" fontSize={20} fontWeight="bold">Select Requirement Type</Text>
                 <Flex justifyContent="space-between" gap="10px">
                   {
                     requirementTypes.map(it => {
@@ -37,7 +37,7 @@ export default function AddRequirement() {
                   }
                 </Flex>
                 <Box margin="20px 0">
-                  <Link href={`/myrequirement/${selectType}`}><Button background="#7551FF" size="md" borderRadius={4}>下一步</Button></Link>
+                  <Link href={`/myrequirement/${selectType}`}><Button background="#7551FF" size="md" borderRadius={4}>Next Step</Button></Link>
                 </Box>
             </Flex>
         </Box>

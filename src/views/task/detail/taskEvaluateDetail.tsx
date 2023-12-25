@@ -31,7 +31,7 @@ export default function TaskEvaluateDetail(props: {
 			},
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
 			dataIndex: 'taskname',
       width: '60%',
       textAlign: 'left',
@@ -91,7 +91,7 @@ export default function TaskEvaluateDetail(props: {
             </Flex>
           </Flex>
           {/* TODO 缺身份标识 */}
-          <Flex><Tag fontSize={16} padding="10px" className={styles.engineer}>水手</Tag></Flex>
+          <Flex><Tag fontSize={16} padding="10px" className={styles.engineer}>Tasker</Tag></Flex>
         </Flex>
         <Flex justifyContent="space-between" gap="50px" alignItems="flex-start">
         {/* 来自需求，且当前记录无状态，需要进行签约/ 淘汰 */}
@@ -120,7 +120,7 @@ export default function TaskEvaluateDetail(props: {
           {/* <Text color="#7551FF" fontSize="20px" fontWeight="bold">{totalCnys} CNY</Text> */}
         </Flex>
       </Box>
-      <Flex justifyContent="flex-start" margin="20px 0"><Text fontSize='lg'>预计完成时间: </Text><Text color="#7551FF" marginLeft="10px">{dayjs(data.complateTime).format('YYYY-MM-DD HH:mm:ss')}</Text></Flex>
+      <Flex justifyContent="flex-start" margin="20px 0"><Text fontSize='lg'>Estimated Completion Time: </Text><Text color="#7551FF" marginLeft="10px">{dayjs(data.complateTime).format('YYYY-MM-DD HH:mm:ss')}</Text></Flex>
     </ModalDialog>
   )
 }

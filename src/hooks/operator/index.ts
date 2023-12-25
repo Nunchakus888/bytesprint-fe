@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Get } from "utils/axios";
 
-// 船长 查询条件
+// Navigator 查询条件
 export const useOperatorFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
@@ -34,7 +34,7 @@ export const useOperatorFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 船长列表
+// Navigator列表
 export const useOperatorList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -115,7 +115,7 @@ export const useOperatorList = (filter: any) => {
   };
 };
 
-// 船长详情
+// Navigator详情
 export const useOperatorDetail = (id: string) => {
   // const { data, isLoading } = useSWR(
   //   id
@@ -154,7 +154,7 @@ export const useOperatorDetail = (id: string) => {
   };
 }
 
-// 船长认证
+// Navigator认证
 export const useOperatorCheck = (id: string) => {
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState(null)

@@ -40,7 +40,7 @@ export default function TaskBaseInfo(props:{
           {data.positionName}
         </Tag>
       </Box>
-      {/* 来自任务大厅且是水手，可以进行评估 */}
+      {/* 来自Task Hall且是Tasker，可以进行评估 */}
       {props.from === IPath.TASKS && !isEvaluate && (
         <Button
           position="absolute"

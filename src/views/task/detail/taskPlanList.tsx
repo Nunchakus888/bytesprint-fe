@@ -9,7 +9,7 @@ import { useMemo } from "react";
 
 enum EPlanStatus {
   NO_START=`未开始`,
-  DONE=`已完成`
+  DONE=`Completed`
 }
 
 export default function TaskPlanList(props: {
@@ -48,7 +48,7 @@ export default function TaskPlanList(props: {
   //   return data_
   // }, [data])
   
-  // 我的任务有完成操作
+  // My Task有完成操作
   const Action = {
     title: '操作',
     dataIndex: 'id',
@@ -71,7 +71,7 @@ export default function TaskPlanList(props: {
 			},
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
 			dataIndex: 'taskname',
 			key: 'taskname',
       render: (_:any, record:IPlanItem, index:number) => {
@@ -99,7 +99,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '预计完成时间',
+      title: 'Estimated Completion Time',
 			dataIndex: 'endTime',
 			key: 'endTime',
       render: (_:any, record:IPlanItem, index: number) => {

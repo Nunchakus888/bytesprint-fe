@@ -26,8 +26,8 @@ export default function TaskDescription(props: {
   // console.log("isReviewer", isReviewer, reviewFile)
   return (
     <Box display="flex" flexDirection="column" position="relative" marginTop="20px" className={styles.container}>
-      {/* <p className={styles.itemTitle}>任务描述</p> */}
-      <Text fontSize={18} fontWeight="bold">任务描述</Text>
+      {/* <p className={styles.itemTitle}>Task Description</p> */}
+      <Text fontSize={18} fontWeight="bold">Task Description</Text>
       <Box margin="10px 0" dangerouslySetInnerHTML={{__html: description}}></Box>
 
       {/* 文件 */}

@@ -41,7 +41,7 @@ export default function CertEngineerSetting() {
                 当前工作区域
               </Checkbox>
               <Checkbox size='md' colorScheme="purple" {...register("baseInfo.phone")}>
-                联系电话
+                Contact Number
               </Checkbox>
               <Checkbox size='md' colorScheme="purple" {...register("baseInfo.email")}>
                 邮箱
@@ -50,7 +50,7 @@ export default function CertEngineerSetting() {
           </Box>
           <Box margin="20px 0">
             <Checkbox size='md' colorScheme="purple" {...register("skillsTag")}>
-              技能标签
+              Skills Tags
             </Checkbox>
           </Box>
           <Box margin="20px 0">
@@ -70,7 +70,7 @@ export default function CertEngineerSetting() {
           </Box>
           <Box margin="20px 0">
             <Checkbox size='md' colorScheme="purple" {...register("attachResume")}>
-            附件简历
+            Attached Resume
             </Checkbox>
           </Box>
           <Button margin="20px 0" background="#7551FF" size="md" width="120px" borderRadius={4} onClick={handleSubmit(saveItem)}>修改</Button>   

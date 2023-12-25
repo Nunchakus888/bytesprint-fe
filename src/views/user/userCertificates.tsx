@@ -15,7 +15,7 @@ export default function UserCertificates(props: {
     paddingBottom="20px"
     className={styles.container}
     >
-    <Text fontSize={18} fontWeight="bold">资格证书</Text>
+    <Text fontSize={18} fontWeight="bold">Qualification Certificate</Text>
     <Box justifyContent="center" margin="20px 0" width="100%">
       {
         data.map((it, index) => {

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Get } from "utils/axios";
 
-// 水手 查询条件
+// Tasker 查询条件
 export const useEngineerFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
@@ -34,7 +34,7 @@ export const useEngineerFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 水手列表
+// Tasker列表
 export const useEngineerList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -115,7 +115,7 @@ export const useEngineerList = (filter: any) => {
   };
 };
 
-// 水手详情
+// Tasker详情
 export const useEngineerDetail = (id: string) => {
   // const { data, isLoading } = useSWR(
   //   id
@@ -154,7 +154,7 @@ export const useEngineerDetail = (id: string) => {
   };
 }
 
-// 水手认证
+// Tasker认证
 export const useEngineerCheck = (id: string) => {
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState(null)

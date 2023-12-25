@@ -72,7 +72,7 @@ export default function ProfileOverview() {
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '用户中心'}]}
+            paths={[{path: '#', name: 'User Center'}]}
           />
         </Box>
       </Portal>

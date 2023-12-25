@@ -28,7 +28,7 @@ export default function TaskUserInfo(props:{
             <Text marginTop="10px" fontSize={12} >{shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
           </Flex>
         </Flex>
-        <Text marginTop="20px" fontSize={16}>联系电话：15195451161</Text>
+        <Text marginTop="20px" fontSize={16}>Contact Number：15195451161</Text>
         {userInfo.email && <Text marginTop="10px" fontSize={16}>电子邮箱：lipeibina@outlook.com</Text>}
       </Box>
     </Box>

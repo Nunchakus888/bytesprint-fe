@@ -48,15 +48,15 @@ export default function TaskTemplate(props: {
   //   onChange('name', searchVal)
   // }
 
-  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: '我的需求'}: 
-  props.from === IPath.MYTASKS ? {path: `#`, name: '我的任务'} : 
-  {path: `#`, name: '任务大厅'}
+  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: 'My Requirements'}: 
+  props.from === IPath.MYTASKS ? {path: `#`, name: 'My Task'} : 
+  {path: `#`, name: 'Task Hall'}
   return (
     <AdminLayout>
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'},path]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '},path]}
           />
         </Box>
       </Portal>

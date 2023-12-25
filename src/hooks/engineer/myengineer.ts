@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import { Get } from "utils/axios";
 
-// 水手 查询条件
+// Tasker 查询条件
 export const useMyEngineerFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
@@ -33,7 +33,7 @@ export const useMyEngineerFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 水手列表
+// Tasker列表
 export const useMyEngineerList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);

@@ -29,7 +29,7 @@ export default function TaskBidRecords(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `投标记录：${recordList.length}`}
+        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `Bidding Records：${recordList.length}`}
       </Text>
       <Box marginTop="30px"  width="100%">
         {recordList.map((it,index) => {
@@ -43,10 +43,10 @@ export default function TaskBidRecords(props: {
                 </Flex>
               </Flex>
               <Box>
-                <Text fontSize={16} whiteSpace="nowrap" display="flex">费用合计：{it.totalCost} USDT</Text>
+                <Text fontSize={16} whiteSpace="nowrap" display="flex">Total Cost：{it.totalCost} USDT</Text>
               </Box>
               <Box>
-                <Text fontSize={16} whiteSpace="nowrap" display="flex">预计完成时间：{dayjs(it.finishTime).format('YYYY/MM/DD')}</Text>
+                <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(it.finishTime).format('YYYY/MM/DD')}</Text>
               </Box>
 
               <Flex alignItems="center" gap="20px">
@@ -78,7 +78,7 @@ export default function TaskBidRecords(props: {
                       {TaskBidStatus.BID_SUCCESS === it.signStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
 
                       {/* 待签约 */}
-                      {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && <Text width="100px" textAlign="center" color="#7551FF" fontWeight="bold" fontSize={16}>待签约</Text>}
+                      {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && <Text width="100px" textAlign="center" color="#7551FF" fontWeight="bold" fontSize={16}>Pending Contract</Text>}
                     </>
                   )
                 }

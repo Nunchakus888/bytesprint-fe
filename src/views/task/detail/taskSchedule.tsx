@@ -42,7 +42,7 @@ export default function TaskSchedule(props: {
 			},
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
 			dataIndex: 'taskname',
 			key: 'taskname',
     },
@@ -126,7 +126,7 @@ export default function TaskSchedule(props: {
       <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
-          <Flex alignItems="center" justifyContent="center" width="300px">任务名称</Flex>
+          <Flex alignItems="center" justifyContent="center" width="300px">Task Name</Flex>
           <Flex alignItems="center" justifyContent="center" width="300px">预计工时</Flex>
           <Flex width="300px" alignItems="center" justifyContent="center" >预计开始时间</Flex>
           <Flex width="300px" alignItems="center" justifyContent="center" >预计结束时间</Flex>

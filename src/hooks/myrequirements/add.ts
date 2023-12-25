@@ -5,9 +5,9 @@ import { IRequirement, RequirementType } from "utils/constant"
 
 
 export const requirementTypes = [
-  {type: 'single', value: RequirementType.Single, title: '单一任务', desc: '例如：我有一个前端开发的需求；'},
-  {type: 'person', value: RequirementType.Person,title: '人员需求', desc: '例如：我需要一名前端开发工程师；'},
-  {type: 'global', value: RequirementType.Global,title: '整包项目', desc: '例如：我需要开发一个办公系统；'},
+  {type: 'single', value: RequirementType.Single, title: 'Single Task', desc: 'For example: I have a front-end development requirement.'},
+  {type: 'person', value: RequirementType.Person,title: 'Personnel Requirement', desc: 'For example: I need a front-end developer.'},
+  {type: 'global', value: RequirementType.Global,title: 'Whole Project', desc: 'For example: I need to develop an office system.'},
 ]
 
 

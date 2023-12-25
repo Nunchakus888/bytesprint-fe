@@ -22,7 +22,7 @@ export default function TaskMovement(props:{
       paddingBottom="20px"
       className={styles.container}
     >
-      <Text fontSize={18} fontWeight="bold">需求动态</Text>
+      <Text fontSize={18} fontWeight="bold">Requirement Updates</Text>
       <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
         <Flex direction="column" height="100%" justifyContent="space-around">
           {statusTime.map((it:any) => {
