@@ -4,8 +4,8 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const http = require("http");
 
 const devProxy = {
-  "/project": {
-    target: "https://yapi.pro/mock/83860/",
+  "*": {
+    target: "http://42.192.37.117:8080",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,

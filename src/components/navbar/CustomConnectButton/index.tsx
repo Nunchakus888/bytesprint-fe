@@ -12,11 +12,13 @@ import { maxDecimal } from 'utils';
 import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
+import { useUserInfo } from 'hooks/user';
 
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
   const { disconnect } = useConect();
-
+  const { userInfo, loginLoading } =
+    useSelector((state: any) => state.common);
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
@@ -28,6 +30,7 @@ export const CustomConnectButton = () => {
           account &&
           chain &&
           (!authenticationStatus || authenticationStatus === 'authenticated');
+        
 
         return (
           <div
@@ -41,7 +44,7 @@ export const CustomConnectButton = () => {
             })}
           >
             {(() => {
-              if (!connected || isConnecting) {
+              if (!userInfo.address) {
                 return (
                   <Button className={classnames(styles.connect_btn)} onClick={openConnectModal}>
                     Connect

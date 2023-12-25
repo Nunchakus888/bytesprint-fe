@@ -1,8 +1,8 @@
 // 身份
 export enum Identification {
-  VISITOR = 99,
-  ENGINEER = 1,
-  OPERATOR = 2,
+  VISITOR = 0, // 普通用户
+  ENGINEER = 2, // 开发
+  OPERATOR = 1, // 运营商
   SYSTEM=3
 }
 

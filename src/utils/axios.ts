@@ -16,7 +16,7 @@ axiosInstance.interceptors.request.use(
     const userInfo = window.localStorage.getItem("userInfo") || "{}";
     const info = parseJson(userInfo);
     //@ts-ignore
-    config.headers.Session_id = info?.token || "";
+    config.headers.authorization = info?.authorization || "";
     return config;
   },
   (error: any) => {

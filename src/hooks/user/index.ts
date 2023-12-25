@@ -5,11 +5,15 @@ import { useSelector } from "react-redux";
 import { Identification, IPath } from "utils/constant";
 import {useCookies} from 'react-cookie'
 export const useUserInfo = () => {
-	const [cookies, setCookie, removeCookie] = useCookies();
+	// const [cookies, setCookie, removeCookie] = useCookies();
 	// 身份
-  const { identification, userInfo } =
+  const { userInfo } =
     useSelector((state: any) => state.common);
 
+	const identification = useMemo(() => {
+		const data = userInfo?.data
+		return data?.levelType
+	},[userInfo.data])
 	return {
 		identification,
 		userInfo
