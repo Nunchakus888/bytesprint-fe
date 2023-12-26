@@ -24,10 +24,9 @@ const useConnect = () => {
       await API_ROUTERS.users.LOGOUT()
       removeItem('address');
       removeItem('network');
+      removeItem('authorization');
       dispatch(setUserInfo({}));
       removeItem("userInfo");
-      // TODO setIdentification
-      dispatch(setIdentification(""))
     },
     [disconnectFn, dispatch]
   );

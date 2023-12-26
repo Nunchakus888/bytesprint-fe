@@ -8,13 +8,14 @@ import { IPath } from "utils/constant";
 import { useUserInfo } from "hooks/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import useConnect from "hooks/useConnect";
 
 // My Requirements
 export default function MyRequirements() {
+  const { connect } = useConnect()
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
-    page,
     data,
     hasMore,
     fetchMoreData,
@@ -27,7 +28,6 @@ export default function MyRequirements() {
   }
 	const data_ = {
 		loading,
-		page,
     data,
     hasMore,
     fetchMoreData,
@@ -42,7 +42,9 @@ export default function MyRequirements() {
   useEffect(() => {
     console.log("identification>>>>>>>>>>?", identification)
     if (!identification) {
-      router.replace('/tasks')
+      // router.replace('/tasks')
+      // 唤起登录
+      connect()
     }
   }, [])
   return (

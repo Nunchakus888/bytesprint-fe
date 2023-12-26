@@ -33,9 +33,9 @@ const API_ROUTERS = {
     PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
   },
   users: {
-    LOGIN: (params: any) => createRoute(`/passport/login`, params),
-    SIG_STATUS: (params: any) =>createRoute(`/sign`, params),
-    LOGOUT: (params?: any) =>createRoute(`/logout`, params),
+    LOGIN: `/passport/login`,
+    SIG_STATUS: '/passport/sign' , // (params: any) =>createRoute(`/sign`, params),
+    LOGOUT: (params?: any) =>createRoute(`/passport/logout`, params),
     USER_INFO: (params?: any) =>createRoute(`/user/info`, params),
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
   },

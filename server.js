@@ -4,8 +4,20 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const http = require("http");
 
 const devProxy = {
-  "*": {
-    target: "http://42.192.37.117:8080",
+  "/passport": {
+    target: "http://42.192.37.117:8080/",
+    // target: "https://hub.composablelabs.io",
+    changeOrigin: true,
+    secure: false,
+  },
+  "/user": {
+    target: "http://42.192.37.117:8080/",
+    // target: "https://hub.composablelabs.io",
+    changeOrigin: true,
+    secure: false,
+  },
+  "/project": {
+    target: "http://42.192.37.117:8080/",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
@@ -14,7 +26,7 @@ const devProxy = {
 
 let port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
-console.log("dev", dev)
+console.log("dev>>>>", dev)
 const app = next({ dev });
 const handle = app.getRequestHandler();
 

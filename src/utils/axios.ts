@@ -3,7 +3,7 @@ axios.defaults.timeout = 180000;
 import { parseJson } from "./index";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: '/',
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,10 +13,10 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   //@ts-ignore
   (config: AxiosRequestConfig) => {
-    const userInfo = window.localStorage.getItem("userInfo") || "{}";
-    const info = parseJson(userInfo);
+    const authorization = window.localStorage.getItem("authorization") || "";
+    // const info = parseJson(userInfo);
     //@ts-ignore
-    config.headers.authorization = info?.authorization || "";
+    config.headers.authorization = (authorization || "")?.replaceAll('\"', '');
     return config;
   },
   (error: any) => {
@@ -28,15 +28,13 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response?.data || {};
-
-    if (res?.code !== 0) {
-      if (res?.code === 10005) {
-        // expires token
-        localStorage.removeItem("userInfo");
-      }
+    console.log("res>>>>", res)
+    if (res?.result.code !== 0) {
+      // expires token
+      localStorage.removeItem("userInfo");
       return Promise.reject(res);
     }
-    return res?.data || {};
+    return res || {};
   },
   // 请求失败
   (error: any) => {
@@ -54,5 +52,6 @@ export const Get = (url: string, params = {}): Promise<any> => {
 };
 
 export const Post = (url: string, params = {}): Promise<any> => {
+  console.log("url.>>>>", axiosInstance)
   return axiosInstance.post(url, params);
 };

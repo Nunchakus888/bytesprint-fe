@@ -10,19 +10,19 @@ import getSigner from "utils/getSigner";
 import { useAccount, useDisconnect, useNetwork } from "wagmi";
 import {useCookies} from 'react-cookie'
 import useConnect from "./useConnect";
-import useCustomConnect from "./useCustomConnect";
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
-  const { disconnectEth } = useCustomConnect();
+  const { disconnect } = useDisconnect();
   const dispatch = useDispatch();
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
-
+  const [cookies, setCookie, removeCookie] = useCookies();
   //切换账户，刷新页面
   useEffect(() => {
     const localAddress = localStorage.getItem("address") || "";
     if (ethers.utils.isAddress(localAddress) && address && localAddress !== address) {
+      console.log("address, localAddress>>>>", address, localAddress)
       window.location.reload();
     }
   }, [address]);
@@ -32,20 +32,26 @@ const useListenConnectionEvent = () => {
     // const userInfo = localStorage?.getItem("userInfo") || {};
     //@ts-ignore
     if (userInfo.address && isDisconnected) {
-      disconnectEth();
+      disconnect();
+      removeItem('address');
+      dispatch(setUserInfo({}));
+      removeItem("userInfo");
+      removeItem("authorization");
     }
-  }, [isDisconnected, disconnectEth]);
+  }, [isDisconnected, disconnect]);
 
   useEffect(() => {
     const checkLogin = async () => {
       dispatch(setLoginLoading(true));
-      // let userInfo = getItem("userInfo") || {};
+      let userInfo = getItem("userInfo") || {};
 
-      //判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
+      // 判断用户身份
+      // 判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
       if (
         userInfo?.address !== address || //地址不一样
-        (userInfo?.address === address && !userInfo?.isSigned) //地址一样，但是没有签过名
+        (userInfo?.address === address && !userInfo?.signature) //地址一样，但是没有签过名
       ) {
+
         // 签名
         let signature;
         //获取签名信息
@@ -56,7 +62,7 @@ const useListenConnectionEvent = () => {
         } catch (error) {
           debugger
           dispatch(setLoginLoading(false));
-          disconnectEth();
+          disconnect();
           return;
         }
         debugger

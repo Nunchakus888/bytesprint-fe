@@ -4,6 +4,7 @@ import { Get } from 'utils/axios';
 import useSWR from 'swr';
 import useChange from 'hooks/useChange';
 import { RequirementType, Tabs } from 'utils/constant';
+import { useToast } from '@chakra-ui/react';
 const PAGE_SIZE = 10;
 
 // 根据角色返回对应的任务数据
@@ -11,10 +12,22 @@ const PAGE_SIZE = 10;
 // 任务列表
 export const useTasks = () => {
   const [tabs, setTabs] = useState(Tabs);
+  const toast = useToast()
   const [activeTab, setActiveTab] = useState(tabs?.[0].value);
   const handleTabChange = (val: RequirementType) => {
-    const value = tabs.filter((it) => it.value === val)[0].value;
-    setActiveTab(value);
+    // const value = tabs.filter((it) => it.value === val)[0].value;
+    
+    // 点击其他任务
+    if (val !== RequirementType.Single) {
+      toast({
+        title: `Coming soon`,
+        status: `info`,
+        isClosable: true
+      })
+      return false;
+    }
+    // setActiveTab(val);
+    
   };
   return {
     tabs,
@@ -119,7 +132,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   };
 
   const fetchMoreData = useCallback(() => {
-    const time = data[data.length - 1].createTime;
+    const time = data[data.length - 1]?.startTime;
     setTime(time)
   }, [data]);
 

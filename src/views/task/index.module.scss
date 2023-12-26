@@ -11,7 +11,7 @@
 			margin-right: 10px;
 			color: #7551FF;
 			background-color: rgba(255,255,255, 0.05);
-			&[aria-selected=true] {
+			&.tab_active {
 				background-color: #7551FF;
 				color: #fff;
 			}

@@ -12,7 +12,8 @@ export const useUserInfo = () => {
 
 	const identification = useMemo(() => {
 		const data = userInfo?.data
-		return data?.levelType
+		console.log("data?.userType>>>", data?.userType)
+		return data?.userType
 	},[userInfo.data])
 	return {
 		identification,
@@ -52,6 +53,53 @@ let defaultRoutes: any[] = [
 	},
 	
 	
+];
+
+let visitor_defaultRoutes: any[] = [
+	// {
+	//   name: '项目大厅',
+	
+	//   path: '/',
+	//   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+	//   component: Index,
+	// },
+	{
+		name: 'Crowdsourcing Management ',
+		icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+		children: [
+			{
+				name: 'Task Hall',
+				path: `/${IPath.TASKS}`,
+				// icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+			},
+			{
+				name: 'My Requirements',
+				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+				path: `/${IPath.MYREQUIREMENT}`,
+			}
+		]
+	}
+];
+
+let noLogin_defaultRoutes: any[] = [
+	// {
+	//   name: '项目大厅',
+	
+	//   path: '/',
+	//   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+	//   component: Index,
+	// },
+	{
+		name: 'Crowdsourcing Management ',
+		icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+		children: [
+			{
+				name: 'Task Hall',
+				path: `/${IPath.TASKS}`,
+				// icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+			}
+		]
+	}
 ];
 
 const system = [
@@ -115,29 +163,28 @@ const loginNav = [
 		name: 'User Center',
 		path: '/profile',
 		icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-	},
-	{
-		name: '钱包管理',
-		path: '/account',
-		icon: MdHome // <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
 	}
+	// {
+	// 	name: '钱包管理',
+	// 	path: '/account',
+	// 	icon: MdHome // <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+	// }
 ]
 
 export const routers = {
 	[Identification.SYSTEM]: system,
 	[Identification.OPERATOR]: [...loginNav, ...operator],
 	[Identification.ENGINEER]: [...loginNav, ...defaultRoutes],
-	[Identification.VISITOR]: [...loginNav, ...defaultRoutes],
+	[Identification.VISITOR]: [...loginNav, ...visitor_defaultRoutes],
 }
 
 export const useUserRoute = () => {
 
-  const { identification } =
-    useSelector((state: any) => state.common);
+  const { identification } = useUserInfo()
   const d = useMemo(() => {
     console.log("identification>>>>", identification)
     if (!identification) {
-      return defaultRoutes
+      return noLogin_defaultRoutes
     }
     
     return routers[identification as Identification]

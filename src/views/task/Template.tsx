@@ -61,12 +61,12 @@ export default function TaskTemplate(props: {
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
-        <Tabs variant="soft-rounded" colorScheme="purple">
+        <Tabs variant="soft-rounded" colorScheme="purple" index={0}>
           <Box className={styles.tabswrap}>
             <TabList className={styles.tabs}>
               {tabs?.map((it) => {
                 return (
-                  <Tab key={it.label} onClick={() => handleTabChange(it.value)}>
+                  <Tab key={it.label} className={it.value === activeTab ? styles.tab_active: ''} onClick={(e) => { e.preventDefault();handleTabChange(it.value)}}>
                     {it.label}
                   </Tab>
                 );
