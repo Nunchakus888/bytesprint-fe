@@ -124,38 +124,38 @@ const system = [
 
 const operator = [
 	...defaultRoutes,
-	{
-		name: 'Tasker管理',
-		icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-		children: [
-			{
-				name: 'Tasker审核',
-				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-				path: `/${IPath.ENGINEERManage}`
-			},
-			{
-				name: '我的Tasker',
-				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-				path: `/${IPath.MYENGINEER}`
-			},
-		]
-	},
-	{
-		name: '系统设置',
-		icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-		children: [
-			{
-				name: '认证职位',
-				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-				path: `/system/certposition`,
-			},
-			{
-				name: 'Tasker认证设置',
-				// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
-				path: `/system/certengineersetting`
-			},
-		]
-	}
+	// {
+	// 	name: 'Tasker管理',
+	// 	icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 	children: [
+	// 		{
+	// 			name: 'Tasker审核',
+	// 			// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 			path: `/${IPath.ENGINEERManage}`
+	// 		},
+	// 		{
+	// 			name: '我的Tasker',
+	// 			// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 			path: `/${IPath.MYENGINEER}`
+	// 		},
+	// 	]
+	// },
+	// {
+	// 	name: '系统设置',
+	// 	icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 	children: [
+	// 		{
+	// 			name: '认证职位',
+	// 			// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 			path: `/system/certposition`,
+	// 		},
+	// 		{
+	// 			name: 'Tasker认证设置',
+	// 			// icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+	// 			path: `/system/certengineersetting`
+	// 		},
+	// 	]
+	// }
 ]
 
 const loginNav = [
@@ -183,7 +183,7 @@ export const useUserRoute = () => {
   const { identification } = useUserInfo()
   const d = useMemo(() => {
     console.log("identification>>>>", identification)
-    if (!identification) {
+    if (!identification && identification !== Identification.VISITOR) {
       return noLogin_defaultRoutes
     }
     

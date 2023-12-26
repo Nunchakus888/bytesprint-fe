@@ -9,7 +9,7 @@ import { setIdentification, setUserInfo } from 'slice/commonSlice';
 import API_ROUTERS from 'api';
 
 const useConnect = () => {
-  const disconnectFn = useDisconnect();
+  const {disconnect: dis} = useDisconnect();
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
@@ -18,9 +18,9 @@ const useConnect = () => {
     typeof openConnectModal === 'function' && openConnectModal();
   }, [openConnectModal]);
 
-  const disconnect = useCallback(
+  const disconnects = useCallback(
     async function () {
-      disconnectFn.disconnect();
+      dis()
       await API_ROUTERS.users.LOGOUT()
       removeItem('address');
       removeItem('network');
@@ -28,10 +28,10 @@ const useConnect = () => {
       dispatch(setUserInfo({}));
       removeItem("userInfo");
     },
-    [disconnectFn, dispatch]
+    [dispatch]
   );
 
-  return { isConnected, address, connect, disconnect };
+  return { isConnected, address, connect, disconnects };
 };
 
 export default useConnect;

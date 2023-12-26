@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import styles from './index.module.scss';
 
 import React from 'react';
@@ -16,7 +16,7 @@ import useConect from 'hooks/useConnect';
 import { useDispatch, useSelector } from "react-redux";
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
-  const { disconnect } = useConect();
+  const { disconnects } = useConect();
   const { userInfo, loginLoading } = useSelector((state: any) => state.common);
   return (
     <ConnectButton.Custom>
@@ -43,10 +43,17 @@ export const CustomConnectButton = () => {
             })}
           >
             {(() => {
-              if (!userInfo.address) {
+              if (!connected || isConnecting) {
                 return (
                   <Button className={classnames(styles.connect_btn)} onClick={openConnectModal}>
                     Connect
+                  </Button>
+                );
+              }
+              if (loginLoading) {
+                return (
+                  <Button className={classnames(styles.connect_btn)} >
+                    Loading
                   </Button>
                 );
               }
@@ -65,6 +72,7 @@ export const CustomConnectButton = () => {
 
               return (
                 <Popover trigger="hover">
+                  {/* @ts-ignore */}
                   <PopoverTrigger>
                     <Box
                       borderRadius={'8px'}
@@ -124,7 +132,7 @@ export const CustomConnectButton = () => {
                       borderRadius={4}
                       fontSize={'14px'}
                       px={1}
-                      onClick={disconnect}
+                      onClick={disconnects}
                       style={{ display: 'flex', justifyContent: 'flex-start' }}
                     >
                       Disconnect

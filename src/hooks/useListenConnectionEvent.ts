@@ -10,11 +10,12 @@ import getSigner from "utils/getSigner";
 import { useAccount, useDisconnect, useNetwork } from "wagmi";
 import {useCookies} from 'react-cookie'
 import useConnect from "./useConnect";
-import useCustomConnect from "./useCustomConnect";
+
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
-  const { disconnectEth } = useCustomConnect();
+  // const { disconnects } = useConnect();
+  const {disconnect } = useDisconnect();
   const dispatch = useDispatch();
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
@@ -32,15 +33,14 @@ const useListenConnectionEvent = () => {
     // const userInfo = localStorage?.getItem("userInfo") || {};
     //@ts-ignore
     if (userInfo.address && isDisconnected) {
-      disconnectEth();
+      disconnect();
     }
-  }, [isDisconnected, disconnectEth]);
+  }, [isDisconnected, disconnect]);
 
   useEffect(() => {
     const checkLogin = async () => {
       dispatch(setLoginLoading(true));
       // let userInfo = getItem("userInfo") || {};
-
       //判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
       if (
         userInfo?.address !== address || //地址不一样
@@ -54,15 +54,15 @@ const useListenConnectionEvent = () => {
           const signer = await getSigner();
           signature = await signer?.signMessage(message);
         } catch (error) {
-          debugger
           dispatch(setLoginLoading(false));
-          disconnectEth();
+          disconnect();
           return;
         }
-        debugger
-        // if (!signature) {
-        //   return false;
-        // }
+        if (!signature) {
+          dispatch(setLoginLoading(false));
+          disconnect();
+          return false;
+        }
         const params = {
           loginType: 1,
           walletAddress: address,
@@ -77,7 +77,6 @@ const useListenConnectionEvent = () => {
         // const authorization = "2fa26c094c0f4ffca0a9fccf9975af83"
         // setItem("authorization",authorization)
         // const userData = {userType: 1}
-        debugger
         dispatch(setLoginLoading(false));
         let newuseInfo: any = {};
         newuseInfo.signature = signature;
