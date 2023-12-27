@@ -12,7 +12,7 @@ import useConnect from "hooks/useConnect";
 
 // My Requirements
 export default function MyRequirements() {
-  const { connect } = useConnect()
+  const { userInfo } = useUserInfo()
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
@@ -20,7 +20,7 @@ export default function MyRequirements() {
     hasMore,
     fetchMoreData,
     refetchData
-	} = useMyRequirements(filter, activeTab)
+	} = useMyRequirements(filter, activeTab, userInfo.address)
 	// 搜索任务
   const handleSearch = (searchVal: string) => {
     console.log("searchval", searchVal)

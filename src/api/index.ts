@@ -31,6 +31,7 @@ const API_ROUTERS = {
     REQUIREMENT_SUBMIT: (params: any) => createRoute(`/requirement/submit`, params),
     PROJECT_SIGN: (params: any) => createRoute(`/project/sign`, params),
     PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
+    TASKS_LIST_MINI: (params: any) => createRoute(`/project/listByUser`, params),
   },
   users: {
     LOGIN: `/passport/login`,
@@ -38,6 +39,7 @@ const API_ROUTERS = {
     LOGOUT: (params?: any) =>createRoute(`/passport/logout`, params),
     USER_INFO: (params?: any) =>createRoute(`/user/info`, params),
     USER_UPDATE: `/user/update`,
+    MY_PLEDGE: (params?: any) =>createRoute(`/user/stakings`, params),
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
   },
   

@@ -1,15 +1,17 @@
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MdBarChart, MdHome, MdPerson } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { Identification, IPath } from "utils/constant";
 import {useCookies} from 'react-cookie'
+import API_ROUTERS from "api";
+import { Get } from "utils/axios";
 export const useUserInfo = () => {
 	// const [cookies, setCookie, removeCookie] = useCookies();
 	// 身份
   const { userInfo } =
     useSelector((state: any) => state.common);
-
+		console.log("userInfo11>>>", userInfo)
 	const identification = useMemo(() => {
 		const data = userInfo?.data
 		console.log("data?.userType>>>", data?.userType)
@@ -192,4 +194,20 @@ export const useUserRoute = () => {
 	return d;
 }
 
+// 我的质押
+export const useMyPledge =() => {
+	const [data, setData] = useState([])
+	const getData = async () => {
+		const res = await Get(
+			API_ROUTERS.users.MY_PLEDGE()
+		);
+		setData(res?.stakings || [])
+	}
+	useEffect(() => {
+		getData()
+	}, [])
+	return {
+		data
+	}
+}
 

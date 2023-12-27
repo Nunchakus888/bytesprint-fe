@@ -200,8 +200,21 @@ export enum TaskBidStatus {
 
 // 用户身份等级
 export const USER_LEVEL = {
-  0: `普通`,
-  1: `水手`,
-  2: `工匠`,
-  3: `海盗`
+  0: `Regular User`,
+  1: `Tasker`,
+  2: `Craftsman`,
+  3: `Pirate`
+}
+// 质押状态
+export const PledgeStatus = {
+  1: `Pledging`,
+  2: `Frozen`,
+  3: `Withdrawable`,
+  4: `Completed`
+}
+
+// 查询类型
+export enum QUERYTYPE  {
+  MY_REQUIREMENT = 1,
+  MY_TASKS= 2
 }

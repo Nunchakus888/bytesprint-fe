@@ -8,24 +8,35 @@ import { GrCheckmark } from "react-icons/gr";
 import { GrClose } from "react-icons/gr";
 import API_ROUTERS from "api";
 import { Post } from "utils/axios";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "slice/commonSlice";
+import _ from "lodash";
+import { setItem } from "utils";
 export default function UserBaseInfo(props: {
   from: IPath,
-  data: any, // 信息
+  userInfo: any, // 信息
   isEngineer?: boolean
   isOperator?: boolean
 }) {
-  const {from, isEngineer,isOperator, data} = props
+  const {from, isEngineer,isOperator, userInfo} = props
+  const data = userInfo?.data
   const [modify, setModify] = useState(false)
   const [modifyText, setModifyText] = useState('')
+  const dispatch = useDispatch()
   const handleChangeText = (e:any) => {
     setModifyText(e.target.value)
   }
 
   const handleModify = async () => {
-    if (modifyText.trim()) {
-      const res = await Post(API_ROUTERS.users.USER_UPDATE, ({nickname: modifyText.trim()}))
+    const txt = modifyText.trim()
+    if (txt) {
+      const res = await Post(API_ROUTERS.users.USER_UPDATE, ({nickname: txt}))
       setModify(false)
-      // TODO 更新获取用户的信息
+      // 更新获取用户的信息
+      const newUserInfo = _.cloneDeep(userInfo)
+      newUserInfo.data.nickname = modifyText
+      dispatch(setUserInfo(newUserInfo));
+      setItem("userInfo", newUserInfo);
     }
     
 
