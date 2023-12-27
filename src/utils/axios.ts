@@ -30,8 +30,28 @@ axiosInstance.interceptors.response.use(
     const res = response?.data || {};
     console.log("res>>>>", res)
     if (res?.result.code !== 0) {
+      // 判断是否过期，根据不同的错误码
       // expires token
-      localStorage.removeItem("userInfo");
+      if (res?.result.code === 1003) {
+        localStorage.removeItem("userInfo");
+        // @ts-ignore
+        window?.toast({
+          title: res?.result.message,
+          status: `error`,
+          isClosable: true,
+          onCloseComplete: () => {
+            window.location.reload()
+          }
+        })
+      }
+      if (res?.result.code === 2) {
+        // @ts-ignore
+        window?.toast({
+          title: res?.result.message,
+          status: `error`,
+          isClosable: true
+        })
+      }
       return Promise.reject(res);
     }
     return res || {};

@@ -9,7 +9,7 @@ import 'styles/MiniCalendar.css';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Session } from 'next-auth';
 
 import { LanguageProvider } from 'contexts/LanguageContext';
@@ -64,6 +64,7 @@ const wagmiClient = createClient({
   connectors,
   provider,
 });
+
 
 const queryClient = new QueryClient();
 

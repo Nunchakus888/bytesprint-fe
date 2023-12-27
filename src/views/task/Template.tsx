@@ -36,11 +36,12 @@ export default function TaskTemplate(props: {
     children,
     // person
   } = props;
-  useEffect(() => {
-    // 单一任务
-    data.refreshFilter();
-    data.refetchData();
-  }, [activeTab]);
+  
+  // useEffect(() => {
+  //   // 单一任务
+  //   data.refreshFilter();
+  //   data.refetchData();
+  // }, [activeTab]);
 
   // // 搜索任务
   // const handleSearch = (searchVal: string) => {

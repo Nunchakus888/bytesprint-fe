@@ -1,7 +1,7 @@
-import { Box, Button, Flex } from "@chakra-ui/react"
+import { Box, Button, Flex, useToast } from "@chakra-ui/react"
 import { SearchInput } from "components/search"
 import FilSelect from "components/select"
-import { useSingleTaskFilter, useTaskList } from "hooks/task"
+import { useJobTypes, useSingleTaskFilter, useTaskList } from "hooks/task"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import TaskItem from "../item/TaskItem"
@@ -18,9 +18,9 @@ function SingleTask(props: {
   from?: string
 	single: {loading:boolean, data:any[], hasMore: boolean, fetchMoreData: ()=> void, handleSearch: (val:string) => void, onChange: (val:string, s: string) => void}
 }) {
-	
+	const {getData} = useJobTypes()
 	const {loading, data, hasMore, fetchMoreData, handleSearch, onChange} = props.single
-	
+	console.log("data>>>>>>>>>>>>>", data)
   return (
 		<Box mt={{base: "30px"}}>
 		<Flex justify="space-between">
@@ -34,19 +34,19 @@ function SingleTask(props: {
           <>
           <FilSelect options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus} placeholder="Task Status" change={(val) => onChange('taskStatus', val)} />
           <FilSelect options={ProTypes} placeholder="Crowdsourcing Method" change={(val) => onChange('proType', val)} />
-				  <FilSelect options={ProfessionTypes} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
+				  <FilSelect options={getData()} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
           </>:
           <>
             <FilSelect options={ProTypes} placeholder="Crowdsourcing Method" change={(val) => onChange('proType', val)} />
 				    <FilSelect options={TaskTypes} placeholder="Task Type" change={(val) => onChange('taskType', val)} />
-				    <FilSelect options={ProfessionTypes} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
+				    <FilSelect options={getData()} placeholder="Job Type" change={(val) => onChange('professionType', val)} />
           </>
         }
 				
 			</Box>
 		</Flex>
 		<Box mt={{base: '20px'}}>
-			{!data ? (
+			{!data || data?.length === 0 ? (
           <Loading />
         ) : (
           <InfiniteScroll
@@ -72,7 +72,7 @@ function SingleTask(props: {
         )}
 		</Box>
 
-		<Auth />
+		<Auth from={props.from}/>
 	</Box>
 )  
 }

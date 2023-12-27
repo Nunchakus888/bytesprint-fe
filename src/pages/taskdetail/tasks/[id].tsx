@@ -51,7 +51,7 @@ const TaskDetail = () => {
             <TaskDescription description={data?.projectRawInfo?.description} fileList={data?.fileList}/>
           </>
         }
-        <Auth />
+        <Auth from={IPath.TASKS}/>
       </Box>
       {/* {isOpenEvaluate && <Test></Test>} */}
       {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}

@@ -37,16 +37,6 @@ export default function MyRequirements() {
 		handleSearch
 	}
 
-  const {identification} = useUserInfo()
-  const router = useRouter()
-  useEffect(() => {
-    console.log("identification>>>>>>>>>>?", identification)
-    if (!identification) {
-      // router.replace('/tasks')
-      // 唤起登录
-      connect()
-    }
-  }, [])
   return (
 		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange} isMine={true} from={IPath.MYREQUIREMENT}>
       <Link href={`/myrequirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />Publish Requirement</Button></Link>

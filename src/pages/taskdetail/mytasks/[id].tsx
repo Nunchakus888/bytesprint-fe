@@ -109,7 +109,7 @@ const TaskDetail = () => {
           </Flex>
         </Box>
         }
-        <Auth />
+        <Auth from={IPath.TASKS}/>
         {openschedule && scheduledata.length && <TaskSchedule onClose={() => setSchedule(false)} taskId={id as string} scheduleTask={scheduleTask} startTask={()=>{}} scheduledata={scheduledata}/>}
         {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYTASKS} recordId={openRecordDetailId} originData={data} onClose={closeRecordDetail}/>}
       </Box>

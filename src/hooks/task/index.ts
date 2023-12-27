@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import useChange from 'hooks/useChange';
 import { RequirementType, Tabs } from 'utils/constant';
 import { useToast } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setJobTypes } from 'slice/commonSlice';
 const PAGE_SIZE = 10;
 
 // 根据角色返回对应的任务数据
@@ -43,7 +45,11 @@ export const useSingleTaskFilter = () => {
     categoryType: '',  //项目类别
     positionType: '', // 职位类型
     name: '', // 项目名称
-    status: ''
+    status: '',
+    address: '',
+    queryType: '',
+    timestamp: '',
+    size: PAGE_SIZE
   });
   const onChange = (key: string, value: string) => {
     setFilter((pre) => {
@@ -60,14 +66,18 @@ export const useSingleTaskFilter = () => {
       categoryType: '',  //项目类别
       positionType: '', // 职位类型
       name: '', // 项目名称
-      status: ''
+      status: '',
+      address: '',
+      queryType: '',
+      timestamp: '',
+      size: PAGE_SIZE
     });
   };
 
   return { filter, onChange, refreshFilter };
 };
 
-// 任务大厅列表
+// 任务大厅列表单一需求
 export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState('');
@@ -81,39 +91,39 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
     setLoading(!time);
     try {
       const _params = {
-        pageSize: PAGE_SIZE,
         ...params,
-        time,
+        timestamp: time,
       };
       // TODO 参数 不同类型的区分请求 activeTab
-      // const res = await Get(
-      //   API_ROUTERS.tasks.TASKS_LIST(_params)
-      // );
-      const list = [1,2,3,4,5].map(it => {
-        return {
-          id: it,
-          number: 'BYSD123456',
-          name: '测试任务 海鸥灰',
-          categoryType: 1,
-          categoryName: '普通任务',
-          positionType: 1,
-          positionName: `前端开发`,
-          crowdsourcingType: 1,
-          crowdsourcingName: `竞标`,
-          description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
-          status: [0, 1, 2],
-          statusTime: [Date.now(),Date.now(), Date.now()],
-          startTime: Date.now(),
-          endTime: Date.now()
-        }
-      })
-      const res = {
-        projectRawInfoList: list
-      } 
+      const res = await Get(
+        API_ROUTERS.tasks.TASKS_LIST(_params)
+      );
+      debugger
+      // const list = [1,2,3,4,5].map(it => {
+      //   return {
+      //     id: it,
+      //     number: 'BYSD123456',
+      //     name: '测试任务 海鸥灰',
+      //     categoryType: 1,
+      //     categoryName: '普通任务',
+      //     positionType: 1,
+      //     positionName: `前端开发`,
+      //     crowdsourcingType: 1,
+      //     crowdsourcingName: `竞标`,
+      //     description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
+      //     status: [0, 1, 2],
+      //     statusTime: [Date.now(),Date.now(), Date.now()],
+      //     startTime: Date.now(),
+      //     endTime: Date.now()
+      //   }
+      // })
+      // const res = {
+      //   projectRawInfoList: list
+      // } 
       // // test
       // let result = [{}, {}, {}, {}, {}, {}];
       // let count = 30;
-      const data = res.projectRawInfoList
+      const data = res?.projectRawInfoList || []
       // 当返回的数量跟每页比小，没有更多
       if (data.length < PAGE_SIZE) {
         setHasMore(false)
@@ -150,8 +160,9 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
       filter,
       triger
     };
-    console.log('params>>>', params, activeTab);
+    
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
+      console.log('params>>>', params, activeTab);
       oldFilterRef.current = params;
       getList(filter);
     }
@@ -255,3 +266,32 @@ export const useTaskDetail = (id: string | string[], address: string) => {
   };
 };
 
+export const useJobTypes = () => {
+  const dispatch = useDispatch()
+  const { jobtypes } =
+    useSelector((state: any) => state.common);
+
+
+  const getJobTypes = async () => {
+    // const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}))
+    // const list = res?.positions?.filter((it:any) => it.status === 0)
+    // const data = list.map((it:any) => {
+    //   return {
+    //     label: it.positionName,
+    //     value: it.positionId
+    //   }
+    // })
+    const data = [{label: '111', value: 1}]
+    dispatch(setJobTypes(data))
+  }
+  useEffect(() => {
+    getJobTypes()
+  }, [])
+
+  const getData = useCallback(() => {
+    return jobtypes
+  }, [jobtypes])
+  return {
+    getData
+  }
+}

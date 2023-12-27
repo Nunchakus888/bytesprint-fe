@@ -37,17 +37,19 @@ export default function TaskBidRecords(props: {
             <Flex key={`${it.id}_${index}`} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
               <Flex>
                 <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
-                <Flex direction="column" marginLeft="20px">
-                  <Text fontSize={16} >{it.uid}</Text>
-                  <Text fontSize={12} >{shortAddress(it?.wallet.toString() || "")}</Text>
+                <Flex direction="column" marginLeft="20px" className="w-20">
+                  <Text fontSize={16}>{it.uid}</Text>
+                  <Text fontSize={12}>{shortAddress(it?.wallet.toString() || "")}</Text>
                 </Flex>
               </Flex>
-              <Box>
-                <Text fontSize={16} whiteSpace="nowrap" display="flex">Total Cost：{it.totalCost} USDT</Text>
-              </Box>
-              <Box>
-                <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(it.finishTime).format('YYYY/MM/DD')}</Text>
-              </Box>
+              <Flex direction="column">
+                <Box>
+                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Total Cost：{it.totalCost} USDT</Text>
+                </Box>
+                <Box>
+                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(it.finishTime).format('YYYY/MM/DD')}</Text>
+                </Box>
+              </Flex>
 
               <Flex alignItems="center" gap="20px">
                 <Link display="flex" alignItems="center" color="#7551FF" fontWeight="bold" onClick={() => openRecordDetail(it)}>详情<MdKeyboardArrowRight color="#2350AD" fontSize={14}/></Link>

@@ -56,14 +56,8 @@ export default function ProfileOverview() {
 
   console.log('---session', session);
 
-  const {identification} = useUserInfo()
-  const router = useRouter()
-  useEffect(() => {
-    console.log("identification>>>>>>>>>>?", identification)
-    if (!identification) {
-      router.replace('/tasks')
-    }
-  }, [])
+  const {identification, userInfo} = useUserInfo()
+  
   const isEngineer = useMemo(() => {
     return identification === Identification.ENGINEER
   }, [identification])
@@ -77,7 +71,7 @@ export default function ProfileOverview() {
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} data={{}}/>
+        <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} data={userInfo?.userData}/>
         <UserMajor from={IPath.PROFILE} isEngineer={isEngineer}/>
         <Flex gap="20px">
           <UserMyPledge data={[{},{},{},{},{}]}/>

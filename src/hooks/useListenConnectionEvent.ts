@@ -40,11 +40,11 @@ const useListenConnectionEvent = () => {
   useEffect(() => {
     const checkLogin = async () => {
       dispatch(setLoginLoading(true));
-      // let userInfo = getItem("userInfo") || {};
+      let userInfo = getItem("userInfo") || {};
       //判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
       if (
         userInfo?.address !== address || //地址不一样
-        (userInfo?.address === address && !userInfo?.isSigned) //地址一样，但是没有签过名
+        (userInfo?.address === address && !userInfo?.signature) //地址一样，但是没有签过名
       ) {
         // 签名
         let signature;

@@ -72,11 +72,12 @@ export default function AddRequirement(props: {}) {
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
-        <Text fontSize={24} fontWeight="bold">需求类型：{currentRequire?.title}</Text>
+        <Text fontSize={24} fontWeight="bold">Requirement Type：{currentRequire?.title}</Text>
         <Box margin="20px 0">
           <Text fontSize={18} fontWeight="bold">基础信息</Text>
           {
             currentRequire?.value === RequirementType.Single &&
+            // @ts-ignore
             <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
               <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
@@ -181,13 +182,13 @@ export default function AddRequirement(props: {}) {
             <Button background="#7551FF" size="md" borderRadius={4} type='submit' margin="20px 0">
               发布任务
             </Button>
-            <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
+            {/* <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
               保存草稿
-            </Button>
+            </Button> */}
             </Flex>
           </form>
           }
-          {currentRequire?.value === RequirementType.Person &&
+          {/* {currentRequire?.value === RequirementType.Person &&
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
               <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
@@ -292,7 +293,7 @@ export default function AddRequirement(props: {}) {
               保存草稿
             </Button>
             </Flex>
-          </form>}
+          </form>} */}
         </Box>
       </Box>
     </AdminLayout>

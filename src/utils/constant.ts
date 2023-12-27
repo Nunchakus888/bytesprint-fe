@@ -61,11 +61,11 @@ export const ProTypes = [
     value: ProType.BIDDING,
   },
   {
-    label: '比稿',
+    label: 'Design Competition',
     value: ProType.PITCH,
   },
   {
-    label: '出价',
+    label: 'Quoting',
     value: ProType.BID,
   },
 ];
@@ -76,7 +76,7 @@ export const TaskTypes = [
     value: '1',
   },
   {
-    label: 'Navigator任务',
+    label: 'Navigator Task',
     value: '2',
   },
 ];
@@ -130,7 +130,7 @@ export const TaskStatus = [
     value: IStatus.WAIT_SIGN,
   },
   {
-    label: '未中标',
+    label: 'Lose a Bid',
     value: IStatus.UN_BID,
   },
   {
@@ -196,4 +196,12 @@ export enum TaskBidStatus {
   BID_SUCCESS = '1',
   BID_FAIL = '0',
   WAIT_BID = '2'
+}
+
+// 用户身份等级
+export const USER_LEVEL = {
+  0: `普通`,
+  1: `水手`,
+  2: `工匠`,
+  3: `海盗`
 }

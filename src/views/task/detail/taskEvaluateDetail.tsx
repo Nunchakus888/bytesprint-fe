@@ -21,7 +21,7 @@ export default function TaskEvaluateDetail(props: {
 
   const columns = [
     {
-      title: '序号',
+      title: 'Serial Number',
 			dataIndex: 'xuhao',
       width: '50px',
       textAlign: 'center',
@@ -41,7 +41,7 @@ export default function TaskEvaluateDetail(props: {
 			},
     },
     {
-      title: '费用（USDT）',
+      title: 'Cost（USDT）',
 			dataIndex: 'usdt',
 			key: 'usdt',
       render: (_:any, record:any, index: number) => {

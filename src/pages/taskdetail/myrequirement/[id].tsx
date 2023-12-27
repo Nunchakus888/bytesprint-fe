@@ -74,7 +74,7 @@ const TaskDetail = () => {
             </Flex>
           </Box>
         }
-        <Auth />
+        <Auth from={IPath.MYREQUIREMENT}/>
       </Box>
 
       {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}

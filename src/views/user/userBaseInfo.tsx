@@ -1,15 +1,35 @@
-import { Avatar, Box,Button,Flex,Link,Tag,Text } from "@chakra-ui/react";
+import { Avatar, Box,Button,Flex,Input,Link,Tag,Text } from "@chakra-ui/react";
 import Copy from "components/copy";
 import { useUserInfo } from "hooks/user";
-import { Identification, IPath } from "utils/constant";
+import { useState } from "react";
+import { Identification, IPath, USER_LEVEL } from "utils/constant";
 import styles from './index.module.scss'
+import { GrCheckmark } from "react-icons/gr";
+import { GrClose } from "react-icons/gr";
+import API_ROUTERS from "api";
+import { Post } from "utils/axios";
 export default function UserBaseInfo(props: {
   from: IPath,
   data: any, // 信息
   isEngineer?: boolean
   isOperator?: boolean
 }) {
-  const {from, isEngineer,isOperator} = props
+  const {from, isEngineer,isOperator, data} = props
+  const [modify, setModify] = useState(false)
+  const [modifyText, setModifyText] = useState('')
+  const handleChangeText = (e:any) => {
+    setModifyText(e.target.value)
+  }
+
+  const handleModify = async () => {
+    if (modifyText.trim()) {
+      const res = await Post(API_ROUTERS.users.USER_UPDATE, ({nickname: modifyText.trim()}))
+      setModify(false)
+      // TODO 更新获取用户的信息
+    }
+    
+
+  }
   return (
     <Box
       display="flex"
@@ -24,8 +44,25 @@ export default function UserBaseInfo(props: {
       >
       <Avatar size="xl" name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
       <Flex alignItems="center" gap="10px">
-        <Text fontSize={24} fontWeight="bold">上海奇石信息技术有限公司</Text>
-        {from === IPath.PROFILE && <Link fontSize={16} color="#7551FF" fontWeight="bold" onClick={() => {}}>修改</Link>}
+        {modify && 
+          <Flex alignItems="center" gap="10px">
+            <Input
+              variant="unstyled"
+              fontSize="sm"
+              color="#fff"
+              fontWeight="500"
+              className={styles.modify_input}
+              defaultValue={data?.nickname}
+              onChange={(e) => handleChangeText(e)}
+            />
+            <Box cursor="pointer"><GrCheckmark fontSize={28} onClick={handleModify}/></Box>
+            <Box cursor="pointer"><GrClose fontSize={28} onClick={() => setModify(false)}/></Box>
+          </Flex>
+        }
+        {!modify && <>
+          <Text fontSize={24} fontWeight="bold">{data?.nickname}</Text>
+        {from === IPath.PROFILE && <Link fontSize={16} color="#7551FF" fontWeight="bold" onClick={() => setModify(true)}>修改</Link>}
+        </>}
       </Flex>
 
       {/* Navigator 审核 */}
@@ -82,8 +119,9 @@ export default function UserBaseInfo(props: {
         {/* Tasker */}
         {isEngineer && <>
         <Flex alignItems="center" justifyContent="center" gap="20px">
-          <Box><Text>Level：Tasker</Text></Box>
-          <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box>
+          {/* @ts-ignore */}
+          <Box><Text>Level：{USER_LEVEL[+data?.level]}</Text></Box>
+          {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
         </Flex>
         <Flex gap="20px">
           <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>前端开发工程师</Box>

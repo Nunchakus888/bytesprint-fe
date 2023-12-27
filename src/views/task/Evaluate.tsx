@@ -39,9 +39,9 @@ export default function Evaluate(props: {
         <Text fontSize='lg'>任务清单</Text>
         <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
           <Flex justify="space-between">
-            <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
+            <Flex width="100px" alignItems="center" justifyContent="center" >Serial Number</Flex>
             <Flex alignItems="center" justifyContent="center" width="400px">Task Name</Flex>
-            <Flex alignItems="center" justifyContent="center" width="400px">费用（USDT）</Flex>
+            <Flex alignItems="center" justifyContent="center" width="400px">Cost（USDT）</Flex>
             {/* <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex> */}
             <Flex width="100px" alignItems="center" justifyContent="center" >操作</Flex>
           </Flex>

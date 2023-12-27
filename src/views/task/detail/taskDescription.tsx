@@ -40,7 +40,7 @@ export default function TaskDescription(props: {
               <Flex key={index} justify="space-between" background="rgba(255,255,255,0.05)" marginBottom="10px" padding="10px" fontSize="14px">
                 <Box className={styles.filename} position="relative"><i></i>{it.fileName}</Box>
                 {/* <Box>200kb</Box> */}
-                <Link color="#7551FF" fontWeight="bold"><a href={it.fileUrl}>查看</a></Link>
+                <Link color="#7551FF" fontWeight="bold"><a href={it.fileUrl}>View</a></Link>
               </Flex>
               )
             })

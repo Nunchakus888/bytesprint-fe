@@ -37,12 +37,17 @@ const API_ROUTERS = {
     SIG_STATUS: '/passport/sign' , // (params: any) =>createRoute(`/sign`, params),
     LOGOUT: (params?: any) =>createRoute(`/passport/logout`, params),
     USER_INFO: (params?: any) =>createRoute(`/user/info`, params),
+    USER_UPDATE: `/user/update`,
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
   },
   
   bidorder: {
     BID_ORDERS: (params: any) => createRoute(`/api/v1/bid-orders`, params),
   },
+
+  positions: {
+    LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),
+  }
 };
 
 export default API_ROUTERS;
