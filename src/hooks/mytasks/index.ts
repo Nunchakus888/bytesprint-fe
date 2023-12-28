@@ -15,7 +15,8 @@ export const useMyTasks = (filter: any, activeTab: RequirementType, address: str
   const { triger, toggleTiger } = useChange();
   const [hadMore, setHasMore] = useState(true)
   const oldFilterRef = useRef({});
-  
+  // test
+  address = '0x123456'
   const getList = async (params: any) => {
     setLoading(!time);
     try {

@@ -30,8 +30,8 @@ const TaskDetail = () => {
   console.log("TaskDetail>>>")
 
   // detail
-  const {data, isLoading } = useMyTaskDetail(id)
   const {identification, userInfo } = useUserInfo()
+  const {data, isLoading } = useMyTaskDetail(id, userInfo.address)
   const { scheduleTask, submitAccept, withdrawMyRewards } = useMyTaskDetailStatusAction(id)
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false)
@@ -42,9 +42,10 @@ const TaskDetail = () => {
       const bidSuc = data?.assetRecordList.filter((it:any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS)
       console.log("bidSuc>>>", bidSuc, userInfo.address)
       if (bidSuc?.length) {
-        const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
-        console.log("rids>>>", rids)
-        const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+        // const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
+        // console.log("rids>>>", rids)
+        // const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+        const list = bidSuc[0]?.requirementAssociation
         console.log("list>>>", list)
         data_ = list.map((it:any) => {
           return {

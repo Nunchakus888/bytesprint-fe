@@ -14,7 +14,7 @@ export default function TaskItem(props: {
 			<Flex justify="space-between" position="relative">
 				
 				<Box className={styles.imgbox}><Image src={`https://picsum.photos/200/250?random=${Math.ceil(Math.random() * 100)}`} alt={item.categoryName} /></Box>
-				<Box display="flex" flexDirection="column">
+				<Box display="flex" flexDirection="column" width="100%">
 					<Box>
 						<Tag size="lg" variant='solid' background='#7551FF' marginRight="10px">
 							{item.categoryName}
@@ -41,7 +41,7 @@ export default function TaskItem(props: {
 					
 				}
 				{props.isMine && props.from === IPath.MYTASKS
-					 && <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{TaskStatus.filter(it => it.value === item.status)[0]?.label}</Tag>
+					&& <Tag position="absolute" top="0" right="0" fontSize={16} color="#7551FF" border="1px solid #7551FF" boxShadow="none"  variant='outline' size="md">{TaskStatus.filter(it => it.value === item.status)[0]?.label}</Tag>
 				}
 			</Flex>
 		</Box>

@@ -28,9 +28,10 @@ export const useTaskPlanList = (data:any, isShow: boolean) => {
       const bidSuc = data?.assetRecordList?.filter((it:any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS)
       console.log("bidSuc>>>", bidSuc)
       if (bidSuc?.length) {
-        const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
-        console.log("rids>>>", rids)
-        const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+        // const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
+        // console.log("rids>>>", rids)
+        // const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+        const list = bidSuc[0]?.requirementAssociation
         console.log("list>>>", list)
         data_ = list?.map((it:any) => {
           return {
@@ -112,20 +113,20 @@ export const useTaskEvaluateDetail = (record: any, data:any) => {
   // console.log("useTaskPlanList>>>", data);
   
   const data_ = useMemo(() => {
-    const rids = record?.requirementAssociation?.map((it:any) => it.requirementId)
-    console.log("rids>>>", rids)
-    const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+    // const rids = record?.requirementAssociation
+    // console.log("rids>>>", rids)
+    const list = record?.requirementAssociation
     console.log("list>>>", list)
     const res = list.map((it:any) => {
       return {
         "id": it.requirementId,
         "taskname": it.requirementName,
         "usdt": it.requirementCost,
-        "startTime": it.requirementPlan.expectedstartTime,
-        "endTime": it.requirementPlan.expectedFinishTime,
-        "workhours": it.requirementPlan.expectedWorkTime,
-        "actualCompleteTime": it.requirementPlan.actualFinishTime,
-        "completeStatus": it.requirementPlan.requirementStatus,
+        "startTime": it.requirementPlan?.expectedstartTime,
+        "endTime": it.requirementPlan?.expectedFinishTime,
+        "workhours": it.requirementPlan?.expectedWorkTime,
+        "actualCompleteTime": it.requirementPlan?.actualFinishTime,
+        "completeStatus": it.requirementPlan?.requirementStatus,
       }
     })
     return res

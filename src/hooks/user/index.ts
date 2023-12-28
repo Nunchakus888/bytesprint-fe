@@ -11,10 +11,8 @@ export const useUserInfo = () => {
 	// 身份
   const { userInfo } =
     useSelector((state: any) => state.common);
-		console.log("userInfo11>>>", userInfo)
 	const identification = useMemo(() => {
 		const data = userInfo?.data
-		console.log("data?.userType>>>", data?.userType)
 		return data?.userType
 	},[userInfo.data])
 	return {

@@ -26,10 +26,11 @@ import Navbar from 'components/navbar/NavbarAdmin';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
-  console.log("TaskDetail>>>")
+  console.log("TaskDetail>>>, id = null", id)
 
   // detail
-  const {data, isLoading } = useMyRequirementDetail(id)
+  const {userInfo} = useUserInfo()
+  const {data, isLoading } = useMyRequirementDetail(id, userInfo.address)
   console.log("data>>", data)
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)

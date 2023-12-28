@@ -20,10 +20,17 @@ export const useMyRequirements = (filter: any, activeTab: RequirementType, addre
     setLoading(!time);
     try {
       // TODO 参数 不同类型的区分请求 activeTab
+      // const _params = {
+      //   address,
+      //   querytype: QUERYTYPE.MY_REQUIREMENT
+      // };
+
+      // test 
       const _params = {
-        address,
+        address: '0x123456',
         querytype: QUERYTYPE.MY_REQUIREMENT
       };
+      
       const res = await Get(
         API_ROUTERS.tasks.TASKS_LIST_MINI(_params)
       );

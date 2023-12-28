@@ -90,7 +90,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 }
 
 // 任务详情
-export const useMyRequirementDetail = (id: string | string[]) => {
+export const useMyRequirementDetail = (id: string | string[], address: string) => {
   // const { data, isLoading } = useSWR(
   //   id
   //     ? API_ROUTERS.tasks.TASKS_DETAIL({
@@ -102,16 +102,23 @@ export const useMyRequirementDetail = (id: string | string[]) => {
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>();
+  // test
+  address = '0x123456'
+  
+
   const getData = async () => {
     try {
-      // setLoading(true);
-      // const res = await Get(
-      //   API_ROUTERS.tasks.TASKS_DETAIL({
-      //     id,
-      //     address
-      //   })
-      // );
-      // setLoading(false);
+      console.log("id,address1111", id,
+      address)
+      setLoading(true);
+      const res = await Get(
+        API_ROUTERS.tasks.TASKS_DETAIL({
+          id,
+          address
+        })
+      );
+      setLoading(false);
+      /**
       const res = {
         projectDetailInfo: {
           projectRawInfo: {
@@ -198,18 +205,29 @@ export const useMyRequirementDetail = (id: string | string[]) => {
           ],
           taskStatus: 2
         }
-      }
+      }*/
+
+      // test
+      res.projectDetailInfo.projectRawInfo.status = [1,2,3]
+      res.projectDetailInfo.projectRawInfo.statusTime=[Date.now(), Date.now(), Date.now()]
+      console.log("id,address1111res", res)
+      // TODO 取status最后一个值
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status[res.projectDetailInfo.projectRawInfo.status.length -1]
       console.log("res?.projectDetailInfo>>>", res)
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
+      debugger
+      console.log(e)
       setLoading(false);
     }
   };
 
   useEffect(() => {
+   if (id) {
     getData();
-  }, []);
+   }
+  }, [id]);
 
   return {
     data,
