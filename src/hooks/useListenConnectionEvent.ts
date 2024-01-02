@@ -6,7 +6,7 @@ import { setIdentification, setLoginLoading, setUserInfo } from "slice/commonSli
 import { getItem, parseJson, removeItem, setItem } from "utils";
 import { Get, Post } from "utils/axios";
 import { Identification } from "utils/constant";
-import getSigner from "utils/getSigner";
+import getSigner from "contract/lib/getSigner";
 import { useAccount, useDisconnect, useNetwork } from "wagmi";
 import {useCookies} from 'react-cookie'
 import useConnect from "./useConnect";

@@ -1,16 +1,20 @@
 import { useToast } from "@chakra-ui/react";
 import API_ROUTERS from "api";
+import { stakeEmployer } from "contract/lib/bytd";
 import dayjs from "dayjs";
 import { useUserInfo } from "hooks/user";
 import { useEffect, useState } from "react";
 import { Get } from "utils/axios";
 import { IStatus, TaskBidStatus } from "utils/constant";
+import { useAccount, useConnect } from "wagmi";
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   
   const {userInfo} = useUserInfo()
   const toast = useToast()
+  const account = useAccount()
+  const {connect} = useConnect()
 
   // 打开任务
   const openTask = () => {
@@ -42,21 +46,38 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   }
 
   // 签约TA
-  const signBid = async () => {
-    const res = await API_ROUTERS.tasks.PROJECT_SIGN({
-      uid: userInfo.uid,
-      walletAddress: userInfo.address,
-      projectId: id,
-      status: TaskBidStatus.BID_SUCCESS
-    })
-    toast({
-      title: `Operate SuccessFully`,
-      status: `success`,
-      isClosable: true,
-      onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
+  const signBid = async (record: any) => {
+    // TODO 合约交互执行签约 错误提示 amount金额 锁定时间
+    // 判断是否登录
+    if (!account.address) {
+      connect()
+      return false;
+    }
+    const {totalCost, totalTime} = record
+    // 合约交互
+    const result = await stakeEmployer({account, projectId: id, amount: totalCost, lockDays: Math.ceil(totalTime/ 8)})
+    if (result) {
+      const res = await API_ROUTERS.tasks.PROJECT_SIGN({
+        uid: userInfo.uid,
+        walletAddress: userInfo.address,
+        projectId: id,
+        status: TaskBidStatus.BID_SUCCESS
+      })
+      toast({
+        title: `Operate SuccessFully`,
+        status: `success`,
+        isClosable: true,
+        onCloseComplete: () => {
+          window.location.reload()
+        }
+      })
+    }else {
+      toast({
+        title: `Operate Error`,
+        status: `error`,
+        isClosable: true
+      })
+    }
   }
   // 淘汰TA
   const unSignBid = async () => {
@@ -76,11 +97,10 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     })
   }
 
-  // 打开详情
+  // 打开详情 暂时不做
   const openRecordDetail = () => {
 
   }
-
   return {
     openTask,
     closeTask,
