@@ -14,6 +14,7 @@ import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
 // import { useUserInfo } from 'hooks/user';
 import { useDispatch, useSelector } from "react-redux";
+import Loading from 'components/loading';
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
   const { disconnects } = useConect();
@@ -53,7 +54,7 @@ export const CustomConnectButton = () => {
               if (loginLoading) {
                 return (
                   <Button className={classnames(styles.connect_btn)} >
-                    Loading
+                    <Loading />
                   </Button>
                 );
               }

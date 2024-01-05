@@ -21,12 +21,12 @@ const useListenConnectionEvent = () => {
   const { userInfo } = useSelector((state: any) => state.common);
 
   //切换账户，刷新页面
-  useEffect(() => {
-    const localAddress = localStorage.getItem("address") || "";
-    if (ethers.utils.isAddress(localAddress) && address && localAddress !== address) {
-      window.location.reload();
-    }
-  }, [address]);
+  // useEffect(() => {
+  //   const localAddress = localStorage.getItem("address") || "";
+  //   if (ethers.utils.isAddress(localAddress) && address && localAddress !== address) {
+  //     window.location.reload();
+  //   }
+  // }, [address]);
 
   //监听到登录退出
   useEffect(() => {
@@ -59,8 +59,9 @@ const useListenConnectionEvent = () => {
           return;
         }
         if (!signature) {
+          await sleep(2000)
           dispatch(setLoginLoading(false));
-          disconnect();
+          checkLogin();
           return false;
         }
         const params = {
@@ -92,11 +93,20 @@ const useListenConnectionEvent = () => {
       }
     };
     // console.log("checkLogin address>>>>", address);
+    const localAddress = localStorage.getItem("address") || "";
     if (address !== undefined && ethers.utils.isAddress(address)) {
       localStorage.setItem("address", address);
-      checkLogin();
+      checkLogin()
     }
   }, [address, chain?.id]);
 };
+
+function sleep (time: number) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+    }, time)
+  })
+}
 
 export default useListenConnectionEvent;

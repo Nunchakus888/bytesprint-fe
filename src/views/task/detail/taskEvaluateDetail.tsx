@@ -82,7 +82,8 @@ export default function TaskEvaluateDetail(props: {
     >
       <Flex justifyContent="space-between">
         <Flex justifyContent="space-between" gap="30px" alignItems="flex-start">
-          <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
+        {/* <WalletAvatar value={it.wallet} size={30}/> */}
+          {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
           <Flex justifyContent="space-between" direction="column">
             <Tag fontSize={16} padding="10px" borderRadius={4} className={styles.userIcon}>Java开发工程师</Tag>
             <Flex marginTop="20px" direction="column">

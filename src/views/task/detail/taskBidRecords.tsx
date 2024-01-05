@@ -5,6 +5,7 @@ import { IPath, IStatus, RequirementStatus, RequirementType, TaskBidStatus, Task
 import styles from './index.module.scss'
 import dayjs from 'dayjs'
 import { MdKeyboardArrowRight } from "react-icons/md";
+import WalletAvatar from "components/WalletAvatar"
 export default function TaskBidRecords(props: {
   from?: IPath
   recordList: any[]
@@ -40,7 +41,8 @@ export default function TaskBidRecords(props: {
           return (
             <Flex key={`${it.id}_${index}`} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
               <Flex>
-                <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
+                <WalletAvatar value={it.wallet} size={30}/>
+                {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
                 <Flex direction="column" marginLeft="20px" className="w-20">
                   <Text fontSize={16}>{it.uid}</Text>
                   <Text fontSize={12}>{shortAddress(it?.wallet.toString() || "")}</Text>

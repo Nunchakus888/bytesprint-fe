@@ -34,10 +34,10 @@ export default function TaskStatusInfo(props: {
           return <Button className={styles.statusbtn} onClick={props?.closeTask}>关闭任务</Button>
           break;
         case IStatus.SIGNED:
-          return <Text className={styles.statustext}>等待Tasker完善任务计划</Text>
+          return <Text className={styles.statustext}>等待水手完善任务计划</Text>
           break;
         case IStatus.CODEING:
-          return <Text className={styles.statustext}>Tasker正在做任务中...</Text>
+          return <Text className={styles.statustext}>水手正在做任务中...</Text>
           break;
         case IStatus.WAIT_ACCEPT:
           return <Button className={styles.statusbtn} onClick={props?.acceptTask}>我已验收</Button>
