@@ -19,7 +19,7 @@ import './global.css'
 // import "./../views/task/styles.css";
 import theme from 'theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet, goerli } from 'wagmi/chains';
+import { mainnet, goerli, sepolia } from 'wagmi/chains';
 import { SessionProvider } from 'next-auth/react';
 import { publicProvider } from 'wagmi/providers/public';
 import { darkTheme, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
@@ -37,7 +37,8 @@ import ReduxProvider from 'components/reduxProvider';
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
 const { chains, provider } = configureChains(
-  [mainnet, goerli],
+  // [sepolia, mainnet, goerli],
+  [sepolia],
   [
     // alchemyProvider({
     //   apiKey: alchemyKey, //process.env.REACT_APP_ALCHEMY_ID,

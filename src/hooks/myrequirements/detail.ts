@@ -56,6 +56,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     const {totalCost, totalTime} = record
     // 合约交互
     const result = await stakeEmployer({account, projectId: id, amount: totalCost, lockDays: Math.ceil(totalTime/ 8)})
+    debugger
     if (result) {
       const res = await API_ROUTERS.tasks.PROJECT_SIGN({
         uid: userInfo.uid,

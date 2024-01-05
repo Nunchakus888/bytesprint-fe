@@ -9,7 +9,7 @@ export default function TaskBidRecords(props: {
   from?: IPath
   recordList: any[]
   taskStatus: IStatus  // 需求状态
-  signBid?: (recordId: string) => void // 签约TA
+  signBid?: (record: any) => void // 签约TA
   unSignBid?: (recordId: string) => void // 淘汰TA
   openRecordDetail ?: (recordId: string) => void  // 详情
 }) {
@@ -31,6 +31,10 @@ export default function TaskBidRecords(props: {
       <Text fontSize={18} fontWeight="bold">
         {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `Bidding Records：${recordList.length}`}
       </Text>
+
+      {/* test */}
+      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240})}>签约TA</Button>
+
       <Box marginTop="30px"  width="100%">
         {recordList.map((it,index) => {
           return (
@@ -64,7 +68,7 @@ export default function TaskBidRecords(props: {
 
                     {/* 待签约 */}
                     {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
-                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it.id)}>签约TA</Button>
+                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it)}>签约TA</Button>
                       <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it.id)}>淘汰TA</Link>
                     </Box>}
                     </>

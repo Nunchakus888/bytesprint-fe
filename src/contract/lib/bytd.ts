@@ -32,7 +32,7 @@ const getBYTDInstance = async (address: string, readOnly = false) => {
 // 发包方质押
 export const stakeEmployer = async ({account, projectID, amount, lockDays, withdrawAddr}: any) => {
   // 授权
-  let eth20Instance = await getUSDTInstance(account)
+  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
   const eth20Approve = await eth20Instance.approve(
     BYTD_ADDRESS,
     amount,
@@ -52,7 +52,7 @@ export const stakeEmployer = async ({account, projectID, amount, lockDays, withd
 // 接包方质押
 export const stakeTasker = async ({account, projectID, amount, lockDays}: any) => {
   // 授权
-  let eth20Instance = await getUSDTInstance(account)
+  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
   const eth20Approve = await eth20Instance.approve(
     BYTD_ADDRESS,
     amount,
