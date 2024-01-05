@@ -1,4 +1,4 @@
-import { ethers, getDefaultProvider } from "ethers";
+import { BigNumber, ethers, getDefaultProvider } from "ethers";
 import USDT_ABI from '../ABI/udst_b.abi.json'
 import getSigner from "./getSigner";
 import BYTD_ABI from '../ABI/stake.abi.json'
@@ -30,19 +30,27 @@ const getBYTDInstance = async (address: string, readOnly = false) => {
 };
 
 // 发包方质押
-export const stakeEmployer = async ({account, projectID, amount, lockDays, withdrawAddr}: any) => {
+export const stakeEmployer = async ({account, projectId, amount, lockDays, withdrawAddr}: any) => {
+  amount = String(BigNumber.from(amount) )
   // 授权
   let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
+  debugger
+  console.log("eth20Instance>>>", eth20Instance, BYTD_ADDRESS, String(BigNumber.from(amount)))
   const eth20Approve = await eth20Instance.approve(
     BYTD_ADDRESS,
     amount,
   );
+  debugger
+  console.log("eth20Approve>>>>", eth20Approve)
   if (!eth20Approve) {
     return false;
   }
-  const bytdInstance = await getBYTDInstance(account)
-  const result = await bytdInstance.stakeEmployer(projectID, amount, lockDays, withdrawAddr)
+  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
+  console.log("bytdInstance>>>>", bytdInstance)
+  const result = await bytdInstance.stakeEmployer(projectId, amount, lockDays, withdrawAddr)
   if (result) {
+    console.log("result>>>>", result)
+    debugger
     const receipt = await result.wait()
     return receipt?.status === 1 ? true : false
   }
@@ -50,7 +58,7 @@ export const stakeEmployer = async ({account, projectID, amount, lockDays, withd
 }
 
 // 接包方质押
-export const stakeTasker = async ({account, projectID, amount, lockDays}: any) => {
+export const stakeTasker = async ({account, projectId, amount, lockDays}: any) => {
   // 授权
   let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
   const eth20Approve = await eth20Instance.approve(
@@ -60,8 +68,8 @@ export const stakeTasker = async ({account, projectID, amount, lockDays}: any) =
   if (!eth20Approve) {
     return false;
   }
-  const bytdInstance = await getBYTDInstance(account)
-  const result = await bytdInstance.stakeTasker(projectID, amount, lockDays)
+  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
+  const result = await bytdInstance.stakeTasker(projectId, amount, lockDays)
   if (result) {
     const receipt = await result.wait()
     return receipt?.status === 1 ? true : false
@@ -70,9 +78,9 @@ export const stakeTasker = async ({account, projectID, amount, lockDays}: any) =
 }
 
 // TODO _type 提款人的角色。发包方/接单方/运营商
-export const withdraw = async({account, projectID, amountWithdraw, type}: any) => {
-  const bytdInstance = await getBYTDInstance(account)
-  const result = await bytdInstance.withdraw(projectID, amountWithdraw, type)
+export const withdraw = async({account, projectId, amountWithdraw, type}: any) => {
+  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
+  const result = await bytdInstance.withdraw(projectId, amountWithdraw, type)
   if (result) {
     const receipt = await result.wait()
     return receipt?.status === 1 ? true : false

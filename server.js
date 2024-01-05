@@ -31,7 +31,7 @@ const devProxy = {
   
 };
 
-let port = parseInt(process.env.PORT, 10) || 3000;
+let port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== "production";
 console.log("dev>>>>", dev)
 const app = next({ dev });

@@ -34,7 +34,7 @@ export default function TaskBidRecords(props: {
       </Text>
 
       {/* test */}
-      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240})}>签约TA</Button>
+      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240, uid: `E0341092072504178728`, wallet: `0x01821BfBFFEFeCf0f31C78dd841d2819FdFC1Ef2`})}>签约TA</Button>
 
       <Box marginTop="30px"  width="100%">
         {recordList.map((it,index) => {
