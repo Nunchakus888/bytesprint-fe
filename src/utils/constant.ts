@@ -3,22 +3,22 @@ export enum Identification {
   VISITOR = 0, // Regular User
   ENGINEER = 2, // 开发
   OPERATOR = 1, // 运营商
-  SYSTEM=3
+  SYSTEM = 3,
 }
 
 export enum IPath {
-	TASKS=`tasks`,
-	MYREQUIREMENT=`myrequirement`,
-	MYTASKS=`mytasks`,
-	OPERATOR=`operator`, // Navigator管理
-	MYOPERATOR=`myoperator`, // 我的Navigator
-	OperatorCheck=`operatorcheck`, // Navigator 认证审核
-	MYOPERATORDetail = `myoperatordetail`, // 我的Navigator 详情
-	ENGINEERManage = `engineer`, // Tasker 管理
-	ENGINEERCheck=`engineercheck`, // Tasker 审核
-	MYENGINEER=`myengineer`, // 我的Tasker
-	MYENGINEERDetail=`myengineerdetail`, // 我的Tasker详情
-  PROFILE=`profile`, // 用户中心
+  TASKS = `tasks`,
+  MYREQUIREMENT = `myrequirement`,
+  MYTASKS = `mytasks`,
+  OPERATOR = `operator`, // Navigator管理
+  MYOPERATOR = `myoperator`, // 我的Navigator
+  OperatorCheck = `operatorcheck`, // Navigator 认证审核
+  MYOPERATORDetail = `myoperatordetail`, // 我的Navigator 详情
+  ENGINEERManage = `engineer`, // Tasker 管理
+  ENGINEERCheck = `engineercheck`, // Tasker 审核
+  MYENGINEER = `myengineer`, // 我的Tasker
+  MYENGINEERDetail = `myengineerdetail`, // 我的Tasker详情
+  PROFILE = `profile`, // 用户中心
 }
 
 export const enum TabsEnum {
@@ -49,7 +49,7 @@ export const Tabs = [
 
 // 众包方式
 export enum ProType {
-  BIDDING = '1', 
+  BIDDING = '1',
   PITCH = '2',
   BID = '3',
 }
@@ -195,7 +195,7 @@ export interface IRequirementPerson extends IRequirement {
 export enum TaskBidStatus {
   BID_SUCCESS = '1',
   BID_FAIL = '0',
-  WAIT_BID = '2'
+  WAIT_BID = '2',
 }
 
 // 用户身份等级
@@ -203,18 +203,18 @@ export const USER_LEVEL = {
   0: `Regular User`,
   1: `Tasker`,
   2: `Craftsman`,
-  3: `Pirate`
-}
+  3: `Pirate`,
+};
 // 质押状态
 export const PledgeStatus = {
   1: `Pledging`,
   2: `Frozen`,
   3: `Withdrawable`,
-  4: `Completed`
-}
+  4: `Completed`,
+};
 
 // 查询类型
-export enum QUERYTYPE  {
+export enum QUERYTYPE {
   MY_REQUIREMENT = 1,
-  MY_TASKS= 2
+  MY_TASKS = 2,
 }

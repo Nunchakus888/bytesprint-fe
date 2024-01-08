@@ -1,4 +1,3 @@
-
 import styles from './index.module.scss';
 
 import React from 'react';
@@ -13,7 +12,7 @@ import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@
 import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
 // import { useUserInfo } from 'hooks/user';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/loading';
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
@@ -30,7 +29,6 @@ export const CustomConnectButton = () => {
           account &&
           chain &&
           (!authenticationStatus || authenticationStatus === 'authenticated');
-        
 
         return (
           <div
@@ -53,7 +51,7 @@ export const CustomConnectButton = () => {
               }
               if (loginLoading) {
                 return (
-                  <Button className={classnames(styles.connect_btn)} >
+                  <Button className={classnames(styles.connect_btn)}>
                     <Loading />
                   </Button>
                 );
@@ -108,7 +106,7 @@ export const CustomConnectButton = () => {
                     bgColor="transparent"
                     className="cursor-pointer flex flex-col gap-1 rounded-md h-full bg-white/0 backdrop-blur-[4px]"
                   >
-                    <Button
+                    {/* <Button
                       h={'36px'}
                       as={Box}
                       bgColor="transparent"
@@ -123,7 +121,7 @@ export const CustomConnectButton = () => {
                       style={{ display: 'flex', justifyContent: 'flex-start' }}
                     >
                       Portfolio
-                    </Button>
+                    </Button> */}
                     <Button
                       h={'36px'}
                       as={Box}
