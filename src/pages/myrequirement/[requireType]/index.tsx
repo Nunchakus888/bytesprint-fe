@@ -33,7 +33,7 @@ import Navbar from 'components/navbar/NavbarAdmin';
 const ReactQuillComponent = dynamic(() => import("../../../components/richTextBlock"), { ssr: false })
 export default function AddRequirement(props: {}) {
   const { currentRequire, saveRequirement,router } = useAddRequirement();
-
+  const [files, setFiles] = useState([])
   const {
     register,
     handleSubmit,
@@ -43,9 +43,10 @@ export default function AddRequirement(props: {}) {
     getValues
   } = useForm<IRequirementPerson | IRequirementSingle>();
   const onSubmit = handleSubmit(async (data) => {
+    data.fileList = files;
     console.log('On Submit: ', data)
     await saveRequirement(data)
-    router.push('/myrequirement')
+    // router.push('/myrequirement')
   });
 
   const validatePhone = (value: string) => {
@@ -106,7 +107,7 @@ export default function AddRequirement(props: {}) {
                 multiple
                 max={3}
                 maxSize={50*1024*1024}
-                register={register('fileList')}
+                register={(files: any) => setFiles(files)}
                />
               <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
             </FormControl>

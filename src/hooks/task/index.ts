@@ -41,14 +41,14 @@ export const useTasks = () => {
 // 单一任务的查询
 export const useSingleTaskFilter = () => {
   const [filter, setFilter] = useState({
-    crowdsourcingtype: 1, // 众包类型
-      categorytype: 1,  //项目类别
-      positiontype: 1, // 职位类型
+    crowdsourcingtype: "", // 众包类型
+      categorytype: "",  //项目类别
+      positiontype: "", // 职位类型
       // name: 1, // 项目名称
-      status: 1,
-      address: '0x123456',
-      querytype: 3,
-      timestamp: '2023-11-20 00:00:00',
+      status: "",
+      address: '',
+      querytype: "",
+      timestamp: '',
       size: PAGE_SIZE
   });
   const onChange = (key: string, value: string) => {
@@ -62,14 +62,14 @@ export const useSingleTaskFilter = () => {
 
   const refreshFilter = () => {
     setFilter({
-      crowdsourcingtype: 1, // 众包类型
-      categorytype: 1,  //项目类别
-      positiontype: 1, // 职位类型
+      crowdsourcingtype: "", // 众包类型
+      categorytype: "",  //项目类别
+      positiontype: "", // 职位类型
       // name: 1, // 项目名称
-      status: 1,
-      address: '0x123456',
-      querytype: 3,
-      timestamp: '2023-11-20 00:00:00',
+      status: "",
+      address: '',
+      querytype: "",
+      timestamp: '',
       size: PAGE_SIZE
     });
   };
@@ -80,7 +80,7 @@ export const useSingleTaskFilter = () => {
 // 任务大厅列表单一需求
 export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState('2023-11-20 00:00:00');
+  const [time, setTime] = useState('');
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
@@ -352,15 +352,15 @@ export const useJobTypes = () => {
 
 
   const getJobTypes = async () => {
-    // const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}))
-    // const list = res?.positions?.filter((it:any) => it.status === 0)
-    // const data = list.map((it:any) => {
-    //   return {
-    //     label: it.positionName,
-    //     value: it.positionId
-    //   }
-    // })
-    const data = [{label: '111', value: 1}]
+    const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}))
+    const list = res?.positions?.filter((it:any) => it.status === 0)
+    const data = list.map((it:any) => {
+      return {
+        label: it.positionName,
+        value: it.positionId
+      }
+    })
+    // const data = [{label: '111', value: 1}]
     dispatch(setJobTypes(data))
   }
   useEffect(() => {

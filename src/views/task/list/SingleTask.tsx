@@ -46,14 +46,14 @@ function SingleTask(props: {
 			</Box>
 		</Flex>
 		<Box mt={{base: '20px'}}>
-			{!data || data?.length === 0 ? (
+			{loading ? (
           <Loading />
         ) : (
           <InfiniteScroll
             dataLength={data.length}
             next={fetchMoreData}
             hasMore={hasMore}
-            loader={<AiOutlineLoading3Quarters />}
+            loader={<Loading />}
             scrollableTarget="items_list_scrollable_box"
             // className={styles.scrollBox}
             scrollThreshold="10px"

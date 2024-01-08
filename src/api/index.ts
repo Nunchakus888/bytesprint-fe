@@ -28,10 +28,14 @@ const API_ROUTERS = {
     EVALUATE: (params: any) => createRoute(`/project/evaluate`, params),
     PLANSUBMIT: (params: any) => createRoute(`/requirement/plan/submit`, params),
     PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
+    // 项目验收
     REQUIREMENT_SUBMIT: (params: any) => createRoute(`/requirement/submit`, params),
     PROJECT_SIGN: (params: any) => createRoute(`/project/sign`, params),
     PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
     TASKS_LIST_MINI: (params: any) => createRoute(`/project/listByUser`, params),
+    // 发布需求
+    PROJECT_SUBMIT: `/project/submit`, 
+    FILE_UPLOAD: `/file/upload`
   },
   users: {
     LOGIN: `/passport/login`,
