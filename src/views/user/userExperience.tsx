@@ -15,7 +15,7 @@ export default function UserExperience(props: {
   paddingBottom="20px"
   className={styles.container}
   >
-    <Text fontSize={18} fontWeight="bold">工作教育经历</Text>
+    <Text fontSize={18} fontWeight="bold">Work and Education Experience</Text>
     <Box justifyContent="center" margin="20px 0" width="100%">
       {
         data.map((it, index) => {

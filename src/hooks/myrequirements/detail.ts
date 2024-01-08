@@ -1,12 +1,20 @@
+import { useToast } from "@chakra-ui/react";
 import API_ROUTERS from "api";
+import { stakeEmployer } from "contract/lib/bytd";
+import dayjs from "dayjs";
+import { useUserInfo } from "hooks/user";
 import { useEffect, useState } from "react";
 import { Get } from "utils/axios";
-import { IStatus } from "utils/constant";
+import { IStatus, TaskBidStatus } from "utils/constant";
+import { useAccount, useConnect } from "wagmi";
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   
-  
+  const {userInfo} = useUserInfo()
+  const toast = useToast()
+  const account = useAccount()
+  const {connect} = useConnect()
 
   // 打开任务
   const openTask = () => {
@@ -15,29 +23,91 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     // refresh
   }
 
-  // 关闭任务
+  // 关闭任务 TODO 
   const closeTask = () => {
-
+    
   }
 
   // 验收任务
-  const acceptTask = () => {
-
+  const acceptTask = async () => {
+    const res = await API_ROUTERS.tasks.PROJECT_ACCEPT({
+      uid: userInfo.uid,
+      walletAddress: userInfo.address,
+      projectId: id,
+    })
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: true,
+      onCloseComplete: () => {
+        window.location.reload()
+      }
+    })
   }
 
   // 签约TA
-  const signBid = () => {
+  const signBid = async (record: any) => {
+    // TODO 合约交互执行签约 错误提示 amount金额 锁定时间
+    // 判断是否登录
+    if (!account.address) {
+      connect()
+      return false;
+    }
+    const {totalCost, totalTime, uid, wallet} = record
+    // test
+    const withdrawAddr = `0x01821bfbffefecf0f31c78dd841d2819fdfc1ef2`
+    // const id = `20231226003`
 
+    // 合约交互
+    const result = await stakeEmployer({account, projectId: id, amount: totalCost, lockDays: Math.ceil(totalTime/ 8), withdrawAddr})
+    debugger
+    if (result) {
+      // uid walletAddress 是评估人的数据
+      const res = await API_ROUTERS.tasks.PROJECT_SIGN({
+        uid,
+        walletAddress: wallet,
+        projectId: id,
+        status: TaskBidStatus.BID_SUCCESS
+      })
+      toast({
+        title: `Operate SuccessFully`,
+        status: `success`,
+        isClosable: true,
+        onCloseComplete: () => {
+          window.location.reload()
+        }
+      })
+    }else {
+      toast({
+        title: `Operate Error`,
+        status: `error`,
+        isClosable: true
+      })
+    }
   }
   // 淘汰TA
-  const unSignBid = () => {
-
+  const unSignBid = async (record: any) => {
+    const {uid, wallet} = record
+    const res = await API_ROUTERS.tasks.PROJECT_SIGN({
+      uid,
+      walletAddress: wallet,
+      projectId: id,
+      status: TaskBidStatus.BID_FAIL
+    })
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: true,
+      onCloseComplete: () => {
+        window.location.reload()
+      }
+    })
   }
-  // 打开详情
+
+  // 打开详情 暂时不做
   const openRecordDetail = () => {
 
   }
-
   return {
     openTask,
     closeTask,
@@ -47,7 +117,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 }
 
 // 任务详情
-export const useMyRequirementDetail = (id: string | string[]) => {
+export const useMyRequirementDetail = (id: string | string[], address: string) => {
   // const { data, isLoading } = useSWR(
   //   id
   //     ? API_ROUTERS.tasks.TASKS_DETAIL({
@@ -58,26 +128,157 @@ export const useMyRequirementDetail = (id: string | string[]) => {
   // );
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({taskStatus: IStatus.CODEING})
+  const [data, setData] = useState<any>();
+  // test
+  address = '0x123456'
+  
+
   const getData = async () => {
     try {
-      setLoading(true)
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_DETAIL({
-          id
-        })
-      )
-      setLoading(false)
-      setData(res?.result || {})
-      return res
-    }catch(e) {
-      setLoading(false)
+      console.log("id,address1111", id,
+      address)
+      setLoading(true);
+      // const res = await Get(
+      //   API_ROUTERS.tasks.TASKS_DETAIL({
+      //     id,
+      //     address
+      //   })
+      // );
+      // setLoading(false);
+      
+      const res = {
+        projectDetailInfo: {
+          projectRawInfo: {
+            id: "11",
+            number: 'BYSD123456',
+            name: '测试任务 海鸥灰',
+            categoryType: 1,
+            categoryName: '普通任务',
+            positionType: 1,
+            positionName: `前端开发`,
+            crowdsourcingType: 1,
+            crowdsourcingName: `竞标`,
+            description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
+            status: [0, 1, 2],
+            statusTime: [Date.now(),Date.now(), Date.now()],
+            startTime: Date.now(),
+            endTime: Date.now(),
+            
+          },
+          fileList: [
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
+            {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'}
+          ],
+          assetRecordList: [
+            {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementList: [
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              }], uid: 1, wallet: "0x8B51290B45b899beE168aC764F3a2f2276c61961", signStatus: TaskBidStatus.BID_SUCCESS},
+            {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementList: [
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              },
+              {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+                expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+              }], uid: 2, wallet: '0x01821bfbffefecf0f31c78dd841d2819fdfc1ef2', signStatus: TaskBidStatus.BID_FAIL},
+            // {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 3, wallet: 11, signStatus: TaskBidStatus.BID_FAIL},
+            // {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 4, wallet: 11, signStatus: TaskBidStatus.BID_FAIL},
+          ],
+          // requirementList: [
+          //   {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+
+          //   {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+
+          //   {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+
+          //   {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   },
+          //   {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
+          //     expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
+          //   }
+          // ],
+          taskStatus: 2
+        }
+      }
+
+      // test
+      res.projectDetailInfo.projectRawInfo.status = [1,2,3]
+      res.projectDetailInfo.projectRawInfo.statusTime=[Date.now(), Date.now(), Date.now()]
+      console.log("id,address1111res", res)
+      // TODO 取status最后一个值
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status[res.projectDetailInfo.projectRawInfo.status.length -1]
+      console.log("res?.projectDetailInfo>>>", res)
+      setData(res?.projectDetailInfo || {});
+      return res;
+    } catch (e) {
+      debugger
+      console.log(e)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+   if (id) {
+    getData();
+   }
+  }, [id]);
 
   return {
     data,

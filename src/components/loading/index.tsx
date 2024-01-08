@@ -1,10 +1,9 @@
-import { Box } from "@chakra-ui/react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Box, Spinner } from "@chakra-ui/react";
 
 export default function Loading() {
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
-      <AiOutlineLoading3Quarters />
+      <Spinner />
     </Box>
   )
 }

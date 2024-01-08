@@ -11,7 +11,7 @@
 			margin-right: 10px;
 			color: #7551FF;
 			background-color: rgba(255,255,255, 0.05);
-			&[aria-selected=true] {
+			&.tab_active {
 				background-color: #7551FF;
 				color: #fff;
 			}
@@ -44,4 +44,20 @@
  position: absolute;
  right: 0;
  top: 90px;
+}
+.auth {
+	background: rgba(255, 255, 255, 0.01);
+	backdrop-filter: blur(5px);
+	position: fixed;
+	bottom: 0;
+	width: -webkit-fill-available;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	p {
+		font-size: 20px;
+		margin-bottom: 30px;
+	}
 }

@@ -1,5 +1,5 @@
 // Chakra imports
-import { Portal, Box, useDisclosure } from '@chakra-ui/react';
+import { Portal, Box, useDisclosure, useToast } from '@chakra-ui/react';
 import Footer from 'components/footer/FooterAdmin';
 // Layout components
 import Navbar from 'components/navbar/NavbarAdmin';
@@ -33,11 +33,16 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   const { onOpen } = useDisclosure();
+  const toast = useToast()
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr';
   });
-
+  
+  useEffect(() => {
+    // @ts-ignore
+    window.toast = toast
+  },[])
   // useEffect(() => {
   //   if (session.status !== 'loading' && session.status !== 'authenticated') {
   //     Router.push('/login');

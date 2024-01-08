@@ -18,7 +18,7 @@ export default function OperatorItem(props: {
                   10人以内
                 </Tag>
               </Box>
-              <Text margin="20px 0" fontSize={24}>用户昵称 {shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
+              <Text margin="20px 0" fontSize={24}>User Name {shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
               <Box display="flex" justifyContent="space-between">
                 <Flex gap="10px">
                   <Tag size="lg" padding="10px" variant='solid' background='rgba(255,255,255,0.05)'>

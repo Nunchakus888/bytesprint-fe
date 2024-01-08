@@ -6,9 +6,10 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import useListenConnectionEvent from './useListenConnectionEvent';
 import { useDispatch } from 'react-redux';
 import { setIdentification, setUserInfo } from 'slice/commonSlice';
+import API_ROUTERS from 'api';
 
 const useConnect = () => {
-  const disconnectFn = useDisconnect();
+  const {disconnect: dis} = useDisconnect();
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
@@ -17,21 +18,20 @@ const useConnect = () => {
     typeof openConnectModal === 'function' && openConnectModal();
   }, [openConnectModal]);
 
-  const disconnect = useCallback(
+  const disconnects = useCallback(
     async function () {
-      disconnectFn.disconnect();
-
+      dis()
+      await API_ROUTERS.users.LOGOUT()
       removeItem('address');
       removeItem('network');
+      removeItem('authorization');
       dispatch(setUserInfo({}));
       removeItem("userInfo");
-      // TODO setIdentification
-      dispatch(setIdentification(""))
     },
-    [disconnectFn, dispatch]
+    [dispatch]
   );
 
-  return { isConnected, address, connect, disconnect };
+  return { isConnected, address, connect, disconnects };
 };
 
 export default useConnect;

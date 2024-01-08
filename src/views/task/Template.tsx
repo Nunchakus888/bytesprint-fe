@@ -36,11 +36,12 @@ export default function TaskTemplate(props: {
     children,
     // person
   } = props;
-  useEffect(() => {
-    // 单一任务
-    data.refreshFilter();
-    data.refetchData();
-  }, [activeTab]);
+  
+  // useEffect(() => {
+  //   // 单一任务
+  //   data.refreshFilter();
+  //   data.refetchData();
+  // }, [activeTab]);
 
   // // 搜索任务
   // const handleSearch = (searchVal: string) => {
@@ -48,25 +49,25 @@ export default function TaskTemplate(props: {
   //   onChange('name', searchVal)
   // }
 
-  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: '我的需求'}: 
-  props.from === IPath.MYTASKS ? {path: `#`, name: '我的任务'} : 
-  {path: `#`, name: '任务大厅'}
+  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: 'My Requirements'}: 
+  props.from === IPath.MYTASKS ? {path: `#`, name: 'My Task'} : 
+  {path: `#`, name: 'Task Hall'}
   return (
     <AdminLayout>
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'},path]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '},path]}
           />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
-        <Tabs variant="soft-rounded" colorScheme="purple">
+        <Tabs variant="soft-rounded" colorScheme="purple" index={0}>
           <Box className={styles.tabswrap}>
             <TabList className={styles.tabs}>
               {tabs?.map((it) => {
                 return (
-                  <Tab key={it.label} onClick={() => handleTabChange(it.value)}>
+                  <Tab key={it.label} className={it.value === activeTab ? styles.tab_active: ''} onClick={(e) => { e.preventDefault();handleTabChange(it.value)}}>
                     {it.label}
                   </Tab>
                 );

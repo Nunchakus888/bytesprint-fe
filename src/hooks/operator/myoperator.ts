@@ -1,7 +1,7 @@
 import useChange from "hooks/useChange";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// 船长 查询条件
+// Navigator 查询条件
 export const useMyOperatorFilter = () => {
   const [filter, setFilter] = useState({
     proType: '',
@@ -31,7 +31,7 @@ export const useMyOperatorFilter = () => {
 };
 
 const PAGE_SIZE = 10
-// 船长列表
+// Navigator列表
 export const useMyOperatorList = (filter: any) => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);

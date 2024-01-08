@@ -4,29 +4,36 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 const http = require("http");
 
 const devProxy = {
-  "/api/v1": {
-    target: "https://test.app.composablelabs.link",
+  "/passport": {
+    target: "http://42.192.37.117:8080/",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  "/reader": {
-    target: "https://temp3.admin.ec2.gamemag.link/",
+  "/user": {
+    target: "http://42.192.37.117:8080/",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  "/send-notification": {
-    target: "https://temp2.admin.ec2.gamemag.link/",
+  "/project": {
+    target: "http://42.192.37.117:8080/",
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
+  "/position": {
+    target: "http://42.192.37.117:8080/",
+    // target: "https://hub.composablelabs.io",
+    changeOrigin: true,
+    secure: false,
+  },
+  
 };
 
-let port = parseInt(process.env.PORT, 10) || 3000;
+let port = parseInt(process.env.PORT, 10) || 3001;
 const dev = process.env.NODE_ENV !== "production";
-console.log("dev", dev)
+console.log("dev>>>>", dev)
 const app = next({ dev });
 const handle = app.getRequestHandler();
 

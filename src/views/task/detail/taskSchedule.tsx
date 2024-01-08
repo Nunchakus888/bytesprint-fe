@@ -34,7 +34,7 @@ export default function TaskSchedule(props: {
 
   const columns = [
     {
-      title: '序号',
+      title: 'Serial Number',
 			dataIndex: 'xuhao',
 			key: 'xuhao',
       render: (_:any, record:any, index:number) => {
@@ -42,7 +42,7 @@ export default function TaskSchedule(props: {
 			},
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
 			dataIndex: 'taskname',
 			key: 'taskname',
     },
@@ -125,8 +125,8 @@ export default function TaskSchedule(props: {
     >
       <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
-          <Flex width="100px" alignItems="center" justifyContent="center" >序号</Flex>
-          <Flex alignItems="center" justifyContent="center" width="300px">任务名称</Flex>
+          <Flex width="100px" alignItems="center" justifyContent="center" >Serial Number</Flex>
+          <Flex alignItems="center" justifyContent="center" width="300px">Task Name</Flex>
           <Flex alignItems="center" justifyContent="center" width="300px">预计工时</Flex>
           <Flex width="300px" alignItems="center" justifyContent="center" >预计开始时间</Flex>
           <Flex width="300px" alignItems="center" justifyContent="center" >预计结束时间</Flex>
@@ -183,7 +183,7 @@ export default function TaskSchedule(props: {
         }
       </Box>
       <Flex justify="center" alignItems="center" gap="40px">
-        <Link color="#7551FF" onClick={saveSchedule}>保存</Link>
+        {/* <Link color="#7551FF" onClick={saveSchedule}>保存</Link> */}
         <Button background="#7551FF" mr={3} disabled={!isStartTask} onClick={startMyTask}>
           开始任务
         </Button>

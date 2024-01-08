@@ -26,58 +26,60 @@ import Navbar from 'components/navbar/NavbarAdmin';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
-  console.log("TaskDetail>>>")
+  console.log("TaskDetail>>>, id = null", id)
 
   // detail
-  const {data, isLoading } = useMyRequirementDetail(id)
+  const {userInfo} = useUserInfo()
+  const {data, isLoading } = useMyRequirementDetail(id, userInfo.address)
+  console.log("data>>", data)
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
   const { openTask, closeTask,
     acceptTask, signBid,unSignBid, openRecordDetail  } = useMyRequirementDetailStatusAction(id)
   
   const isShowExtendTaskInfo = useMemo(() => {
-    if ([IStatus.SIGNED, IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data.taskStatus)) {
+    if ([IStatus.SIGNED, IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data?.taskStatus)) {
       return true
     }
     return false
-  }, [data.taskStatus])
+  }, [data?.taskStatus])
   // 任务计划列表
-  const {data: planList,openRecordDetailId,
+  const {planlist,openRecordDetailId,
     handleOpenRecordDetail,
-    closeRecordDetail} = useTaskPlanList(id as string, isShowExtendTaskInfo)
+    closeRecordDetail} = useTaskPlanList(data, isShowExtendTaskInfo)
   return (
     <AdminLayout>
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.MYREQUIREMENT}`, name: '我的需求'}, {path: '#', name: '需求详情'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements'}, {path: '#', name: '需求详情'}]}
           />
         </Box>
       </Portal>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
         <Back />
-        {isLoading ? <Loading /> :
+        {!data ? <Loading /> :
           <Box display="flex" gap="20px">
             <Flex direction="column">
-              <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate}/>
-              {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYREQUIREMENT} planlist={planList}/>}
-              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={[{bidStatus: TaskBidStatus.BID_FAIL, id:"1"},{bidStatus: null, id:"2"}]} taskStatus={data.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={handleOpenRecordDetail}/>
-              <TaskDescription />
+              <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate} data={data?.projectRawInfo}/>
+              {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYREQUIREMENT} planlist={planlist}/>}
+              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={data?.assetRecordList} taskStatus={data?.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={handleOpenRecordDetail}/>
+              <TaskDescription description={data?.projectRawInfo?.description} fileList={data?.fileList}/>
             </Flex>
             <Flex direction="column">
-              <TaskStatusInfo from={IPath.MYREQUIREMENT} taskStatus={data.taskStatus} openTask={openTask} closeTask={closeTask} acceptTask={acceptTask}/>
+              <TaskStatusInfo from={IPath.MYREQUIREMENT} taskStatus={data?.taskStatus} openTask={openTask} closeTask={closeTask} acceptTask={acceptTask}/>
               {isShowExtendTaskInfo && <TaskSignedReward totalUsdt={"1000.00"} completeTime={Date.now()}/>}
-              <TaskUserInfo title="我的信息" userInfo={{}}/>
+              <TaskUserInfo title="My Information" userInfo={{}}/>
               {isShowExtendTaskInfo && <TaskUserInfo title="签约水手信息" userInfo={{email: '133'}} /> }
-              <TaskMovement movementList={[{time: Date.now(), taskStatus: IStatus.CLOSED},{time: Date.now(), taskStatus: IStatus.EVALUATION},{time: Date.now(), taskStatus: IStatus.WAIT_SIGN},{time: Date.now(), taskStatus: IStatus.CLOSED}]}/>
+              <TaskMovement data={data}/>
             </Flex>
           </Box>
         }
-        <Auth />
+        <Auth from={IPath.MYREQUIREMENT}/>
       </Box>
 
-      {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
-      {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYREQUIREMENT} recordId={openRecordDetailId} onClose={closeRecordDetail}/>}
+      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
+      {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYREQUIREMENT} recordId={openRecordDetailId} originData={data} onClose={closeRecordDetail}/>}
     </AdminLayout>
   )
 }

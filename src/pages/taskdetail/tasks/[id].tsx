@@ -6,7 +6,7 @@ import { useTaskDetail } from "hooks/task";
 import { useUserInfo } from "hooks/user";
 import AdminLayout from "layouts/admin"
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Identification, IPath } from "utils/constant";
 import Auth from "views/task/Auth";
 import TaskBaseInfo from "views/task/detail/taskBaseInfo";
@@ -19,33 +19,42 @@ const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
   console.log("TaskDetail>>>")
-
+  const { userInfo } = useUserInfo()
   // detail
-  const {data, isLoading } = useTaskDetail(id)
+  const {data, isLoading } = useTaskDetail(id, userInfo.address)
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
+  console.log("data>>>>", data)
 
+  // 是否已评估
+  const isEvaluate = useMemo(() => {
+    if (data) {
+      const {assetRecordList } = data 
+      return assetRecordList?.some((it:any) => it.uid === userInfo.uid)
+    }
+    return false
+  }, [userInfo, data])
   return (
     <AdminLayout>
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: '众包管理'}, {path: `/${IPath.TASKS}`, name: '任务大厅'}, {path: '#', name: '任务详情'}]}
+            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.TASKS}`, name: 'Task Hall'}, {path: '#', name: 'Task Details'}]}
           />
         </Box>
       </Portal>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }} className={identification === Identification.VISITOR ? styles.visitor: ''}>
         <Back />
-        {isLoading ? <Loading /> :
+        {!data ? <Loading /> :
           <>
-          <TaskBaseInfo from={IPath.TASKS} setIsOpenEvaluate={setIsOpenEvaluate}/>
-          <TaskDescription />
+            <TaskBaseInfo isEvaluate={isEvaluate} data={data?.projectRawInfo} from={IPath.TASKS} setIsOpenEvaluate={setIsOpenEvaluate}/>
+            <TaskDescription description={data?.projectRawInfo?.description} fileList={data?.fileList}/>
           </>
         }
-        <Auth />
+        <Auth from={IPath.TASKS}/>
       </Box>
       {/* {isOpenEvaluate && <Test></Test>} */}
-      {isOpenEvaluate && <Evaluate isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
+      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
     </AdminLayout>
   )
 }

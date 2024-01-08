@@ -33,7 +33,7 @@ export default function EngineerManage() {
               <SearchInput 
                 background="rgba(255,255,255,0.05)" 
                 searchIconColor="#7551FF" 
-                placeholder="用户昵称"
+                placeholder="User Name"
                 search={handleSearch}></SearchInput>
                 <Box display="flex" justifyContent="flex-end" width="42%" minWidth="400px">
 				          <FilSelect options={[]} placeholder="工作经验" change={(val) => onChange('experience', val)} />

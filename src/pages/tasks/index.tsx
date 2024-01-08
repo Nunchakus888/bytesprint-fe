@@ -10,7 +10,7 @@ export default function Task() {
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
-    page,
+    // page,
     data,
     hasMore,
     fetchMoreData,
@@ -23,7 +23,7 @@ export default function Task() {
   }
 	const data_ = {
 		loading,
-		page,
+		// page,
     data,
     hasMore,
     fetchMoreData,

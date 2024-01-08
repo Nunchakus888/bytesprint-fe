@@ -32,7 +32,7 @@ export default function OperatorManage() {
               <SearchInput 
                 background="rgba(255,255,255,0.05)" 
                 searchIconColor="#7551FF" 
-                placeholder="用户昵称"
+                placeholder="User Name"
                 search={handleSearch}></SearchInput>
                 <Box display="flex" justifyContent="flex-end">
                   <FilSelect options={[]} placeholder="团队规模" change={(val) => onChange('taskStatus', val)} />

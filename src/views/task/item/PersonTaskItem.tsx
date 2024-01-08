@@ -13,10 +13,10 @@ export default function PersonTaskItem(props: { item: any; isMine?: boolean; fro
         <Box display="flex" flexDirection="column" width="-webkit-fill-available">
           <Box>
             <Tag size="lg" variant="solid" background="#7551FF" marginRight="10px">
-              普通任务
+              Regular Task
             </Tag>
             <Tag size="lg" variant="solid" background="#7551FF">
-              竞标
+              Bidding
             </Tag>
           </Box>
 
@@ -38,7 +38,7 @@ export default function PersonTaskItem(props: { item: any; isMine?: boolean; fro
               技能标签
             </Tag>
             <Button background="#7551FF" size="md" color="#fff">
-              <Link href={`/taskdetail/${props.from || IPath.TASKS}/11`}> 查看详情</Link>
+              <Link href={`/taskdetail/${props.from || IPath.TASKS}/11`}> Details</Link>
             </Button>
           </Box>
         </Box>

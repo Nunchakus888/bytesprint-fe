@@ -5,7 +5,8 @@ export const commonSlice = createSlice({
   initialState: {
     identification: '',
     userInfo: {},
-    loginLoading: false
+    loginLoading: false,
+    jobtypes: []
   },
   reducers: {
     setIdentification(state, action) {
@@ -17,9 +18,12 @@ export const commonSlice = createSlice({
     setLoginLoading(state, action) {
       state.loginLoading = action.payload;
     },
+    setJobTypes(state, action) {
+      state.jobtypes = action.payload;
+    }
   },
 });
 
-export const { setIdentification,setUserInfo,setLoginLoading } = commonSlice.actions;
+export const { setIdentification,setUserInfo,setLoginLoading,setJobTypes } = commonSlice.actions;
 
 export default commonSlice.reducer;

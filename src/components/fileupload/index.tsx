@@ -4,9 +4,11 @@ import { useForm, UseFormRegisterReturn } from 'react-hook-form'
 import { FiFile } from 'react-icons/fi'
 import { FileUploader } from "react-drag-drop-files";
 import styles from './index.module.scss'
+import { Post } from 'utils/axios';
+import API_ROUTERS from 'api';
 type FileUploadProps = {
   children?: React.ReactNode
-  register: UseFormRegisterReturn
+  register: (f:any) => void
   accept?: string[]
   multiple?: boolean
   max?: number
@@ -23,11 +25,11 @@ const getSizeInfo = (size: number) => {
 
 export default function FileUpload(props: FileUploadProps){
   const { register, accept, multiple , max=3, maxSize, children, isDrag } = props
-  const { ref, ...rest } = register as {ref: (instance: HTMLInputElement | null) => void}
+  // const { ref, ...rest } = register as {ref: (instance: HTMLInputElement | null) => void}
   const toast = useToast()
 
   const [files, setFiles] = useState([]);
-  const handleChange = (newFile: any) => {
+  const handleChange = async (newFile: any) => {
     console.log(newFile.length)
     if (files.length > max) {
       return;
@@ -50,8 +52,13 @@ export default function FileUpload(props: FileUploadProps){
         return;
       }
     }
-    
+    const promises = []
     // TODO 自动上传
+    // for(let i = 0; i < needUploadFiles.length; i++) {
+    //   promises.push(Post(API_ROUTERS.tasks.FILE_UPLOAD, needUploadFiles[i]))
+    // }
+    // const res = await Promise.all(promises)
+
     console.log("needUploadFiles>>>", needUploadFiles)
 
     const files_ = [...files, ...needUploadFiles]
@@ -67,11 +74,10 @@ export default function FileUpload(props: FileUploadProps){
   }
   // files变动，对应的fileList 属性值变动
   useEffect(() => {
-    const names = files.map((it:any) => it.name)
-    console.log("names", names)
-    // @ts-ignore
-    ref(names)
-  }, [files, ref])
+    // const names = files.map((it:any) => it.name)
+    console.log("files", files)
+    register(files)
+  }, [files, register])
   return (
       <Box>
         <FileUploader multiple={multiple} handleChange={handleChange} name="file" types={accept}>

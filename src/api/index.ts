@@ -25,16 +25,35 @@ const API_ROUTERS = {
   tasks: {
     TASKS_LIST: (params: any) => createRoute(`/project/list`, params),
     TASKS_DETAIL: (params: any) => createRoute(`/project/detail`, params),
+    EVALUATE: (params: any) => createRoute(`/project/evaluate`, params),
+    PLANSUBMIT: (params: any) => createRoute(`/requirement/plan/submit`, params),
+    PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
+    // 项目验收
+    REQUIREMENT_SUBMIT: (params: any) => createRoute(`/requirement/submit`, params),
+    PROJECT_SIGN: (params: any) => createRoute(`/project/sign`, params),
+    PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
+    TASKS_LIST_MINI: (params: any) => createRoute(`/project/listByUser`, params),
+    // 发布需求
+    PROJECT_SUBMIT: `/project/submit`, 
+    FILE_UPLOAD: `/file/upload`
   },
   users: {
-    LOGIN: (params: any) => createRoute(`/user/info`, params),
-    SIG_STATUS: (params: any) =>createRoute(`/user/info`, params), 
-    LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
+    LOGIN: `/passport/login`,
+    SIG_STATUS: '/passport/sign' , // (params: any) =>createRoute(`/sign`, params),
+    LOGOUT: (params?: any) =>createRoute(`/passport/logout`, params),
+    USER_INFO: (params?: any) =>createRoute(`/user/info`, params),
+    USER_UPDATE: `/user/update`,
+    MY_PLEDGE: (params?: any) =>createRoute(`/user/stakings`, params),
+    // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
   },
   
   bidorder: {
     BID_ORDERS: (params: any) => createRoute(`/api/v1/bid-orders`, params),
   },
+
+  positions: {
+    LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),
+  }
 };
 
 export default API_ROUTERS;

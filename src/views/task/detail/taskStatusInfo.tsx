@@ -13,6 +13,7 @@ export default function TaskStatusInfo(props: {
   withdrawMyRewards?: () => void,
 }) {
   const {from, taskStatus} = props
+  
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
       return RequirementStatus.filter(it => it.value === taskStatus)[0]?.label
@@ -88,7 +89,7 @@ export default function TaskStatusInfo(props: {
       height="186px"
       className={styles.container}
     >
-      <Text fontSize={24}>任务状态：{statusTitle}</Text>
+      <Text fontSize={24}>Task Status：{statusTitle}</Text>
       <Box marginTop="30px">{action()}</Box>
     </Box>
   )

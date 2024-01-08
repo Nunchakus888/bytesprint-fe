@@ -21,7 +21,7 @@
 */
 
 // Chakra imports
-import { Box, Grid, Portal, Button } from '@chakra-ui/react';
+import { Box, Flex, Grid, Portal } from '@chakra-ui/react';
 import AdminLayout from 'layouts/admin';
 
 // Custom components
@@ -36,111 +36,65 @@ import Navbar from 'components/navbar/NavbarAdmin';
 import banner from 'img/auth/banner.png';
 import avatar from 'img/avatars/avatar4.png';
 import { useSession } from 'next-auth/react';
-import { useUserInfo } from 'hooks/user';
+import { useMyPledge, useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { getActiveNavbar, getActiveNavbarText } from 'utils/navigation';
-import Link from 'next/link';
+import UserBaseInfo from 'views/user/userBaseInfo';
+import { Identification, IPath } from 'utils/constant';
+import UserMyPledge from 'views/user/userMyPledge';
+import UserMyReward from 'views/user/userMyReward';
+import UserMajor from 'views/user/userMajor';
+import UserSkillsTag from 'views/user/userSkillsTag';
+import UserExperience from 'views/user/userExperience';
+import UserCertificates from 'views/user/userCertificates';
+import UserAttachedResume from 'views/user/userAttachedResume';
+import UserTaskExperience from 'views/user/userTaskExperience';
 
 export default function ProfileOverview() {
-  const session = useSession();
+  const { identification, userInfo } = useUserInfo();
+  const isEngineer = useMemo(() => {
+    return identification === Identification.ENGINEER;
+  }, [identification]);
 
-  console.log('---session', session);
-
-  const { identification } = useUserInfo();
   const router = useRouter();
   useEffect(() => {
     console.log('identification>>>>>>>>>>?', identification);
-    if (!identification) {
-      router.replace('/tasks');
+    if (!identification && identification !== Identification.VISITOR) {
+      router.replace('/');
     }
   }, []);
+  const { data: mypledge } = useMyPledge();
   return (
     <AdminLayout>
       <Portal>
         <Box>
-          <Navbar paths={[{ path: '#', name: '用户中心' }]} />
+          <Navbar paths={[{ path: '#', name: 'User Center' }]} />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        {/* Main Fields */}
-        <Grid
-          templateColumns={{
-            base: '1fr',
-            lg: '1fr',
-          }}
-          templateRows={{
-            base: 'repeat(3, 1fr)',
-            lg: '1fr',
-          }}
-          gap={{ base: '20px', xl: '20px' }}
-        >
-          <Banner
-            gridArea="1 / 1 / 2 / 2"
-            banner={banner}
-            avatar={avatar}
-            name={session?.data?.user?.name}
-            job="普通用户"
-            posts=""
-            followers=""
-            following=""
-          />
-          {/*<Storage
-            gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
-            used={25.6}
-            total={50}
-          />
-          <Upload
-            gridArea={{
-              base: '3 / 1 / 4 / 2',
-              lg: '1 / 3 / 2 / 4'
-            }}
-            minH={{ base: 'auto', lg: '420px', '2xl': '365px' }}
-            pe='20px'
-            pb={{ base: '100px', lg: '20px' }}
-          />*/}
-        </Grid>
-        <Link href={'/auth/engineer'}>
-          <Button>水手认证</Button>
-        </Link>
-        <Grid
-          mb="20px"
-          templateColumns={{
-            base: '1fr',
-            lg: 'repeat(2, 1fr)',
-            '2xl': '1.34fr 1.62fr 1fr',
-          }}
-          templateRows={{
-            base: '1fr',
-            lg: 'repeat(2, 1fr)',
-            '2xl': '1fr',
-          }}
-          gap={{ base: '20px', xl: '20px' }}
-        >
-          <Projects
-            banner={banner}
-            avatar={avatar}
-            name="Adela Parkson"
-            job="Product Designer"
-            posts="17"
-            followers="9.7k"
-            following="274"
-          />
-          <General
-            gridArea={{ base: '2 / 1 / 3 / 2', lg: '1 / 2 / 2 / 3' }}
-            minH="365px"
-            pe="20px"
-          />
-          <Notifications
-            used={25.6}
-            total={50}
-            gridArea={{
-              base: '3 / 1 / 4 / 2',
-              lg: '2 / 1 / 3 / 3',
-              '2xl': '1 / 3 / 2 / 4',
-            }}
-          />
-        </Grid>
+        <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
+        {/* 水手展示个人信息 */}
+        {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} />}
+        <Flex gap="20px">
+          <UserMyPledge data={mypledge} />
+          <UserMyReward data={[{}, {}, {}, {}, {}]} />
+        </Flex>
+        {/* 水手展示以下信息 */}
+        {isEngineer && (
+          <Flex gap="20px" justifyContent="space-between" width="100%">
+            <Box width="50%">
+              <UserSkillsTag />
+              <UserExperience data={[{}, {}, {}]} />
+              <UserCertificates data={[{}, {}, {}]} />
+              <UserAttachedResume data={{}} />
+            </Box>
+            <Box width="50%">
+              {/* 任务经历 */}
+              <UserTaskExperience data={[{}, {}, {}]} />
+            </Box>
+          </Flex>
+        )}
       </Box>
     </AdminLayout>
   );

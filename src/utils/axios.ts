@@ -3,7 +3,7 @@ axios.defaults.timeout = 180000;
 import { parseJson } from "./index";
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: '/',
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,10 +13,10 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   //@ts-ignore
   (config: AxiosRequestConfig) => {
-    const userInfo = window.localStorage.getItem("userInfo") || "{}";
-    const info = parseJson(userInfo);
+    const authorization = window.localStorage.getItem("authorization") || "";
+    // const info = parseJson(userInfo);
     //@ts-ignore
-    config.headers.Session_id = info?.token || "";
+    config.headers.authorization = (authorization || "")?.replaceAll('\"', '');
     return config;
   },
   (error: any) => {
@@ -28,15 +28,33 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response?.data || {};
-
-    if (res?.code !== 200) {
-      if (res?.code === 10005) {
-        // expires token
+    console.log("res>>>>", res)
+    if (res?.result.code !== 0) {
+      // 判断是否过期，根据不同的错误码
+      // expires token
+      if (res?.result.code === 1003) {
         localStorage.removeItem("userInfo");
+        // @ts-ignore
+        window?.toast({
+          title: res?.result.message,
+          status: `error`,
+          isClosable: true,
+          onCloseComplete: () => {
+            window.location.reload()
+          }
+        })
+      }
+      if (res?.result.code === 2) {
+        // @ts-ignore
+        window?.toast({
+          title: res?.result.message,
+          status: `error`,
+          isClosable: true
+        })
       }
       return Promise.reject(res);
     }
-    return res?.data || {};
+    return res || {};
   },
   // 请求失败
   (error: any) => {
@@ -54,5 +72,6 @@ export const Get = (url: string, params = {}): Promise<any> => {
 };
 
 export const Post = (url: string, params = {}): Promise<any> => {
+  console.log("url.>>>>", axiosInstance)
   return axiosInstance.post(url, params);
 };

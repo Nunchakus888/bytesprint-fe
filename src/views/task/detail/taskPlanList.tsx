@@ -1,24 +1,54 @@
 import { ISchedule } from "hooks/mytasks/schedule";
 import { Avatar, Box, Button, Flex, Link, Text } from "@chakra-ui/react"
-import { IPath } from "utils/constant"
+import { IPath, TaskBidStatus } from "utils/constant"
 import styles from './index.module.scss'
 import BYTable from "components/table";
 import dayjs from "dayjs";
 import { IPlanItem } from "hooks/task/detai";
+import { useMemo } from "react";
 
 enum EPlanStatus {
   NO_START=`未开始`,
-  DONE=`已完成`
+  DONE=`Completed`
 }
 
 export default function TaskPlanList(props: {
   from: IPath,
-  planlist: IPlanItem[],
+  data?: any,
   completePlan?: (id: string) => void
+  address?: string,
+  planlist: any[]
 }) {
-  const {from, planlist, completePlan} = props
+  const {from, data, completePlan,address, planlist} = props
 
-  // 我的任务有完成操作
+  // 放在别处
+  // const planlist = useMemo(() => {
+  //   let data_ = []
+  //   const bidSuc = data?.assetRecordList.filter((it:any) => it.wallet === address && it.signStatus === TaskBidStatus.BID_SUCCESS)
+  //   console.log("bidSuc>>>", bidSuc)
+  //   if (bidSuc?.length) {
+  //     const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
+  //     console.log("rids>>>", rids)
+  //     const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
+  //     console.log("list>>>", list)
+  //     data_ = list?.map((it:any) => {
+  //       return {
+  //         "taskname": it.requirementName,
+  //         "usdt": it.requirementCost,
+  //         "startTime": it.requirementPlan.expectedstartTime,
+  //         "endTime": it.requirementPlan.expectedFinishTime,
+  //         "workhours": it.requirementPlan.expectedWorkTime,
+  //         "actualCompleteTime": it.requirementPlan.actualFinishTime,
+  //         "completeStatus": it.requirementPlan.requirementStatus,
+  //         "id":it.requirementId
+  //       }
+  //     })
+  //   }
+  //   console.log("data_>>>", data_)
+  //   return data_
+  // }, [data])
+  
+  // My Task有完成操作
   const Action = {
     title: '操作',
     dataIndex: 'id',
@@ -33,7 +63,7 @@ export default function TaskPlanList(props: {
   }
   const columns = [
     {
-      title: '序号',
+      title: 'Serial Number',
 			dataIndex: 'xuhao',
 			key: 'xuhao',
       render: (_:any, record:any, index:number) => {
@@ -41,7 +71,7 @@ export default function TaskPlanList(props: {
 			},
     },
     {
-      title: '任务名称',
+      title: 'Task Name',
 			dataIndex: 'taskname',
 			key: 'taskname',
       render: (_:any, record:IPlanItem, index:number) => {
@@ -69,7 +99,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '预计完成时间',
+      title: 'Estimated Completion Time',
 			dataIndex: 'endTime',
 			key: 'endTime',
       render: (_:any, record:IPlanItem, index: number) => {

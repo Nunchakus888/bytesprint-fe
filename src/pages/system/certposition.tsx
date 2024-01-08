@@ -23,7 +23,7 @@ export default function CertPosition() {
   });
   const columns = [
     {
-      title: '序号',
+      title: 'Serial Number',
 			dataIndex: 'xuhao',
 			key: 'xuhao',
       render: (_:any, record:any, index:number) => {
@@ -31,7 +31,7 @@ export default function CertPosition() {
 			},
     },
     {
-      title: '职位类型名称',
+      title: 'Job Type',
 			dataIndex: 'name',
 			key: 'name',
       render: (_:any, record:any, index:number) => {

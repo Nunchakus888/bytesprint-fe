@@ -17,7 +17,7 @@ export default function EngineerItem(props: {
                 <Tag size="md" background="#7551FF" padding="8px 10px" color="#fff" borderRadius={4}>前端开发工程师</Tag>
                 <Tag size="md" background="#7551FF" padding="8px 10px" color="#fff" borderRadius={4}>前端开发工程师</Tag>
               </Flex>
-              <Text margin="10px 0" fontSize={20}>用户昵称 {shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
+              <Text margin="10px 0" fontSize={20}>User Name {shortAddress('0xA8f6eEe0bC6b6cDB9eDE7B96b3c13f4BD6502C62')}</Text>
               <Flex justifyContent="flex-start" gap="30px" alignItems="center" width="100%" direction="row" className={styles.itemKeyInfo}>
                 <Box className={styles.experience}>1年经验</Box>
                 <Box className={styles.educational}>大专</Box>
@@ -29,7 +29,7 @@ export default function EngineerItem(props: {
                     Java
                   </Tag>
                   <Tag size="lg" padding="10px" variant='solid' background='rgba(255,255,255,0.05)'>
-                    技能标签
+                  Skills Tags
                   </Tag>
                 </Flex>
               </Box>

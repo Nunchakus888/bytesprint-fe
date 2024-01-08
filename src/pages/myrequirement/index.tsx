@@ -8,18 +8,19 @@ import { IPath } from "utils/constant";
 import { useUserInfo } from "hooks/user";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import useConnect from "hooks/useConnect";
 
-// 我的需求
+// My Requirements
 export default function MyRequirements() {
+  const { userInfo } = useUserInfo()
 	const {tabs, activeTab, handleTabChange} = useTasks()
 	const {filter, onChange, refreshFilter} = useSingleTaskFilter()
 	const {loading,
-    page,
     data,
     hasMore,
     fetchMoreData,
     refetchData
-	} = useMyRequirements(filter, activeTab)
+	} = useMyRequirements(filter, activeTab, userInfo.address)
 	// 搜索任务
   const handleSearch = (searchVal: string) => {
     console.log("searchval", searchVal)
@@ -27,7 +28,6 @@ export default function MyRequirements() {
   }
 	const data_ = {
 		loading,
-		page,
     data,
     hasMore,
     fetchMoreData,
@@ -37,17 +37,9 @@ export default function MyRequirements() {
 		handleSearch
 	}
 
-  const {identification} = useUserInfo()
-  const router = useRouter()
-  useEffect(() => {
-    console.log("identification>>>>>>>>>>?", identification)
-    if (!identification) {
-      router.replace('/tasks')
-    }
-  }, [])
   return (
 		<TaskTemplate data={data_} tabs={tabs} activeTab={activeTab} handleTabChange={handleTabChange} isMine={true} from={IPath.MYREQUIREMENT}>
-      <Link href={`/myrequirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />发布需求</Button></Link>
+      <Link href={`/myrequirement/add`}><Button background="#7551FF" color="#fff"><IoMdAdd />Publish Requirement</Button></Link>
     </TaskTemplate>
 	)
 }

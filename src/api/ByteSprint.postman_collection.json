@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "654e9d50-ddfc-4a36-9c15-01e50f8db5fc",
+		"name": "ByteSprint",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25803192"
+	},
+	"item": [
+		{
+			"name": "data",
+			"item": [
+				{
+					"name": "status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/data/project/status"
+					},
+					"response": []
+				},
+				{
+					"name": "crowdsourcing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/data/project/status"
+					},
+					"response": []
+				},
+				{
+					"name": "position",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/data/project/position"
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/data/project/category"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "projectListByUser Dev",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project/listByUser?address=0x342174894548546541654de&queryType=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"listByUser"
+							],
+							"query": [
+								{
+									"key": "categorytype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "positiontype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "crowdsourcingtype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "0x342174894548546541654de"
+								},
+								{
+									"key": "queryType",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projectDetail Dev",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/project/detail?id=202401061843419275",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "categorytype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "positiontype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "crowdsourcingtype",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "202401061843419275"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projectListAll Dev",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/project/list?categorytype=1&status=1&positiontype=1&crowdsourcingtype=1&address=0x123456&querytype=1&timestamp=1704539306110&size=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"project",
+								"list"
+							],
+							"query": [
+								{
+									"key": "categorytype",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "positiontype",
+									"value": "1"
+								},
+								{
+									"key": "crowdsourcingtype",
+									"value": "1"
+								},
+								{
+									"key": "address",
+									"value": "0x123456"
+								},
+								{
+									"key": "querytype",
+									"value": "1"
+								},
+								{
+									"key": "timestamp",
+									"value": "1704539306110"
+								},
+								{
+									"key": "size",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "projectSubmit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileList\": [\r\n        {\r\n            \"fileName\": \"项目介绍\",\r\n            \"fileType\": \"doc\",\r\n            \"fileUrl\": \"https://mybuckethc.s3.amazonaws.com/1400-350.png\",\r\n            \"fileData\": \"\"\r\n        },\r\n        {\r\n            \"fileName\": \"项目文档\",\r\n            \"fileType\": \"png\",\r\n            \"fileUrl\": \"https://mybuckethc.s3.amazonaws.com/600-400.png\",\r\n            \"fileData\": \"\"\r\n        }\r\n    ],\r\n    \"contactInfo\": {\r\n        \"contactName\": \"xxx\",\r\n        \"phoneNumber\": 123456789,\r\n        \"email\": \"123@gmail.com\"\r\n    },\r\n    \"ownerAddress\": \"0x342174894548546541654de\",\r\n    \"projectInfo\": {\r\n        \"name\": \"区块链L2搭建\",\r\n        \"categoryType\": 1,\r\n        \"positionType\": 7,\r\n        \"crowdsourcingType\": 1,\r\n        \"description\": \"区块链二层网络搭建联调上线\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/project/submit"
+					},
+					"response": []
+				},
+				{
+					"name": "projectAccept",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/project/accept"
+					},
+					"response": []
+				},
+				{
+					"name": "projectEvaluate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requirementList\": [\r\n        {\r\n            \"requirementName\": \"开发任务\",\r\n            \"requirementDescription\": \"XXX整个项目的开发\",\r\n            \"requirementCost\": \"10\",\r\n            \"requirementTime\": \"3\"\r\n        },\r\n        {\r\n            \"requirementName\": \"联调任务\",\r\n            \"requirementDescription\": \"XXX整个项目的联调\",\r\n            \"requirementCost\": \"20\",\r\n            \"requirementTime\": \"3\"\r\n        },\r\n        {\r\n            \"requirementName\": \"测试任务\",\r\n            \"requirementDescription\": \"XXX整个项目的测试\",\r\n            \"requirementCost\": \"5\",\r\n            \"requirementTime\": \"3\"\r\n        }\r\n    ],\r\n    \"projectId\": 202401061843419275,\r\n    \"uid\": \"xxx\",\r\n    \"finishTime\": \"1703086205000\",\r\n    \"walletAddress\": \"0x123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/project/evaluate"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "requirement",
+			"item": [
+				{
+					"name": "requirementPlanSubmit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/file/upload"
+					},
+					"response": []
+				},
+				{
+					"name": "requirementFinish",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "file",
+			"item": [
+				{
+					"name": "fileUpload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": "http://localhost:8080/file/upload"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "projectListByUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://42.192.37.117:8080/project/listByUser?address=0x342174894548546541654de&querytype=1",
+					"protocol": "http",
+					"host": [
+						"42",
+						"192",
+						"37",
+						"117"
+					],
+					"port": "8080",
+					"path": [
+						"project",
+						"listByUser"
+					],
+					"query": [
+						{
+							"key": "categorytype",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "positiontype",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "crowdsourcingtype",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "0x342174894548546541654de"
+						},
+						{
+							"key": "querytype",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projectListAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://42.192.37.117:8080/project/list?categorytype=1&status=1&positiontype=1&crowdsourcingtype=1&address=0x123456&querytype=2&timestamp=1704207165297&size=1",
+					"protocol": "http",
+					"host": [
+						"42",
+						"192",
+						"37",
+						"117"
+					],
+					"port": "8080",
+					"path": [
+						"project",
+						"list"
+					],
+					"query": [
+						{
+							"key": "categorytype",
+							"value": "1"
+						},
+						{
+							"key": "status",
+							"value": "1"
+						},
+						{
+							"key": "positiontype",
+							"value": "1"
+						},
+						{
+							"key": "crowdsourcingtype",
+							"value": "1"
+						},
+						{
+							"key": "address",
+							"value": "0x123456"
+						},
+						{
+							"key": "querytype",
+							"value": "2"
+						},
+						{
+							"key": "timestamp",
+							"value": "1704207165297"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "projectDetail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://42.192.37.117:8080/project/detail?id=20231226111",
+					"protocol": "http",
+					"host": [
+						"42",
+						"192",
+						"37",
+						"117"
+					],
+					"port": "8080",
+					"path": [
+						"project",
+						"detail"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "20231226111"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
