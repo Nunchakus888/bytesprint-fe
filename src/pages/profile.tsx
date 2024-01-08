@@ -21,7 +21,7 @@
 */
 
 // Chakra imports
-import { Box, Grid, Portal } from '@chakra-ui/react';
+import { Box, Grid, Portal, Button } from '@chakra-ui/react';
 import AdminLayout from 'layouts/admin';
 
 // Custom components
@@ -40,27 +40,26 @@ import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { getActiveNavbar, getActiveNavbarText } from 'utils/navigation';
+import Link from 'next/link';
 
 export default function ProfileOverview() {
   const session = useSession();
 
   console.log('---session', session);
 
-  const {identification} = useUserInfo()
-  const router = useRouter()
+  const { identification } = useUserInfo();
+  const router = useRouter();
   useEffect(() => {
-    console.log("identification>>>>>>>>>>?", identification)
+    console.log('identification>>>>>>>>>>?', identification);
     if (!identification) {
-      router.replace('/tasks')
+      router.replace('/tasks');
     }
-  }, [])
+  }, []);
   return (
     <AdminLayout>
       <Portal>
         <Box>
-          <Navbar
-            paths={[{path: '#', name: '用户中心'}]}
-          />
+          <Navbar paths={[{ path: '#', name: '用户中心' }]} />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
@@ -101,6 +100,9 @@ export default function ProfileOverview() {
             pb={{ base: '100px', lg: '20px' }}
           />*/}
         </Grid>
+        <Link href={'/auth/engineer'}>
+          <Button>水手认证</Button>
+        </Link>
         <Grid
           mb="20px"
           templateColumns={{
