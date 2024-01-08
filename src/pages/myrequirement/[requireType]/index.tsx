@@ -149,7 +149,7 @@ export default function AddRequirement(props: {}) {
                             <IoCheckmarkOutline className={styles.checkIcon} fontSize={18} />
                           </i>
                           <Box display="flex" alignItems="center" flexDirection="column">
-                            <Text fontSize={22} fontWeight="bold">
+                            <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
                               {it.label}
                             </Text>
                             <Text fontSize={14} whiteSpace="nowrap">
