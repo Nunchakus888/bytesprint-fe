@@ -1,17 +1,21 @@
 import { toast, useToast } from "@chakra-ui/react";
 import API_ROUTERS from "api";
 import axios from "axios"
+import { stakeTasker } from "contract/lib/bytd";
 import dayjs from "dayjs";
 import { useUserInfo } from "hooks/user";
 import _ from "lodash"
 import { useEffect, useMemo, useState } from "react"
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
 import { Post } from "utils/axios";
+import { useAccount } from "wagmi";
 
 
-export const useEvaluate = (projectId: string, ) => { 
+export const useEvaluate = (projectId: string, onSuccessCb: ()=> void) => { 
   const {userInfo } = useUserInfo()
   const toast = useToast()
+  const account = useAccount()
+  const [isLoading, setLoading] = useState(false)
   // 汇率
   // const [rate, setRate] = useState(0)
 
@@ -91,34 +95,50 @@ export const useEvaluate = (projectId: string, ) => {
   }
   const onSubmit = async (data:any) => {
     console.log("提交数据>>>>", data)
-    // TODO 跟合约交互
-
-    // 合约交互完成后再调用接口
-    const requirementList = data.datas.map((it:any) => {
-      return {
-        requirementName: it.taskname,
-        requirementCost: it.usdt
+    setLoading(true)
+    try{
+      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0)
+      // TODO
+      // amount 是否是质押的金额 lockdays 是否是到完成时间的
+      console.log({account, projectId, amount, lockDays: 1})
+      const contactRes = await stakeTasker({account, projectId, amount, lockDays: 1})
+      if (!contactRes) {
+        toast({
+          title: `Operate Error`,
+          status: `error`,
+          isClosable: true,
+        })
+        setLoading(false)
+        return false;
       }
-    })
-    const params = {
-      finishTime: dayjs(data.endTime).unix(),
-      projectId,
-      uid: userInfo.uid,
-      walletAddress: userInfo.address,
-      requirementList
+      // 合约交互完成后再调用接口
+      const requirementList = data.datas.map((it:any) => {
+        return {
+          requirementName: it.taskname,
+          requirementCost: it.usdt
+        }
+      })
+      const params = {
+        finishTime: dayjs(data.endTime).unix()*1000,
+        projectId,
+        uid: userInfo.uid,
+        walletAddress: userInfo.address,
+        requirementList
+      }
+      const res = await Post(
+        API_ROUTERS.tasks.EVALUATE, params
+      );
+      // 请求成功后返回任务列表
+      toast({
+        title: `successFully`,
+        status: `success`,
+        isClosable: true
+      })
+      setLoading(false)
+      onSuccessCb?.()
+    }finally{
+      setLoading(false)
     }
-    const res = await Post(
-      API_ROUTERS.tasks.EVALUATE(params)
-    );
-    // 请求成功后返回任务列表
-    toast({
-      title: `successFully`,
-      status: `success`,
-      isClosable: true,
-      onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
   }
   return {
     fields,
@@ -133,7 +153,8 @@ export const useEvaluate = (projectId: string, ) => {
     register,
     control,
     setValue,
-    getValues
+    getValues,
+    isLoading
   }
 }
 

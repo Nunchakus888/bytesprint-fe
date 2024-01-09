@@ -25,7 +25,7 @@ export const useAddRequirement = () => {
   }, [router])
   const {userInfo} = useUserInfo()
 
-  // 保存需求 TODO currentRequire 创建的类型 
+  // 保存需求 TODO upload
   const saveRequirement = useCallback(async (data: any) => {
     
     // {
@@ -38,9 +38,9 @@ export const useAddRequirement = () => {
 
     const projectInfo = {
       name: data.projectName,
-      categoryType: currentRequire.value,
-      positionType: data.professionType,
-      crowdsourcingType: data.crowSourcingMethod,
+      categoryType: currentRequire?.value,
+      positionType: +data.professionType,
+      crowdsourcingType: +data.crowSourcingMethod,
       description: data.description
     }
     const contactInfo = {
@@ -51,7 +51,12 @@ export const useAddRequirement = () => {
       projectInfo,
       contactInfo,
       ownerAddress: userInfo.address,
-      fileList: [{}]
+      fileList: [{
+        "fileName": "项目介绍",
+        "fileType": "doc",
+        "fileUrl": "https://mybuckethc.s3.amazonaws.com/1400-350.png",
+        "fileData": ""
+      }]
     }
     console.log("publish _params>>>", _params)
     const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params)

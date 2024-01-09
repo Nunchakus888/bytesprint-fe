@@ -17,11 +17,11 @@ import styles from '../index.module.scss';
 import Navbar from 'components/navbar/NavbarAdmin';
 const TaskDetail = () => {
   const router = useRouter();
-  const { id = null } = router.query;
+  const { id } = router.query;
   console.log("TaskDetail>>>")
   const { userInfo } = useUserInfo()
   // detail
-  const {data, isLoading } = useTaskDetail(id, userInfo.address)
+  const {data, isLoading, refresh } = useTaskDetail(id, userInfo.address)
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
   console.log("data>>>>", data)
@@ -54,7 +54,7 @@ const TaskDetail = () => {
         <Auth from={IPath.TASKS}/>
       </Box>
       {/* {isOpenEvaluate && <Test></Test>} */}
-      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
+      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)} onSuccess={refresh}></Evaluate>}
     </AdminLayout>
   )
 }

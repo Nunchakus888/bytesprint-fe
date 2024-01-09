@@ -11,8 +11,9 @@ export default function Evaluate(props: {
   isOpen?: boolean,
   onClose?: () => void
   projectId: string
+  onSuccess: () => void
 }) {
-  const {isOpen, onClose, projectId} = props
+  const {isOpen, onClose, projectId, onSuccess} = props
   const {
     fields,
     append,
@@ -25,7 +26,11 @@ export default function Evaluate(props: {
     handleSure,
     setValue,
     getValues,
-    } = useEvaluate(projectId)
+    isLoading
+    } = useEvaluate(projectId, () => {
+      onClose()
+      onSuccess()
+    })
   
   return (
     <ModalDialog 
@@ -34,6 +39,7 @@ export default function Evaluate(props: {
       onClose={onClose}
       buttonText="评估质押"
       onSure={handleSure}
+      isLoading={isLoading}
     >
       <Box>
         <Text fontSize='lg'>任务清单</Text>

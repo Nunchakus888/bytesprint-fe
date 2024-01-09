@@ -14,8 +14,8 @@ export const useMyTaskDetailStatusAction = (id: string | string[]) => {
   const scheduleTask = async (list: any[]) => {
     const data = list?.map(it => {
       return {
-        expectedstartTime: dayjs(it.startTime).unix(),
-        expectedFinishTime: dayjs(it.endTime).unix(),
+        expectedstartTime: dayjs(it.startTime).unix()*1000,
+        expectedFinishTime: dayjs(it.endTime).unix()*1000,
         expectedWorkTime: +it.workhours,
         requirementId: it.id
       }
@@ -81,8 +81,6 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>();
 
-  // test
-  address = '0x123456'
   const getData = async () => {
     try {
       setLoading(true);

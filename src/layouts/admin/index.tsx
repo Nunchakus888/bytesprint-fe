@@ -16,6 +16,7 @@ import {
 import Router, { useRouter } from 'next/router';
 import { useUserRoute } from 'hooks/user';
 import _ from 'lodash';
+import useConnect from 'hooks/useConnect';
 // import { useSession } from 'next-auth/react';
 
 interface DashboardLayoutProps extends PropsWithChildren {
@@ -34,6 +35,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   // functions for changing the states from components
   const { onOpen } = useDisclosure();
   const toast = useToast()
+  const {connect } = useConnect()
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr';
@@ -42,6 +44,8 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   useEffect(() => {
     // @ts-ignore
     window.toast = toast
+    // @ts-ignore
+    window.connect = connect
   },[])
   // useEffect(() => {
   //   if (session.status !== 'loading' && session.status !== 'authenticated') {
@@ -66,7 +70,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   //   console.log("cur.path>>>>", cur?.path, validPaths)
   // }, [routers])
   return (
-    <Box>
+    <Box maxWidth="1512px" margin="0 auto">
       <SidebarContext.Provider
         value={{
           toggleSidebar,

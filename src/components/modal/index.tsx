@@ -9,8 +9,9 @@ export default function ModalDialog(props: {
   onSure?: () => void
   size?: string
   btnGroup?: React.ReactNode
+  isLoading?: boolean
 }) {
-  const {isOpen, onClose, title, buttonText, onSure, children, size, btnGroup} = props
+  const {isOpen, onClose, title, buttonText, onSure, children, size, btnGroup, isLoading} = props
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={size || "6xl"}>
         <ModalOverlay />
@@ -24,7 +25,7 @@ export default function ModalDialog(props: {
           <ModalFooter>
             {btnGroup ? btnGroup :
               <>
-                <Button background="#7551FF" mr={3} onClick={onSure}>
+                <Button background="#7551FF" isLoading={isLoading} mr={3} onClick={onSure}>
                   {buttonText || '确定'}
                 </Button>
                 <Button variant='ghost' onClick={onClose}>取消</Button>

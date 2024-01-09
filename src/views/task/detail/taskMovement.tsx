@@ -8,8 +8,18 @@ export default function TaskMovement(props:{
 }) {
   const {data} = props
   // 需求动态
-  const status = data?.projectRawInfo.status;
-  const statusTime = data?.projectRawInfo.statusTime;
+  const originstatusTime = data?.projectRawInfo.statusTime;
+  let statusRes: number[] = []
+  let statusTimeRes: number[] = []
+  originstatusTime?.map((s:string) => {
+    const arr = s.split(':')
+    const status = arr[0]
+    const time = arr[1]
+    statusRes.push(+status)
+    statusTimeRes.push(Number(time))
+  })
+  statusRes.unshift(IStatus.PUBLISHED)
+  statusTimeRes.unshift(statusTimeRes[0])
   return (
     <Box
       display="flex"
@@ -25,7 +35,7 @@ export default function TaskMovement(props:{
       <Text fontSize={18} fontWeight="bold">Requirement Updates</Text>
       <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
         <Flex direction="column" height="100%" justifyContent="space-around">
-          {statusTime.map((it:any) => {
+          {statusTimeRes.reverse().map((it:any, index: number) => {
             const t = dayjs(it).format('HH:mm')
             const date = dayjs(it).format('YYYY/MM/DD')
             return (
@@ -40,7 +50,7 @@ export default function TaskMovement(props:{
         <Flex direction="column"  height="100%" justifyContent="space-around" className={styles.bubles}>
           {/* <Box display="flex" justifyItems="center" width="1px" height="100%"><Box className={styles.line}></Box></Box> */}
           <Box className={styles.line} overflow="hidden"></Box>
-          {status.map((it:any,index:number) => {
+          {statusRes.map((it:any,index:number) => {
             return (
               <Box marginTop="30px"  key={`${it}_buble_${index}}`} className={styles.buble}>
               </Box>
@@ -51,11 +61,11 @@ export default function TaskMovement(props:{
         </Flex>
 
         <Flex direction="column" height="100%" justifyContent="space-around">
-          {status.map((it:any) => {
+          {statusRes.reverse().map((it:any) => {
             return (
               <Box display="flex" alignItems="center" marginTop="30px"  key={`${it}`}>
                 {/* @ts-ignore */}
-                <Text>{[...RequirementStatus].filter(ts => ts.value === it.toString())[0]?.label}</Text>
+                <Text>{[...RequirementStatus].filter(ts => ts.value === it)[0]?.label}</Text>
               </Box>
             )
           })}

@@ -49,9 +49,9 @@ export const Tabs = [
 
 // 众包方式
 export enum ProType {
-  BIDDING = '1', 
-  PITCH = '2',
-  BID = '3',
+  BIDDING = 1, 
+  PITCH = 2,
+  BID = 3,
 }
 
 // 众包方式
@@ -73,24 +73,25 @@ export const ProTypes = [
 export const TaskTypes = [
   {
     label: 'Regular Task',
-    value: '1',
+    value: 1,
   },
   {
     label: 'Navigator Task',
-    value: '2',
+    value: 2,
   },
 ];
 
 export enum IStatus {
-  CLOSED = '8', //已关闭
-  EVALUATION = '0', // 评估中
-  WAIT_SIGN = '1', // 待签约
-  SIGNED = '2', // 已签约
-  CODEING = '3', // 进行中
-  WAIT_ACCEPT = '4', //待验收
-  ACCEPTED = '5', //已验收
-  COMPLETE = '6', // 已完成
-  UN_BID = '7', // 未中标
+  CLOSED = 1, //已关闭
+  EVALUATION = 2, // 评估中
+  WAIT_SIGN = 3, // 待签约
+  SIGNED = 4, // 已签约
+  CODEING = 5, // 进行中
+  WAIT_ACCEPT = 6, //待验收
+  // ACCEPTED = 7, //已验收
+  COMPLETE = 7, // 已完成
+  UN_BID = 2, // 未中标
+  PUBLISHED=-1 // 前端自定义，需求发布成功
 }
 
 export const RequirementStatus = [
@@ -122,6 +123,11 @@ export const RequirementStatus = [
     label: 'Completed',
     value: IStatus.COMPLETE,
   },
+  {
+    label: 'Published',
+    value: IStatus.PUBLISHED,
+  },
+  
 ];
 
 export const TaskStatus = [
@@ -149,25 +155,49 @@ export const TaskStatus = [
     label: 'Completed',
     value: IStatus.COMPLETE,
   },
+  {
+    label: 'Published',
+    value: IStatus.PUBLISHED,
+  },
 ];
 
 // 职位类型
 export const ProfessionTypes = [
   {
-    label: '前端开发',
-    value: '1',
+    label: 'Front-end Developer',
+    value: 1,
   },
   {
-    label: '后端开发',
-    value: '2',
+    label: 'Android Developer',
+    value: 2,
   },
   {
-    label: 'UI设计',
-    value: '3',
+    label: 'iOS Developer',
+    value: 3,
   },
   {
-    label: '测试',
-    value: '4',
+    label: 'Java Developer',
+    value: 4,
+  },
+  {
+    label: 'Python Developer',
+    value: 5,
+  },
+  {
+    label: 'Blockchain Engineer',
+    value: 6,
+  },
+  {
+    label: 'Full Stack Developer',
+    value: 7,
+  },
+  {
+    label: 'Test Engineer',
+    value: 8,
+  },
+  {
+    label: 'DevOps Engineer',
+    value: 9,
   },
 ];
 
@@ -193,9 +223,9 @@ export interface IRequirementPerson extends IRequirement {
 
 // 任务投标状态
 export enum TaskBidStatus {
-  BID_SUCCESS = '1',
-  BID_FAIL = '0',
-  WAIT_BID = '2'
+  BID_SUCCESS = 1,
+  BID_FAIL = 0,
+  WAIT_BID = 2
 }
 
 // 用户身份等级

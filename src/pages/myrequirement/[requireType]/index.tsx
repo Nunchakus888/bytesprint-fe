@@ -46,7 +46,7 @@ export default function AddRequirement(props: {}) {
     data.fileList = files;
     console.log('On Submit: ', data)
     await saveRequirement(data)
-    // router.push('/myrequirement')
+    router.push('/myrequirement')
   });
 
   const validatePhone = (value: string) => {
@@ -58,7 +58,7 @@ export default function AddRequirement(props: {}) {
     }
     return true;
   };
-
+  const [radioVal, setRadioVal] = useState<ProType>()
   // 草稿
   const handleTempSave = () => {
     console.log("getValues>>", getValues())
@@ -129,12 +129,12 @@ export default function AddRequirement(props: {}) {
             </FormControl>
             <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod} isRequired margin="20px 0">
               <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
-              <RadioGroup>
+              <RadioGroup value={radioVal}>
                 <Stack direction="row">
-                  {ProTypes.map((it) => {
+                  {ProTypes.map((it, index) => {
                     return (
                       <Box
-                        key={it.label}
+                        key={`${it.label}_${index}`}
                         background="rgba(255,255,255,0.05)"
                         position="relative"
                         padding="10px 20px"
@@ -142,6 +142,10 @@ export default function AddRequirement(props: {}) {
                         cursor="pointer"
                         _hover={{color: '#7551FF' }}
                         className={styles.radios}
+                        onClick={()=> {
+                          setRadioVal(it.value)
+                          setValue("crowSourcingMethod", it.value)
+                        }}
                       >
                         <Radio {...register('crowSourcingMethod', {required: '必选项',})} value={it.value}>
                           <Flex>
@@ -155,7 +159,8 @@ export default function AddRequirement(props: {}) {
                             <Text fontSize={14} whiteSpace="nowrap">
                               {it.label}
                             </Text>
-                          </Box></Flex>
+                          </Box>
+                          </Flex>
                         </Radio>
                       </Box>
                     );

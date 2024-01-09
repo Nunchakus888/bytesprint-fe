@@ -68,10 +68,15 @@ export const stakeTasker = async ({account, projectId, amount, lockDays}: any) =
   if (!eth20Approve) {
     return false;
   }
+  debugger
   const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
+  debugger
   const result = await bytdInstance.stakeTasker(projectId, amount, lockDays)
+  console.log("result>>>", result)
   if (result) {
     const receipt = await result.wait()
+    console.log("rees>>>", receipt?.status)
+    debugger
     return receipt?.status === 1 ? true : false
   }
   return false

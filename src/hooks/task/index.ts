@@ -7,6 +7,7 @@ import { RequirementType, Tabs } from 'utils/constant';
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobTypes } from 'slice/commonSlice';
+import { useUserInfo } from 'hooks/user';
 const PAGE_SIZE = 10;
 
 // 根据角色返回对应的任务数据
@@ -80,13 +81,13 @@ export const useSingleTaskFilter = () => {
 // 任务大厅列表单一需求
 export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(Date.now());
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
   const [hadMore, setHasMore] = useState(true)
   const oldFilterRef = useRef({});
-  
+  const {userInfo} = useUserInfo()
   const getList = async (params: any) => {
     // test
     // params = {
@@ -105,7 +106,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
     try {
       const _params = {
         ...params,
-        // timestamp: time,
+        timestamp: time,
       };
       console.log("time>>>", time)
       // TODO 参数 不同类型的区分请求 activeTab
@@ -162,9 +163,13 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
 
   useEffect(() => {
-    setTime('');
+    setTime(Date.now());
     setHasMore(true);
   }, [filter]);
+
+  useEffect(() => {
+    toggleTiger();
+  }, [userInfo])
 
   useEffect(() => {
     console.log('triger', triger);
@@ -231,103 +236,10 @@ export const useTaskDetail = (id: string | string[], address: string) => {
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
           id,
-          address
+          // address
         })
       );
       setLoading(false);
-      console.log("111")
-      // const res = {
-      //   projectDetailInfo: {
-      //     projectRawInfo: {
-      //       id: "11",
-      //       number: 'BYSD123456',
-      //       name: '测试任务 海鸥灰',
-      //       categoryType: 1,
-      //       categoryName: '普通任务',
-      //       positionType: 1,
-      //       positionName: `前端开发`,
-      //       crowdsourcingType: 1,
-      //       crowdsourcingName: `竞标`,
-      //       description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
-      //       status: [0, 1, 2],
-      //       statusTime: [Date.now(),Date.now(), Date.now()],
-      //       startTime: Date.now(),
-      //       endTime: Date.now()
-      //     },
-      //     fileList: [
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'}
-      //     ]
-      //   }
-      // }
-
-      // const res = {
-      //   projectDetailInfo: {
-      //     "projectRawInfo": {
-      //         "id": 20231226111,
-      //         "name": "web3交易所开发",
-      //         "categoryType": 0,
-      //         "description": "全栈开发，应用上线",
-      //         "status": 0,
-      //         "statusTime": [],
-      //         "startTime": "2023-12-26 20:51:23"
-      //     },
-      //     "assetRecordList": [
-      //         {
-      //           "totalTime": 6,
-      //           "totalCost": 30,
-      //           "finishTime": "2023-11-05 00:00:00",
-      //           "requirementAssociation": [
-      //               {
-      //                   "requirementName": "后端开发",
-      //                   "requirementDescription": "后端开发，接口设计"
-      //               },
-      //               {
-      //                   "requirementName": "前端开发",
-      //                   "requirementDescription": "前端开发，接口设计"
-      //               },
-      //               {
-      //                   "requirementName": "测试联调",
-      //                   "requirementDescription": "整体联调"
-      //               }
-      //           ],
-      //           "uid": "whc123",
-      //           "wallet": "0x123456"
-      //         },
-      //         {
-      //             "totalTime": 6,
-      //             "totalCost": 80,
-      //             "finishTime": "2023-11-05 00:00:00",
-      //             "requirementAssociation": [
-      //                 {
-      //                     "requirementName": "全栈开发",
-      //                     "requirementDescription": "系统全栈开发"
-      //                 }
-      //             ],
-      //             "uid": "abc123",
-      //             "wallet": "0x7891011"
-      //         },
-      //         {
-      //             "totalTime": 4,
-      //             "totalCost": 20,
-      //             "finishTime": "2023-12-30 19:09:41",
-      //             "requirementAssociation": [],
-      //             "uid": "aaabbss",
-      //             "wallet": "0x897978"
-      //         }
-      //     ],
-      //     "fileList": [
-      //         {
-      //             "fileName": "文件pdf",
-      //             "fileType": "pdf",
-      //             "fileUrl": "http://xxxxxx.xml"
-      //         }
-      //     ]
-      // }
-      // }
-      console.log("res?.projectDetailInfo>>>", res)
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
@@ -336,12 +248,13 @@ export const useTaskDetail = (id: string | string[], address: string) => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    id && getData();
+  }, [id]);
 
   return {
     data,
     isLoading: loading,
+    refresh: getData
   };
 };
 

@@ -13,8 +13,9 @@ export default function TaskBidRecords(props: {
   signBid?: (record: any) => void // 签约TA
   unSignBid?: (recordId: string) => void // 淘汰TA
   openRecordDetail ?: (recordId: string) => void  // 详情
+  signLoading?: boolean
 }) {
-  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail, from } = props
+  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props
 
 
   return (
@@ -30,14 +31,14 @@ export default function TaskBidRecords(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `Bidding Records：${recordList.length}`}
+        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `Bidding Records：${recordList?.length || 0}`}
       </Text>
 
       {/* test */}
-      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240, uid: `E0341092072504178728`, wallet: `0x01821BfBFFEFeCf0f31C78dd841d2819FdFC1Ef2`})}>签约TA</Button>
+      {/* <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240, uid: `E0341092072504178728`, wallet: `0x01821BfBFFEFeCf0f31C78dd841d2819FdFC1Ef2`})}>签约TA</Button> */}
 
       <Box marginTop="30px"  width="100%">
-        {recordList.map((it,index) => {
+        {recordList?.map((it,index) => {
           return (
             <Flex key={`${it.id}_${index}`} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
               <Flex>
@@ -53,7 +54,7 @@ export default function TaskBidRecords(props: {
                   <Text fontSize={16} whiteSpace="nowrap" display="flex">Total Cost：{it.totalCost} USDT</Text>
                 </Box>
                 <Box>
-                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(it.finishTime).format('YYYY/MM/DD')}</Text>
+                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(+it.finishTime).format('YYYY/MM/DD')}</Text>
                 </Box>
               </Flex>
 
@@ -69,9 +70,9 @@ export default function TaskBidRecords(props: {
                     {TaskBidStatus.BID_SUCCESS === it.signStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
 
                     {/* 待签约 */}
-                    {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
-                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it)}>签约TA</Button>
-                      <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it.id)}>淘汰TA</Link>
+                    {!it.signStatus && (taskStatus === IStatus.WAIT_SIGN || taskStatus === IStatus.EVALUATION) && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
+                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it)} isLoading={signLoading}>签约TA</Button>
+                      <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it)}>淘汰TA</Link>
                     </Box>}
                     </>
                   )

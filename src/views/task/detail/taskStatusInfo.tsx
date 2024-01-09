@@ -89,7 +89,7 @@ export default function TaskStatusInfo(props: {
       height="186px"
       className={styles.container}
     >
-      <Text fontSize={24}>Task Status：{statusTitle}</Text>
+      <Text fontSize={18} whiteSpace="nowrap">Task Status：{statusTitle}</Text>
       <Box marginTop="30px">{action()}</Box>
     </Box>
   )

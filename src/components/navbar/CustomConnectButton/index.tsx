@@ -46,7 +46,7 @@ export const CustomConnectButton = () => {
             {(() => {
               if (!connected || isConnecting) {
                 return (
-                  <Button className={classnames(styles.connect_btn)} onClick={openConnectModal}>
+                  <Button id='connect-btn' className={classnames(styles.connect_btn)} onClick={openConnectModal}>
                     Connect
                   </Button>
                 );

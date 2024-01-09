@@ -30,12 +30,12 @@ const TaskDetail = () => {
 
   // detail
   const {userInfo} = useUserInfo()
-  const {data, isLoading } = useMyRequirementDetail(id, userInfo.address)
+  const {data, isLoading, refresh } = useMyRequirementDetail(id, userInfo.address)
   console.log("data>>", data)
   const {identification } = useUserInfo()
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false)
   const { openTask, closeTask,
-    acceptTask, signBid,unSignBid, openRecordDetail  } = useMyRequirementDetailStatusAction(id)
+    acceptTask, signBid,unSignBid, openRecordDetail, signLoading } = useMyRequirementDetailStatusAction(id)
   
   const isShowExtendTaskInfo = useMemo(() => {
     if ([IStatus.SIGNED, IStatus.CODEING,IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data?.taskStatus)) {
@@ -60,13 +60,13 @@ const TaskDetail = () => {
         <Back />
         {!data ? <Loading /> :
           <Box display="flex" gap="20px">
-            <Flex direction="column">
+            <Flex direction="column" basis="80%">
               <TaskBaseInfo from={IPath.MYREQUIREMENT} setIsOpenEvaluate={setIsOpenEvaluate} data={data?.projectRawInfo}/>
               {isShowExtendTaskInfo && <TaskPlanList from={IPath.MYREQUIREMENT} planlist={planlist}/>}
-              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={data?.assetRecordList} taskStatus={data?.taskStatus} signBid={signBid} unSignBid={unSignBid} openRecordDetail={handleOpenRecordDetail}/>
+              <TaskBidRecords from={IPath.MYREQUIREMENT} recordList={data?.assetRecordList} taskStatus={data?.taskStatus} signBid={signBid} unSignBid={unSignBid} signLoading={signLoading} openRecordDetail={handleOpenRecordDetail}/>
               <TaskDescription description={data?.projectRawInfo?.description} fileList={data?.fileList}/>
             </Flex>
-            <Flex direction="column">
+            <Flex direction="column" basis="20%">
               <TaskStatusInfo from={IPath.MYREQUIREMENT} taskStatus={data?.taskStatus} openTask={openTask} closeTask={closeTask} acceptTask={acceptTask}/>
               {isShowExtendTaskInfo && <TaskSignedReward totalUsdt={"1000.00"} completeTime={Date.now()}/>}
               <TaskUserInfo title="My Information" userInfo={{}}/>
@@ -78,7 +78,7 @@ const TaskDetail = () => {
         <Auth from={IPath.MYREQUIREMENT}/>
       </Box>
 
-      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)}></Evaluate>}
+      {isOpenEvaluate && <Evaluate projectId={id as string} isOpen={isOpenEvaluate} onClose={() => setIsOpenEvaluate(false)} onSuccess={refresh}></Evaluate>}
       {openRecordDetailId && <TaskEvaluateDetail from={IPath.MYREQUIREMENT} recordId={openRecordDetailId} originData={data} onClose={closeRecordDetail}/>}
     </AdminLayout>
   )

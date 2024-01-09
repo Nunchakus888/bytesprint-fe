@@ -34,15 +34,17 @@ axiosInstance.interceptors.response.use(
       // expires token
       if (res?.result.code === 1003) {
         localStorage.removeItem("userInfo");
+        localStorage.removeItem("authorization");
         // @ts-ignore
         window?.toast({
           title: res?.result.message,
           status: `error`,
           isClosable: true,
           onCloseComplete: () => {
-            window.location.reload()
+            // window.location.reload()
           }
         })
+        document.getElementById("connect-btn").click()
       }
       if (res?.result.code === 2) {
         // @ts-ignore
