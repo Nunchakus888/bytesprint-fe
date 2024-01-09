@@ -52,50 +52,49 @@ import UserAttachedResume from 'views/user/userAttachedResume';
 import UserTaskExperience from 'views/user/userTaskExperience';
 
 export default function ProfileOverview() {
-  const {identification, userInfo} = useUserInfo()
+  const { identification, userInfo } = useUserInfo();
   const isEngineer = useMemo(() => {
-    return identification === Identification.ENGINEER
-  }, [identification])
+    return identification === Identification.ENGINEER;
+  }, [identification]);
 
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
-    console.log("identification>>>>>>>>>>?", identification)
+    console.log('identification>>>>>>>>>>?', identification);
     if (!identification && identification !== Identification.VISITOR) {
-      router.replace('/')
+      router.replace('/');
     }
-  }, [])
-  const {data: mypledge} = useMyPledge()
+  }, []);
+  const { data: mypledge } = useMyPledge();
   return (
     <AdminLayout>
       <Portal>
         <Box>
-          <Navbar
-            paths={[{path: '#', name: 'User Center'}]}
-          />
+          <Navbar paths={[{ path: '#', name: 'User Center' }]} />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo}/>
+        <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
         {/* 水手展示个人信息 */}
-        {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer}/>}
+        {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} />}
         <Flex gap="20px">
-          <UserMyPledge data={mypledge}/>
-          <UserMyReward data={[{},{},{},{},{}]}/>
+          <UserMyPledge data={mypledge} />
+          <UserMyReward data={[{}, {}, {}, {}, {}]} />
         </Flex>
         {/* 水手展示以下信息 */}
-        {isEngineer && <Flex gap="20px" justifyContent="space-between" width="100%">
-          <Box width="50%">
-            <UserSkillsTag />
-            <UserExperience data={[{},{},{}]}/>
-            <UserCertificates data={[{},{},{}]} />
-            <UserAttachedResume data={{}}/>
-          </Box>
-          <Box width="50%">
+        {isEngineer && (
+          <Flex gap="20px" justifyContent="space-between" width="100%">
+            <Box width="50%">
+              <UserSkillsTag />
+              <UserExperience data={[{}, {}, {}]} />
+              <UserCertificates data={[{}, {}, {}]} />
+              <UserAttachedResume data={{}} />
+            </Box>
+            <Box width="50%">
               {/* 任务经历 */}
-            <UserTaskExperience data={[{},{},{}]}/>
-          </Box>
-        </Flex>
-        }
+              <UserTaskExperience data={[{}, {}, {}]} />
+            </Box>
+          </Flex>
+        )}
       </Box>
     </AdminLayout>
   );
