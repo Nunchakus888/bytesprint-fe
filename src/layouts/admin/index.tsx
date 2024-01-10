@@ -1,6 +1,5 @@
 // Chakra imports
 import { Box, useToast } from '@chakra-ui/react';
-import Footer from 'components/footer/FooterAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'common/contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
@@ -53,9 +52,6 @@ export default function AdminLayout(props: DashboardLayoutProps) {
         >
           <Box mx="auto" p={{ base: '20px', md: '30px' }} pe="20px" minH="100vh" pt="50px">
             {children}
-          </Box>
-          <Box>
-            <Footer />
           </Box>
         </Box>
       </SidebarContext.Provider>

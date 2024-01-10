@@ -28,7 +28,7 @@ import {
 
 import Head from 'next/head';
 
-import ReduxProvider from 'components/reduxProvider';
+import ReduxProvider from 'common/reduxProvider';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
