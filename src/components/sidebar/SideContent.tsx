@@ -1,6 +1,5 @@
 import React from 'react';
 
-// chakra imports
 import {
   Box,
   Flex,
@@ -30,7 +29,7 @@ interface SidebarProps extends SidebarResponsiveProps {
   [x: string]: any;
 }
 
-function Sidebar(props: SidebarProps) {
+function SideContent(props: SidebarProps) {
   const { routes } = props;
 
   let variantChange = '0.2s linear';
@@ -39,13 +38,12 @@ function Sidebar(props: SidebarProps) {
   let sidebarBg = useColorModeValue('white', 'navy.800');
   let sidebarMargins = '0px';
 
-  // SIDEBAR
   return (
     <Box display={{ sm: 'none', xl: 'block' }} position="fixed" minH="100%">
       <Box
         bg={sidebarBg}
         transition={variantChange}
-        w="320px"
+        w="240px"
         h="100vh"
         m={sidebarMargins}
         minH="100%"
@@ -65,18 +63,13 @@ function Sidebar(props: SidebarProps) {
   );
 }
 
-// FUNCTIONS
-
 export function SidebarResponsive(props: SidebarResponsiveProps) {
   let sidebarBackgroundColor = useColorModeValue('white', 'navy.800');
   let menuColor = useColorModeValue('gray.400', 'white');
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-
   const { routes } = props;
-  // let isWindows = navigator.platform.startsWith("Win");
-  //  BRAND
 
   return (
     <Flex display={{ sm: 'flex', xl: 'none' }} alignItems="center">
@@ -122,6 +115,5 @@ export function SidebarResponsive(props: SidebarResponsiveProps) {
     </Flex>
   );
 }
-// PROPS
 
-export default Sidebar;
+export default SideContent;

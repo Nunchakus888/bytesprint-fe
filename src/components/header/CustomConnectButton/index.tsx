@@ -14,7 +14,7 @@ import useConect from 'hooks/useConnect';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/loading';
 
-export const CustomConnectButton = () => {
+const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
   const { disconnects } = useConect();
   const { userInfo, loginLoading } = useSelector((state: any) => state.common);
@@ -89,7 +89,10 @@ export const CustomConnectButton = () => {
                           padding: '8px 12px',
                           borderRadius: '8px',
                         }}
-                        className="display-item display-text cursor-pointer"
+                        className={classnames(
+                          'display-item display-text cursor-pointer',
+                          styles.address_wrap
+                        )}
                       >
                         <span>
                           {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol}
@@ -150,3 +153,5 @@ export const CustomConnectButton = () => {
     </ConnectButton.Custom>
   );
 };
+
+export default CustomConnectButton;

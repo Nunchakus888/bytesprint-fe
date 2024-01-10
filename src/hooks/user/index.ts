@@ -14,7 +14,7 @@ let defaultRoutes: any[] = [
   //   component: Index,
   // },
   {
-    name: 'Crowdsourcing Management ',
+    name: 'CS Management',
     icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     children: [
       {
@@ -46,7 +46,7 @@ let visitor_defaultRoutes: any[] = [
   //   component: Index,
   // },
   {
-    name: 'Crowdsourcing Management ',
+    name: 'CS Management ',
     icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     children: [
       {
@@ -72,7 +72,7 @@ let noLogin_defaultRoutes: any[] = [
   //   component: Index,
   // },
   {
-    name: 'Crowdsourcing Management ',
+    name: 'CS Management',
     icon: MdBarChart, // <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
     children: [
       {

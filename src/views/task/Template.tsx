@@ -2,7 +2,7 @@
 import { Box, Flex, Portal, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
-import AdminLayout from 'layouts/admin';
+import AdminLayout from 'layouts';
 import { useEffect } from 'react';
 import { IPath, RequirementType, TabsEnum } from 'common/utils/constant';
 import styles from './index.module.scss';
