@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import _ from 'lodash';
 import { setItem } from 'common/utils';
-import nextLink from 'next/link';
+import WalletAvatar from 'components/WalletAvatar';
 
 export default function UserBaseInfo(props: {
   from: IPath;
@@ -41,6 +41,7 @@ export default function UserBaseInfo(props: {
       setItem('userInfo', newUserInfo);
     }
   };
+
   return (
     <Box
       display="flex"
@@ -53,7 +54,7 @@ export default function UserBaseInfo(props: {
       gap="20px"
       className={styles.container}
     >
-      <Avatar size="xl" name="Kola Tioluwani" src="https://bit.ly/tioluwani-kolawole" />
+      <WalletAvatar value={userInfo?.address || ''} size={60} />
       <Flex alignItems="center" gap="10px">
         {modify && (
           <Flex alignItems="center" gap="10px">
