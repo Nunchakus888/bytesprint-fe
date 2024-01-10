@@ -3,7 +3,7 @@ import { Box, Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/rea
 import Card from 'components/card/Card';
 // Custom components
 import BarChart from 'components/charts/BarChart';
-import { barChartDataConsumption, barChartOptionsConsumption } from 'variables/charts';
+import { barChartDataConsumption, barChartOptionsConsumption } from 'common/variables/charts';
 import { MdBarChart } from 'react-icons/md';
 
 export default function WeeklyRevenue(props: { [x: string]: any }) {

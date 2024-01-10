@@ -1,5 +1,5 @@
-import { useAccount, useBalance, useNetwork } from "wagmi";
-import { toLowerCase } from "../utils";
+import { useAccount, useBalance, useNetwork } from 'wagmi';
+import { toLowerCase } from '../common/utils';
 //TODO 多资产
 export default function useAcountBalance() {
   const { chain } = useNetwork();
@@ -14,10 +14,7 @@ export default function useAcountBalance() {
   return {
     data: data?.data,
     //@ts-ignore
-    formatted: data?.data?.formatted || "0",
+    formatted: data?.data?.formatted || '0',
     ...rest,
   };
 }
-
-
-

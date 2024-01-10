@@ -1,12 +1,12 @@
 import API_ROUTERS from 'api';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Get } from 'utils/axios';
+import { Get } from 'common/utils/axios';
 import useSWR from 'swr';
 import useChange from 'hooks/useChange';
-import { RequirementType, Tabs } from 'utils/constant';
+import { RequirementType, Tabs } from 'common/utils/constant';
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJobTypes } from 'slice/commonSlice';
+import { setJobTypes } from 'common/slice/commonSlice';
 import { useUserInfo } from 'hooks/user';
 const PAGE_SIZE = 10;
 

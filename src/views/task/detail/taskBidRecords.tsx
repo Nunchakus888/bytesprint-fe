@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Link, Text } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
-import { shortAddress } from 'utils';
+import { shortAddress } from 'common/utils';
 import {
   IPath,
   IStatus,
@@ -8,7 +8,7 @@ import {
   RequirementType,
   TaskBidStatus,
   TaskStatus,
-} from 'utils/constant';
+} from 'common/utils/constant';
 import styles from './index.module.scss';
 import dayjs from 'dayjs';
 import { MdKeyboardArrowRight } from 'react-icons/md';

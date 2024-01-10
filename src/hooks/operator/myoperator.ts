@@ -1,5 +1,5 @@
-import useChange from "hooks/useChange";
-import { useCallback, useEffect, useRef, useState } from "react";
+import useChange from 'hooks/useChange';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 // Navigator 查询条件
 export const useMyOperatorFilter = () => {
@@ -30,7 +30,7 @@ export const useMyOperatorFilter = () => {
   return { filter, onChange, refreshFilter };
 };
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 // Navigator列表
 export const useMyOperatorList = (filter: any) => {
   const [loading, setLoading] = useState(false);

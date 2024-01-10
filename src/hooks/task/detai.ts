@@ -3,8 +3,8 @@ import { ISchedule } from 'hooks/mytasks/schedule';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { Get } from 'utils/axios';
-import { IStatus, TaskBidStatus } from 'utils/constant';
+import { Get } from 'common/utils/axios';
+import { IStatus, TaskBidStatus } from 'common/utils/constant';
 
 export interface IPlanItem extends ISchedule {
   actualCompleteTime: number;

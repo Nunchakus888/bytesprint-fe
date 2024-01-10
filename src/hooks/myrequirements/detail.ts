@@ -1,11 +1,11 @@
 import { useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
-import { stakeEmployer } from 'contract/lib/bytd';
+import { stakeEmployer } from 'common/contract/lib/bytd';
+import { Get, Post } from 'common/utils/axios';
+import { TaskBidStatus } from 'common/utils/constant';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
-import { Get, Post } from 'utils/axios';
-import { IStatus, TaskBidStatus } from 'utils/constant';
 import { useAccount, useConnect } from 'wagmi';
 
 // detail status operator

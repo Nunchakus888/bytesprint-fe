@@ -1,8 +1,8 @@
 import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/react';
-import WalletAvatar from 'components/WalletAvatar';
 import { useCallback, useMemo } from 'react';
-import { shortAddress } from 'utils';
+import { shortAddress } from 'common/utils';
 import styles from './index.module.scss';
+import WalletAvatar from 'components/WalletAvatar';
 export default function TaskUserInfo(props: { title: string; userInfo: any }) {
   const { title, userInfo } = props;
   return (

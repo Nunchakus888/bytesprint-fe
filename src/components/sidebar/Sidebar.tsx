@@ -19,8 +19,8 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 // Assets
 import { IoMenuOutline } from 'react-icons/io5';
-import { IRoute } from 'types/navigation';
-import { isWindowAvailable } from 'utils/navigation';
+import { IRoute } from 'common/types/navigation';
+import { isWindowAvailable } from 'common/utils/navigation';
 
 interface SidebarResponsiveProps {
   routes?: IRoute[];
@@ -45,7 +45,7 @@ function Sidebar(props: SidebarProps) {
       <Box
         bg={sidebarBg}
         transition={variantChange}
-        w="300px"
+        w="320px"
         h="100vh"
         m={sidebarMargins}
         minH="100%"

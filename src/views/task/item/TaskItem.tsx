@@ -8,7 +8,7 @@ import {
   RequirementStatus,
   TaskStatus,
   TaskTypes,
-} from 'utils/constant';
+} from 'common/utils/constant';
 import styles from './index.module.scss';
 export default function TaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   const { item } = props;

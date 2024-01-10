@@ -4,7 +4,7 @@ import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
 import AdminLayout from 'layouts/admin';
 import { useEffect } from 'react';
-import { IPath, RequirementType, TabsEnum } from 'utils/constant';
+import { IPath, RequirementType, TabsEnum } from 'common/utils/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
@@ -36,7 +36,7 @@ export default function TaskTemplate(props: {
     children,
     // person
   } = props;
-  
+
   // useEffect(() => {
   //   // 单一任务
   //   data.refreshFilter();
@@ -49,16 +49,17 @@ export default function TaskTemplate(props: {
   //   onChange('name', searchVal)
   // }
 
-  const path = props.from === IPath.MYREQUIREMENT ? {path: `#`, name: 'My Requirements'}: 
-  props.from === IPath.MYTASKS ? {path: `#`, name: 'My Task'} : 
-  {path: `#`, name: 'Task Hall'}
+  const path =
+    props.from === IPath.MYREQUIREMENT
+      ? { path: `#`, name: 'My Requirements' }
+      : props.from === IPath.MYTASKS
+        ? { path: `#`, name: 'My Task' }
+        : { path: `#`, name: 'Task Hall' };
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
-          <Navbar
-            paths={[{path: '#', name: 'Crowdsourcing Management '},path]}
-          />
+          <Navbar paths={[{ path: '#', name: 'Crowdsourcing Management ' }, path]} />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
@@ -67,7 +68,14 @@ export default function TaskTemplate(props: {
             <TabList className={styles.tabs}>
               {tabs?.map((it) => {
                 return (
-                  <Tab key={it.label} className={it.value === activeTab ? styles.tab_active: ''} onClick={(e) => { e.preventDefault();handleTabChange(it.value)}}>
+                  <Tab
+                    key={it.label}
+                    className={it.value === activeTab ? styles.tab_active : ''}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleTabChange(it.value);
+                    }}
+                  >
                     {it.label}
                   </Tab>
                 );
@@ -91,6 +99,6 @@ export default function TaskTemplate(props: {
         </Tabs>
         {children && <Box className={styles.add}>{children}</Box>}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

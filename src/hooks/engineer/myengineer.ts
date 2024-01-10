@@ -1,7 +1,7 @@
-import useChange from "hooks/useChange";
-import { useCallback, useEffect, useRef, useState } from "react";
-import useSWR from "swr";
-import { Get } from "utils/axios";
+import useChange from 'hooks/useChange';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
+import { Get } from 'common/utils/axios';
 
 // Tasker 查询条件
 export const useMyEngineerFilter = () => {
@@ -32,7 +32,7 @@ export const useMyEngineerFilter = () => {
   return { filter, onChange, refreshFilter };
 };
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 // Tasker列表
 export const useMyEngineerList = (filter: any) => {
   const [loading, setLoading] = useState(false);

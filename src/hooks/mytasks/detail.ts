@@ -3,8 +3,8 @@ import API_ROUTERS from 'api';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
-import { Get, Post } from 'utils/axios';
-import { IStatus, TaskBidStatus } from 'utils/constant';
+import { Get, Post } from 'common/utils/axios';
+import { IStatus, TaskBidStatus } from 'common/utils/constant';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[]) => {

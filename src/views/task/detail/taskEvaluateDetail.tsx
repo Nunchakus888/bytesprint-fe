@@ -1,9 +1,9 @@
 import { Avatar, Box, Button, Flex, Link, Tag, Text } from '@chakra-ui/react';
 import ModalDialog from 'components/modal';
-import { IPath, TaskBidStatus } from 'utils/constant';
+import { IPath, TaskBidStatus } from 'common/utils/constant';
 import styles from './index.module.scss';
 import Image from 'next/image';
-import { shortAddress } from 'utils';
+import { shortAddress } from 'common/utils';
 import BYTable from 'components/table';
 import { useTaskEvaluateDetail } from 'hooks/task/detai';
 import { useMemo } from 'react';

@@ -7,7 +7,7 @@ import { IoCheckmarkCircle } from 'react-icons/io5';
 import { MdBarChart, MdOutlineCalendarToday } from 'react-icons/md';
 // Assets
 import { RiArrowUpSFill } from 'react-icons/ri';
-import { lineChartDataTotalSpent, lineChartOptionsTotalSpent } from 'variables/charts';
+import { lineChartDataTotalSpent, lineChartOptionsTotalSpent } from 'common/variables/charts';
 
 export default function TotalSpent(props: { [x: string]: any }) {
   const { ...rest } = props;

@@ -1,38 +1,36 @@
-import API_ROUTERS from "api";
-import useChange from "hooks/useChange";
-import { useUserInfo } from "hooks/user";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Get } from "utils/axios";
-import { QUERYTYPE, RequirementType } from "utils/constant";
+import API_ROUTERS from 'api';
+import useChange from 'hooks/useChange';
+import { useUserInfo } from 'hooks/user';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Get } from 'common/utils/axios';
+import { QUERYTYPE, RequirementType } from 'common/utils/constant';
 
 const PAGE_SIZE = 10;
 
 // 我的需求列表 TODO
 export const useMyTasks = (filter: any, activeTab: RequirementType, address: string) => {
-	const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [time, setTime] = useState('');
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
-  const [hadMore, setHasMore] = useState(true)
+  const [hadMore, setHasMore] = useState(true);
   const oldFilterRef = useRef({});
-  const {userInfo} = useUserInfo()
+  const { userInfo } = useUserInfo();
   const getList = async (params: any) => {
     setLoading(!time);
     try {
       // TODO 参数 不同类型的区分请求 activeTab
       const _params = {
         address,
-        queryType: QUERYTYPE.MY_TASKS
+        queryType: QUERYTYPE.MY_TASKS,
       };
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_LIST_MINI(_params)
-      );
-      const data = res?.projectRawInfoList || []
-      
+      const res = await Get(API_ROUTERS.tasks.TASKS_LIST_MINI(_params));
+      const data = res?.projectRawInfoList || [];
+
       // 当返回的数量跟每页比小，没有更多, 不分页 tip: 后端未分页
       // if (data.length < PAGE_SIZE) {
-        setHasMore(false)
+      setHasMore(false);
       // }
       if (!time) {
         setData(data);
@@ -49,18 +47,17 @@ export const useMyTasks = (filter: any, activeTab: RequirementType, address: str
 
   const fetchMoreData = useCallback(() => {
     const time = data[data.length - 1]?.startTime;
-    setTime(time)
+    setTime(time);
   }, [data]);
-
 
   useEffect(() => {
     setTime('');
     setHasMore(true);
   }, [filter]);
-  
+
   useEffect(() => {
     toggleTiger();
-  }, [userInfo])
+  }, [userInfo]);
 
   useEffect(() => {
     console.log('triger', triger);
@@ -68,7 +65,7 @@ export const useMyTasks = (filter: any, activeTab: RequirementType, address: str
     const params = {
       time,
       filter,
-      triger
+      triger,
     };
     console.log('params>>>', params, activeTab);
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
@@ -85,4 +82,4 @@ export const useMyTasks = (filter: any, activeTab: RequirementType, address: str
     fetchMoreData,
     refetchData: toggleTiger,
   };
-}
+};

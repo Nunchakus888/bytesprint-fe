@@ -29,23 +29,23 @@ import {
   ProType,
   ProTypes,
   RequirementType,
-} from 'utils/constant';
+} from 'common/utils/constant';
 
 export default function Tasker() {
   const [isNextStep, setIsNextStep] = useState(false);
+  const [authorizeCode, setAuthorizeCode] = useState('');
+
   return (
     <AdminLayout>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'My Tasker' },
-              { path: `/`, name: 'Tasker' },
-            ]}
-          />
-        </Box>
-      </Portal>
-      <Box>123</Box>
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'My Tasker' },
+            { path: `/`, name: 'Tasker' },
+          ]}
+        />
+      </Box>
+      <Box>Taker Authentication</Box>
     </AdminLayout>
   );
 }
