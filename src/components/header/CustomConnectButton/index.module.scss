@@ -57,6 +57,10 @@
   border-radius: 2px;
 }
 
+.address_wrap {
+  border: 1px solid rgba(#fff, 0.2);
+}
+
 @media screen and (max-width: 1000px) {
   .balance {
     display: none;

@@ -42,73 +42,12 @@ export function SidebarLinks(props: SidebarLinksProps) {
   // this function creates the links from the secondary accordions (for example auth -> sign-in -> default)
   const createLinks = (routes: any[]) => {
     return routes.map((route, index: number) => {
-      // if (route.layout === '/' || route.layout === '/auth' || route.layout === '/rtl') {
-      //   return (
-      //     <Link key={index} href={route.layout + route.path}>
-      //       <>
-      //         {route.icon ? (
-      //           <Box>
-      //             <HStack
-      //               spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
-      //               py="5px"
-      //               ps="10px"
-      //             >
-      //               <Flex w="100%" alignItems="center" justifyContent="center">
-      //                 <Box
-      //                   color={activeRoute(route.path.toLowerCase()) ? activeIcon : textColor}
-      //                   me="18px"
-      //                 >
-      //                   {route.icon}
-      //                 </Box>
-      //                 <Text
-      //                   me="auto"
-      //                   color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
-      //                   fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
-      //                 >
-      //                   {route.name}
-      //                 </Text>
-      //               </Flex>
-      //               <Box
-      //                 h="36px"
-      //                 w="4px"
-      //                 bg={activeRoute(route.path.toLowerCase()) ? brandColor : 'transparent'}
-      //                 borderRadius="5px"
-      //               />
-      //             </HStack>
-      //           </Box>
-      //         ) : (
-      //           <Box>
-      //             <HStack
-      //               spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
-      //               py="5px"
-      //               ps="10px"
-      //             >
-      //               <Text
-      //                 me="auto"
-      //                 color={activeRoute(route.path.toLowerCase()) ? activeColor : inactiveColor}
-      //                 fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
-      //               >
-      //                 {route.name}
-      //               </Text>
-      //               <Box h="36px" w="4px" bg="brand.400" borderRadius="5px" />
-      //             </HStack>
-      //           </Box>
-      //         )}
-      //       </>
-      //     </Link>
-      //   );
-      // }
-
       return (
         <>
           {route.children ? (
             <Accordion defaultIndex={[0]} allowMultiple>
               <AccordionItem border={0}>
                 <AccordionButton paddingLeft="0" justifyContent="space-between">
-                  {/* <Box as="span" flex='1' textAlign='left'>
-                  {route.name}
-                </Box> */}
-
                   <Box>
                     <HStack
                     // spacing={activeRoute(route.path.toLowerCase()) ? '22px' : '26px'}
@@ -125,6 +64,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                           me="auto"
                           padding={0}
                           whiteSpace="nowrap"
+                          style={{ fontWeight: 'bolder' }}
                           // color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
                           // fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
                         >
@@ -146,12 +86,6 @@ export function SidebarLinks(props: SidebarLinksProps) {
                   {route.children?.map((cit: any) => {
                     return (
                       <Link key={index} href={cit.path}>
-                        {/* <Box
-                      color={activeRoute(cit.path.toLowerCase()) ? activeIcon : textColor}
-                      me="18px"
-                    >
-                      {cit.name}
-                    </Box> */}
                         <Box>
                           <HStack spacing={activeRoute(cit.path.toLowerCase()) ? '22px' : '26px'}>
                             <Flex w="100%" alignItems="center" justifyContent="center">
@@ -166,6 +100,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                                 color={
                                   activeRoute(cit.path.toLowerCase()) ? activeColor : textColor
                                 }
+                                fontSize="14"
                                 fontWeight={activeRoute(cit.path.toLowerCase()) ? 'bold' : 'normal'}
                               >
                                 {cit.name}
@@ -194,11 +129,11 @@ export function SidebarLinks(props: SidebarLinksProps) {
                       color={activeRoute(route.path.toLowerCase()) ? activeIcon : textColor}
                       me="18px"
                     >
-                      {/* {route.icon} */}
                       <Icon as={route.icon} width="20px" height="20px" color="inherit" />
                     </Box>
                     <Text
                       me="auto"
+                      style={{ fontWeight: 'bolder' }}
                       color={activeRoute(route.path.toLowerCase()) ? activeColor : textColor}
                       fontWeight={activeRoute(route.path.toLowerCase()) ? 'bold' : 'normal'}
                     >

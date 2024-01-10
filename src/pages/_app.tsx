@@ -27,7 +27,8 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 import Head from 'next/head';
 import ReduxProvider from 'common/reduxProvider';
-import Layout from 'layouts/admin';
+import Header from 'components/header';
+import Sidebar from 'components/sidebar';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
@@ -77,9 +78,11 @@ function App({ Component, pageProps }: AppProps<{}>) {
           <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
             <QueryClientProvider client={queryClient}>
               <LanguageProvider>
-                <Layout>
+                <Header />
+                <Sidebar />
+                <main className="v-main">
                   <Component {...pageProps} />
-                </Layout>
+                </main>
               </LanguageProvider>
             </QueryClientProvider>
           </RainbowKitProvider>

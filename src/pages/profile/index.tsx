@@ -35,12 +35,7 @@ export default function ProfileOverview() {
 
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar paths={[{ path: '#', name: 'User Center' }]} />
-        </Box>
-      </Portal>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+      <Box>
         <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
         {/* 水手展示个人信息 */}
         {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} />}

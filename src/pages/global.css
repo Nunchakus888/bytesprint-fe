@@ -1,7 +1,6 @@
 :root {
-  --theme-color: rgb(39, 56, 82);
-  --font-chakra-petch-bold: 'Chakra Petch Bold' !important;
-  --font-rigel-star: rigel star, rigel star-rigel star !important;
+  --theme-color: #7551ff;
+  --theme-bg: #101c44;
 }
 
 .ql-toolbar,
@@ -20,4 +19,8 @@
 
 .chakra-input {
   color: #fff !important;
+}
+
+.v-main {
+  padding: 60px 16px 0px 256px;
 }

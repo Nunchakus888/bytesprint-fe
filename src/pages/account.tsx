@@ -54,7 +54,7 @@ import Avatar3 from 'img/avatars/avatar3.png';
 import Avatar4 from 'img/avatars/avatar4.png';
 import tableDataTopCreators from 'views/admin/marketplace/variables/tableDataTopCreators.json';
 import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/tableColumnsTopCreators';
-import AdminLayout from 'layouts/admin';
+import AdminLayout from 'layouts';
 import { TableData } from 'views/admin/default/variables/columnsData';
 import NextLink from 'next/link';
 import { useUserInfo } from 'hooks/user';
