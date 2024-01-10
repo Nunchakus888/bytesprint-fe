@@ -1,11 +1,11 @@
 import { useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
 import { stakeEmployer } from 'common/contract/lib/bytd';
+import { Get, Post } from 'common/utils/axios';
+import { TaskBidStatus } from 'common/utils/constant';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
-import { Get, Post } from 'common/utils/axios';
-import { IStatus, TaskBidStatus } from 'common/utils/constant';
 import { useAccount, useConnect } from 'wagmi';
 
 // detail status operator
@@ -52,7 +52,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     }
     try {
       setSignLoading(true);
-      const { totalCost, totalTime, uid, wallet } = record;
+      let { totalCost, totalTime, uid, wallet, assetRecordId } = record;
       // 合约交互
       const result = await stakeEmployer({
         account,
@@ -61,13 +61,12 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         lockDays: Math.ceil(totalTime / 8),
         withdrawAddr: wallet,
       });
-      debugger;
       if (result) {
-        // uid walletAddress 是评估人的数据
         const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
-          uid,
+          uid: userInfo.uid,
           walletAddress: wallet,
           projectId: id,
+          assetRecordId,
           status: TaskBidStatus.BID_SUCCESS,
         });
         toast({
@@ -91,12 +90,13 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   };
   // 淘汰TA
   const unSignBid = async (record: any) => {
-    const { uid, wallet } = record;
-    const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
-      uid,
+    const { uid, wallet, assetRecordId } = record;
+    const res = await Post(API_ROUTERS.tasks.PROJECT_UNSIGN, {
+      uid: userInfo.uid,
       walletAddress: wallet,
       projectId: id,
-      status: TaskBidStatus.BID_FAIL,
+      assetRecordId,
+      // status: TaskBidStatus.BID_FAIL
     });
     debugger;
     toast({

@@ -84,6 +84,7 @@ const useListenConnectionEvent = () => {
         let newuseInfo: any = {};
         newuseInfo.signature = signature;
         newuseInfo.address = address;
+        newuseInfo.uid = userData.uid;
         newuseInfo.authorization = authorization;
         newuseInfo.data = userData;
         dispatch(setUserInfo(newuseInfo));

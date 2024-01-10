@@ -9,12 +9,14 @@ import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { Post } from 'common/utils/axios';
 import { useAccount } from 'wagmi';
+import useConnect from 'hooks/useConnect';
 
 export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const { userInfo } = useUserInfo();
   const toast = useToast();
   const account = useAccount();
   const [isLoading, setLoading] = useState(false);
+  const { connect } = useConnect();
   // 汇率
   // const [rate, setRate] = useState(0)
 
@@ -92,6 +94,10 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   }, [results]);
 
   const handleSure = () => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
     handleSubmit(onSubmit)();
   };
   const onSubmit = async (data: any) => {

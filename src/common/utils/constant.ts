@@ -49,7 +49,7 @@ export const Tabs = [
 
 // 众包方式
 export enum ProType {
-  BIDDING = 1, 
+  BIDDING = 1,
   PITCH = 2,
   BID = 3,
 }
@@ -91,7 +91,7 @@ export enum IStatus {
   // ACCEPTED = 7, //已验收
   COMPLETE = 7, // 已完成
   UN_BID = 2, // 未中标
-  PUBLISHED=-1 // 前端自定义，需求发布成功
+  PUBLISHED = -1, // 前端自定义，需求发布成功
 }
 
 export const RequirementStatus = [
@@ -127,7 +127,6 @@ export const RequirementStatus = [
     label: 'Published',
     value: IStatus.PUBLISHED,
   },
-  
 ];
 
 export const TaskStatus = [
@@ -224,8 +223,8 @@ export interface IRequirementPerson extends IRequirement {
 // 任务投标状态
 export enum TaskBidStatus {
   BID_SUCCESS = 1,
-  BID_FAIL = 0,
-  WAIT_BID = 2
+  BID_FAIL = 2,
+  WAIT_BID = 0,
 }
 
 // 用户身份等级

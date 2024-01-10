@@ -103,7 +103,7 @@ const TaskDetail = () => {
           <Loading />
         ) : (
           <Box display="flex" gap="20px">
-            <Flex direction="column">
+            <Flex direction="column" basis="80%">
               <TaskBaseInfo from={IPath.MYTASKS} data={data?.projectRawInfo} />
               {isShowExtendTaskInfo && (
                 <TaskPlanList
@@ -114,7 +114,6 @@ const TaskDetail = () => {
                   planlist={planlist}
                 />
               )}
-              {/* 待签约-我的投标； 其他： 投标记录 */}
               <TaskBidRecords
                 from={IPath.MYTASKS}
                 recordList={data?.assetRecordList}
@@ -126,10 +125,10 @@ const TaskDetail = () => {
                 fileList={data?.fileList}
               />
             </Flex>
-            <Flex direction="column">
+            <Flex direction="column" basis="20%">
               <TaskStatusInfo
                 from={IPath.MYTASKS}
-                taskStatus={data.taskStatus?.toString()}
+                taskStatus={data.taskStatus}
                 scheduleTask={() => setSchedule(true)}
                 submitAccept={submitAccept}
                 withdrawMyRewards={withdrawMyRewards}

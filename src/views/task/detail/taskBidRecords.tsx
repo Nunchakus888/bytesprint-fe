@@ -23,7 +23,7 @@ export default function TaskBidRecords(props: {
   signLoading?: boolean;
 }) {
   const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
-
+  console.log('taskStatus>>>', taskStatus);
   return (
     <Box
       display="flex"
@@ -37,8 +37,8 @@ export default function TaskBidRecords(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN
-          ? `我的投标:`
+        {from === IPath.MYTASKS
+          ? `My Bidding Record:`
           : `Bidding Records：${recordList?.length || 0}`}
       </Text>
 

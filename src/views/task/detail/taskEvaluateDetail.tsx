@@ -109,7 +109,7 @@ export default function TaskEvaluateDetail(props: {
         </Flex>
         <Flex justifyContent="space-between" gap="50px" alignItems="flex-start">
           {/* 来自需求，且当前记录无状态，需要进行签约/ 淘汰 */}
-          {!data.status && from === IPath.MYREQUIREMENT && (
+          {!record.signStatus && from === IPath.MYREQUIREMENT && (
             <>
               <Link
                 color="#7551FF"
@@ -131,14 +131,14 @@ export default function TaskEvaluateDetail(props: {
               </Button>
             </>
           )}
-          {data.status && (
+          {record.signStatus && (
             <>
               {/* 淘汰 */}
-              {TaskBidStatus.BID_FAIL === data.status && (
+              {TaskBidStatus.BID_FAIL === record.signStatus && (
                 <Box width="100px" className={styles.unbid}></Box>
               )}
               {/* 中标 */}
-              {TaskBidStatus.BID_SUCCESS === data.status && (
+              {TaskBidStatus.BID_SUCCESS === record.signStatus && (
                 <Box width="100px" className={styles.bidsuccess}></Box>
               )}
             </>

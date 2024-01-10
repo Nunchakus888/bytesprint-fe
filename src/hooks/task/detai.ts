@@ -39,11 +39,11 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
           return {
             taskname: it.requirementName,
             usdt: it.requirementCost,
-            startTime: it.requirementPlan.expectedstartTime,
-            endTime: it.requirementPlan.expectedFinishTime,
-            workhours: it.requirementPlan.expectedWorkTime,
-            actualCompleteTime: it.requirementPlan.actualFinishTime,
-            completeStatus: it.requirementPlan.requirementStatus,
+            startTime: it.requirementPlan?.expectedstartTime,
+            endTime: it.requirementPlan?.expectedFinishTime,
+            workhours: it.requirementPlan?.expectedWorkTime,
+            actualCompleteTime: it.requirementPlan?.actualFinishTime,
+            completeStatus: it.requirementPlan?.requirementStatus,
             id: it.requirementId,
           };
         });

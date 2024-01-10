@@ -109,7 +109,7 @@ const TaskDetail = () => {
               {isShowExtendTaskInfo && (
                 <TaskSignedReward totalUsdt={'1000.00'} completeTime={Date.now()} />
               )}
-              <TaskUserInfo title="My Information" userInfo={{}} />
+              <TaskUserInfo title="My Information" userInfo={userInfo} />
               {isShowExtendTaskInfo && (
                 <TaskUserInfo title="签约水手信息" userInfo={{ email: '133' }} />
               )}

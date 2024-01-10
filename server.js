@@ -1,53 +1,58 @@
-const express = require("express");
-const next = require("next");
-const { createProxyMiddleware } = require("http-proxy-middleware");
-const http = require("http");
+const express = require('express');
+const next = require('next');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const http = require('http');
 
 const devProxy = {
-  "/passport": {
-    target: "http://42.192.37.117:8080/",
+  '/passport': {
+    target: 'http://42.192.37.117:8080/',
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  "/user": {
-    target: "http://42.192.37.117:8080/",
+  '/user': {
+    target: 'http://42.192.37.117:8080/',
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  "/project": {
-    target: "http://42.192.37.117:8080/",
+  '/project': {
+    target: 'http://42.192.37.117:8080/',
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  "/position": {
-    target: "http://42.192.37.117:8080/",
+  '/position': {
+    target: 'http://42.192.37.117:8080/',
     // target: "https://hub.composablelabs.io",
     changeOrigin: true,
     secure: false,
   },
-  
+  '/requirement': {
+    target: 'http://42.192.37.117:8080/',
+    // target: "https://hub.composablelabs.io",
+    changeOrigin: true,
+    secure: false,
+  },
 };
 
 let port = parseInt(process.env.PORT, 10) || 3001;
-const dev = process.env.NODE_ENV !== "production";
-console.log("dev>>>>", dev)
+const dev = process.env.NODE_ENV !== 'production';
+console.log('dev>>>>', dev);
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 function checkPortAvailability(port) {
   return new Promise((resolve, reject) => {
     const server = http.createServer();
-    server.once("error", (err) => {
-      if (err.code === "EADDRINUSE") {
+    server.once('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
         resolve(false);
       } else {
         reject(err);
       }
     });
-    server.once("listening", () => {
+    server.once('listening', () => {
       server.close();
       resolve(true);
     });
@@ -73,12 +78,12 @@ async function startServer() {
     });
   }
 
-  server.all("*", (req, res) => {
+  server.all('*', (req, res) => {
     handle(req, res);
   });
   server.listen(port, (err) => {
     if (err) {
-      console.log("An error occurred, unable to start the server");
+      console.log('An error occurred, unable to start the server');
       console.log(err);
       return;
     }
@@ -92,6 +97,6 @@ app
     startServer();
   })
   .catch((err) => {
-    console.log("An error occurred, unable to start the server");
+    console.log('An error occurred, unable to start the server');
     console.log(err);
   });
