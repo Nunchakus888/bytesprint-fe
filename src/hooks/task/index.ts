@@ -15,22 +15,21 @@ const PAGE_SIZE = 10;
 // 任务列表
 export const useTasks = () => {
   const [tabs, setTabs] = useState(Tabs);
-  const toast = useToast()
+  const toast = useToast();
   const [activeTab, setActiveTab] = useState(tabs?.[0].value);
   const handleTabChange = (val: RequirementType) => {
     // const value = tabs.filter((it) => it.value === val)[0].value;
-    
+
     // 点击其他任务
     if (val !== RequirementType.Single) {
       toast({
         title: `Coming soon`,
         status: `info`,
-        isClosable: true
-      })
+        isClosable: true,
+      });
       return false;
     }
     // setActiveTab(val);
-    
   };
   return {
     tabs,
@@ -42,15 +41,15 @@ export const useTasks = () => {
 // 单一任务的查询
 export const useSingleTaskFilter = () => {
   const [filter, setFilter] = useState({
-    crowdsourcingtype: "", // 众包类型
-      categorytype: "",  //项目类别
-      positiontype: "", // 职位类型
-      // name: 1, // 项目名称
-      status: "",
-      address: '',
-      querytype: "",
-      timestamp: '',
-      size: PAGE_SIZE
+    crowdsourcingtype: '', // 众包类型
+    categorytype: '', //项目类别
+    positiontype: '', // 职位类型
+    // name: 1, // 项目名称
+    status: '',
+    address: '',
+    querytype: '',
+    timestamp: '',
+    size: PAGE_SIZE,
   });
   const onChange = (key: string, value: string) => {
     setFilter((pre) => {
@@ -63,15 +62,15 @@ export const useSingleTaskFilter = () => {
 
   const refreshFilter = () => {
     setFilter({
-      crowdsourcingtype: "", // 众包类型
-      categorytype: "",  //项目类别
-      positiontype: "", // 职位类型
+      crowdsourcingtype: '', // 众包类型
+      categorytype: '', //项目类别
+      positiontype: '', // 职位类型
       // name: 1, // 项目名称
-      status: "",
+      status: '',
       address: '',
-      querytype: "",
+      querytype: '',
       timestamp: '',
-      size: PAGE_SIZE
+      size: PAGE_SIZE,
     });
   };
 
@@ -85,63 +84,23 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
-  const [hadMore, setHasMore] = useState(true)
+  const [hadMore, setHasMore] = useState(true);
   const oldFilterRef = useRef({});
-  const {userInfo} = useUserInfo()
+  const { userInfo } = useUserInfo();
   const getList = async (params: any) => {
-    // test
-    // params = {
-    //   crowdsourcingtype: 1, // 众包类型
-    //   categorytype: 1,  //项目类别
-    //   positiontype: 1, // 职位类型
-    //   // name: 1, // 项目名称
-    //   status: 1,
-    //   address: '0x123456',
-    //   querytype: 3,
-    //   timestamp: '2023-11-20 00:00:00',
-    //   size: PAGE_SIZE
-    // }
-
     setLoading(!time);
     try {
       const _params = {
         ...params,
-        timestamp: time,
+        timestamp: time || Date.now(),
       };
-      console.log("time>>>", time)
+      console.log('time>>>', time);
       // TODO 参数 不同类型的区分请求 activeTab
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_LIST(_params)
-      );
-      // debugger
-      // const list = [1,2,3,4,5].map(it => {
-      //   return {
-      //     id: it,
-      //     number: 'BYSD123456',
-      //     name: '测试任务 海鸥灰',
-      //     categoryType: 1,
-      //     categoryName: '普通任务',
-      //     positionType: 1,
-      //     positionName: `前端开发`,
-      //     crowdsourcingType: 1,
-      //     crowdsourcingName: `竞标`,
-      //     description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
-      //     status: [0, 1, 2],
-      //     statusTime: [Date.now(),Date.now(), Date.now()],
-      //     startTime: Date.now(),
-      //     endTime: Date.now()
-      //   }
-      // })
-      // const res = {
-      //   projectRawInfoList: list
-      // } 
-      // // test
-      // let result = [{}, {}, {}, {}, {}, {}];
-      // let count = 30;
-      const data = res?.projectRawInfoList || []
+      const res = await Get(API_ROUTERS.tasks.TASKS_LIST(_params));
+      const data = res?.projectRawInfoList || [];
       // 当返回的数量跟每页比小，没有更多
       if (data.length < PAGE_SIZE) {
-        setHasMore(false)
+        setHasMore(false);
       }
       if (!time) {
         setData(data);
@@ -158,9 +117,8 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   const fetchMoreData = useCallback(() => {
     const time = data[data.length - 1]?.startTime;
-    setTime(time)
+    setTime(time);
   }, [data]);
-
 
   useEffect(() => {
     setTime(Date.now());
@@ -169,17 +127,17 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   useEffect(() => {
     toggleTiger();
-  }, [userInfo])
+  }, [userInfo]);
 
   useEffect(() => {
     console.log('triger', triger);
     // console.log(JSON.stringify({ user_addresses, page, filter, triger }));
     const params = {
-      time,
+      time: Date.now(),
       filter,
-      triger
+      triger,
     };
-    
+
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
       console.log('params>>>', params, activeTab);
       oldFilterRef.current = params;
@@ -254,36 +212,34 @@ export const useTaskDetail = (id: string | string[], address: string) => {
   return {
     data,
     isLoading: loading,
-    refresh: getData
+    refresh: getData,
   };
 };
 
 export const useJobTypes = () => {
-  const dispatch = useDispatch()
-  const { jobtypes } =
-    useSelector((state: any) => state.common);
-
+  const dispatch = useDispatch();
+  const { jobtypes } = useSelector((state: any) => state.common);
 
   const getJobTypes = async () => {
-    const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}))
-    const list = res?.positions?.filter((it:any) => it.status === 0)
-    const data = list.map((it:any) => {
+    const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}));
+    const list = res?.positions?.filter((it: any) => it.status === 0);
+    const data = list.map((it: any) => {
       return {
         label: it.positionName,
-        value: it.positionId
-      }
-    })
+        value: it.positionId,
+      };
+    });
     // const data = [{label: '111', value: 1}]
-    dispatch(setJobTypes(data))
-  }
+    dispatch(setJobTypes(data));
+  };
   useEffect(() => {
-    getJobTypes()
-  }, [])
+    getJobTypes();
+  }, []);
 
   const getData = useCallback(() => {
-    return jobtypes
-  }, [jobtypes])
+    return jobtypes;
+  }, [jobtypes]);
   return {
-    getData
-  }
-}
+    getData,
+  };
+};

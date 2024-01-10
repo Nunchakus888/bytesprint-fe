@@ -1,32 +1,29 @@
-import { useToast } from "@chakra-ui/react";
-import API_ROUTERS from "api";
-import { stakeEmployer } from "contract/lib/bytd";
-import dayjs from "dayjs";
-import { useUserInfo } from "hooks/user";
-import { useEffect, useState } from "react";
-import { Get, Post } from "utils/axios";
-import { IStatus, TaskBidStatus } from "utils/constant";
-import { useAccount, useConnect } from "wagmi";
+import { useToast } from '@chakra-ui/react';
+import API_ROUTERS from 'api';
+import { stakeEmployer } from 'contract/lib/bytd';
+import dayjs from 'dayjs';
+import { useUserInfo } from 'hooks/user';
+import { useEffect, useState } from 'react';
+import { Get, Post } from 'utils/axios';
+import { IStatus, TaskBidStatus } from 'utils/constant';
+import { useAccount, useConnect } from 'wagmi';
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
-  
-  const {userInfo} = useUserInfo()
-  const toast = useToast()
-  const account = useAccount()
-  const {connect} = useConnect()
-  const [signLoading, setSignLoading] = useState(false)
+  const { userInfo } = useUserInfo();
+  const toast = useToast();
+  const account = useAccount();
+  const { connect } = useConnect();
+  const [signLoading, setSignLoading] = useState(false);
   // 打开任务
   const openTask = () => {
     // prompt
     // open
     // refresh
-  }
+  };
 
-  // 关闭任务 TODO 
-  const closeTask = () => {
-    
-  }
+  // 关闭任务 TODO
+  const closeTask = () => {};
 
   // 验收任务
   const acceptTask = async () => {
@@ -34,90 +31,96 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
-    })
+    });
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
-  }
+        window.location.reload();
+      },
+    });
+  };
 
   // 签约TA
   const signBid = async (record: any) => {
     // TODO 合约交互执行签约 错误提示 amount金额 锁定时间
     // 判断是否登录
     if (!account.address) {
-      connect()
+      connect();
       return false;
     }
-    try{
-      setSignLoading(true)
-      const {totalCost, totalTime, uid, wallet} = record
+    try {
+      setSignLoading(true);
+      let { totalCost, totalTime, uid, wallet, assetRecordId } = record;
       // 合约交互
-      const result = await stakeEmployer({account, projectId: id, amount: totalCost, lockDays: Math.ceil(totalTime/ 8), withdrawAddr: wallet})
-      debugger
+      const result = await stakeEmployer({
+        account,
+        projectId: id,
+        amount: totalCost,
+        lockDays: Math.ceil(totalTime / 8),
+        withdrawAddr: wallet,
+      });
       if (result) {
-        // uid walletAddress 是评估人的数据
         const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
-          uid,
+          uid: userInfo.uid,
           walletAddress: wallet,
           projectId: id,
-          status: TaskBidStatus.BID_SUCCESS
-        })
+          assetRecordId,
+          status: TaskBidStatus.BID_SUCCESS,
+        });
         toast({
           title: `Operate SuccessFully`,
           status: `success`,
           isClosable: true,
           onCloseComplete: () => {
-            window.location.reload()
-          }
-        })
-      }else {
+            window.location.reload();
+          },
+        });
+      } else {
         toast({
           title: `Operate Error`,
           status: `error`,
-          isClosable: true
-        })
+          isClosable: true,
+        });
       }
-    }finally{
-      setSignLoading(false)
+    } finally {
+      setSignLoading(false);
     }
-  }
+  };
   // 淘汰TA
   const unSignBid = async (record: any) => {
-    const {uid, wallet} = record
-    const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
-      uid,
+    const { uid, wallet, assetRecordId } = record;
+    const res = await Post(API_ROUTERS.tasks.PROJECT_UNSIGN, {
+      uid: userInfo.uid,
       walletAddress: wallet,
       projectId: id,
-      status: TaskBidStatus.BID_FAIL
-    })
-    debugger
+      assetRecordId,
+      // status: TaskBidStatus.BID_FAIL
+    });
+    debugger;
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
-  }
+        window.location.reload();
+      },
+    });
+  };
 
   // 打开详情 暂时不做
-  const openRecordDetail = () => {
-
-  }
+  const openRecordDetail = () => {};
   return {
     openTask,
     closeTask,
     acceptTask,
-    signBid,unSignBid, openRecordDetail,
-    signLoading
-  }
-}
+    signBid,
+    unSignBid,
+    openRecordDetail,
+    signLoading,
+  };
+};
 
 // 任务详情
 export const useMyRequirementDetail = (id: string | string[], address: string) => {
@@ -132,12 +135,10 @@ export const useMyRequirementDetail = (id: string | string[], address: string) =
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>();
-  
 
   const getData = async () => {
     try {
-      console.log("id,address1111", id,
-      address)
+      console.log('id,address1111', id, address);
       setLoading(true);
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
@@ -146,7 +147,7 @@ export const useMyRequirementDetail = (id: string | string[], address: string) =
         })
       );
       setLoading(false);
-      
+
       // const res = {
       //   projectDetailInfo: {
       //     projectRawInfo: {
@@ -164,7 +165,7 @@ export const useMyRequirementDetail = (id: string | string[], address: string) =
       //       statusTime: [Date.now(),Date.now(), Date.now()],
       //       startTime: Date.now(),
       //       endTime: Date.now(),
-            
+
       //     },
       //     fileList: [
       //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
@@ -262,27 +263,27 @@ export const useMyRequirementDetail = (id: string | string[], address: string) =
       // test
       // res.projectDetailInfo.projectRawInfo.status = [1,2,3]
       // res.projectDetailInfo.projectRawInfo.statusTime=[Date.now(), Date.now(), Date.now()]
-      console.log("id,address1111res", res)
-      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status
-      console.log("res?.projectDetailInfo>>>", res)
+      console.log('id,address1111res', res);
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status;
+      console.log('res?.projectDetailInfo>>>', res);
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
-      debugger
-      console.log(e)
+      debugger;
+      console.log(e);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-   if (id) {
-    getData();
-   }
+    if (id) {
+      getData();
+    }
   }, [id]);
 
   return {
     data,
     isLoading: loading,
-    refresh: getData
+    refresh: getData,
   };
-}
+};

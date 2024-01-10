@@ -1,50 +1,52 @@
-import { useToast } from "@chakra-ui/react";
-import API_ROUTERS from "api";
-import dayjs from "dayjs";
-import { useUserInfo } from "hooks/user";
-import { useEffect, useState } from "react";
-import { Get } from "utils/axios";
-import { IStatus, TaskBidStatus } from "utils/constant";
+import { useToast } from '@chakra-ui/react';
+import API_ROUTERS from 'api';
+import dayjs from 'dayjs';
+import { useUserInfo } from 'hooks/user';
+import { useEffect, useState } from 'react';
+import { Get, Post } from 'utils/axios';
+import { IStatus, TaskBidStatus } from 'utils/constant';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[]) => {
-  const {userInfo} = useUserInfo()
-  const toast = useToast()
+  const { userInfo } = useUserInfo();
+  const toast = useToast();
   // 任务排期
   const scheduleTask = async (list: any[]) => {
-    const data = list?.map(it => {
+    const data = list?.map((it) => {
       return {
-        expectedstartTime: dayjs(it.startTime).unix()*1000,
-        expectedFinishTime: dayjs(it.endTime).unix()*1000,
+        expectedstartTime: dayjs(it.startTime).unix() * 1000,
+        expectedFinishTime: dayjs(it.endTime).unix() * 1000,
         expectedWorkTime: +it.workhours,
-        requirementId: it.id
-      }
-    })
-    const res = await API_ROUTERS.tasks.PLANSUBMIT({
+        requirementId: it.id,
+      };
+    });
+    console.log('userInfo>>>', userInfo);
+    debugger;
+    const res = await Post(API_ROUTERS.tasks.PLANSUBMIT, {
       requirementPlan: data,
       uid: userInfo.uid,
-      address: userInfo.address
-    })
-    return res
-  }
+      walletAddress: userInfo.address,
+    });
+    return res;
+  };
   // 提交验收
   const submitAccept = async () => {
     const res = await API_ROUTERS.tasks.REQUIREMENT_SUBMIT({
       uid: userInfo.uid,
       walletAddress: userInfo.walletAddress,
-      projectid: id
-    })
+      projectid: id,
+    });
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
-  }
+        window.location.reload();
+      },
+    });
+  };
   // 提取My Rewards
-  const withdrawMyRewards = () => {}
+  const withdrawMyRewards = () => {};
   // const startTask = () => {}
   // 完成任务计划某项
   const completePlanItem = async (planId: string) => {
@@ -52,20 +54,19 @@ export const useMyTaskDetailStatusAction = (id: string | string[]) => {
       projectId: id,
       requirementId: planId,
       uid: userInfo.uid,
-      walletAddress: userInfo.address
-    })
-    return res
-  }
-
+      walletAddress: userInfo.address,
+    });
+    return res;
+  };
 
   return {
     scheduleTask,
     submitAccept,
     withdrawMyRewards,
     // startTask,
-    completePlanItem
-  }
-}
+    completePlanItem,
+  };
+};
 
 // 任务详情
 export const useMyTaskDetail = (id: string | string[], address: string) => {
@@ -87,100 +88,16 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
           id,
-          address
+          address,
         })
       );
       setLoading(false);
-      // const res = {
-      //   projectDetailInfo: {
-      //     projectRawInfo: {
-      //       id: "11",
-      //       number: 'BYSD123456',
-      //       name: '测试任务 海鸥灰',
-      //       categoryType: 1,
-      //       categoryName: '普通任务',
-      //       positionType: 1,
-      //       positionName: `前端开发`,
-      //       crowdsourcingType: 1,
-      //       crowdsourcingName: `竞标`,
-      //       description: `测试任务 海鸥灰符合肉鹅和佛围绕娃儿我为人欧赔王倩茹排位额如额嘎哈哦发货红色佛色和沃尔好哦我乌尔禾哦区分深V多少的饭卡了哈拉萨代发额还让我恶化哦融合我饿水电费哈师大立法会带回去哦我惹我看帅哥好哦钱啊干哈阿大概好哦玩`,
-      //       status: [0, 1, 2],
-      //       statusTime: [Date.now(),Date.now(), Date.now()],
-      //       startTime: Date.now(),
-      //       endTime: Date.now(),
-            
-      //     },
-      //     fileList: [
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
-      //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'}
-      //     ],
-      //     assetRecordList: [
-      //       {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 1, wallet: "0x8B51290B45b899beE168aC764F3a2f2276c61961", signStatus: TaskBidStatus.BID_SUCCESS},
-      //       {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 2, wallet: 11, signStatus: TaskBidStatus.BID_FAIL},
-      //       {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 3, wallet: 11, signStatus: TaskBidStatus.BID_FAIL},
-      //       {totalTime: 133, totalCost: 1222, finishTime: Date.now(), requirementAssociation: [{requirementId: 1}], uid: 4, wallet: 11, signStatus: TaskBidStatus.BID_FAIL},
-      //     ],
-      //     requirementList: [
-      //       {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 1, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-
-      //       {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 2, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-
-      //       {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 3, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-
-      //       {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       },
-      //       {requirementId: 4, requirementName: '111', requirementCost: 121, requirementPlan: {
-      //         expectedstartTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'), expectedWorkTime: 1111, actualFinishTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),requirementStatus: 2}
-      //       }
-      //     ],
-      //     taskStatus: 2
-      //   }
-      // }
       // TODO 取status最后一个值
-      res.projectDetailInfo.taskStatus = res.projectDetailInfo.status
-      console.log("res?.projectDetailInfo>>>", res)
+      // res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status
+      // test
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status =
+        IStatus.SIGNED;
+      console.log('res?.projectDetailInfo>>>', res);
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
@@ -196,5 +113,4 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
     data,
     isLoading: loading,
   };
-}
-
+};

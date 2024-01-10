@@ -1,11 +1,11 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 axios.defaults.timeout = 180000;
-import { parseJson } from "./index";
+import { parseJson } from './index';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: '/',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -13,10 +13,10 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   //@ts-ignore
   (config: AxiosRequestConfig) => {
-    const authorization = window.localStorage.getItem("authorization") || "";
+    const authorization = window.localStorage.getItem('authorization') || '';
     // const info = parseJson(userInfo);
     //@ts-ignore
-    config.headers.authorization = (authorization || "")?.replaceAll('\"', '');
+    config.headers.authorization = (authorization || '')?.replaceAll('"', '');
     return config;
   },
   (error: any) => {
@@ -28,13 +28,13 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response?.data || {};
-    console.log("res>>>>", res)
+    console.log('res>>>>', res);
     if (res?.result.code !== 0) {
       // 判断是否过期，根据不同的错误码
       // expires token
       if (res?.result.code === 1003) {
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("authorization");
+        localStorage.removeItem('userInfo');
+        localStorage.removeItem('authorization');
         // @ts-ignore
         window?.toast({
           title: res?.result.message,
@@ -42,17 +42,17 @@ axiosInstance.interceptors.response.use(
           isClosable: true,
           onCloseComplete: () => {
             // window.location.reload()
-          }
-        })
-        document.getElementById("connect-btn").click()
-      }
-      if (res?.result.code === 2) {
+          },
+        });
+        document.getElementById('connect-btn').click();
+      } else {
+        debugger;
         // @ts-ignore
         window?.toast({
           title: res?.result.message,
           status: `error`,
-          isClosable: true
-        })
+          isClosable: true,
+        });
       }
       return Promise.reject(res);
     }
@@ -74,6 +74,6 @@ export const Get = (url: string, params = {}): Promise<any> => {
 };
 
 export const Post = (url: string, params = {}): Promise<any> => {
-  console.log("url.>>>>", axiosInstance)
+  console.log('url.>>>>', axiosInstance);
   return axiosInstance.post(url, params);
 };

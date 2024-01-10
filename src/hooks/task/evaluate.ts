@@ -1,21 +1,22 @@
-import { toast, useToast } from "@chakra-ui/react";
-import API_ROUTERS from "api";
-import axios from "axios"
-import { stakeTasker } from "contract/lib/bytd";
-import dayjs from "dayjs";
-import { useUserInfo } from "hooks/user";
-import _ from "lodash"
-import { useEffect, useMemo, useState } from "react"
-import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form";
-import { Post } from "utils/axios";
-import { useAccount } from "wagmi";
+import { toast, useToast } from '@chakra-ui/react';
+import API_ROUTERS from 'api';
+import axios from 'axios';
+import { stakeTasker } from 'contract/lib/bytd';
+import dayjs from 'dayjs';
+import useConnect from 'hooks/useConnect';
+import { useUserInfo } from 'hooks/user';
+import _ from 'lodash';
+import { useEffect, useMemo, useState } from 'react';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { Post } from 'utils/axios';
+import { useAccount } from 'wagmi';
 
-
-export const useEvaluate = (projectId: string, onSuccessCb: ()=> void) => { 
-  const {userInfo } = useUserInfo()
-  const toast = useToast()
-  const account = useAccount()
-  const [isLoading, setLoading] = useState(false)
+export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
+  const { userInfo } = useUserInfo();
+  const toast = useToast();
+  const account = useAccount();
+  const [isLoading, setLoading] = useState(false);
+  const { connect } = useConnect();
   // 汇率
   // const [rate, setRate] = useState(0)
 
@@ -25,31 +26,31 @@ export const useEvaluate = (projectId: string, onSuccessCb: ()=> void) => {
   //   });
   // }, []);
 
-  const { register, control, handleSubmit, reset, watch, formState:{ errors, }, setValue , getValues} = useForm({
-    defaultValues: {
-      datas: [{taskname: '', usdt: ''}],
-      endTime: new Date()
-    },
-    mode:'onChange'
-  });
   const {
-    fields,
-    append,
-    prepend,
-    remove,
-    swap,
-    move,
-    insert,
-    replace
-  } = useFieldArray({
+    register,
     control,
-    name: "datas"
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = useForm({
+    defaultValues: {
+      datas: [{ taskname: '', usdt: '' }],
+      endTime: new Date(),
+    },
+    mode: 'onChange',
+  });
+  const { fields, append, prepend, remove, swap, move, insert, replace } = useFieldArray({
+    control,
+    name: 'datas',
   });
 
-  const results = watch() 
+  const results = watch();
   useEffect(() => {
-    console.log("result>>", results)
-  }, [results])
+    console.log('result>>', results);
+  }, [results]);
   // cnys
   // const cnys = useMemo(() => {
   //   const datas = results.datas.map(it => {
@@ -75,71 +76,75 @@ export const useEvaluate = (projectId: string, onSuccessCb: ()=> void) => {
   //   }, 0)
   //   return Number(total || 0).toFixed(2)
   // }, [cnys])
- 
+
   const totalUsdt = useMemo(() => {
     const total = results.datas.reduce((pre, cur) => {
-      const usdt = +cur.usdt || 0
+      const usdt = +cur.usdt || 0;
       try {
         if (usdt) {
-          return pre + Number(usdt)
+          return pre + Number(usdt);
         }
-        return pre
-      }catch(e) {return pre}
-    }, 0)
-    console.log("total", total)
-    return Number(total || 0).toFixed(2)
-  }, [results])
+        return pre;
+      } catch (e) {
+        return pre;
+      }
+    }, 0);
+    console.log('total', total);
+    return Number(total || 0).toFixed(2);
+  }, [results]);
 
   const handleSure = () => {
-    handleSubmit(onSubmit)()
-  }
-  const onSubmit = async (data:any) => {
-    console.log("提交数据>>>>", data)
-    setLoading(true)
-    try{
-      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0)
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    handleSubmit(onSubmit)();
+  };
+  const onSubmit = async (data: any) => {
+    console.log('提交数据>>>>', data);
+    setLoading(true);
+    try {
+      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
       // TODO
       // amount 是否是质押的金额 lockdays 是否是到完成时间的
-      console.log({account, projectId, amount, lockDays: 1})
-      const contactRes = await stakeTasker({account, projectId, amount, lockDays: 1})
+      console.log({ account, projectId, amount, lockDays: 1 });
+      const contactRes = await stakeTasker({ account, projectId, amount, lockDays: 1 });
       if (!contactRes) {
         toast({
           title: `Operate Error`,
           status: `error`,
           isClosable: true,
-        })
-        setLoading(false)
+        });
+        setLoading(false);
         return false;
       }
       // 合约交互完成后再调用接口
-      const requirementList = data.datas.map((it:any) => {
+      const requirementList = data.datas.map((it: any) => {
         return {
           requirementName: it.taskname,
-          requirementCost: it.usdt
-        }
-      })
+          requirementCost: it.usdt,
+        };
+      });
       const params = {
-        finishTime: dayjs(data.endTime).unix()*1000,
+        finishTime: dayjs(data.endTime).unix() * 1000,
         projectId,
         uid: userInfo.uid,
         walletAddress: userInfo.address,
-        requirementList
-      }
-      const res = await Post(
-        API_ROUTERS.tasks.EVALUATE, params
-      );
+        requirementList,
+      };
+      const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
       // 请求成功后返回任务列表
       toast({
         title: `successFully`,
         status: `success`,
-        isClosable: true
-      })
-      setLoading(false)
-      onSuccessCb?.()
-    }finally{
-      setLoading(false)
+        isClosable: true,
+      });
+      setLoading(false);
+      onSuccessCb?.();
+    } finally {
+      setLoading(false);
     }
-  }
+  };
   return {
     fields,
     append,
@@ -154,9 +159,9 @@ export const useEvaluate = (projectId: string, onSuccessCb: ()=> void) => {
     control,
     setValue,
     getValues,
-    isLoading
-  }
-}
+    isLoading,
+  };
+};
 
 // 计算汇率
 export const getExchangeRate = async () => {
