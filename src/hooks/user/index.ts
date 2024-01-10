@@ -1,23 +1,9 @@
-import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import { MdBarChart, MdHome, MdPerson } from 'react-icons/md';
+import { MdBarChart, MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { Identification, IPath } from 'common/utils/constant';
 import API_ROUTERS from 'api';
 import { Get } from 'common/utils/axios';
-export const useUserInfo = () => {
-  // const [cookies, setCookie, removeCookie] = useCookies();
-  // 身份
-  const { userInfo } = useSelector((state: any) => state.common);
-  const identification = useMemo(() => {
-    const data = userInfo?.data;
-    return data?.userType;
-  }, [userInfo.data]);
-  return {
-    identification,
-    userInfo,
-  };
-};
 
 let defaultRoutes: any[] = [
   // {
@@ -172,6 +158,20 @@ export const routers = {
   [Identification.OPERATOR]: [...loginNav, ...operator],
   [Identification.ENGINEER]: [...loginNav, ...defaultRoutes],
   [Identification.VISITOR]: [...loginNav, ...visitor_defaultRoutes],
+};
+
+export const useUserInfo = () => {
+  const { userInfo } = useSelector((state: any) => state.common);
+
+  const identification = useMemo(() => {
+    const data = userInfo?.data;
+    return data?.userType;
+  }, [userInfo.data]);
+
+  return {
+    identification,
+    userInfo,
+  };
 };
 
 export const useUserRoute = () => {
