@@ -68,9 +68,11 @@ const CertificationForm = () => {
         <FormLabel fontSize={12}>职位名称</FormLabel>
         <Input type="email" />
       </FormControl>
-      <Button mt={4} type="submit">
-        申请成为Tasker
-      </Button>
+      <div className="flex justify-center">
+        <Button mt={4} className="theme-button" type="submit">
+          申请成为Tasker
+        </Button>
+      </div>
     </div>
   );
 };
