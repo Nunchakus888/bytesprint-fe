@@ -13,7 +13,7 @@ import TaskDescription from 'views/task/detail/taskDescription';
 import Evaluate from 'views/task/Evaluate';
 import Test from 'views/task/Test';
 import styles from '../index.module.scss';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 
 const TaskDetail = () => {
   const router = useRouter();
@@ -37,21 +37,16 @@ const TaskDetail = () => {
 
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'Crowdsourcing Management ' },
-              { path: `/${IPath.TASKS}`, name: 'Task Hall' },
-              { path: '#', name: 'Task Details' },
-            ]}
-          />
-        </Box>
-      </Portal>
-      <Box
-        pt={{ base: '130px', md: '80px', xl: '80px' }}
-        className={identification === Identification.VISITOR ? styles.visitor : ''}
-      >
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'Crowdsourcing Management ' },
+            { path: `/${IPath.TASKS}`, name: 'Task Hall' },
+            { path: '#', name: 'Task Details' },
+          ]}
+        />
+      </Box>
+      <Box className={identification === Identification.VISITOR ? styles.visitor : ''}>
         <Back />
         {!data ? (
           <Loading />

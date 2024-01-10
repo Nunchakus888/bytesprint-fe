@@ -4,6 +4,7 @@ import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
 import { Identification, IPath, ProfessionTypes, ProTypes, TaskTypes } from 'common/utils/constant';
 import styles from './index.module.scss';
+
 export default function TaskBaseInfo(props: {
   from?: string;
   setIsOpenEvaluate?: (val: boolean) => void;
@@ -13,6 +14,7 @@ export default function TaskBaseInfo(props: {
   const toast = useToast();
   const { identification } = useUserInfo();
   const { data, setIsOpenEvaluate, isEvaluate } = props;
+
   const handClick = () => {
     if (identification !== Identification.ENGINEER) {
       toast({
@@ -24,6 +26,7 @@ export default function TaskBaseInfo(props: {
     }
     setIsOpenEvaluate(true);
   };
+
   return (
     <Box
       display="flex"

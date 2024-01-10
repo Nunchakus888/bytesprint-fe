@@ -2,13 +2,11 @@
 import { Box, Flex, Portal, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
-import AdminLayout from 'layouts';
-import { useEffect } from 'react';
 import { IPath, RequirementType, TabsEnum } from 'common/utils/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
   isMine?: boolean; // 是否是我的
@@ -57,12 +55,7 @@ export default function TaskTemplate(props: {
         : { path: `#`, name: 'Task Hall' };
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar paths={[{ path: '#', name: 'Crowdsourcing Management ' }, path]} />
-        </Box>
-      </Portal>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
+      <Box position="relative">
         <Tabs variant="soft-rounded" colorScheme="purple" index={0}>
           <Box className={styles.tabswrap}>
             <TabList className={styles.tabs}>

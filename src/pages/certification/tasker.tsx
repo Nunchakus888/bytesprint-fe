@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@chakra-ui/react';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 
 export default function Tasker() {
   const [isNextStep, setIsNextStep] = useState(false);

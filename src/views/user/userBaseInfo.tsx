@@ -180,7 +180,7 @@ export default function UserBaseInfo(props: {
 
           {!(isEngineer || isOperator) && (
             <Flex gap="20px">
-              <Link href={`/authentication/tasker`}>
+              <Link href={`/certification/tasker`}>
                 <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>
                   Tasker Certification
                 </Box>

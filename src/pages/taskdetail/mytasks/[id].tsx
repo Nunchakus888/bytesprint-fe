@@ -22,7 +22,7 @@ import TaskStatusInfo from 'views/task/detail/taskStatusInfo';
 import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 
 const TaskDetail = () => {
   const router = useRouter();

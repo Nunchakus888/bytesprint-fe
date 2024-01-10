@@ -11,7 +11,7 @@ function SidebarContent(props: SidebarContentProps) {
   const { routes } = props;
 
   return (
-    <Flex direction="column" height="100%" pt="25px" borderRadius="30px">
+    <Flex direction="column" height="100%" pt="12px">
       <Stack direction="column" mt="8px" mb="auto">
         <Box ps="20px" pe={{ lg: '16px', '2xl': '16px' }}>
           <Links routes={routes} />
