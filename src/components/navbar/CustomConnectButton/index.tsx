@@ -8,12 +8,12 @@ import { useAccount } from 'wagmi';
 import classnames from 'classnames';
 //@ts-ignore
 import { maxDecimal } from 'common/utils';
-import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@chakra-ui/react';
+import { Box, Popover, PopoverTrigger, PopoverContent, Button } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
-// import { useUserInfo } from 'hooks/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/loading';
+
 export const CustomConnectButton = () => {
   const { isConnecting, address } = useAccount();
   const { disconnects } = useConect();

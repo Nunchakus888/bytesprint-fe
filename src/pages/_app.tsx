@@ -10,8 +10,7 @@ import 'styles/MiniCalendar.css';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
-import React, { useEffect } from 'react';
-import { Session } from 'next-auth';
+import React from 'react';
 
 import { LanguageProvider } from 'common/contexts/LanguageContext';
 import { appWithTranslation } from 'next-i18next';
@@ -19,7 +18,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import theme from 'common/theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, goerli, sepolia } from 'wagmi/chains';
-import { SessionProvider } from 'next-auth/react';
 import { publicProvider } from 'wagmi/providers/public';
 import { darkTheme, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
@@ -66,7 +64,7 @@ const wagmiClient = createClient({
 
 const queryClient = new QueryClient();
 
-function App({ Component, pageProps }: AppProps<{ session: Session }>) {
+function App({ Component, pageProps }: AppProps<{}>) {
   return (
     <ChakraProvider theme={theme}>
       <Head>
@@ -78,13 +76,11 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
       <ReduxProvider>
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
-            <SessionProvider session={pageProps.session} refetchInterval={0}>
-              <QueryClientProvider client={queryClient}>
-                <LanguageProvider>
-                  <Component {...pageProps} />
-                </LanguageProvider>
-              </QueryClientProvider>
-            </SessionProvider>
+            <QueryClientProvider client={queryClient}>
+              <LanguageProvider>
+                <Component {...pageProps} />
+              </LanguageProvider>
+            </QueryClientProvider>
           </RainbowKitProvider>
         </WagmiConfig>
       </ReduxProvider>

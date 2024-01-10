@@ -11,7 +11,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-// import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
 import { isWindowAvailable } from 'common/utils/navigation';
 import { CustomConnectButton } from 'components/navbar/CustomConnectButton';
 

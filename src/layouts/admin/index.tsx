@@ -1,39 +1,19 @@
 // Chakra imports
-import { Portal, Box, useDisclosure, useToast } from '@chakra-ui/react';
+import { Box, useToast } from '@chakra-ui/react';
 import Footer from 'components/footer/FooterAdmin';
-// Layout components
-import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'common/contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import {
-  findCurrentRoute,
-  getActiveNavbar,
-  getActiveNavbarText,
-  getActiveRoute,
-  isWindowAvailable,
-} from 'common/utils/navigation';
-import Router, { useRouter } from 'next/router';
-import { useUserRoute } from 'hooks/user';
 import _ from 'lodash';
 import useConnect from 'hooks/useConnect';
-// import { useSession } from 'next-auth/react';
-
 interface DashboardLayoutProps extends PropsWithChildren {
   [x: string]: any;
 }
 
-// Custom Chakra theme
 export default function AdminLayout(props: DashboardLayoutProps) {
-  const routers = useUserRoute();
   const { children, ...rest } = props;
-  // states and functions
-  const [fixed] = useState(false);
-  // const session = useSession();
 
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  // functions for changing the states from components
-  const { onOpen } = useDisclosure();
   const toast = useToast();
   const { connect } = useConnect();
 
@@ -47,28 +27,7 @@ export default function AdminLayout(props: DashboardLayoutProps) {
     // @ts-ignore
     window.connect = connect;
   }, []);
-  // useEffect(() => {
-  //   if (session.status !== 'loading' && session.status !== 'authenticated') {
-  //     Router.push('/login');
-  //   }
-  // }, [session]);
 
-  // useEffect(() => {
-  //   const cur = findCurrentRoute(routers)
-  //   const paths = routers.map(r => {
-  //     if (r.path) return r.path
-  //     if (r.children) {
-  //       const ps = r.children.map((it:any) => it.path)
-  //       return ps
-  //     }
-  //   })
-  //   console.log('_.flatten(paths)>>>', _.flatten(paths))
-  //   const validPaths = _.flatten(paths)
-  //   // if (!validPaths.some(it => it === router.pathname)) {
-  //   //   router.replace('/')
-  //   // }
-  //   console.log("cur.path>>>>", cur?.path, validPaths)
-  // }, [routers])
   return (
     <Box maxWidth="1512px" margin="0 auto">
       <SidebarContext.Provider
@@ -85,8 +44,8 @@ export default function AdminLayout(props: DashboardLayoutProps) {
           overflow="auto"
           position="relative"
           maxHeight="100%"
-          w={{ base: '100%', xl: 'calc( 100% - 290px )' }}
-          maxWidth={{ base: '100%', xl: 'calc( 100% - 290px )' }}
+          w={{ base: '100%', xl: 'calc( 100% - 310px )' }}
+          maxWidth={{ base: '100%', xl: 'calc( 100% - 310px )' }}
           transition="all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
           transitionDuration=".2s, .2s, .35s"
           transitionProperty="top, bottom, width"
