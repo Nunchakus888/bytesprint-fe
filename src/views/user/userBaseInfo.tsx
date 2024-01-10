@@ -50,7 +50,6 @@ export default function UserBaseInfo(props: {
       alignItems="center"
       justifyContent="center"
       position="relative"
-      marginTop="20px"
       paddingBottom="20px"
       gap="20px"
       className={styles.container}
