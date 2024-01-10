@@ -1,12 +1,12 @@
 import API_ROUTERS from 'api';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Get } from 'utils/axios';
+import { Get } from 'common/utils/axios';
 import useSWR from 'swr';
 import useChange from 'hooks/useChange';
-import { RequirementType, Tabs } from 'utils/constant';
+import { RequirementType, Tabs } from 'common/utils/constant';
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJobTypes } from 'slice/commonSlice';
+import { setJobTypes } from 'common/slice/commonSlice';
 import { useUserInfo } from 'hooks/user';
 const PAGE_SIZE = 10;
 
@@ -15,22 +15,21 @@ const PAGE_SIZE = 10;
 // 任务列表
 export const useTasks = () => {
   const [tabs, setTabs] = useState(Tabs);
-  const toast = useToast()
+  const toast = useToast();
   const [activeTab, setActiveTab] = useState(tabs?.[0].value);
   const handleTabChange = (val: RequirementType) => {
     // const value = tabs.filter((it) => it.value === val)[0].value;
-    
+
     // 点击其他任务
     if (val !== RequirementType.Single) {
       toast({
         title: `Coming soon`,
         status: `info`,
-        isClosable: true
-      })
+        isClosable: true,
+      });
       return false;
     }
     // setActiveTab(val);
-    
   };
   return {
     tabs,
@@ -42,15 +41,15 @@ export const useTasks = () => {
 // 单一任务的查询
 export const useSingleTaskFilter = () => {
   const [filter, setFilter] = useState({
-    crowdsourcingtype: "", // 众包类型
-      categorytype: "",  //项目类别
-      positiontype: "", // 职位类型
-      // name: 1, // 项目名称
-      status: "",
-      address: '',
-      querytype: "",
-      timestamp: '',
-      size: PAGE_SIZE
+    crowdsourcingtype: '', // 众包类型
+    categorytype: '', //项目类别
+    positiontype: '', // 职位类型
+    // name: 1, // 项目名称
+    status: '',
+    address: '',
+    querytype: '',
+    timestamp: '',
+    size: PAGE_SIZE,
   });
   const onChange = (key: string, value: string) => {
     setFilter((pre) => {
@@ -63,15 +62,15 @@ export const useSingleTaskFilter = () => {
 
   const refreshFilter = () => {
     setFilter({
-      crowdsourcingtype: "", // 众包类型
-      categorytype: "",  //项目类别
-      positiontype: "", // 职位类型
+      crowdsourcingtype: '', // 众包类型
+      categorytype: '', //项目类别
+      positiontype: '', // 职位类型
       // name: 1, // 项目名称
-      status: "",
+      status: '',
       address: '',
-      querytype: "",
+      querytype: '',
       timestamp: '',
-      size: PAGE_SIZE
+      size: PAGE_SIZE,
     });
   };
 
@@ -85,9 +84,9 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
-  const [hadMore, setHasMore] = useState(true)
+  const [hadMore, setHasMore] = useState(true);
   const oldFilterRef = useRef({});
-  const {userInfo} = useUserInfo()
+  const { userInfo } = useUserInfo();
   const getList = async (params: any) => {
     // test
     // params = {
@@ -108,11 +107,9 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
         ...params,
         timestamp: time,
       };
-      console.log("time>>>", time)
+      console.log('time>>>', time);
       // TODO 参数 不同类型的区分请求 activeTab
-      const res = await Get(
-        API_ROUTERS.tasks.TASKS_LIST(_params)
-      );
+      const res = await Get(API_ROUTERS.tasks.TASKS_LIST(_params));
       // debugger
       // const list = [1,2,3,4,5].map(it => {
       //   return {
@@ -134,14 +131,14 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
       // })
       // const res = {
       //   projectRawInfoList: list
-      // } 
+      // }
       // // test
       // let result = [{}, {}, {}, {}, {}, {}];
       // let count = 30;
-      const data = res?.projectRawInfoList || []
+      const data = res?.projectRawInfoList || [];
       // 当返回的数量跟每页比小，没有更多
       if (data.length < PAGE_SIZE) {
-        setHasMore(false)
+        setHasMore(false);
       }
       if (!time) {
         setData(data);
@@ -158,9 +155,8 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   const fetchMoreData = useCallback(() => {
     const time = data[data.length - 1]?.startTime;
-    setTime(time)
+    setTime(time);
   }, [data]);
-
 
   useEffect(() => {
     setTime(Date.now());
@@ -169,7 +165,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   useEffect(() => {
     toggleTiger();
-  }, [userInfo])
+  }, [userInfo]);
 
   useEffect(() => {
     console.log('triger', triger);
@@ -177,9 +173,9 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
     const params = {
       time,
       filter,
-      triger
+      triger,
     };
-    
+
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
       console.log('params>>>', params, activeTab);
       oldFilterRef.current = params;
@@ -254,36 +250,34 @@ export const useTaskDetail = (id: string | string[], address: string) => {
   return {
     data,
     isLoading: loading,
-    refresh: getData
+    refresh: getData,
   };
 };
 
 export const useJobTypes = () => {
-  const dispatch = useDispatch()
-  const { jobtypes } =
-    useSelector((state: any) => state.common);
-
+  const dispatch = useDispatch();
+  const { jobtypes } = useSelector((state: any) => state.common);
 
   const getJobTypes = async () => {
-    const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}))
-    const list = res?.positions?.filter((it:any) => it.status === 0)
-    const data = list.map((it:any) => {
+    const res = await Get(API_ROUTERS.positions.LIST_ENGINEER({}));
+    const list = res?.positions?.filter((it: any) => it.status === 0);
+    const data = list.map((it: any) => {
       return {
         label: it.positionName,
-        value: it.positionId
-      }
-    })
+        value: it.positionId,
+      };
+    });
     // const data = [{label: '111', value: 1}]
-    dispatch(setJobTypes(data))
-  }
+    dispatch(setJobTypes(data));
+  };
   useEffect(() => {
-    getJobTypes()
-  }, [])
+    getJobTypes();
+  }, []);
 
   const getData = useCallback(() => {
-    return jobtypes
-  }, [jobtypes])
+    return jobtypes;
+  }, [jobtypes]);
   return {
-    getData
-  }
-}
+    getData,
+  };
+};

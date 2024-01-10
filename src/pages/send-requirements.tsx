@@ -50,7 +50,7 @@ import {
 } from 'views/admin/default/variables/columnsData';
 import tableDataCheck from 'views/admin/default/variables/tableDataCheck.json';
 import tableDataComplex from 'views/admin/default/variables/tableDataComplex.json';
-import { isWindowAvailable } from 'utils/navigation';
+import { isWindowAvailable } from 'common/utils/navigation';
 import AdminLayout from 'layouts/admin';
 import { Image } from 'components/image/Image';
 import Usa from 'img/dashboards/usa.png';

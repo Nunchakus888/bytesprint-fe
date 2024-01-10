@@ -1,21 +1,20 @@
-import API_ROUTERS from "api";
-import { ethers } from "ethers";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setIdentification, setLoginLoading, setUserInfo } from "slice/commonSlice";
-import { getItem, parseJson, removeItem, setItem } from "utils";
-import { Get, Post } from "utils/axios";
-import { Identification } from "utils/constant";
-import getSigner from "contract/lib/getSigner";
-import { useAccount, useDisconnect, useNetwork } from "wagmi";
-import {useCookies} from 'react-cookie'
-import useConnect from "./useConnect";
-
+import API_ROUTERS from 'api';
+import { ethers } from 'ethers';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIdentification, setLoginLoading, setUserInfo } from 'common/slice/commonSlice';
+import { getItem, parseJson, removeItem, setItem } from 'common/utils';
+import { Get, Post } from 'common/utils/axios';
+import { Identification } from 'common/utils/constant';
+import getSigner from 'common/contract/lib/getSigner';
+import { useAccount, useDisconnect, useNetwork } from 'wagmi';
+import { useCookies } from 'react-cookie';
+import useConnect from './useConnect';
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
   // const { disconnects } = useConnect();
-  const {disconnect } = useDisconnect();
+  const { disconnect } = useDisconnect();
   const dispatch = useDispatch();
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
@@ -40,7 +39,7 @@ const useListenConnectionEvent = () => {
   useEffect(() => {
     const checkLogin = async () => {
       dispatch(setLoginLoading(true));
-      let userInfo = getItem("userInfo") || {};
+      let userInfo = getItem('userInfo') || {};
       //判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
       if (
         userInfo?.address !== address || //地址不一样
@@ -49,7 +48,10 @@ const useListenConnectionEvent = () => {
         // 签名
         let signature;
         //获取签名信息
-        const {sign: message} = await Post(API_ROUTERS.users.SIG_STATUS, {loginType: 1, walletAddress: address});
+        const { sign: message } = await Post(API_ROUTERS.users.SIG_STATUS, {
+          loginType: 1,
+          walletAddress: address,
+        });
         try {
           const signer = await getSigner();
           signature = await signer?.signMessage(message);
@@ -59,7 +61,7 @@ const useListenConnectionEvent = () => {
           return;
         }
         if (!signature) {
-          await sleep(2000)
+          await sleep(2000);
           dispatch(setLoginLoading(false));
           checkLogin();
           return false;
@@ -67,13 +69,13 @@ const useListenConnectionEvent = () => {
         const params = {
           loginType: 1,
           walletAddress: address,
-          sign: signature
+          sign: signature,
         };
         // @ts-ignore
         const res = await Post(API_ROUTERS.users.LOGIN, params);
         const { authorization } = res || {};
-        setItem("authorization", authorization);
-        const userData = await Get(API_ROUTERS.users.USER_INFO({uid: ''}))
+        setItem('authorization', authorization);
+        const userData = await Get(API_ROUTERS.users.USER_INFO({ uid: '' }));
 
         // const authorization = "2fa26c094c0f4ffca0a9fccf9975af83"
         // setItem("authorization",authorization)
@@ -83,30 +85,30 @@ const useListenConnectionEvent = () => {
         newuseInfo.signature = signature;
         newuseInfo.address = address;
         newuseInfo.authorization = authorization;
-        newuseInfo.data = userData
+        newuseInfo.data = userData;
         dispatch(setUserInfo(newuseInfo));
-        setItem("userInfo", newuseInfo);
+        setItem('userInfo', newuseInfo);
       } else {
         dispatch(setLoginLoading(false));
         dispatch(setUserInfo(userInfo));
-        setItem("authorization", userInfo.authorization);
+        setItem('authorization', userInfo.authorization);
       }
     };
     // console.log("checkLogin address>>>>", address);
-    const localAddress = localStorage.getItem("address") || "";
+    const localAddress = localStorage.getItem('address') || '';
     if (address !== undefined && ethers.utils.isAddress(address)) {
-      localStorage.setItem("address", address);
-      checkLogin()
+      localStorage.setItem('address', address);
+      checkLogin();
     }
   }, [address, chain?.id]);
 };
 
-function sleep (time: number) {
+function sleep(time: number) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(true)
-    }, time)
-  })
+      resolve(true);
+    }, time);
+  });
 }
 
 export default useListenConnectionEvent;

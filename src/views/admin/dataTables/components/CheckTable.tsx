@@ -17,7 +17,7 @@ import { useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table
 import Card from 'components/card/Card';
 import Menu from 'components/menu/MainMenu';
 import { TableProps } from 'views/admin/default/variables/columnsData';
-import { isWindowAvailable } from 'utils/navigation';
+import { isWindowAvailable } from 'common/utils/navigation';
 export default function CheckTable(props: TableProps) {
   const { columnsData, tableData } = props;
 

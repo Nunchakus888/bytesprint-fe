@@ -4,9 +4,7 @@ import { Box, Flex, Stack } from '@chakra-ui/react';
 import Brand from 'components/sidebar/components/Brand';
 import Links from 'components/sidebar/components/Links';
 import SidebarCard from 'components/sidebar/components/SidebarCard';
-import { IRoute } from 'types/navigation';
-
-// FUNCTIONS
+import { IRoute } from 'common/types/navigation';
 
 interface SidebarContentProps {
   routes?: IRoute[];
@@ -14,7 +12,7 @@ interface SidebarContentProps {
 
 function SidebarContent(props: SidebarContentProps) {
   const { routes } = props;
-  console.log("routes", routes)
+  console.log('routes', routes);
   // SIDEBAR
   return (
     <Flex direction="column" height="100%" pt="25px" borderRadius="30px">

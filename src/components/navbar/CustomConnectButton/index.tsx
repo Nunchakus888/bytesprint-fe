@@ -7,7 +7,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { useAccount } from 'wagmi';
 import classnames from 'classnames';
 //@ts-ignore
-import { maxDecimal } from 'utils';
+import { maxDecimal } from 'common/utils';
 import { Box, Popover, PopoverTrigger, PopoverContent, Button, Spinner } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
@@ -44,7 +44,11 @@ export const CustomConnectButton = () => {
             {(() => {
               if (!connected || isConnecting) {
                 return (
-                  <Button id='connect-btn' className={classnames(styles.connect_btn)} onClick={openConnectModal}>
+                  <Button
+                    id="connect-btn"
+                    className={classnames(styles.connect_btn)}
+                    onClick={openConnectModal}
+                  >
                     Connect
                   </Button>
                 );

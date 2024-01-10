@@ -1,8 +1,8 @@
-import API_ROUTERS from "api";
-import useChange from "hooks/useChange";
-import { useCallback, useEffect, useRef, useState } from "react";
-import useSWR from "swr";
-import { Get } from "utils/axios";
+import API_ROUTERS from 'api';
+import useChange from 'hooks/useChange';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
+import { Get } from 'common/utils/axios';
 
 // Navigator 查询条件
 export const useOperatorFilter = () => {
@@ -33,7 +33,7 @@ export const useOperatorFilter = () => {
   return { filter, onChange, refreshFilter };
 };
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 // Navigator列表
 export const useOperatorList = (filter: any) => {
   const [loading, setLoading] = useState(false);
@@ -127,32 +127,32 @@ export const useOperatorDetail = (id: string) => {
   // );
   // console.log("useTaskDetail>>>", data);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   const getData = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
-          id
+          id,
         })
-      )
-      setLoading(false)
-      setData(res?.result || {})
-      return res
-    }catch(e) {
-      setLoading(false)
+      );
+      setLoading(false);
+      setData(res?.result || {});
+      return res;
+    } catch (e) {
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
 
   return {
     data,
     isLoading: loading,
   };
-}
+};
 
 // Navigator认证
 export const useOperatorCheck = (id: string) => {
@@ -161,20 +161,20 @@ export const useOperatorCheck = (id: string) => {
   // 是否验证通过
   const getData = async (isCentify: boolean) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
-          id
+          id,
         })
-      )
-      setLoading(false)
+      );
+      setLoading(false);
       // setData(res?.result || {})
-      return res
-    }catch(e) {
-      setLoading(false)
+      return res;
+    } catch (e) {
+      setLoading(false);
     }
-  }
+  };
   return {
-    fetchData: getData
-  }
-}
+    fetchData: getData,
+  };
+};

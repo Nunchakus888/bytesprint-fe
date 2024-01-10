@@ -1,4 +1,4 @@
-import { useLanguage } from 'contexts/LanguageContext';
+import { useLanguage } from 'common/contexts/LanguageContext';
 import { useQuery } from 'react-query';
 
 export function useDynamicContent() {

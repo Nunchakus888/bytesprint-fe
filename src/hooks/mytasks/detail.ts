@@ -1,50 +1,50 @@
-import { useToast } from "@chakra-ui/react";
-import API_ROUTERS from "api";
-import dayjs from "dayjs";
-import { useUserInfo } from "hooks/user";
-import { useEffect, useState } from "react";
-import { Get } from "utils/axios";
-import { IStatus, TaskBidStatus } from "utils/constant";
+import { useToast } from '@chakra-ui/react';
+import API_ROUTERS from 'api';
+import dayjs from 'dayjs';
+import { useUserInfo } from 'hooks/user';
+import { useEffect, useState } from 'react';
+import { Get } from 'common/utils/axios';
+import { IStatus, TaskBidStatus } from 'common/utils/constant';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[]) => {
-  const {userInfo} = useUserInfo()
-  const toast = useToast()
+  const { userInfo } = useUserInfo();
+  const toast = useToast();
   // 任务排期
   const scheduleTask = async (list: any[]) => {
-    const data = list?.map(it => {
+    const data = list?.map((it) => {
       return {
-        expectedstartTime: dayjs(it.startTime).unix()*1000,
-        expectedFinishTime: dayjs(it.endTime).unix()*1000,
+        expectedstartTime: dayjs(it.startTime).unix() * 1000,
+        expectedFinishTime: dayjs(it.endTime).unix() * 1000,
         expectedWorkTime: +it.workhours,
-        requirementId: it.id
-      }
-    })
+        requirementId: it.id,
+      };
+    });
     const res = await API_ROUTERS.tasks.PLANSUBMIT({
       requirementPlan: data,
       uid: userInfo.uid,
-      address: userInfo.address
-    })
-    return res
-  }
+      address: userInfo.address,
+    });
+    return res;
+  };
   // 提交验收
   const submitAccept = async () => {
     const res = await API_ROUTERS.tasks.REQUIREMENT_SUBMIT({
       uid: userInfo.uid,
       walletAddress: userInfo.walletAddress,
-      projectid: id
-    })
+      projectid: id,
+    });
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {
-        window.location.reload()
-      }
-    })
-  }
+        window.location.reload();
+      },
+    });
+  };
   // 提取My Rewards
-  const withdrawMyRewards = () => {}
+  const withdrawMyRewards = () => {};
   // const startTask = () => {}
   // 完成任务计划某项
   const completePlanItem = async (planId: string) => {
@@ -52,20 +52,19 @@ export const useMyTaskDetailStatusAction = (id: string | string[]) => {
       projectId: id,
       requirementId: planId,
       uid: userInfo.uid,
-      walletAddress: userInfo.address
-    })
-    return res
-  }
-
+      walletAddress: userInfo.address,
+    });
+    return res;
+  };
 
   return {
     scheduleTask,
     submitAccept,
     withdrawMyRewards,
     // startTask,
-    completePlanItem
-  }
-}
+    completePlanItem,
+  };
+};
 
 // 任务详情
 export const useMyTaskDetail = (id: string | string[], address: string) => {
@@ -87,7 +86,7 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
       const res = await Get(
         API_ROUTERS.tasks.TASKS_DETAIL({
           id,
-          address
+          address,
         })
       );
       setLoading(false);
@@ -108,7 +107,7 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
       //       statusTime: [Date.now(),Date.now(), Date.now()],
       //       startTime: Date.now(),
       //       endTime: Date.now(),
-            
+
       //     },
       //     fileList: [
       //       {fileName: '是哦否哈佛稍微额UR偶.pdf', fileType: 'pdf', fileUrl: '#'},
@@ -179,8 +178,8 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
       //   }
       // }
       // TODO 取status最后一个值
-      res.projectDetailInfo.taskStatus = res.projectDetailInfo.status
-      console.log("res?.projectDetailInfo>>>", res)
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.status;
+      console.log('res?.projectDetailInfo>>>', res);
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
@@ -196,5 +195,4 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
     data,
     isLoading: loading,
   };
-}
-
+};

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 const useChange = () => {
   const [triger, setTigger] = useState<number>(0);

@@ -24,7 +24,7 @@ import navImage from 'img/layout/Navbar.png';
 import { MdNotificationsNone, MdInfoOutline } from 'react-icons/md';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 import { FaEthereum } from 'react-icons/fa';
-import routes from 'routes/routes';
+import routes from 'common/routes/routes';
 import { Image } from 'components/image/Image';
 import { useDisconnect } from 'wagmi';
 

@@ -1,8 +1,8 @@
-import styles from "./index.module.scss";
-import React, { useCallback, useState } from "react";
-import { FaRegCopy } from "react-icons/fa";
-import { useCopyToClipboard } from "react-use";
-import { Tooltip,Text } from "@chakra-ui/react";
+import styles from './index.module.scss';
+import React, { useCallback, useState } from 'react';
+import { FaRegCopy } from 'react-icons/fa';
+import { useCopyToClipboard } from 'react-use';
+import { Tooltip, Text } from '@chakra-ui/react';
 
 interface IProps {
   text: any;
@@ -24,10 +24,7 @@ export default function Copy({ text, size = 14 }: IProps) {
   }, [text, copyToClipboard]);
 
   return (
-    <Tooltip
-      placement="top"
-      label={isCopied ? <Text>Copied!</Text> : "Copy"}
-    >
+    <Tooltip placement="top" label={isCopied ? <Text>Copied!</Text> : 'Copy'}>
       <Text color="#7551FF" cursor="pointer" onClick={() => handleCopy()}>
         复制
         {/* <FaRegCopy size={(size = 14)} className={styles.copy} /> */}

@@ -2,16 +2,16 @@ import { Avatar, Box, Button, Flex, Input, Link, Tag, Text } from '@chakra-ui/re
 import Copy from 'components/copy';
 import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
-import { Identification, IPath, USER_LEVEL } from 'utils/constant';
+import { Identification, IPath, USER_LEVEL } from 'common/utils/constant';
 import styles from './index.module.scss';
 import { GrCheckmark } from 'react-icons/gr';
 import { GrClose } from 'react-icons/gr';
 import API_ROUTERS from 'api';
-import { Post } from 'utils/axios';
+import { Post } from 'common/utils/axios';
 import { useDispatch } from 'react-redux';
-import { setUserInfo } from 'slice/commonSlice';
+import { setUserInfo } from 'common/slice/commonSlice';
 import _ from 'lodash';
-import { setItem } from 'utils';
+import { setItem } from 'common/utils';
 import nextLink from 'next/link';
 
 export default function UserBaseInfo(props: {

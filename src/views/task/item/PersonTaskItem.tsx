@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Tag } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import Link from 'next/link';
-import { IPath, RequirementStatus, TaskStatus } from 'utils/constant';
+import { IPath, RequirementStatus, TaskStatus } from 'common/utils/constant';
 import styles from './index.module.scss';
 export default function PersonTaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   return (

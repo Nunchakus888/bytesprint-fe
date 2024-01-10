@@ -1,22 +1,28 @@
-import { Avatar, Box, Button, Flex, Link, Text } from "@chakra-ui/react"
-import { useCallback, useMemo } from "react"
-import { shortAddress } from "utils"
-import { IPath, IStatus, RequirementStatus, RequirementType, TaskBidStatus, TaskStatus } from "utils/constant"
-import styles from './index.module.scss'
-import dayjs from 'dayjs'
-import { MdKeyboardArrowRight } from "react-icons/md";
-import WalletAvatar from "components/WalletAvatar"
+import { Avatar, Box, Button, Flex, Link, Text } from '@chakra-ui/react';
+import { useCallback, useMemo } from 'react';
+import { shortAddress } from 'common/utils';
+import {
+  IPath,
+  IStatus,
+  RequirementStatus,
+  RequirementType,
+  TaskBidStatus,
+  TaskStatus,
+} from 'common/utils/constant';
+import styles from './index.module.scss';
+import dayjs from 'dayjs';
+import { MdKeyboardArrowRight } from 'react-icons/md';
+import WalletAvatar from 'components/WalletAvatar';
 export default function TaskBidRecords(props: {
-  from?: IPath
-  recordList: any[]
-  taskStatus: IStatus  // 需求状态
-  signBid?: (record: any) => void // 签约TA
-  unSignBid?: (recordId: string) => void // 淘汰TA
-  openRecordDetail ?: (recordId: string) => void  // 详情
-  signLoading?: boolean
+  from?: IPath;
+  recordList: any[];
+  taskStatus: IStatus; // 需求状态
+  signBid?: (record: any) => void; // 签约TA
+  unSignBid?: (recordId: string) => void; // 淘汰TA
+  openRecordDetail?: (recordId: string) => void; // 详情
+  signLoading?: boolean;
 }) {
-  const { recordList,taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props
-
+  const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
 
   return (
     <Box
@@ -31,72 +37,133 @@ export default function TaskBidRecords(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN ? `我的投标:` : `Bidding Records：${recordList?.length || 0}`}
+        {from === IPath.MYTASKS && taskStatus === IStatus.WAIT_SIGN
+          ? `我的投标:`
+          : `Bidding Records：${recordList?.length || 0}`}
       </Text>
 
       {/* test */}
       {/* <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240, uid: `E0341092072504178728`, wallet: `0x01821BfBFFEFeCf0f31C78dd841d2819FdFC1Ef2`})}>签约TA</Button> */}
 
-      <Box marginTop="30px"  width="100%">
-        {recordList?.map((it,index) => {
+      <Box marginTop="30px" width="100%">
+        {recordList?.map((it, index) => {
           return (
-            <Flex key={`${it.id}_${index}`} justify="space-between" alignItems="center" margin="20px 0" padding="30px 20px"  background="rgba(255,255,255,0.03)" borderRadius={8}>
+            <Flex
+              key={`${it.id}_${index}`}
+              justify="space-between"
+              alignItems="center"
+              margin="20px 0"
+              padding="30px 20px"
+              background="rgba(255,255,255,0.03)"
+              borderRadius={8}
+            >
               <Flex>
-                <WalletAvatar value={it.wallet} size={30}/>
+                <WalletAvatar value={it.wallet} size={30} />
                 {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
                 <Flex direction="column" marginLeft="20px" className="w-20">
                   <Text fontSize={16}>{it.uid}</Text>
-                  <Text fontSize={12}>{shortAddress(it?.wallet.toString() || "")}</Text>
+                  <Text fontSize={12}>{shortAddress(it?.wallet.toString() || '')}</Text>
                 </Flex>
               </Flex>
               <Flex direction="column">
                 <Box>
-                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Total Cost：{it.totalCost} USDT</Text>
+                  <Text fontSize={16} whiteSpace="nowrap" display="flex">
+                    Total Cost：{it.totalCost} USDT
+                  </Text>
                 </Box>
                 <Box>
-                  <Text fontSize={16} whiteSpace="nowrap" display="flex">Estimated Completion Time：{dayjs(+it.finishTime).format('YYYY/MM/DD')}</Text>
+                  <Text fontSize={16} whiteSpace="nowrap" display="flex">
+                    Estimated Completion Time：{dayjs(+it.finishTime).format('YYYY/MM/DD')}
+                  </Text>
                 </Box>
               </Flex>
 
               <Flex alignItems="center" gap="20px">
-                <Link display="flex" alignItems="center" color="#7551FF" fontWeight="bold" onClick={() => openRecordDetail(it)}>详情<MdKeyboardArrowRight color="#2350AD" fontSize={14}/></Link>
+                <Link
+                  display="flex"
+                  alignItems="center"
+                  color="#7551FF"
+                  fontWeight="bold"
+                  onClick={() => openRecordDetail(it)}
+                >
+                  详情
+                  <MdKeyboardArrowRight color="#2350AD" fontSize={14} />
+                </Link>
                 <Box width="1px" background="#fff" height="40px"></Box>
-                {
-                  props.from === IPath.MYREQUIREMENT && (
-                    <>
+                {props.from === IPath.MYREQUIREMENT && (
+                  <>
                     {/* 淘汰 */}
-                    {TaskBidStatus.BID_FAIL === it.signStatus && <Box width="100px" className={styles.unbid}></Box>}
+                    {TaskBidStatus.BID_FAIL === it.signStatus && (
+                      <Box width="100px" className={styles.unbid}></Box>
+                    )}
                     {/* 中标 */}
-                    {TaskBidStatus.BID_SUCCESS === it.signStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
+                    {TaskBidStatus.BID_SUCCESS === it.signStatus && (
+                      <Box width="100px" className={styles.bidsuccess}></Box>
+                    )}
 
                     {/* 待签约 */}
-                    {!it.signStatus && (taskStatus === IStatus.WAIT_SIGN || taskStatus === IStatus.EVALUATION) && <Box width="100px" display="flex" flexDirection="column" alignItems="center">
-                      <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid(it)} isLoading={signLoading}>签约TA</Button>
-                      <Link color="#7551FF" fontWeight="bold" fontSize={14} marginTop="10px" onClick={() => unSignBid(it)}>淘汰TA</Link>
-                    </Box>}
-                    </>
-                  )
-                }
+                    {!it.signStatus &&
+                      (taskStatus === IStatus.WAIT_SIGN || taskStatus === IStatus.EVALUATION) && (
+                        <Box
+                          width="100px"
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                        >
+                          <Button
+                            background="#7551FF"
+                            size="md"
+                            height="30px"
+                            borderRadius={4}
+                            onClick={() => signBid(it)}
+                            isLoading={signLoading}
+                          >
+                            签约TA
+                          </Button>
+                          <Link
+                            color="#7551FF"
+                            fontWeight="bold"
+                            fontSize={14}
+                            marginTop="10px"
+                            onClick={() => unSignBid(it)}
+                          >
+                            淘汰TA
+                          </Link>
+                        </Box>
+                      )}
+                  </>
+                )}
 
-                {
-                  props.from === IPath.MYTASKS && (
-                    <>
-                      {/* 淘汰 */}
-                      {TaskBidStatus.BID_FAIL === it.signStatus && <Box width="100px" className={styles.unbid}></Box>}
-                      {/* 中标 */}
-                      {TaskBidStatus.BID_SUCCESS === it.signStatus && <Box width="100px" className={styles.bidsuccess}></Box>}
+                {props.from === IPath.MYTASKS && (
+                  <>
+                    {/* 淘汰 */}
+                    {TaskBidStatus.BID_FAIL === it.signStatus && (
+                      <Box width="100px" className={styles.unbid}></Box>
+                    )}
+                    {/* 中标 */}
+                    {TaskBidStatus.BID_SUCCESS === it.signStatus && (
+                      <Box width="100px" className={styles.bidsuccess}></Box>
+                    )}
 
-                      {/* 待签约 */}
-                      {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && <Text width="100px" textAlign="center" color="#7551FF" fontWeight="bold" fontSize={16}>Pending Contract</Text>}
-                    </>
-                  )
-                }
-                
+                    {/* 待签约 */}
+                    {!it.signStatus && taskStatus === IStatus.WAIT_SIGN && (
+                      <Text
+                        width="100px"
+                        textAlign="center"
+                        color="#7551FF"
+                        fontWeight="bold"
+                        fontSize={16}
+                      >
+                        Pending Contract
+                      </Text>
+                    )}
+                  </>
+                )}
               </Flex>
             </Flex>
-          )
+          );
         })}
       </Box>
     </Box>
-  )
+  );
 }

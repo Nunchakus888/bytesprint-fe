@@ -27,173 +27,219 @@ import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { IoCheckmarkOutline } from 'react-icons/io5';
-import { IPath, IRequirement, IRequirementPerson, IRequirementSingle, ProfessionTypes, ProType, ProTypes, RequirementType } from 'utils/constant';
-import styles from './index.module.scss'
+import {
+  IPath,
+  IRequirement,
+  IRequirementPerson,
+  IRequirementSingle,
+  ProfessionTypes,
+  ProType,
+  ProTypes,
+  RequirementType,
+} from 'common/utils/constant';
+import styles from './index.module.scss';
 import Navbar from 'components/navbar/NavbarAdmin';
-const ReactQuillComponent = dynamic(() => import("../../../components/richTextBlock"), { ssr: false })
+const ReactQuillComponent = dynamic(() => import('../../../components/richTextBlock'), {
+  ssr: false,
+});
 export default function AddRequirement(props: {}) {
-  const { currentRequire, saveRequirement,router } = useAddRequirement();
-  const [files, setFiles] = useState([])
+  const { currentRequire, saveRequirement, router } = useAddRequirement();
+  const [files, setFiles] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
     setValue,
-    getValues
+    getValues,
   } = useForm<IRequirementPerson | IRequirementSingle>();
   const onSubmit = handleSubmit(async (data) => {
     data.fileList = files;
-    console.log('On Submit: ', data)
-    await saveRequirement(data)
-    router.push('/myrequirement')
+    console.log('On Submit: ', data);
+    await saveRequirement(data);
+    router.push('/myrequirement');
   });
 
   const validatePhone = (value: string) => {
     if (!value) {
-      return `必填项`
+      return `必填项`;
     }
     if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)) {
       return '请输入正确的手机号';
     }
     return true;
   };
-  const [radioVal, setRadioVal] = useState<ProType>()
+  const [radioVal, setRadioVal] = useState<ProType>();
   // 草稿
   const handleTempSave = () => {
-    console.log("getValues>>", getValues())
-  }
+    console.log('getValues>>', getValues());
+  };
   return (
     <AdminLayout>
       <Portal>
         <Box>
           <Navbar
-            paths={[{path: '#', name: 'Crowdsourcing Management '}, {path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements'}, {path: '#', name: 'Publish Requirement'}]}
+            paths={[
+              { path: '#', name: 'Crowdsourcing Management ' },
+              { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
+              { path: '#', name: 'Publish Requirement' },
+            ]}
           />
         </Box>
       </Portal>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
-        <Text fontSize={24} fontWeight="bold">Requirement Type：{currentRequire?.title}</Text>
+        <Text fontSize={24} fontWeight="bold">
+          Requirement Type：{currentRequire?.title}
+        </Text>
         <Box margin="20px 0">
-          <Text fontSize={18} fontWeight="bold">基础信息</Text>
-          {
-            currentRequire?.value === RequirementType.Single &&
+          <Text fontSize={18} fontWeight="bold">
+            基础信息
+          </Text>
+          {currentRequire?.value === RequirementType.Single && (
             // @ts-ignore
             <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
-              <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
-              <Input
-                color="#fff"
-                id="projectName"
-                placeholder="Task Name"
-                {...register('projectName', {
-                  required: '必填项',
-                })}
-              />
-              <FormErrorMessage>
-                {errors.projectName && errors.projectName.message}
-              </FormErrorMessage>
-            </FormControl>
+              <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
+                <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
+                <Input
+                  color="#fff"
+                  id="projectName"
+                  placeholder="Task Name"
+                  {...register('projectName', {
+                    required: '必填项',
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.projectName && errors.projectName.message}
+                </FormErrorMessage>
+              </FormControl>
 
-            <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
-              <FormLabel>填写任务描述</FormLabel>
-              <ReactQuillComponent placeholder="Task Description" value={getValues('description')} onChange={(val) => setValue('description', val)} />
-              <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
-            </FormControl>
+              <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
+                <FormLabel>填写任务描述</FormLabel>
+                <ReactQuillComponent
+                  placeholder="Task Description"
+                  value={getValues('description')}
+                  onChange={(val) => setValue('description', val)}
+                />
+                <FormErrorMessage>
+                  {errors.description && errors.description.message}
+                </FormErrorMessage>
+              </FormControl>
 
-            <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
-              <FileUpload
-                accept={["jpg","png","doc","docx","pptx","pdf"]}
-                multiple
-                max={3}
-                maxSize={50*1024*1024}
-                register={(files: any) => setFiles(files)}
-               />
-              <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
-            </FormControl>
+              <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
+                <FileUpload
+                  accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
+                  multiple
+                  max={3}
+                  maxSize={50 * 1024 * 1024}
+                  register={(files: any) => setFiles(files)}
+                />
+                <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
+              </FormControl>
 
-            <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).professionType} isRequired margin="20px 0">
-              <FormLabel htmlFor="professionType">选择职位类型</FormLabel>
-              <Select placeholder="Job Type" iconSize="16" {...register('professionType', {
-                  required: '必选项',
-                })}>
-                {
-                  ProfessionTypes?.map((it, index) => {
-                    return <option value={it.value} key={`${it.value}-${index}`}>{it.label}</option>
-                  })
-                }
-              </Select>
-              {/* <FormErrorMessage>
-                {(errors as unknown as IRequirementSingle).professionType && (errors as unknown as IRequirementSingle).professionType.message}
-              </FormErrorMessage> */}
-            </FormControl>
-            <FormControl isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod} isRequired margin="20px 0">
-              <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
-              <RadioGroup value={radioVal}>
-                <Stack direction="row">
-                  {ProTypes.map((it, index) => {
+              <FormControl
+                isInvalid={!!(errors as unknown as IRequirementSingle).professionType}
+                isRequired
+                margin="20px 0"
+              >
+                <FormLabel htmlFor="professionType">选择职位类型</FormLabel>
+                <Select
+                  placeholder="Job Type"
+                  iconSize="16"
+                  {...register('professionType', {
+                    required: '必选项',
+                  })}
+                >
+                  {ProfessionTypes?.map((it, index) => {
                     return (
-                      <Box
-                        key={`${it.label}_${index}`}
-                        background="rgba(255,255,255,0.05)"
-                        position="relative"
-                        padding="10px 20px"
-                        borderRadius={4}
-                        cursor="pointer"
-                        _hover={{color: '#7551FF' }}
-                        className={styles.radios}
-                        onClick={()=> {
-                          setRadioVal(it.value)
-                          setValue("crowSourcingMethod", it.value)
-                        }}
-                      >
-                        <Radio {...register('crowSourcingMethod', {required: '必选项',})} value={it.value}>
-                          <Flex>
-                            <i>
-                            <IoCheckmarkOutline className={styles.checkIcon} fontSize={18} />
-                          </i>
-                          <Box display="flex" alignItems="center" flexDirection="column">
-                            <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
-                              {it.label}
-                            </Text>
-                            <Text fontSize={14} whiteSpace="nowrap">
-                              {it.label}
-                            </Text>
-                          </Box>
-                          </Flex>
-                        </Radio>
-                      </Box>
+                      <option value={it.value} key={`${it.value}-${index}`}>
+                        {it.label}
+                      </option>
                     );
                   })}
-                  
-                </Stack>
-              </RadioGroup>
-            </FormControl>
+                </Select>
+                {/* <FormErrorMessage>
+                {(errors as unknown as IRequirementSingle).professionType && (errors as unknown as IRequirementSingle).professionType.message}
+              </FormErrorMessage> */}
+              </FormControl>
+              <FormControl
+                isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod}
+                isRequired
+                margin="20px 0"
+              >
+                <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
+                <RadioGroup value={radioVal}>
+                  <Stack direction="row">
+                    {ProTypes.map((it, index) => {
+                      return (
+                        <Box
+                          key={`${it.label}_${index}`}
+                          background="rgba(255,255,255,0.05)"
+                          position="relative"
+                          padding="10px 20px"
+                          borderRadius={4}
+                          cursor="pointer"
+                          _hover={{ color: '#7551FF' }}
+                          className={styles.radios}
+                          onClick={() => {
+                            setRadioVal(it.value);
+                            setValue('crowSourcingMethod', it.value);
+                          }}
+                        >
+                          <Radio
+                            {...register('crowSourcingMethod', { required: '必选项' })}
+                            value={it.value}
+                          >
+                            <Flex>
+                              <i>
+                                <IoCheckmarkOutline className={styles.checkIcon} fontSize={18} />
+                              </i>
+                              <Box display="flex" alignItems="center" flexDirection="column">
+                                <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
+                                  {it.label}
+                                </Text>
+                                <Text fontSize={14} whiteSpace="nowrap">
+                                  {it.label}
+                                </Text>
+                              </Box>
+                            </Flex>
+                          </Radio>
+                        </Box>
+                      );
+                    })}
+                  </Stack>
+                </RadioGroup>
+              </FormControl>
 
-            <FormControl isInvalid={!!errors.contactInfo} isRequired margin="20px 0">
-              <FormLabel>手机号</FormLabel>
-              <Input
-                color="#fff"
-                id="contactInfo"
-                placeholder="手机号"
-                {...register('contactInfo', {
-                  validate: validatePhone,
-                })}
-              />
-              <FormErrorMessage>
-                {errors.contactInfo && errors?.contactInfo.message}
-              </FormErrorMessage>
-            </FormControl>
-            <Flex>
-            <Button background="#7551FF" size="md" borderRadius={4} type='submit' margin="20px 0">
-              发布任务
-            </Button>
-            {/* <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
+              <FormControl isInvalid={!!errors.contactInfo} isRequired margin="20px 0">
+                <FormLabel>手机号</FormLabel>
+                <Input
+                  color="#fff"
+                  id="contactInfo"
+                  placeholder="手机号"
+                  {...register('contactInfo', {
+                    validate: validatePhone,
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.contactInfo && errors?.contactInfo.message}
+                </FormErrorMessage>
+              </FormControl>
+              <Flex>
+                <Button
+                  background="#7551FF"
+                  size="md"
+                  borderRadius={4}
+                  type="submit"
+                  margin="20px 0"
+                >
+                  发布任务
+                </Button>
+                {/* <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
               保存草稿
             </Button> */}
-            </Flex>
-          </form>
-          }
+              </Flex>
+            </form>
+          )}
           {/* {currentRequire?.value === RequirementType.Person &&
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">

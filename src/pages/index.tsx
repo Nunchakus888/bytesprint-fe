@@ -57,12 +57,10 @@ import { tableColumnsTopCreators } from 'views/admin/marketplace/variables/table
 import AdminLayout from 'layouts/admin';
 import { TableData } from 'views/admin/default/variables/columnsData';
 import NextLink from 'next/link';
-import Tasks from 'pages/tasks'
+import Tasks from 'pages/tasks';
 export default function Index() {
   // Chakra Color Mode
   const textColor = useColorModeValue('secondaryGray.900', 'white');
   const textColorBrand = useColorModeValue('brand.500', 'white');
-  return (
-    <Tasks />
-  );
+  return <Tasks />;
 }

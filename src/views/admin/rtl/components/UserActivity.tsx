@@ -4,7 +4,7 @@ import { ApexOptions } from 'apexcharts';
 import Card from 'components/card/Card';
 // Custom components
 import BarChart from 'components/charts/BarChart';
-import { barChartDataUserActivity, barChartOptionsUserActivity } from 'variables/charts';
+import { barChartDataUserActivity, barChartOptionsUserActivity } from 'common/variables/charts';
 
 export default function UserActivity(props: { [x: string]: any }) {
   const { ...rest } = props;

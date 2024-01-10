@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
-import { isWindowAvailable } from 'utils/navigation';
+import { isWindowAvailable } from 'common/utils/navigation';
 
 export default function AdminNavbar(props: {
   secondary: boolean;

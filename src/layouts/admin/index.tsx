@@ -4,7 +4,7 @@ import Footer from 'components/footer/FooterAdmin';
 // Layout components
 import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
-import { SidebarContext } from 'contexts/SidebarContext';
+import { SidebarContext } from 'common/contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import {
   findCurrentRoute,
@@ -12,7 +12,7 @@ import {
   getActiveNavbarText,
   getActiveRoute,
   isWindowAvailable,
-} from 'utils/navigation';
+} from 'common/utils/navigation';
 import Router, { useRouter } from 'next/router';
 import { useUserRoute } from 'hooks/user';
 import _ from 'lodash';
@@ -25,7 +25,7 @@ interface DashboardLayoutProps extends PropsWithChildren {
 
 // Custom Chakra theme
 export default function AdminLayout(props: DashboardLayoutProps) {
-  const routers = useUserRoute()
+  const routers = useUserRoute();
   const { children, ...rest } = props;
   // states and functions
   const [fixed] = useState(false);
@@ -34,19 +34,19 @@ export default function AdminLayout(props: DashboardLayoutProps) {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   // functions for changing the states from components
   const { onOpen } = useDisclosure();
-  const toast = useToast()
-  const {connect } = useConnect()
+  const toast = useToast();
+  const { connect } = useConnect();
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr';
   });
-  
+
   useEffect(() => {
     // @ts-ignore
-    window.toast = toast
+    window.toast = toast;
     // @ts-ignore
-    window.connect = connect
-  },[])
+    window.connect = connect;
+  }, []);
   // useEffect(() => {
   //   if (session.status !== 'loading' && session.status !== 'authenticated') {
   //     Router.push('/login');

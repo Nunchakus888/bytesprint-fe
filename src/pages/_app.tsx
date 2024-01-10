@@ -12,12 +12,12 @@ import { AppProps } from 'next/app';
 import React, { useEffect } from 'react';
 import { Session } from 'next-auth';
 
-import { LanguageProvider } from 'contexts/LanguageContext';
+import { LanguageProvider } from 'common/contexts/LanguageContext';
 import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './global.css'
+import './global.css';
 // import "./../views/task/styles.css";
-import theme from 'theme/theme';
+import theme from 'common/theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, goerli, sepolia } from 'wagmi/chains';
 import { SessionProvider } from 'next-auth/react';
@@ -65,7 +65,6 @@ const wagmiClient = createClient({
   connectors,
   provider,
 });
-
 
 const queryClient = new QueryClient();
 

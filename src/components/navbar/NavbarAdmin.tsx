@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 // import AdminNavbarLinks from 'components/navbar/NavbarLinksAdmin';
-import { isWindowAvailable } from 'utils/navigation';
+import { isWindowAvailable } from 'common/utils/navigation';
 import { CustomConnectButton } from 'components/navbar/CustomConnectButton';
 
 export default function AdminNavbar(props: {
@@ -22,7 +22,7 @@ export default function AdminNavbar(props: {
   // logoText: string;
   // fixed: boolean;
   // onOpen: (...args: any[]) => any;
-  paths: any[]
+  paths: any[];
 }) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -113,14 +113,21 @@ export default function AdminNavbar(props: {
       >
         <Box mb={{ sm: '8px', md: '0px' }}>
           <Breadcrumb>
-            {props.paths?.map(it => {
-              return <BreadcrumbItem key={`${it.path}_${it.name}`} color={secondaryText} fontSize="md" fontWeight="bold" mb="10px">
-                <BreadcrumbLink href={it.path} color={secondaryText}>
-                  {it.name}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
+            {props.paths?.map((it) => {
+              return (
+                <BreadcrumbItem
+                  key={`${it.path}_${it.name}`}
+                  color={secondaryText}
+                  fontSize="md"
+                  fontWeight="bold"
+                  mb="10px"
+                >
+                  <BreadcrumbLink href={it.path} color={secondaryText}>
+                    {it.name}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              );
             })}
-            
 
             {/* <BreadcrumbItem color={secondaryText} fontSize="sm">
               <BreadcrumbLink href="#" color={secondaryText}>
