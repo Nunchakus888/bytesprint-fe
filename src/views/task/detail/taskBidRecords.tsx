@@ -86,7 +86,7 @@ export default function TaskBidRecords(props: {
                   fontWeight="bold"
                   onClick={() => openRecordDetail(it)}
                 >
-                  详情
+                  Details
                   <MdKeyboardArrowRight color="#2350AD" fontSize={14} />
                 </Link>
                 <Box width="1px" background="#fff" height="40px"></Box>
@@ -118,7 +118,7 @@ export default function TaskBidRecords(props: {
                             onClick={() => signBid(it)}
                             isLoading={signLoading}
                           >
-                            签约TA
+                            Sign Contract with Them
                           </Button>
                           <Link
                             color="#7551FF"
@@ -127,7 +127,7 @@ export default function TaskBidRecords(props: {
                             marginTop="10px"
                             onClick={() => unSignBid(it)}
                           >
-                            淘汰TA
+                            Eliminate Them
                           </Link>
                         </Box>
                       )}

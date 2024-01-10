@@ -15,6 +15,7 @@ export default function UserMyReward(props: { data: any[] }) {
       paddingBottom="20px"
       height="500px"
       overflow="scroll"
+      width="100%"
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
@@ -25,8 +26,9 @@ export default function UserMyReward(props: { data: any[] }) {
           return (
             <Flex
               key={`ex_${index}`}
-              justifyContent="flex-start"
-              gap="30px"
+              justifyContent="space-between"
+              alignItems="center"
+              gap="10px"
               background="rgba(255,255,255,0.05)"
               borderRadius={4}
               margin="10px 0"
@@ -36,34 +38,39 @@ export default function UserMyReward(props: { data: any[] }) {
                 justifyContent="center"
                 alignItems="center"
                 width="60px"
+                minWidth="60px"
                 height="60px"
                 borderRadius={4}
                 background="#7551FF"
+                fontSize="10px"
               >
                 Task Contract
               </Flex>
-              <Flex direction="column" gap="10px">
+              <Flex direction="column" gap="5px">
                 <Box>
-                  <Text>任务名称任务名称</Text>
+                  <Text fontSize="12px">任务名称任务名称</Text>
                 </Box>
-                <Flex gap="10px">
-                  <Text>Task Status</Text> <Text>Contracted</Text>
+                <Flex gap="5px">
+                  <Text fontSize="10px" whiteSpace="nowrap">
+                    Task Status
+                  </Text>{' '}
+                  <Text fontSize="10px">Contracted</Text>
                 </Flex>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text>600.00 USDT</Text>
+                  <Text fontSize="12px">600.00 USDT</Text>
                 </Box>
                 {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text>质押中</Text>
+                  <Text fontSize="12px">质押中</Text>
                 </Box>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text>Withdraw to Wallet</Text>
+                  <Text fontSize="12px">Withdraw to Wallet</Text>
                 </Box>
               </Flex>
             </Flex>

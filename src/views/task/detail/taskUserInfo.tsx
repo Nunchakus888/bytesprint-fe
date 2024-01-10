@@ -1,8 +1,9 @@
 import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/react';
-import { useCallback, useMemo } from 'react';
 import { shortAddress } from 'common/utils';
-import styles from './index.module.scss';
 import WalletAvatar from 'components/WalletAvatar';
+import { useCallback, useMemo } from 'react';
+
+import styles from './index.module.scss';
 export default function TaskUserInfo(props: { title: string; userInfo: any }) {
   const { title, userInfo } = props;
   return (
@@ -13,7 +14,7 @@ export default function TaskUserInfo(props: { title: string; userInfo: any }) {
       justifyContent="flex-start"
       position="relative"
       marginTop="20px"
-      width="300px"
+      width="320px"
       paddingBottom="20px"
       className={styles.container}
     >
@@ -41,9 +42,9 @@ export default function TaskUserInfo(props: { title: string; userInfo: any }) {
         <Text marginTop="20px" fontSize={16}>
           Contact Number：15195451161
         </Text>
-        {userInfo.email && (
+        {userInfo.data.engineer.email && (
           <Text marginTop="10px" fontSize={16}>
-            Email：{userInfo.email}
+            Email：{userInfo.data.engineer.email}
           </Text>
         )}
       </Box>

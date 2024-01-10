@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Link, Tag, Text } from '@chakra-ui/react';
 import ModalDialog from 'components/modal';
-import { IPath, TaskBidStatus } from 'common/utils/constant';
+import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/utils/constant';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import { shortAddress } from 'common/utils';
@@ -8,6 +8,7 @@ import BYTable from 'components/table';
 import { useTaskEvaluateDetail } from 'hooks/task/detai';
 import { useMemo } from 'react';
 import dayjs from 'dayjs';
+import WalletAvatar from 'components/WalletAvatar';
 export default function TaskEvaluateDetail(props: {
   from: IPath;
   recordId: any;
@@ -17,8 +18,10 @@ export default function TaskEvaluateDetail(props: {
   originData: any;
 }) {
   const { onClose, signBid, unSignBid, recordId: record, from, originData } = props;
-  const { data } = useTaskEvaluateDetail(record, originData);
-
+  // test
+  record.uid = 'E0341092072504178728';
+  const { data, userInfoForUid } = useTaskEvaluateDetail(record, originData);
+  console.log('record>>>', record);
   const columns = [
     {
       title: 'Serial Number',
@@ -82,28 +85,43 @@ export default function TaskEvaluateDetail(props: {
   //     return pre + +cur.cny
   //   }, 0)
   // }, [data])
+  console.log('userInfoForUid>>>', userInfoForUid);
 
   return (
-    <ModalDialog title="评估详情" onClose={onClose} isOpen={true} btnGroup={<></>}>
+    <ModalDialog title="Evaluation details" onClose={onClose} isOpen={true} btnGroup={<></>}>
       <Flex justifyContent="space-between">
         <Flex justifyContent="space-between" gap="30px" alignItems="flex-start">
-          {/* <WalletAvatar value={it.wallet} size={30}/> */}
-          {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
+          {userInfoForUid && <WalletAvatar value={userInfoForUid?.data.walletAddress} size={50} />}
           <Flex justifyContent="space-between" direction="column">
-            <Tag fontSize={16} padding="10px" borderRadius={4} className={styles.userIcon}>
-              Java开发工程师
-            </Tag>
+            {/* 职位类型 */}
+            <Flex justifyContent="center" gap="10px">
+              {/* {userInfoForUid?.data.engineer.position?.map((positionType: number) => { */}
+              {/* test */}
+              {[1, 5]?.map((positionType: number) => {
+                return (
+                  <Tag
+                    key={`positiontype_${positionType}`}
+                    fontSize={16}
+                    padding="10px"
+                    borderRadius={4}
+                    className={styles.userIcon}
+                  >
+                    {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
+                  </Tag>
+                );
+              })}
+            </Flex>
             <Flex marginTop="20px" direction="column">
-              <Text fontSize={16}>{record.uid}</Text>
+              <Text fontSize={16}>{userInfoForUid?.data.nickname}</Text>
               <Text marginTop="10px" fontSize={12}>
                 {shortAddress(record?.wallet.toString() || '')}
               </Text>
             </Flex>
           </Flex>
-          {/* TODO 缺身份标识 */}
           <Flex>
             <Tag fontSize={16} padding="10px" className={styles.engineer}>
-              Tasker
+              {/* @ts-ignore */}
+              {USER_LEVEL[userInfoForUid?.data.level]}
             </Tag>
           </Flex>
         </Flex>
@@ -118,7 +136,7 @@ export default function TaskEvaluateDetail(props: {
                 marginTop="10px"
                 onClick={() => unSignBid(record)}
               >
-                淘汰TA
+                Eliminate Them
               </Link>
               <Button
                 background="#7551FF"
@@ -127,7 +145,7 @@ export default function TaskEvaluateDetail(props: {
                 borderRadius={4}
                 onClick={() => signBid(record)}
               >
-                签约TA
+                Sign Contract with Them
               </Button>
             </>
           )}
@@ -149,7 +167,7 @@ export default function TaskEvaluateDetail(props: {
         <BYTable columns={columns} dataSource={data.list}></BYTable>
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize="lg" width="40%">
-            报酬合计
+            Total Compensation
           </Text>
           <Text color="#7551FF" fontSize="20px" fontWeight="bold">
             {totalUsdt} USDT

@@ -104,11 +104,11 @@ export default function FileUpload(props: FileUploadProps) {
           background="rgba(255,255,255,0.03)"
           border="solid 1px rgba(255,255,255,0.25);"
         >
-          <Text>将文件拖到此处，或点击上传</Text>
+          <Text>Drag the file here, or click to upload</Text>
           <Text>
             ({files.length}/{max})
           </Text>
-          <Text>50M以内，仅限{accept.join('、')}</Text>
+          <Text>File size should be within 50MB, limited to {accept.join('、')}</Text>
         </Flex>
       </FileUploader>
       <Box display="flex" justifyContent="flex-start" gap={20} margin="20px 0">
@@ -138,7 +138,7 @@ export default function FileUpload(props: FileUploadProps) {
                     color="red"
                     onClick={() => handleDelete(file)}
                   >
-                    删除
+                    Delete
                   </Link>
                 </Flex>
               </Box>

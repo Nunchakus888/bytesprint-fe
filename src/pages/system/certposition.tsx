@@ -109,7 +109,7 @@ export default function CertPosition() {
                 setIsOpenUpdate(true);
               }}
             >
-              编辑
+              Edit
             </Link>
             <Link
               color="#7551FF"
@@ -119,7 +119,7 @@ export default function CertPosition() {
                 onOpen();
               }}
             >
-              删除
+              Delete
             </Link>
           </Flex>
         );
@@ -239,7 +239,7 @@ export default function CertPosition() {
             <Input
               id={`id.name`}
               color="#fff"
-              placeholder="请输入"
+              placeholder="Enter"
               size="md"
               {...register('name', { required: true })}
             />

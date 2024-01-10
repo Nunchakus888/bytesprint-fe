@@ -63,10 +63,10 @@ export default function AddRequirement(props: {}) {
 
   const validatePhone = (value: string) => {
     if (!value) {
-      return `必填项`;
+      return `Please Enter Phone number`;
     }
     if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)) {
-      return '请输入正确的手机号';
+      return 'Please enter a valid phone number';
     }
     return true;
   };
@@ -94,19 +94,19 @@ export default function AddRequirement(props: {}) {
         </Text>
         <Box margin="20px 0">
           <Text fontSize={18} fontWeight="bold">
-            基础信息
+            Basic information
           </Text>
           {currentRequire?.value === RequirementType.Single && (
             // @ts-ignore
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
-                <FormLabel htmlFor="projectName">给任务起个名称</FormLabel>
+                <FormLabel htmlFor="projectName">Give the task a name</FormLabel>
                 <Input
                   color="#fff"
                   id="projectName"
                   placeholder="Task Name"
                   {...register('projectName', {
-                    required: '必填项',
+                    required: 'required',
                   })}
                 />
                 <FormErrorMessage>
@@ -115,7 +115,7 @@ export default function AddRequirement(props: {}) {
               </FormControl>
 
               <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
-                <FormLabel>填写任务描述</FormLabel>
+                <FormLabel>Fill in the task description</FormLabel>
                 <ReactQuillComponent
                   placeholder="Task Description"
                   value={getValues('description')}
@@ -142,12 +142,12 @@ export default function AddRequirement(props: {}) {
                 isRequired
                 margin="20px 0"
               >
-                <FormLabel htmlFor="professionType">选择职位类型</FormLabel>
+                <FormLabel htmlFor="professionType">Select job type</FormLabel>
                 <Select
                   placeholder="Job Type"
                   iconSize="16"
                   {...register('professionType', {
-                    required: '必选项',
+                    required: 'required',
                   })}
                 >
                   {ProfessionTypes?.map((it, index) => {
@@ -199,7 +199,7 @@ export default function AddRequirement(props: {}) {
                                   {it.label}
                                 </Text>
                                 <Text fontSize={14} whiteSpace="nowrap">
-                                  {it.label}
+                                  {it.description}
                                 </Text>
                               </Box>
                             </Flex>
@@ -212,11 +212,11 @@ export default function AddRequirement(props: {}) {
               </FormControl>
 
               <FormControl isInvalid={!!errors.contactInfo} isRequired margin="20px 0">
-                <FormLabel>手机号</FormLabel>
+                <FormLabel>Phone number</FormLabel>
                 <Input
                   color="#fff"
                   id="contactInfo"
-                  placeholder="手机号"
+                  placeholder="Enter"
                   {...register('contactInfo', {
                     validate: validatePhone,
                   })}
@@ -233,7 +233,7 @@ export default function AddRequirement(props: {}) {
                   type="submit"
                   margin="20px 0"
                 >
-                  发布任务
+                  Post a task
                 </Button>
                 {/* <Button background="#F59A23" onClick={handleTempSave} size="md" borderRadius={4} margin="20px">
               保存草稿

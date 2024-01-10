@@ -59,7 +59,7 @@ export default function TaskSchedule(props: {
       key: 'taskname',
     },
     {
-      title: '预计工时',
+      title: 'Estimated Hours',
       dataIndex: 'workhours',
       key: 'workhours',
       render: (_: any, record: any, index: number) => {
@@ -74,7 +74,7 @@ export default function TaskSchedule(props: {
               key={`datas.${index}.workhours`}
               color="#fff"
               type="number"
-              placeholder="请输入"
+              placeholder="Enter"
               size="md"
               {...register(`datas.${index}.workhours`, { required: true })}
             />
@@ -88,7 +88,7 @@ export default function TaskSchedule(props: {
       },
     },
     {
-      title: '预计开始时间',
+      title: 'Estimated Start Time',
       dataIndex: 'startTime',
       key: 'startTime',
       render: (_: any, record: any, index: number) => {
@@ -112,7 +112,7 @@ export default function TaskSchedule(props: {
       },
     },
     {
-      title: '预计结束时间',
+      title: 'Estimated Completion Time',
       dataIndex: 'endTime',
       key: 'endTime',
       render: (_: any, record: any, index: number) => {
@@ -148,13 +148,13 @@ export default function TaskSchedule(props: {
             Task Name
           </Flex>
           <Flex alignItems="center" justifyContent="center" width="300px">
-            预计工时
+            Estimated Hours
           </Flex>
           <Flex width="300px" alignItems="center" justifyContent="center">
-            预计开始时间
+            Estimated Start Time
           </Flex>
           <Flex width="300px" alignItems="center" justifyContent="center">
-            预计结束时间
+            Estimated Completion Time
           </Flex>
         </Flex>
         {fields.map((it, index) => {
@@ -172,7 +172,7 @@ export default function TaskSchedule(props: {
                     key={`datas.${index}.workhours`}
                     color="#fff"
                     type="number"
-                    placeholder="请输入"
+                    placeholder="Enter"
                     size="md"
                     {...register(`datas.${index}.workhours`, { required: true, min: 0 })}
                   />
