@@ -40,8 +40,12 @@ export default function ProfileOverview() {
         {/* 水手展示个人信息 */}
         {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} />}
         <Flex gap="20px">
-          <UserMyPledge data={mypledge} />
-          <UserMyReward data={[{}, {}, {}, {}, {}]} />
+          <Flex basis="50%">
+            <UserMyPledge data={mypledge} />
+          </Flex>
+          <Flex basis="50%">
+            <UserMyReward data={[{}, {}, {}, {}, {}]} />
+          </Flex>
         </Flex>
         {/* 水手展示以下信息 */}
         {isEngineer && (

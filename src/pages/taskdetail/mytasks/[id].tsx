@@ -133,12 +133,14 @@ const TaskDetail = () => {
                 submitAccept={submitAccept}
                 withdrawMyRewards={withdrawMyRewards}
               />
-              {/* TODO 待获取 */}
-              {data.taskStatus !== IStatus.WAIT_SIGN && (
-                <TaskSignedReward totalUsdt={'1000.00'} completeTime={1702545889368} />
+              {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
+                <TaskSignedReward recordList={data?.assetRecordList} />
               )}
-              {/* TODO 待获取 */}
-              <TaskUserInfo title="My Information" userInfo={{}} />
+              <TaskUserInfo title="My Information" userInfo={userInfo} />
+              {/* 货主信息 TODO缺少 */}
+              {[IStatus.SIGNED, IStatus.CODEING, IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(
+                data.taskStatus
+              ) && <TaskUserInfo title="货主 Information" userInfo={userInfo} />}
               <TaskMovement data={data} />
             </Flex>
           </Box>

@@ -21,6 +21,9 @@
   color: #fff !important;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
 .v-main {
   padding: 88px 16px 0px 256px;
 }

@@ -62,7 +62,7 @@ const TaskDetail = () => {
             paths={[
               { path: '#', name: 'Crowdsourcing Management ' },
               { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-              { path: '#', name: '需求详情' },
+              { path: '#', name: 'Details' },
             ]}
           />
         </Box>
@@ -107,11 +107,12 @@ const TaskDetail = () => {
                 closeTask={closeTask}
                 acceptTask={acceptTask}
               />
-              {isShowExtendTaskInfo && (
-                <TaskSignedReward totalUsdt={'1000.00'} completeTime={Date.now()} />
+              {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
+                <TaskSignedReward recordList={data?.assetRecordList} />
               )}
               <TaskUserInfo title="My Information" userInfo={userInfo} />
-              {isShowExtendTaskInfo && (
+              {/* TODO 签约水手信息 */}
+              {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskUserInfo title="签约水手信息" userInfo={{ email: '133' }} />
               )}
               <TaskMovement data={data} />

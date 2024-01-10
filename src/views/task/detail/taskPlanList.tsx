@@ -8,7 +8,7 @@ import { IPlanItem } from 'hooks/task/detai';
 import { useMemo } from 'react';
 
 enum EPlanStatus {
-  NO_START = `未开始`,
+  NO_START = `Not Started`,
   DONE = `Completed`,
 }
 
@@ -50,7 +50,7 @@ export default function TaskPlanList(props: {
 
   // My Task有完成操作
   const Action = {
-    title: '操作',
+    title: 'Operation',
     dataIndex: 'id',
     key: 'id',
     render: (_: any, record: IPlanItem, index: number) => {
@@ -58,11 +58,11 @@ export default function TaskPlanList(props: {
         <Box margin="5px 0" fontSize={14}>
           {record.completeStatus ? (
             <Box color="#7551FF" opacity="0.6">
-              完成
+              Completed
             </Box>
           ) : (
             <Link color="#7551FF" onClick={() => completePlan(record.id)}>
-              完成
+              Completed
             </Link>
           )}
         </Box>
@@ -95,7 +95,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '预计工时(H)',
+      title: 'Estimated Hours(H)',
       dataIndex: 'workhours',
       key: 'workhours',
       render: (_: any, record: IPlanItem, index: number) => {
@@ -107,7 +107,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '预计开始时间',
+      title: 'Estimated Start Time',
       dataIndex: 'startTime',
       key: 'startTime',
       render: (_: any, record: IPlanItem, index: number) => {
@@ -131,7 +131,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '实际完成时间',
+      title: 'Actual Completion Time',
       dataIndex: 'actualEndTime',
       key: 'actualEndTime',
       render: (_: any, record: IPlanItem, index: number) => {
@@ -145,7 +145,7 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: '状态',
+      title: 'Status',
       dataIndex: 'completeStatus',
       key: 'completeStatus',
       render: (_: any, record: IPlanItem, index: number) => {
@@ -172,7 +172,7 @@ export default function TaskPlanList(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        任务计划
+        Task Schedule
       </Text>
       <BYTable columns={columns} dataSource={planlist}></BYTable>
     </Box>

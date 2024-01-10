@@ -107,7 +107,7 @@ export default function TaskStatusInfo(props: {
       justifyContent="center"
       position="relative"
       marginTop="20px"
-      width="300px"
+      width="320px"
       height="186px"
       className={styles.container}
     >

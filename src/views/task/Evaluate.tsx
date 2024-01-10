@@ -44,15 +44,15 @@ export default function Evaluate(props: {
 
   return (
     <ModalDialog
-      title="参与评估"
+      title="Participate in Evaluation"
       isOpen={isOpen}
       onClose={onClose}
-      buttonText="评估质押"
+      buttonText="Evaluate pledge"
       onSure={handleSure}
       isLoading={isLoading}
     >
       <Box>
-        <Text fontSize="lg">任务清单</Text>
+        <Text fontSize="lg">Task planList</Text>
         <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
           <Flex justify="space-between">
             <Flex width="100px" alignItems="center" justifyContent="center">
@@ -66,7 +66,7 @@ export default function Evaluate(props: {
             </Flex>
             {/* <Flex width="100px" alignItems="center" justifyContent="center" >价值(CNY)</Flex> */}
             <Flex width="100px" alignItems="center" justifyContent="center">
-              操作
+              Operation
             </Flex>
           </Flex>
           {fields.map((it, index) => {
@@ -81,7 +81,7 @@ export default function Evaluate(props: {
                       id={`id.${index}.taskname`}
                       name={`datas.${index}.taskname`}
                       color="#fff"
-                      placeholder="请输入任务名称"
+                      placeholder="Enter task name"
                       size="md"
                       {...register(`datas.${index}.taskname`, { required: true })}
                     />
@@ -99,7 +99,7 @@ export default function Evaluate(props: {
                       name={`datas.${index}.usdt`}
                       color="#fff"
                       type="number"
-                      placeholder="请输入"
+                      placeholder="Enter"
                       size="md"
                       {...register(`datas.${index}.usdt`, { required: true, min: 0 })}
                     />
@@ -111,7 +111,7 @@ export default function Evaluate(props: {
                 {/* <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex> */}
                 <Flex width="100px" alignItems="center" justifyContent="center">
                   <Link color="#7551FF" onClick={() => remove(index)}>
-                    删除
+                    Delete
                   </Link>
                 </Flex>
               </Flex>

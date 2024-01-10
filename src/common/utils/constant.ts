@@ -59,14 +59,17 @@ export const ProTypes = [
   {
     label: 'Bidding',
     value: ProType.BIDDING,
+    description: `Assess before choosing`,
   },
   {
     label: 'Design Competition',
     value: ProType.PITCH,
+    description: `Speak with works`,
   },
   {
     label: 'Quoting',
     value: ProType.BID,
+    description: `Budget Constraints`,
   },
 ];
 // 任务类型

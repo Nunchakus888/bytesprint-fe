@@ -15,6 +15,7 @@ export default function UserMyPledge(props: { data: any[] }) {
       paddingBottom="20px"
       height="500px"
       overflow="scroll"
+      width="100%"
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
@@ -25,8 +26,9 @@ export default function UserMyPledge(props: { data: any[] }) {
           return (
             <Flex
               key={`ex_${index}`}
-              justifyContent="flex-start"
-              gap="30px"
+              justifyContent="space-between"
+              alignItems="center"
+              gap="10px"
               background="rgba(255,255,255,0.05)"
               borderRadius={4}
               margin="10px 0"
@@ -34,52 +36,41 @@ export default function UserMyPledge(props: { data: any[] }) {
             >
               <Flex
                 justifyContent="center"
-                fontSize={12}
-                textAlign="center"
                 alignItems="center"
                 width="60px"
                 minWidth="60px"
                 height="60px"
                 borderRadius={4}
                 background="#7551FF"
+                fontSize="10px"
               >
                 Task Contract
               </Flex>
-              <Flex direction="column" gap="10px" minWidth="150px">
+              <Flex direction="column" gap="5px">
                 <Box>
-                  <Text whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                    {it.taskName}
-                  </Text>
+                  <Text fontSize="12px">任务名称任务名称</Text>
                 </Box>
-                <Flex gap="10px">
-                  <Text fontSize={14}>Task Status</Text>{' '}
-                  <Text fontSize={14}>
-                    {it.taskStatus === 1 ? `Pending Contract` : `Completed`}
-                  </Text>
+                <Flex gap="5px">
+                  <Text fontSize="10px" whiteSpace="nowrap">
+                    Task Status
+                  </Text>{' '}
+                  <Text fontSize="10px">Contracted</Text>
                 </Flex>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text fontSize={14}>{it.stakingAmount} USDT</Text>
+                  <Text fontSize="12px">600.00 USDT</Text>
                 </Box>
                 {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
               </Flex>
               <Flex direction="column" gap="10px">
-                {/* @ts-ignore*/}
                 <Box>
-                  <Text fontSize={14}>
-                    {
-                      //@ts-ignore
-                      PledgeStatus[+it.status]
-                    }
-                  </Text>
+                  <Text fontSize="12px">质押中</Text>
                 </Box>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text fontSize={14} className={it.status === 3 ? styles.active : ''}>
-                    Withdraw to Wallet
-                  </Text>
+                  <Text fontSize="12px">Withdraw to Wallet</Text>
                 </Box>
               </Flex>
             </Flex>
