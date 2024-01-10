@@ -25,10 +25,9 @@ import {
   metaMaskWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-
 import Head from 'next/head';
-
 import ReduxProvider from 'common/reduxProvider';
+import Layout from 'layouts/admin';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
@@ -78,7 +77,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
           <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
             <QueryClientProvider client={queryClient}>
               <LanguageProvider>
-                <Component {...pageProps} />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
               </LanguageProvider>
             </QueryClientProvider>
           </RainbowKitProvider>

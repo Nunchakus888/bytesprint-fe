@@ -56,7 +56,7 @@ export default function TaskTemplate(props: {
         ? { path: `#`, name: 'My Task' }
         : { path: `#`, name: 'Task Hall' };
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar paths={[{ path: '#', name: 'Crowdsourcing Management ' }, path]} />
@@ -99,6 +99,6 @@ export default function TaskTemplate(props: {
         </Tabs>
         {children && <Box className={styles.add}>{children}</Box>}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

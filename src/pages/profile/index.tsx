@@ -1,6 +1,5 @@
 // Chakra imports
 import { Box, Flex, Grid, Portal } from '@chakra-ui/react';
-import AdminLayout from 'layouts/admin';
 
 import Navbar from 'components/navbar/NavbarAdmin';
 
@@ -35,7 +34,7 @@ export default function ProfileOverview() {
   }, [identification]);
 
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar paths={[{ path: '#', name: 'User Center' }]} />
@@ -65,6 +64,6 @@ export default function ProfileOverview() {
           </Flex>
         )}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

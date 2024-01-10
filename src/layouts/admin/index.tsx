@@ -3,7 +3,6 @@ import { Box, useToast } from '@chakra-ui/react';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'common/contexts/SidebarContext';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import _ from 'lodash';
 import useConnect from 'hooks/useConnect';
 interface DashboardLayoutProps extends PropsWithChildren {
   [x: string]: any;
