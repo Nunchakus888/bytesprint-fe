@@ -1,6 +1,7 @@
+import './global.css';
+
 import 'focus-visible/dist/focus-visible';
 import 'styles/Fonts.css';
-import 'styles/App.css';
 import 'styles/Contact.css';
 import '@vercel/examples-ui/globals.css';
 
@@ -15,8 +16,6 @@ import { Session } from 'next-auth';
 import { LanguageProvider } from 'common/contexts/LanguageContext';
 import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './global.css';
-// import "./../views/task/styles.css";
 import theme from 'common/theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, goerli, sepolia } from 'wagmi/chains';
@@ -31,7 +30,6 @@ import {
 
 import Head from 'next/head';
 
-import config from 'layouts/websiteConfig';
 import ReduxProvider from 'components/reduxProvider';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
@@ -72,13 +70,11 @@ function App({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
     <ChakraProvider theme={theme}>
       <Head>
-        <title>{config.title}</title>
+        <title>Byte sprint</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
       </Head>
 
-      {/*// Use of the <SessionProvider> is mandatory to allow components that call
-  // `useSession()` anywhere in your application to access the `session` object.*/}
       <ReduxProvider>
         <WagmiConfig client={wagmiClient}>
           <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme()}>
