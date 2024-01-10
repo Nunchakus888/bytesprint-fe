@@ -21,7 +21,6 @@ import {
 import FileUpload from 'components/fileupload';
 import FilSelect from 'components/select';
 import { requirementTypes, useAddRequirement } from 'hooks/myrequirements/add';
-import AdminLayout from 'layouts/admin';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
@@ -39,9 +38,11 @@ import {
 } from 'common/utils/constant';
 import styles from './index.module.scss';
 import Navbar from 'components/navbar/NavbarAdmin';
+
 const ReactQuillComponent = dynamic(() => import('../../../components/richTextBlock'), {
   ssr: false,
 });
+
 export default function AddRequirement(props: {}) {
   const { currentRequire, saveRequirement, router } = useAddRequirement();
   const [files, setFiles] = useState([]);
@@ -75,7 +76,7 @@ export default function AddRequirement(props: {}) {
     console.log('getValues>>', getValues());
   };
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar
@@ -348,6 +349,6 @@ export default function AddRequirement(props: {}) {
           </form>} */}
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

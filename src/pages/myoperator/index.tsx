@@ -4,7 +4,6 @@ import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useOperatorFilter, useOperatorList } from 'hooks/operator';
 import { useMyOperatorFilter, useMyOperatorList } from 'hooks/operator/myoperator';
-import AdminLayout from 'layouts/admin';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import MyOperatorItem from 'views/operator/myOperatorItem';
@@ -19,7 +18,7 @@ export default function MyOperator() {
     onChange('name', searchVal);
   };
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         <Box mt={{ base: '30px' }}>
           <Box position="sticky">
@@ -70,6 +69,6 @@ export default function MyOperator() {
           </Box>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

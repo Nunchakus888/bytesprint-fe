@@ -3,7 +3,6 @@ import Loading from 'components/loading';
 import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useEngineerFilter, useEngineerList } from 'hooks/engineer';
-import AdminLayout from 'layouts/admin';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import EngineerItem from 'views/engineer/engineerItem';
@@ -18,7 +17,7 @@ export default function EngineerManage() {
   };
   console.log('hasMore', hasMore);
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         <Box mt={{ base: '30px' }}>
           <Box position="sticky">
@@ -74,6 +73,6 @@ export default function EngineerManage() {
           </Box>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

@@ -9,7 +9,6 @@ import {
 import { useTaskDetail } from 'hooks/task';
 import { useTaskPlanList } from 'hooks/task/detai';
 import { useUserInfo } from 'hooks/user';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { Identification, IPath, IStatus, TaskBidStatus } from 'common/utils/constant';
@@ -50,11 +49,13 @@ const TaskDetail = () => {
     }
     return false;
   }, [data?.taskStatus]);
+
   // 任务计划列表
   const { planlist, openRecordDetailId, handleOpenRecordDetail, closeRecordDetail } =
     useTaskPlanList(data, isShowExtendTaskInfo);
+
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar
@@ -136,7 +137,7 @@ const TaskDetail = () => {
           onClose={closeRecordDetail}
         />
       )}
-    </AdminLayout>
+    </>
   );
 };
 

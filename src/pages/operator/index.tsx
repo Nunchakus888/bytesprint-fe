@@ -3,7 +3,6 @@ import Loading from 'components/loading';
 import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useOperatorFilter, useOperatorList } from 'hooks/operator';
-import AdminLayout from 'layouts/admin';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import OperatorItem from 'views/operator/operatorItem';
@@ -17,8 +16,9 @@ export default function OperatorManage() {
     onChange('name', searchVal);
   };
   console.log('hasMore', hasMore);
+
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         <Box mt={{ base: '30px' }}>
           <Box position="sticky">
@@ -69,6 +69,6 @@ export default function OperatorManage() {
           </Box>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

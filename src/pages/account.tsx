@@ -66,7 +66,7 @@ export default function Home() {
   const textColorBrand = useColorModeValue('brand.500', 'white');
 
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>
         {/* Main Fields */}
         <Grid
@@ -81,6 +81,6 @@ export default function Home() {
         </Grid>
         {/* Delete Product */}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

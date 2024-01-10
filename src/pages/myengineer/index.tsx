@@ -4,7 +4,6 @@ import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useMyEngineerFilter, useMyEngineerList } from 'hooks/engineer/myengineer';
 import { useUserInfo } from 'hooks/user';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -30,7 +29,7 @@ export default function MyEngineer() {
   // }, [])
 
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         <Box mt={{ base: '30px' }}>
           <Box position="sticky">
@@ -86,6 +85,6 @@ export default function MyEngineer() {
           </Box>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

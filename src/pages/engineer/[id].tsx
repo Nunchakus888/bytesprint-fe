@@ -1,7 +1,6 @@
 import { Box, Flex, Button, toast, useToast } from '@chakra-ui/react';
 import Loading from 'components/loading';
 import { useEngineerCheck, useEngineerDetail } from 'hooks/engineer';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { IPath } from 'common/utils/constant';
 import UserAttachedResume from 'views/user/userAttachedResume';
@@ -38,7 +37,7 @@ export default function EngineerCheck() {
     }
   };
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         {data ? (
           <>
@@ -74,6 +73,6 @@ export default function EngineerCheck() {
           <Loading />
         )}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

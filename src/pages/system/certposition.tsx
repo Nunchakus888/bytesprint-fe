@@ -16,7 +16,6 @@ import Confirm from 'components/confirm';
 import ModalDialog from 'components/modal';
 import BYTable from 'components/table';
 import { useCertPositionSetting } from 'hooks/system';
-import AdminLayout from 'layouts/admin';
 import _ from 'lodash';
 import { ChangeEvent, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -193,7 +192,7 @@ export default function CertPosition() {
     });
   };
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <Box
           mt={{ base: '30px' }}
@@ -248,6 +247,6 @@ export default function CertPosition() {
           </FormControl>
         </Flex>
       </ModalDialog>
-    </AdminLayout>
+    </>
   );
 }

@@ -4,7 +4,6 @@ import FileReviewer from 'components/fileReview';
 import Loading from 'components/loading';
 import { useTaskDetail } from 'hooks/task';
 import { useUserInfo } from 'hooks/user';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { Identification, IPath } from 'common/utils/constant';
@@ -15,6 +14,7 @@ import Evaluate from 'views/task/Evaluate';
 import Test from 'views/task/Test';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/NavbarAdmin';
+
 const TaskDetail = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -34,8 +34,9 @@ const TaskDetail = () => {
     }
     return false;
   }, [userInfo, data]);
+
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar
@@ -79,7 +80,7 @@ const TaskDetail = () => {
           onSuccess={refresh}
         ></Evaluate>
       )}
-    </AdminLayout>
+    </>
   );
 };
 

@@ -6,7 +6,6 @@ import { useMyTaskDetail, useMyTaskDetailStatusAction } from 'hooks/mytasks/deta
 import { useTaskDetail } from 'hooks/task';
 import { useTaskPlanList } from 'hooks/task/detai';
 import { useUserInfo } from 'hooks/user';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { Identification, IPath, IStatus, TaskBidStatus } from 'common/utils/constant';
@@ -24,6 +23,7 @@ import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/NavbarAdmin';
+
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
@@ -82,7 +82,7 @@ const TaskDetail = () => {
   };
 
   return (
-    <AdminLayout>
+    <>
       <Portal>
         <Box>
           <Navbar
@@ -162,7 +162,7 @@ const TaskDetail = () => {
           />
         )}
       </Box>
-    </AdminLayout>
+    </>
   );
 };
 

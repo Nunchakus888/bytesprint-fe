@@ -1,14 +1,13 @@
 import { Box, Button, Flex, Portal, Text, useToast } from '@chakra-ui/react';
 import Back from 'components/back';
 import { requirementTypes } from 'hooks/myrequirements/add';
-import AdminLayout from 'layouts/admin';
-import Image from 'next/image';
 import { useState } from 'react';
 import styles from './add.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import Navbar from 'components/navbar/NavbarAdmin';
 import { IPath, RequirementType } from 'common/utils/constant';
+
 export default function AddRequirement() {
   const [selectType, setSelectType] = useState('');
   const toast = useToast();
@@ -24,8 +23,9 @@ export default function AddRequirement() {
     }
     setSelectType(it.type);
   };
+
   return (
-    <AdminLayout overflow="hidden" height="100vh">
+    <>
       <Portal>
         <Box>
           <Navbar
@@ -89,6 +89,6 @@ export default function AddRequirement() {
           </Flex>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }

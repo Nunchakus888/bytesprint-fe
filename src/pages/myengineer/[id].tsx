@@ -19,7 +19,7 @@ export default function MyEngineerDetail() {
   const { data } = useEngineerDetail(id as string);
 
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         {data ? (
           <>
@@ -42,6 +42,6 @@ export default function MyEngineerDetail() {
           <Loading />
         )}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

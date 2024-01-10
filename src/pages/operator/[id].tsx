@@ -1,7 +1,6 @@
 import { Box, Flex, Button, toast, useToast } from '@chakra-ui/react';
 import Loading from 'components/loading';
 import { useOperatorCheck, useOperatorDetail } from 'hooks/operator';
-import AdminLayout from 'layouts/admin';
 import { useRouter } from 'next/router';
 import { IPath } from 'common/utils/constant';
 import UserBaseInfo from 'views/user/userBaseInfo';
@@ -34,7 +33,7 @@ export default function OperatorCheck() {
     }
   };
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         {data ? (
           <>
@@ -67,6 +66,6 @@ export default function OperatorCheck() {
           <Loading />
         )}
       </Box>
-    </AdminLayout>
+    </>
   );
 }

@@ -18,7 +18,6 @@ import ModalDialog from 'components/modal';
 import BYTable from 'components/table';
 import { useCertPositionSetting } from 'hooks/system';
 import { useCertEngineerSetting } from 'hooks/system/certEnginner';
-import AdminLayout from 'layouts/admin';
 import _ from 'lodash';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -40,8 +39,9 @@ export default function CertEngineerSetting() {
     defaultValues: data,
     mode: 'onChange',
   });
+
   return (
-    <AdminLayout>
+    <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <Box
           mt={{ base: '30px' }}
@@ -113,6 +113,6 @@ export default function CertEngineerSetting() {
           </Button>
         </Box>
       </Box>
-    </AdminLayout>
+    </>
   );
 }
