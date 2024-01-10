@@ -67,7 +67,12 @@ export default function UserMyPledge(props: { data: any[] }) {
               <Flex direction="column" gap="10px">
                 {/* @ts-ignore*/}
                 <Box>
-                  <Text fontSize={14}>{PledgeStatus[+it.status]}</Text>
+                  <Text fontSize={14}>
+                    {
+                      //@ts-ignore
+                      PledgeStatus[+it.status]
+                    }
+                  </Text>
                 </Box>
               </Flex>
               <Flex direction="column" gap="10px">

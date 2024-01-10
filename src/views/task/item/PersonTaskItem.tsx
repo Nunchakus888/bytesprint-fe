@@ -54,7 +54,7 @@ export default function PersonTaskItem(props: { item: any; isMine?: boolean; fro
             variant="outline"
             size="md"
           >
-            {RequirementStatus.filter((it) => it.value === '2')[0]?.label}
+            {RequirementStatus.filter((it: any) => it.value === '2')[0]?.label}
           </Tag>
         )}
         {props.isMine && props.from === IPath.MYTASKS && (
@@ -69,7 +69,7 @@ export default function PersonTaskItem(props: { item: any; isMine?: boolean; fro
             variant="outline"
             size="md"
           >
-            {TaskStatus.filter((it) => it.value === '1')[0]?.label}
+            {TaskStatus.filter((it: any) => it.value === '1')[0]?.label}
           </Tag>
         )}
       </Flex>

@@ -15,10 +15,11 @@ import { setItem } from 'common/utils';
 import WalletAvatar from 'components/WalletAvatar';
 
 export default function UserBaseInfo(props: {
-  from: IPath;
-  userInfo: any; // 信息
+  from?: IPath;
+  userInfo?: any; // 信息
   isEngineer?: boolean;
   isOperator?: boolean;
+  data?: any;
 }) {
   const { from, isEngineer, isOperator, userInfo } = props;
   const data = userInfo?.data;
@@ -147,7 +148,13 @@ export default function UserBaseInfo(props: {
               <Flex alignItems="center" justifyContent="center" gap="20px">
                 {/* @ts-ignore */}
                 <Box>
-                  <Text>Level：{USER_LEVEL[+data?.level]}</Text>
+                  <Text>
+                    Level：
+                    {
+                      //@ts-ignore
+                      USER_LEVEL[+data?.level]
+                    }
+                  </Text>
                 </Box>
                 {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
               </Flex>
