@@ -19,8 +19,6 @@ const createRoute = (path: string, query?: RouteQuery) => {
   return `${path}?${stringifyQuery(query)}`;
 };
 
-type EthAddress = `0x${string}` | undefined;
-
 const API_ROUTERS = {
   tasks: {
     TASKS_LIST: (params: any) => createRoute(`/project/list`, params),
@@ -46,12 +44,8 @@ const API_ROUTERS = {
     USER_UPDATE: `/user/update`,
     MY_PLEDGE: (params?: any) => createRoute(`/user/stakings`, params),
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
+    CERTIF_ENGINEER: (params?: any) => createRoute(`/user/certify/engineer`, params),
   },
-
-  bidorder: {
-    BID_ORDERS: (params: any) => createRoute(`/api/v1/bid-orders`, params),
-  },
-
   positions: {
     LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),
   },

@@ -25,7 +25,7 @@ export default function Tasker() {
           <Input placeholder={`Please enter the Navigation's authorization code`} />
           <Button className="theme-button">Continue</Button>
         </div> */}
-        <CertificationForm />
+        <CertificationForm authorizeCode={authorizeCode} />
       </div>
     </>
   );

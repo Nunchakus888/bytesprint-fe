@@ -203,6 +203,41 @@ export const ProfessionTypes = [
   },
 ];
 
+// 工作年限
+export const ExperienceTypes = [
+  {
+    label: 'One year work experience',
+    value: 1,
+  },
+  {
+    label: 'Three to five years of work experience',
+    value: 2,
+  },
+  {
+    label: 'Five years of work experience',
+    value: 3,
+  },
+];
+
+export const EducationTypes = [
+  {
+    label: 'College',
+    value: 1,
+  },
+  {
+    label: 'Undergraduate',
+    value: 2,
+  },
+  {
+    label: 'Postgraduate',
+    value: 3,
+  },
+  {
+    label: 'Doctor',
+    value: 4,
+  },
+];
+
 export interface IRequirement {
   projectName: string;
   description: string;

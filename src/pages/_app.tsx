@@ -29,6 +29,7 @@ import Head from 'next/head';
 import ReduxProvider from 'common/reduxProvider';
 import Header from 'components/header';
 import Sidebar from 'components/sidebar';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
