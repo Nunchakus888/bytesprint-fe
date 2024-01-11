@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -8,13 +8,18 @@ import {
   Input,
   Button,
   Container,
+  useToast,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/utils/constant';
 import CustionSelect from 'components/custom-select';
-import CustomDataRange from 'components/custom-date-range';
+import { RangeDatepicker } from 'chakra-dayzed-datepicker';
+import { Post } from 'common/utils/axios';
+import API_ROUTERS from 'api';
 
 const CertificationForm = ({ authorizeCode }: any) => {
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
   const {
     control,
     register,
@@ -25,8 +30,17 @@ const CertificationForm = ({ authorizeCode }: any) => {
     reset,
   } = useForm();
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async (values: any) => {
+    setLoading(true);
     console.log('提交表单', values);
+    const params = {};
+    const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(params));
+    setLoading(false);
+    toast({
+      title: `successfully`,
+      status: 'success',
+      isClosable: true,
+    });
   };
 
   useEffect(() => {
@@ -65,6 +79,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             <FormControl className="mb-4" isInvalid={!!error} id="position">
               <FormLabel fontSize={12}>认证职位类型（最多选择2个）</FormLabel>
               <CustionSelect
+                placeholder="Select position"
                 isMulti
                 name={name}
                 ref={ref}
@@ -176,7 +191,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             return (
               <FormControl className="mb-4" id="eductionRange" isInvalid={!!error}>
                 <FormLabel fontSize={12}>就读时间</FormLabel>
-                <CustomDataRange value={value} onChange={onChange} />
+                <RangeDatepicker selectedDates={value || []} onDateChange={onChange} />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
             );
@@ -218,7 +233,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           )}
         />
         <div className="flex justify-center">
-          <Button mt={4} className="theme-button" type="submit">
+          <Button mt={4} className="theme-button" type="submit" isLoading={loading}>
             申请成为Tasker
           </Button>
         </div>
