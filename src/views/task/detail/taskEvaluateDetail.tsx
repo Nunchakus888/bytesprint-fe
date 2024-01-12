@@ -16,8 +16,9 @@ export default function TaskEvaluateDetail(props: {
   signBid?: (recordId: string) => void; // 签约TA
   unSignBid?: (recordId: string) => void; // 淘汰TA
   originData: any;
+  signLoading?: boolean;
 }) {
-  const { onClose, signBid, unSignBid, recordId: record, from, originData } = props;
+  const { onClose, signBid, unSignBid, recordId: record, from, originData, signLoading } = props;
   // test
   record.uid = 'E0341092072504178728';
   const { data, userInfoForUid } = useTaskEvaluateDetail(record, originData);
@@ -136,7 +137,7 @@ export default function TaskEvaluateDetail(props: {
                 marginTop="10px"
                 onClick={() => unSignBid(record)}
               >
-                Eliminate Them
+                Eliminate
               </Link>
               <Button
                 background="#7551FF"
@@ -144,12 +145,13 @@ export default function TaskEvaluateDetail(props: {
                 width="120px"
                 borderRadius={4}
                 onClick={() => signBid(record)}
+                isLoading={signLoading}
               >
-                Sign Contract with Them
+                Sign
               </Button>
             </>
           )}
-          {record.signStatus && (
+          {!!record.signStatus && (
             <>
               {/* 淘汰 */}
               {TaskBidStatus.BID_FAIL === record.signStatus && (

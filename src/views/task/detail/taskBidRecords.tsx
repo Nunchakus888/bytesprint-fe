@@ -13,6 +13,7 @@ import styles from './index.module.scss';
 import dayjs from 'dayjs';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import WalletAvatar from 'components/WalletAvatar';
+import { useUserInfoByUid } from 'hooks/user';
 export default function TaskBidRecords(props: {
   from?: IPath;
   recordList: any[];
@@ -61,7 +62,7 @@ export default function TaskBidRecords(props: {
                 <WalletAvatar value={it.wallet} size={30} />
                 {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
                 <Flex direction="column" marginLeft="20px" className="w-20">
-                  <Text fontSize={16}>{it.uid}</Text>
+                  <Text fontSize={16}>{it?.nickname}</Text>
                   <Text fontSize={12}>{shortAddress(it?.wallet.toString() || '')}</Text>
                 </Flex>
               </Flex>
@@ -118,7 +119,7 @@ export default function TaskBidRecords(props: {
                             onClick={() => signBid(it)}
                             isLoading={signLoading}
                           >
-                            Sign Contract with Them
+                            Sign
                           </Button>
                           <Link
                             color="#7551FF"
@@ -127,7 +128,7 @@ export default function TaskBidRecords(props: {
                             marginTop="10px"
                             onClick={() => unSignBid(it)}
                           >
-                            Eliminate Them
+                            Eliminate
                           </Link>
                         </Box>
                       )}

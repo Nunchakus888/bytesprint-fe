@@ -7,6 +7,7 @@ import useListenConnectionEvent from './useListenConnectionEvent';
 import { useDispatch } from 'react-redux';
 import { setIdentification, setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
+import { Post } from 'common/utils/axios';
 
 const useConnect = () => {
   const { disconnect: dis } = useDisconnect();
@@ -21,7 +22,7 @@ const useConnect = () => {
   const disconnects = useCallback(
     async function () {
       dis();
-      await API_ROUTERS.users.LOGOUT();
+      await Post(API_ROUTERS.users.LOGOUT);
       removeItem('address');
       removeItem('network');
       removeItem('authorization');

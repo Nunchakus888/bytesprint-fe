@@ -52,13 +52,15 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     }
     try {
       setSignLoading(true);
-      let { totalCost, totalTime, uid, wallet, assetRecordId } = record;
+      let { totalCost, totalTime, uid, wallet, assetRecordId, finishTime } = record;
+      // 质押天数
+      const lockDays = Math.ceil((+finishTime - Date.now()) / (24 * 60 * 60 * 1000));
       // 合约交互
       const result = await stakeEmployer({
         account,
         projectId: id,
         amount: totalCost,
-        lockDays: Math.ceil(totalTime / 8),
+        lockDays: Math.max(lockDays, 1),
         withdrawAddr: wallet,
       });
       if (result) {
@@ -72,11 +74,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         toast({
           title: `Operate SuccessFully`,
           status: `success`,
-          isClosable: true,
-          onCloseComplete: () => {
-            window.location.reload();
-          },
+          isClosable: false,
         });
+        window.location.reload();
       } else {
         toast({
           title: `Operate Error`,

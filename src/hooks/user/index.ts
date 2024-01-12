@@ -201,3 +201,23 @@ export const useMyPledge = () => {
     data,
   };
 };
+
+export const useUserInfoByUid = (uid: string) => {
+  const [userInfoForUid, setUserInfoForUid] = useState<any>(null);
+  const { userInfo } = useUserInfo();
+  const getUserInfoByUid = async () => {
+    // 若是自己，直接取数据
+    if (uid === userInfo.uid) {
+      setUserInfoForUid(userInfo);
+      return;
+    }
+    const userData = await Get(API_ROUTERS.users.USER_INFO({ uid }));
+    setUserInfoForUid(userData);
+  };
+  useEffect(() => {
+    uid && getUserInfoByUid();
+  }, [uid]);
+  return {
+    userInfoForUid,
+  };
+};

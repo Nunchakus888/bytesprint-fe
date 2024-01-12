@@ -26,7 +26,7 @@ export default function TaskMovement(props: { data: any }) {
       justifyContent="flex-start"
       position="relative"
       marginTop="20px"
-      width="300px"
+      width="320px"
       paddingBottom="20px"
       className={styles.container}
     >

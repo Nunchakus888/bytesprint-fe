@@ -8,7 +8,7 @@ import {
 } from 'hooks/myrequirements/detail';
 import { useTaskDetail } from 'hooks/task';
 import { useTaskPlanList } from 'hooks/task/detai';
-import { useUserInfo } from 'hooks/user';
+import { useUserInfo, useUserInfoByUid } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 import { Identification, IPath, IStatus, TaskBidStatus } from 'common/utils/constant';
@@ -38,6 +38,19 @@ const TaskDetail = () => {
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false);
   const { openTask, closeTask, acceptTask, signBid, unSignBid, openRecordDetail, signLoading } =
     useMyRequirementDetailStatusAction(id);
+
+  // 中标记录
+  const signEdRecord = useMemo(() => {
+    const bidSuc = data?.assetRecordList.filter(
+      (it: any) => it.signStatus === TaskBidStatus.BID_SUCCESS
+    );
+    if (bidSuc?.length) {
+      return bidSuc[0];
+    }
+  }, [data]);
+
+  // 获取中标人的信息
+  const { userInfoForUid } = useUserInfoByUid(signEdRecord?.uid);
 
   const isShowExtendTaskInfo = useMemo(() => {
     if (
@@ -76,13 +89,13 @@ const TaskDetail = () => {
           <Loading />
         ) : (
           <Box display="flex" gap="20px">
-            <Flex direction="column" basis="80%">
+            <Flex direction="column" width="900px">
               <TaskBaseInfo
                 from={IPath.MYREQUIREMENT}
                 setIsOpenEvaluate={setIsOpenEvaluate}
                 data={data?.projectRawInfo}
               />
-              {isShowExtendTaskInfo && (
+              {isShowExtendTaskInfo && IStatus.SIGNED !== data?.taskStatus && (
                 <TaskPlanList from={IPath.MYREQUIREMENT} planlist={planlist} />
               )}
               <TaskBidRecords
@@ -99,7 +112,7 @@ const TaskDetail = () => {
                 fileList={data?.fileList}
               />
             </Flex>
-            <Flex direction="column" basis="20%">
+            <Flex direction="column">
               <TaskStatusInfo
                 from={IPath.MYREQUIREMENT}
                 taskStatus={data?.taskStatus}
@@ -110,10 +123,22 @@ const TaskDetail = () => {
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />
               )}
-              <TaskUserInfo title="My Information" userInfo={userInfo} />
+              <TaskUserInfo
+                title="My Information"
+                userInfo={{
+                  data: {
+                    engineer: {
+                      phone: data.projectRawInfo.contactPhone,
+                      email: data.projectRawInfo.contactEmail,
+                    },
+                    nickname: userInfo?.data?.nickname,
+                  },
+                  address: userInfo.address,
+                }}
+              />
               {/* TODO 签约水手信息 */}
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
-                <TaskUserInfo title="签约水手信息" userInfo={{ email: '133' }} />
+                <TaskUserInfo title="Signed Sailor Information" userInfo={userInfoForUid} />
               )}
               <TaskMovement data={data} />
             </Flex>
@@ -136,6 +161,9 @@ const TaskDetail = () => {
           recordId={openRecordDetailId}
           originData={data}
           onClose={closeRecordDetail}
+          signBid={signBid}
+          unSignBid={unSignBid}
+          signLoading={signLoading}
         />
       )}
     </>

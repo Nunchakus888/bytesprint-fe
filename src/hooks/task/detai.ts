@@ -1,6 +1,6 @@
 import API_ROUTERS from 'api';
 import { ISchedule } from 'hooks/mytasks/schedule';
-import { useUserInfo } from 'hooks/user';
+import { useUserInfo, useUserInfoByUid } from 'hooks/user';
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { Get } from 'common/utils/axios';
@@ -103,8 +103,7 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
 
 // 评估详情
 export const useTaskEvaluateDetail = (record: any, data: any) => {
-  const [userInfoForUid, setUserInfoForUid] = useState<any>(null);
-  const { userInfo } = useUserInfo();
+  const { userInfoForUid } = useUserInfoByUid(record?.uid);
   const data_ = useMemo(() => {
     // const rids = record?.requirementAssociation
     // console.log("rids>>>", rids)
@@ -124,19 +123,6 @@ export const useTaskEvaluateDetail = (record: any, data: any) => {
     });
     return res;
   }, [data, record]);
-
-  const getUserInfoByUid = async (uid: string) => {
-    // 若是自己，直接取数据
-    if (uid === userInfo.uid) {
-      setUserInfoForUid(userInfo);
-      return;
-    }
-    const userData = await Get(API_ROUTERS.users.USER_INFO({ uid }));
-    setUserInfoForUid(userData);
-  };
-  useEffect(() => {
-    record?.uid && getUserInfoByUid(record.uid);
-  }, [record?.uid]);
 
   const result = {
     list: data_,

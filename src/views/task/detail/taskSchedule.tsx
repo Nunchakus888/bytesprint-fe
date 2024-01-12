@@ -38,6 +38,7 @@ export default function TaskSchedule(props: {
     isStartTask,
     getValues,
     control,
+    submitLoading,
   } = useSchedule({ scheduleTask, startTask, taskId, scheduledata });
 
   useEffect(() => {
@@ -138,7 +139,7 @@ export default function TaskSchedule(props: {
     },
   ];
   return (
-    <ModalDialog title="任务计划" onClose={onClose} isOpen={true} btnGroup={<></>}>
+    <ModalDialog title="Task scheduling" onClose={onClose} isOpen={true} btnGroup={<></>}>
       <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center">
@@ -225,8 +226,14 @@ export default function TaskSchedule(props: {
       </Box>
       <Flex justify="center" alignItems="center" gap="40px">
         {/* <Link color="#7551FF" onClick={saveSchedule}>保存</Link> */}
-        <Button background="#7551FF" mr={3} disabled={!isStartTask} onClick={startMyTask}>
-          开始任务
+        <Button
+          background="#7551FF"
+          mr={3}
+          disabled={!isStartTask}
+          onClick={startMyTask}
+          isLoading={submitLoading}
+        >
+          Submit task plan
         </Button>
       </Flex>
     </ModalDialog>
