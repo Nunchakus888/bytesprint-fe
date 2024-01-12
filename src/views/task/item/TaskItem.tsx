@@ -6,6 +6,7 @@ import {
   ProfessionTypes,
   ProTypes,
   RequirementStatus,
+  Tabs,
   TaskStatus,
   TaskTypes,
 } from 'common/utils/constant';
@@ -15,11 +16,19 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
   return (
     <Box className={styles.itemContainer}>
       <Flex justify="space-between" position="relative">
-        <Box className={styles.imgbox}>
-          <Image
+        <Box
+          className={styles.imgbox}
+          background="#7551FF"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="30px"
+        >
+          {/* <Image
             src={`https://picsum.photos/200/250?random=${Math.ceil(Math.random() * 100)}`}
             alt={item.categoryName}
-          />
+          /> */}
+          {Tabs.filter((v) => v.value === item.categoryType)[0]?.label}
         </Box>
         <Box display="flex" flexDirection="column" width="100%">
           <Box>
