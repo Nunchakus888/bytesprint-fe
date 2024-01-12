@@ -1,7 +1,6 @@
 import { Box, Flex, Button, toast, useToast } from '@chakra-ui/react';
 import Loading from 'components/loading';
 import { useEngineerDetail } from 'hooks/engineer';
-import AdminLayout from 'layouts';
 import { useRouter } from 'next/router';
 import { IPath } from 'common/utils/constant';
 import UserAttachedResume from 'views/user/userAttachedResume';
