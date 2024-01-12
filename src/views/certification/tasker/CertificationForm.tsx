@@ -16,6 +16,7 @@ import CustionSelect from 'components/custom-select';
 import { RangeDatepicker } from 'chakra-dayzed-datepicker';
 import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
+import FileUpload from 'components/fileupload';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           control={control}
           name="position"
           rules={{ required: 'Please select position' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
+          render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
             <FormControl className="mb-4" isInvalid={!!error} id="position">
               <FormLabel fontSize={12}>认证职位类型（最多选择2个）</FormLabel>
               <CustionSelect
@@ -83,8 +84,11 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 isMulti
                 name={name}
                 ref={ref}
-                onChange={onChange}
-                onBlur={onBlur}
+                onChange={(val: any) => {
+                  //限制最大只能选2个
+                  const newValue = val.slice(0, 2);
+                  onChange(newValue);
+                }}
                 value={value}
                 options={ProfessionTypes}
                 closeMenuOnSelect={false}
@@ -98,14 +102,13 @@ const CertificationForm = ({ authorizeCode }: any) => {
           control={control}
           name="experience"
           rules={{ required: 'Please select experience' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
+          render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
             <FormControl className="mb-4" isInvalid={!!error} id="experience">
               <FormLabel fontSize={12}>工作经验</FormLabel>
               <CustionSelect
                 name={name}
                 ref={ref}
                 onChange={onChange}
-                onBlur={onBlur}
                 value={value}
                 options={ExperienceTypes}
                 closeMenuOnSelect={false}
@@ -231,6 +234,27 @@ const CertificationForm = ({ authorizeCode }: any) => {
               <FormErrorMessage>{error && error.message}</FormErrorMessage>
             </FormControl>
           )}
+        />
+        <h3 className="font-16 font-bold mb-2">附件简历</h3>
+        <Controller
+          control={control}
+          name="resume"
+          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
+            return (
+              <FormControl className="mb-4" id="resume" isInvalid={!!error}>
+                <FileUpload
+                  accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
+                  multiple
+                  max={3}
+                  maxSize={50 * 1024 * 1024}
+                  register={(files: any) => {
+                    console.log(111, files);
+                  }}
+                />
+                <FormErrorMessage>{error && error.message}</FormErrorMessage>
+              </FormControl>
+            );
+          }}
         />
         <div className="flex justify-center">
           <Button mt={4} className="theme-button" type="submit" isLoading={loading}>
