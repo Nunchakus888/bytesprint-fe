@@ -26,7 +26,8 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
   if (!!datas.some((it) => !!it.startTime)) {
     setIsStartTask(true);
   }
-
+  // 提交loading
+  const [submitLoading, setSubmitLoading] = useState(false);
   const {
     register,
     control,
@@ -55,20 +56,24 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
     handleSubmit(onSubmit)();
   };
   const onSubmit = async (data: any) => {
+    setSubmitLoading(true);
     console.log('提交数据>>>>', data.datas);
     console.log('调用任务排期接口>>>>', data.datas);
-    debugger;
-    const res = await scheduleTask(data.datas);
-    toast({
-      title: `Operate SuccessFully`,
-      status: `success`,
-      isClosable: false,
-      onCloseComplete: () => {
-        window.location.reload();
-      },
-    });
-    // 保存成功后，可以开始任务
-    // setIsStartTask(true)
+    try {
+      const res = await scheduleTask(data.datas);
+      toast({
+        title: `Operate SuccessFully`,
+        status: `success`,
+        isClosable: false,
+        onCloseComplete: () => {
+          window.location.reload();
+        },
+      });
+      // 保存成功后，可以开始任务
+      // setIsStartTask(true)
+    } finally {
+      setSubmitLoading(false);
+    }
   };
 
   // 开始任务
@@ -91,5 +96,6 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
     isStartTask,
     getValues,
     control,
+    submitLoading,
   };
 };

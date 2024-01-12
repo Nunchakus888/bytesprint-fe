@@ -7,7 +7,7 @@ import { Get, Post } from 'common/utils/axios';
 import { IStatus, TaskBidStatus } from 'common/constant';
 
 // detail status operator
-export const useMyTaskDetailStatusAction = (id: string | string[]) => {
+export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: string) => {
   const { userInfo } = useUserInfo();
   const toast = useToast();
   // 任务排期
@@ -26,24 +26,25 @@ export const useMyTaskDetailStatusAction = (id: string | string[]) => {
       requirementPlan: data,
       uid: userInfo.uid,
       walletAddress: userInfo.address,
+      projectId: id,
     });
     return res;
   };
   // 提交验收
   const submitAccept = async () => {
-    const res = await API_ROUTERS.tasks.REQUIREMENT_SUBMIT({
+    debugger;
+    const res = await Post(API_ROUTERS.tasks.REQUIREMENT_SUBMIT, {
       uid: userInfo.uid,
-      walletAddress: userInfo.walletAddress,
-      projectid: id,
+      walletAddress: userInfo.address,
+      projectid: +id,
+      assetRecordId: myrecordId,
     });
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
-      isClosable: true,
-      onCloseComplete: () => {
-        window.location.reload();
-      },
+      isClosable: false,
     });
+    window.location.reload();
   };
   // 提取My Rewards
   const withdrawMyRewards = () => {};
@@ -93,10 +94,10 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
       );
       setLoading(false);
       // TODO 取status最后一个值
-      // res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status
+      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status;
       // test
-      res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status =
-        IStatus.SIGNED;
+      // res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status =
+      // IStatus.SIGNED;
       console.log('res?.projectDetailInfo>>>', res);
       setData(res?.projectDetailInfo || {});
       return res;

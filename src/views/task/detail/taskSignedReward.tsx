@@ -19,11 +19,11 @@ export default function TaskSignedReward(props: { recordList: any[] }) {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        签约报酬
+        Sign Rewards
       </Text>
       <Box marginTop="20px">
         <Text fontSize={16} whiteSpace="nowrap" display="flex">
-          <Text letterSpacing="5px">报 酬 合 计：</Text>
+          <Text>Total Rewards：</Text>
           {signedRecord.totalCost} USDT
         </Text>
         <Text marginTop="10px" fontSize={16} whiteSpace="nowrap">

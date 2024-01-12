@@ -27,15 +27,24 @@ import Navbar from 'components/navbar/Navbar';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
-  console.log('TaskDetail>>>');
-
   // detail
   const { identification, userInfo } = useUserInfo();
   const { data, isLoading } = useMyTaskDetail(id, userInfo.address);
-  const { scheduleTask, submitAccept, withdrawMyRewards } = useMyTaskDetailStatusAction(id);
+  // 我的投标记录id
+  const myrecordId = useMemo(() => {
+    const bidSuc = data?.assetRecordList.filter(
+      (it: any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS
+    );
+    if (bidSuc?.length) {
+      return bidSuc[0].assetRecordId;
+    }
+  }, [data, userInfo.address]);
+  const { scheduleTask, submitAccept, withdrawMyRewards, completePlanItem } =
+    useMyTaskDetailStatusAction(id, myrecordId);
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false);
   const [scheduledata, setScheduledata] = useState([]);
+
   useEffect(() => {
     if (openschedule) {
       let data_ = [];
@@ -64,9 +73,7 @@ const TaskDetail = () => {
 
   const isShowExtendTaskInfo = useMemo(() => {
     console.log('data?.taskStatus>>>>', data?.taskStatus);
-    if (
-      [IStatus.CODEING, IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data?.taskStatus.toString())
-    ) {
+    if ([IStatus.CODEING, IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data?.taskStatus)) {
       return true;
     }
     return false;
@@ -74,7 +81,6 @@ const TaskDetail = () => {
   // 任务计划列表
   const { planlist, openRecordDetailId, handleOpenRecordDetail, closeRecordDetail } =
     useTaskPlanList(data, isShowExtendTaskInfo);
-  const { completePlanItem } = useMyTaskDetailStatusAction(id);
   // 完成任务计划
   const completePlan = async (planId: string) => {
     await completePlanItem(planId);
@@ -103,7 +109,7 @@ const TaskDetail = () => {
           <Loading />
         ) : (
           <Box display="flex" gap="20px">
-            <Flex direction="column" basis="80%">
+            <Flex direction="column" width="900px">
               <TaskBaseInfo from={IPath.MYTASKS} data={data?.projectRawInfo} />
               {isShowExtendTaskInfo && (
                 <TaskPlanList
@@ -125,7 +131,7 @@ const TaskDetail = () => {
                 fileList={data?.fileList}
               />
             </Flex>
-            <Flex direction="column" basis="20%">
+            <Flex direction="column">
               <TaskStatusInfo
                 from={IPath.MYTASKS}
                 taskStatus={data.taskStatus}
@@ -140,7 +146,20 @@ const TaskDetail = () => {
               {/* 货主信息 TODO缺少 */}
               {[IStatus.SIGNED, IStatus.CODEING, IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(
                 data.taskStatus
-              ) && <TaskUserInfo title="货主 Information" userInfo={userInfo} />}
+              ) && (
+                <TaskUserInfo
+                  title="Consignor Information"
+                  userInfo={{
+                    data: {
+                      engineer: {
+                        phone: data.projectRawInfo.contactPhone,
+                        email: data.projectRawInfo.contactEmail,
+                      },
+                    },
+                    address: '',
+                  }}
+                />
+              )}
               <TaskMovement data={data} />
             </Flex>
           </Box>

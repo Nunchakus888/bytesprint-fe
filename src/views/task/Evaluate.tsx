@@ -125,10 +125,10 @@ export default function Evaluate(props: {
             alignItems="center"
           >
             <IoIosAdd />
-            添加任务
+            Add Task
           </Link>
           <Flex width="70%" justifyContent="space-between" padding="20px 0 0 20px">
-            <Text fontSize="lg">报酬合计</Text>
+            <Text fontSize="lg">Total Rewards</Text>
             <Text color="#7551FF" fontSize="20px" fontWeight="bold">
               {totalUsdt} USDT
             </Text>
@@ -146,7 +146,7 @@ export default function Evaluate(props: {
             {...register('endTime', { required: true })}
           />
           <Text fontSize="lg" margin="10px 0 0 0">
-            需质押USDT数量
+            Need pledge amount(USDT)
           </Text>
           <InputGroup margin="10px 0 5px 0">
             <InputRightElement>USDT</InputRightElement>

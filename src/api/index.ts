@@ -27,7 +27,7 @@ const API_ROUTERS = {
     PLANSUBMIT: `/requirement/plan/submit`,
     PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
     // 项目验收
-    REQUIREMENT_SUBMIT: (params: any) => createRoute(`/requirement/submit`, params),
+    REQUIREMENT_SUBMIT: `/project/pendingAccept`,
     PROJECT_SIGN: `/project/sign`,
     PROJECT_UNSIGN: `/project/unsign`,
     PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
@@ -39,7 +39,7 @@ const API_ROUTERS = {
   users: {
     LOGIN: `/passport/login`,
     SIG_STATUS: '/passport/sign', // (params: any) =>createRoute(`/sign`, params),
-    LOGOUT: (params?: any) => createRoute(`/passport/logout`, params),
+    LOGOUT: `/passport/logout`,
     USER_INFO: (params?: any) => createRoute(`/user/info`, params),
     USER_UPDATE: `/user/update`,
     MY_PLEDGE: (params?: any) => createRoute(`/user/stakings`, params),

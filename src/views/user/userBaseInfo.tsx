@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Input, Link, Tag, Text } from '@chakra-ui/re
 import Copy from 'components/copy';
 import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
-import { Identification, IPath, USER_LEVEL } from 'common/constant';
+import { Identification, IPath, ProfessionTypes, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import { GrCheckmark } from 'react-icons/gr';
 import { GrClose } from 'react-icons/gr';
@@ -82,7 +82,7 @@ export default function UserBaseInfo(props: {
             </Text>
             {from === IPath.PROFILE && (
               <Link fontSize={16} color="#7551FF" fontWeight="bold" onClick={() => setModify(true)}>
-                修改
+                Modify
               </Link>
             )}
           </>
@@ -158,12 +158,19 @@ export default function UserBaseInfo(props: {
                 {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
               </Flex>
               <Flex gap="20px">
-                <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>
-                  前端开发工程师
-                </Box>
-                <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>
-                  Java开发工程师
-                </Box>
+                {userInfo?.data.engineer.position?.map((positionType: number) => {
+                  return (
+                    <Box
+                      key={`positiontype_${positionType}`}
+                      background="#7551FF"
+                      padding="8px 20px"
+                      color="#fff"
+                      borderRadius={4}
+                    >
+                      {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
+                    </Box>
+                  );
+                })}
               </Flex>
             </>
           )}

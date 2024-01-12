@@ -105,10 +105,18 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
     setLoading(true);
     try {
       const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
-      // TODO
-      // amount 是否是质押的金额 lockdays 是否是到完成时间的
+      // TODO amount 是否是质押的金额 lockdays
       console.log({ account, projectId, amount, lockDays: 1 });
-      const contactRes = await stakeTasker({ account, projectId, amount, lockDays: 1 });
+      // 质押天数 完成时间 - 当前时间
+      const lockDays = Math.ceil(
+        (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
+      );
+      const contactRes = await stakeTasker({
+        account,
+        projectId,
+        amount,
+        lockDays: Math.max(lockDays, 1),
+      });
       if (!contactRes) {
         toast({
           title: `Operate Error`,

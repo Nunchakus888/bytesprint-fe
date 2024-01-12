@@ -1,7 +1,8 @@
 import { Box, Button, Text } from '@chakra-ui/react';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { IPath, IStatus, RequirementStatus, TaskStatus } from 'common/constant';
 import styles from './index.module.scss';
+import ModalDialog from 'components/modal';
 export default function TaskStatusInfo(props: {
   taskStatus: IStatus;
   from: string;
@@ -22,13 +23,20 @@ export default function TaskStatusInfo(props: {
     }
   }, [from, taskStatus]);
 
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
+  // 再次确认
+  const confirmRef = useRef({
+    content: '',
+    onSure: () => {},
+  });
+
   const action = useCallback(() => {
     if (from === IPath.MYREQUIREMENT) {
       switch (taskStatus) {
         case IStatus.CLOSED:
           return (
             <Button className={styles.statusbtn} onClick={props?.openTask}>
-              任务开放
+              Open Task
             </Button>
           );
           break;
@@ -36,25 +44,35 @@ export default function TaskStatusInfo(props: {
         case IStatus.WAIT_SIGN:
           return (
             <Button className={styles.statusbtn} onClick={props?.closeTask}>
-              关闭任务
+              Close Task
             </Button>
           );
           break;
         case IStatus.SIGNED:
-          return <Text className={styles.statustext}>等待水手完善任务计划</Text>;
+          return <Text className={styles.statustext}>Waiting completed plan</Text>;
           break;
         case IStatus.CODEING:
-          return <Text className={styles.statustext}>水手正在做任务中...</Text>;
+          return <Text className={styles.statustext}>On a task...</Text>;
           break;
         case IStatus.WAIT_ACCEPT:
           return (
-            <Button className={styles.statusbtn} onClick={props?.acceptTask}>
-              我已验收
+            <Button
+              className={styles.statusbtn}
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure you have completed the acceptance?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  props?.acceptTask();
+                };
+              }}
+            >
+              I have accepted
             </Button>
           );
           break;
         case IStatus.COMPLETE:
-          return <Button className={styles.statusbtn}>我已完成</Button>;
+          return <Button className={styles.statusbtn}>I have completed</Button>;
           break;
         default:
           return <></>;
@@ -63,7 +81,7 @@ export default function TaskStatusInfo(props: {
     } else if (from === IPath.MYTASKS) {
       switch (taskStatus) {
         case IStatus.WAIT_SIGN:
-          return <Text className={styles.statustext}>等待货主签约</Text>;
+          return <Text className={styles.statustext}>Waiting signed</Text>;
           break;
         case IStatus.UN_BID:
           return <Box className={styles.unbid}></Box>;
@@ -71,24 +89,34 @@ export default function TaskStatusInfo(props: {
         case IStatus.SIGNED:
           return (
             <Button className={styles.statusbtn} onClick={props?.scheduleTask}>
-              任务排期
+              Task scheduling
             </Button>
           );
           break;
         case IStatus.CODEING:
           return (
-            <Button className={styles.statusbtn} onClick={props?.submitAccept}>
-              提交验收
+            <Button
+              className={styles.statusbtn}
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure you want to submit the task?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  props?.submitAccept();
+                };
+              }}
+            >
+              Submit for acceptance
             </Button>
           );
           break;
         case IStatus.WAIT_ACCEPT:
-          return <Text className={styles.statustext}>等待货主验收</Text>;
+          return <Text className={styles.statustext}>Waiting accepted</Text>;
           break;
         case IStatus.COMPLETE:
           return (
             <Button className={styles.statusbtn} onClick={props?.withdrawMyRewards}>
-              提取我的报酬
+              Withdraw my rewards
             </Button>
           );
           break;
@@ -100,21 +128,38 @@ export default function TaskStatusInfo(props: {
   }, [from, taskStatus]);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      position="relative"
-      marginTop="20px"
-      width="320px"
-      height="186px"
-      className={styles.container}
-    >
-      <Text fontSize={18} whiteSpace="nowrap">
-        Task Status：{statusTitle}
-      </Text>
-      <Box marginTop="30px">{action()}</Box>
-    </Box>
+    <>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        position="relative"
+        marginTop="20px"
+        width="320px"
+        height="186px"
+        className={styles.container}
+      >
+        <Text fontSize={18} whiteSpace="nowrap">
+          Task Status：{statusTitle}
+        </Text>
+        <Box marginTop="30px">{action()}</Box>
+      </Box>
+
+      {isOpenConfirm && (
+        <ModalDialog
+          title="Confirm"
+          isOpen={isOpenConfirm}
+          onClose={() => {
+            setIsOpenConfirm(false);
+            confirmRef.current.content = '';
+          }}
+          onSure={confirmRef.current.onSure}
+          width="300px"
+        >
+          <Box>{confirmRef.current.content}</Box>
+        </ModalDialog>
+      )}
+    </>
   );
 }

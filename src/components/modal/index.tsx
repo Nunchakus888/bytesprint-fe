@@ -19,12 +19,14 @@ export default function ModalDialog(props: {
   size?: string;
   btnGroup?: React.ReactNode;
   isLoading?: boolean;
+  width?: string;
 }) {
-  const { isOpen, onClose, title, buttonText, onSure, children, size, btnGroup, isLoading } = props;
+  const { isOpen, onClose, title, buttonText, onSure, children, size, btnGroup, isLoading, width } =
+    props;
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={size || '6xl'}>
+    <Modal isOpen={isOpen} onClose={onClose} size={size || '6xl'} isCentered={true}>
       <ModalOverlay />
-      <ModalContent background="#0C1437">
+      <ModalContent background="#0C1437" width={width}>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>
@@ -35,10 +37,10 @@ export default function ModalDialog(props: {
           ) : (
             <>
               <Button background="#7551FF" isLoading={isLoading} mr={3} onClick={onSure}>
-                {buttonText || '确定'}
+                {buttonText || 'Sure'}
               </Button>
               <Button variant="ghost" onClick={onClose}>
-                取消
+                Cancel
               </Button>
             </>
           )}
