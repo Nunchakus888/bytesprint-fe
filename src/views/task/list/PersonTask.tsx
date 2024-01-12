@@ -9,13 +9,7 @@ import PersonTaskItem from '../item/PersonTaskItem';
 import useChange from 'hooks/useChange';
 import { useEffect } from 'react';
 import Loading from 'components/loading';
-import {
-  IPath,
-  ProfessionTypes,
-  ProTypes,
-  RequirementStatus,
-  TaskTypes,
-} from 'common/utils/constant';
+import { IPath, ProfessionTypes, ProTypes, RequirementStatus, TaskTypes } from 'common/constant';
 
 function PersonTask(props: {
   isCurrent?: boolean;

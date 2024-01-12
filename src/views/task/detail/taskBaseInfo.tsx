@@ -2,7 +2,7 @@ import { Box, Button, Tag, useToast } from '@chakra-ui/react';
 import classNames from 'classnames';
 import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
-import { Identification, IPath, ProfessionTypes, ProTypes, TaskTypes } from 'common/utils/constant';
+import { Identification, IPath, ProfessionTypes, ProTypes, TaskTypes } from 'common/constant';
 import styles from './index.module.scss';
 
 export default function TaskBaseInfo(props: {

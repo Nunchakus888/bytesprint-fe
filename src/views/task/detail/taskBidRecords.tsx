@@ -8,7 +8,7 @@ import {
   RequirementType,
   TaskBidStatus,
   TaskStatus,
-} from 'common/utils/constant';
+} from 'common/constant';
 import styles from './index.module.scss';
 import dayjs from 'dayjs';
 import { MdKeyboardArrowRight } from 'react-icons/md';

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import { Post } from 'common/utils/axios';
-import { IRequirement, RequirementType } from 'common/utils/constant';
+import { IRequirement, RequirementType } from 'common/constant';
 
 export const requirementTypes = [
   {

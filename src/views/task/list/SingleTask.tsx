@@ -16,7 +16,7 @@ import {
   RequirementStatus,
   TaskStatus,
   TaskTypes,
-} from 'common/utils/constant';
+} from 'common/constant';
 
 function SingleTask(props: {
   isCurrent?: boolean;

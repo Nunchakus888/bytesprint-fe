@@ -4,7 +4,17 @@
 }
 
 body {
-  /* background-color: #000000 !important; */
+  background-color: #000 !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  height: calc(100vh - 72px);
+  overflow-y: scroll;
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(117, 81, 255, 0.21) 0,
+    hsla(0, 0%, 100%, 0) 100%
+  ) !important;
+  background-position: 5vw 10vh !important;
 }
 
 .ql-toolbar,

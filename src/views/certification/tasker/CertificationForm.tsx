@@ -11,7 +11,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/utils/constant';
+import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/constant';
 import CustionSelect from 'components/custom-select';
 import { RangeDatepicker } from 'chakra-dayzed-datepicker';
 import { Post } from 'common/utils/axios';

@@ -2,7 +2,7 @@
 import { Box, Flex, Portal, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
-import { IPath, RequirementType, TabsEnum } from 'common/utils/constant';
+import { IPath, RequirementType, TabsEnum } from 'common/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';

@@ -3,7 +3,7 @@ import useChange from 'hooks/useChange';
 import { useUserInfo } from 'hooks/user';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Get } from 'common/utils/axios';
-import { QUERYTYPE, RequirementType } from 'common/utils/constant';
+import { QUERYTYPE, RequirementType } from 'common/constant';
 
 const PAGE_SIZE = 10;
 

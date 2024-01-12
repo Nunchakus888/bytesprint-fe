@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Input, Link, Tag, Text } from '@chakra-ui/re
 import Copy from 'components/copy';
 import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
-import { Identification, IPath, USER_LEVEL } from 'common/utils/constant';
+import { Identification, IPath, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import { GrCheckmark } from 'react-icons/gr';
 import { GrClose } from 'react-icons/gr';

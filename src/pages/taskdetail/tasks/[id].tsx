@@ -6,7 +6,7 @@ import { useTaskDetail } from 'hooks/task';
 import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
-import { Identification, IPath } from 'common/utils/constant';
+import { Identification, IPath } from 'common/constant';
 import Auth from 'views/task/Auth';
 import TaskBaseInfo from 'views/task/detail/taskBaseInfo';
 import TaskDescription from 'views/task/detail/taskDescription';

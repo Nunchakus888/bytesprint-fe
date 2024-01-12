@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Identification } from 'common/utils/constant';
+import { Identification } from 'common/constant';
 import MyEngineerItem from 'views/engineer/myEngineerItem';
 
 export default function MyEngineer() {

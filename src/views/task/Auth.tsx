@@ -1,7 +1,7 @@
 import { Box, Button } from '@chakra-ui/react';
 import { useUserInfo } from 'hooks/user';
 import Link from 'next/link';
-import { Identification, IPath } from 'common/utils/constant';
+import { Identification, IPath } from 'common/constant';
 import styles from './index.module.scss';
 
 export default function Auth(props: { from?: string }) {

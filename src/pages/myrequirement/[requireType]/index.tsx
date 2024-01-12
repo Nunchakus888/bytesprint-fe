@@ -35,7 +35,7 @@ import {
   ProType,
   ProTypes,
   RequirementType,
-} from 'common/utils/constant';
+} from 'common/constant';
 import styles from './index.module.scss';
 import Navbar from 'components/navbar/Navbar';
 

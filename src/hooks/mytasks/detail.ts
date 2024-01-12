@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { Get, Post } from 'common/utils/axios';
-import { IStatus, TaskBidStatus } from 'common/utils/constant';
+import { IStatus, TaskBidStatus } from 'common/constant';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[]) => {

@@ -6,7 +6,7 @@ import styles from './add.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import Navbar from 'components/navbar/Navbar';
-import { IPath, RequirementType } from 'common/utils/constant';
+import { IPath, RequirementType } from 'common/constant';
 
 export default function AddRequirement() {
   const [selectType, setSelectType] = useState('');

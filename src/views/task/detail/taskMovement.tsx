@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Text } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
 import styles from './index.module.scss';
 import dayjs from 'dayjs';
-import { IStatus, RequirementStatus, TaskStatus } from 'common/utils/constant';
+import { IStatus, RequirementStatus, TaskStatus } from 'common/constant';
 export default function TaskMovement(props: { data: any }) {
   const { data } = props;
   // 需求动态

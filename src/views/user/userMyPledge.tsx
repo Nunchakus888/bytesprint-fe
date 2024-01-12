@@ -1,5 +1,5 @@
 import { Box, Text, Flex, Image, Tag } from '@chakra-ui/react';
-import { IStatus, PledgeStatus } from 'common/utils/constant';
+import { IStatus, PledgeStatus } from 'common/constant';
 import styles from './index.module.scss';
 
 export default function UserMyPledge(props: { data: any[] }) {

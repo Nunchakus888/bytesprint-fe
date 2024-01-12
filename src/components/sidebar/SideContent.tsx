@@ -34,31 +34,24 @@ function SideContent(props: SidebarProps) {
 
   let variantChange = '0.2s linear';
   let shadow = useColorModeValue('14px 17px 40px 4px rgba(112, 144, 176, 0.08)', 'unset');
-  // Chakra Color Mode
-  let sidebarBg = useColorModeValue('white', 'navy.800');
   let sidebarMargins = '0px';
 
   return (
-    <Box display={{ sm: 'none', xl: 'block' }} position="fixed" minH="100%">
-      <Box
-        bg={sidebarBg}
-        transition={variantChange}
-        w="240px"
-        h="100vh"
-        m={sidebarMargins}
-        minH="100%"
-        overflowX="hidden"
-        boxShadow={shadow}
+    <Box
+      transition={variantChange}
+      m={sidebarMargins}
+      overflowX="hidden"
+      boxShadow={shadow}
+      style={{ flex: 1 }}
+    >
+      <Scrollbars
+        autoHide
+        renderTrackVertical={renderTrack}
+        renderThumbVertical={renderThumb}
+        renderView={renderView}
       >
-        <Scrollbars
-          autoHide
-          renderTrackVertical={renderTrack}
-          renderThumbVertical={renderThumb}
-          renderView={renderView}
-        >
-          <Content routes={routes} />
-        </Scrollbars>
-      </Box>
+        <Content routes={routes} />
+      </Scrollbars>
     </Box>
   );
 }
@@ -66,7 +59,6 @@ function SideContent(props: SidebarProps) {
 export function SidebarResponsive(props: SidebarResponsiveProps) {
   let sidebarBackgroundColor = useColorModeValue('white', 'navy.800');
   let menuColor = useColorModeValue('gray.400', 'white');
-  // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const { routes } = props;

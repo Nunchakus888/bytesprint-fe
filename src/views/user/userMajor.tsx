@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, Tag, Text } from '@chakra-ui/react';
-import { IPath } from 'common/utils/constant';
+import { IPath } from 'common/constant';
 import styles from './index.module.scss';
 
 export default function UserMajor(props: {

@@ -8,7 +8,7 @@ import { useTaskPlanList } from 'hooks/task/detai';
 import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import { Identification, IPath, IStatus, TaskBidStatus } from 'common/utils/constant';
+import { Identification, IPath, IStatus, TaskBidStatus } from 'common/constant';
 import Auth from 'views/task/Auth';
 import TaskBaseInfo from 'views/task/detail/taskBaseInfo';
 import TaskBidRecords from 'views/task/detail/taskBidRecords';

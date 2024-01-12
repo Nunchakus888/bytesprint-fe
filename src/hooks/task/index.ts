@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Get } from 'common/utils/axios';
 import useSWR from 'swr';
 import useChange from 'hooks/useChange';
-import { RequirementType, Tabs } from 'common/utils/constant';
+import { RequirementType, Tabs } from 'common/constant';
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobTypes } from 'common/slice/commonSlice';

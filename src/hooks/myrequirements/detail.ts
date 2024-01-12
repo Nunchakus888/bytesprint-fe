@@ -2,7 +2,7 @@ import { useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
 import { stakeEmployer } from 'common/contract/lib/bytd';
 import { Get, Post } from 'common/utils/axios';
-import { TaskBidStatus } from 'common/utils/constant';
+import { TaskBidStatus } from 'common/constant';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';

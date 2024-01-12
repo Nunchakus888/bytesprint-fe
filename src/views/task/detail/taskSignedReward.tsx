@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
 import styles from './index.module.scss';
 import dayjs from 'dayjs';
-import { IStatus, TaskBidStatus } from 'common/utils/constant';
+import { IStatus, TaskBidStatus } from 'common/constant';
 export default function TaskSignedReward(props: { recordList: any[] }) {
   const { recordList } = props;
   const signedRecord = recordList?.filter((v) => v.signStatus === TaskBidStatus.BID_SUCCESS)?.[0];

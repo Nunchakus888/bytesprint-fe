@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Link, Tag, Text } from '@chakra-ui/react';
 import ModalDialog from 'components/modal';
-import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/utils/constant';
+import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import { shortAddress } from 'common/utils';

@@ -1,3 +1,15 @@
+import Logo from '../../public/img/logo.png';
+import Twitter from '../../public/img/media/twitter.png';
+import Docs from '../../public/img/media/docs.png';
+import Discord from '../../public/img/media/discord.png';
+
+export const IMG_SRC = {
+  Logo: Logo.src,
+  Twitter: Twitter.src,
+  Docs: Docs.src,
+  Discord: Discord.src,
+};
+
 // 身份
 export enum Identification {
   VISITOR = 0, // Regular User
