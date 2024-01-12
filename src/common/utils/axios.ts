@@ -3,7 +3,8 @@ axios.defaults.timeout = 180000;
 import { parseJson } from './index';
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: '/',
+  // baseURL: '/',
+  baseURL: 'http://42.192.37.117:8080/',
   headers: {
     'Content-Type': 'application/json',
   },
