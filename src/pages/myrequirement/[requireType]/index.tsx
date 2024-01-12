@@ -37,7 +37,7 @@ import {
   RequirementType,
 } from 'common/utils/constant';
 import styles from './index.module.scss';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 
 const ReactQuillComponent = dynamic(() => import('../../../components/richTextBlock'), {
   ssr: false,

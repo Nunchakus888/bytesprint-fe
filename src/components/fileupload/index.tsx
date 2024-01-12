@@ -111,7 +111,7 @@ export default function FileUpload(props: FileUploadProps) {
           <Text>File size should be within 50MB, limited to {accept.join('、')}</Text>
         </Flex>
       </FileUploader>
-      <Box display="flex" justifyContent="flex-start" gap={20} margin="20px 0">
+      <Box display="flex" flexFlow={'wrap'} gap={8} margin="16px 0">
         {files.map((file) => {
           return (
             <Flex

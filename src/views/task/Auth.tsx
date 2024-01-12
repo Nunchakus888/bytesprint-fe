@@ -13,7 +13,7 @@ export default function Auth(props: { from?: string }) {
         <Box className={styles.auth}>
           <p>Participate after Tasker Certification</p>
           <Button background="#7551FF" size="md" color="#fff">
-            <Link href="/">Tasker Certification</Link>
+            <Link href="/certification/tasker">Tasker Certification</Link>
           </Button>
         </Box>
       )}

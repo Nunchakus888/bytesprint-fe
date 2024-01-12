@@ -5,7 +5,7 @@ import { useState } from 'react';
 import styles from './add.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 import { IPath, RequirementType } from 'common/utils/constant';
 
 export default function AddRequirement() {

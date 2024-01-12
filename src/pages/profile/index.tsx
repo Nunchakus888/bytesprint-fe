@@ -1,7 +1,7 @@
 // Chakra imports
 import { Box, Flex, Grid, Portal } from '@chakra-ui/react';
 
-import Navbar from 'components/navbar/NavbarAdmin';
+import Navbar from 'components/navbar/Navbar';
 
 import { useMyPledge, useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
