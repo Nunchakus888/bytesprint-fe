@@ -9,7 +9,6 @@ import {
   FormLabel,
   Icon,
   Input,
-  Portal,
   Radio,
   RadioGroup,
   Select,
@@ -77,18 +76,16 @@ export default function AddRequirement(props: {}) {
   };
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'Crowdsourcing Management ' },
-              { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-              { path: '#', name: 'Publish Requirement' },
-            ]}
-          />
-        </Box>
-      </Portal>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'Crowdsourcing Management ' },
+            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
+            { path: '#', name: 'Publish Requirement' },
+          ]}
+        />
+      </Box>
+      <Box position="relative" overflow="visible">
         <Text fontSize={24} fontWeight="bold">
           Requirement Type：{currentRequire?.title}
         </Text>

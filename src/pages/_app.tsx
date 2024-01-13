@@ -26,6 +26,8 @@ import Head from 'next/head';
 import ReduxProvider from 'common/reduxProvider';
 import Header from 'components/header';
 import Sidebar from 'components/sidebar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
@@ -80,6 +82,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
                 <main className="v-main">
                   <Component {...pageProps} />
                 </main>
+                <ToastContainer />
               </LanguageProvider>
             </QueryClientProvider>
           </RainbowKitProvider>

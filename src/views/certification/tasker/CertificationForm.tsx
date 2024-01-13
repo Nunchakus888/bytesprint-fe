@@ -8,7 +8,6 @@ import {
   Input,
   Button,
   Container,
-  useToast,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/constant';
@@ -17,10 +16,10 @@ import { RangeDatepicker } from 'chakra-dayzed-datepicker';
 import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
 import FileUpload from 'components/fileupload';
+import { onSuccessToast } from 'common/utils/toast';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
-  const toast = useToast();
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
 
   const onSubmit = async (values: any) => {
@@ -29,11 +28,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
     const params = {};
     const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(params));
     setLoading(false);
-    toast({
-      title: `successfully`,
-      status: 'success',
-      isClosable: true,
-    });
+    onSuccessToast('Successfully');
   };
 
   useEffect(() => {
@@ -224,6 +219,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             <FormControl className="mb-4" isInvalid={!!error} id="education" isRequired>
               <FormLabel fontSize={12}>Academic Degree</FormLabel>
               <CustionSelect
+                placeholder="Select education"
                 name={name}
                 ref={ref}
                 onChange={onChange}

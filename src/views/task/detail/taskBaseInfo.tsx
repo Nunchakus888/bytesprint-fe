@@ -1,9 +1,10 @@
-import { Box, Button, Tag, useToast } from '@chakra-ui/react';
+import styles from './index.module.scss';
+
+import { Box, Button, Tag } from '@chakra-ui/react';
 import classNames from 'classnames';
 import { useUserInfo } from 'hooks/user';
-import { useState } from 'react';
 import { Identification, IPath, ProfessionTypes, ProTypes, TaskTypes } from 'common/constant';
-import styles from './index.module.scss';
+import { onWarmToast } from 'common/utils/toast';
 
 export default function TaskBaseInfo(props: {
   from?: string;
@@ -11,19 +12,15 @@ export default function TaskBaseInfo(props: {
   data?: any;
   isEvaluate?: boolean;
 }) {
-  const toast = useToast();
   const { identification } = useUserInfo();
   const { data, setIsOpenEvaluate, isEvaluate } = props;
 
   const handClick = () => {
     if (identification !== Identification.ENGINEER) {
-      toast({
-        title: `Participate after Tasker Certification`,
-        status: `info`,
-        isClosable: true,
-      });
+      onWarmToast('Participate after Tasker Certification');
       return;
     }
+
     setIsOpenEvaluate(true);
   };
 

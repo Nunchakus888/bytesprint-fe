@@ -89,17 +89,15 @@ const TaskDetail = () => {
 
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'Crowdsourcing Management ' },
-              { path: `/${IPath.MYTASKS}`, name: 'My Task' },
-              { path: '#', name: 'Task Details' },
-            ]}
-          />
-        </Box>
-      </Portal>
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'Crowdsourcing Management ' },
+            { path: `/${IPath.MYTASKS}`, name: 'My Task' },
+            { path: '#', name: 'Task Details' },
+          ]}
+        />
+      </Box>
       <Box
         pt={{ base: '130px', md: '80px', xl: '80px' }}
         className={identification === Identification.VISITOR ? styles.visitor : ''}
