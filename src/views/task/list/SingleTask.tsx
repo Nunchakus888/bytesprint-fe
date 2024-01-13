@@ -3,11 +3,8 @@ import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useJobTypes, useSingleTaskFilter, useTaskList } from 'hooks/task';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import TaskItem from '../item/TaskItem';
 import Auth from '../Auth';
-import useChange from 'hooks/useChange';
-import { useEffect } from 'react';
 import Loading from 'components/loading';
 import {
   IPath,
@@ -17,6 +14,7 @@ import {
   TaskStatus,
   TaskTypes,
 } from 'common/constant';
+import CustomSelect from 'components/custom-select';
 
 function SingleTask(props: {
   isCurrent?: boolean;
@@ -44,41 +42,54 @@ function SingleTask(props: {
           placeholder="Task Name"
           search={handleSearch}
         ></SearchInput>
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end" style={{ gap: 16 }}>
           {props.isMine ? (
             <>
-              <FilSelect
+              <CustomSelect
                 options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
                 placeholder="Task Status"
-                change={(val) => onChange('taskStatus', val)}
+                change={(val: any) => onChange('taskStatus', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                width={220}
               />
-              <FilSelect
+              <CustomSelect
                 options={ProTypes}
                 placeholder="Crowdsourcing Method"
-                change={(val) => onChange('proType', val)}
+                change={(val: any) => onChange('proType', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                width={220}
               />
-              <FilSelect
+              <CustomSelect
                 options={ProfessionTypes}
                 placeholder="Job Type"
-                change={(val) => onChange('professionType', val)}
+                change={(val: any) => onChange('professionType', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                width={220}
               />
             </>
           ) : (
             <>
-              <FilSelect
+              <CustomSelect
                 options={ProTypes}
                 placeholder="Crowdsourcing Method"
-                change={(val) => onChange('proType', val)}
+                change={(val: any) => onChange('proType', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                width={220}
               />
-              <FilSelect
+              <CustomSelect
                 options={TaskTypes}
                 placeholder="Task Type"
-                change={(val) => onChange('taskType', val)}
+                change={(val: any) => onChange('taskType', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                width={220}
               />
-              <FilSelect
+              <CustomSelect
                 options={ProfessionTypes}
                 placeholder="Job Type"
-                change={(val) => onChange('professionType', val)}
+                change={(val: any) => onChange('professionType', val)}
+                focusBorderColor="rgba(255, 255, 255, 0.4)"
+                style={{ width: 200 }}
+                width={220}
               />
             </>
           )}

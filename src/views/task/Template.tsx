@@ -6,7 +6,7 @@ import { IPath, RequirementType, TabsEnum } from 'common/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
-import Navbar from 'components/navbar/Navbar';
+
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
   isMine?: boolean; // 是否是我的
