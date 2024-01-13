@@ -9,8 +9,8 @@
   z-index: 9;
   width: 100%;
   z-index: 9;
-  background-color: var(--theme-bg);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
   .content {
     display: flex;
     justify-content: space-between;
