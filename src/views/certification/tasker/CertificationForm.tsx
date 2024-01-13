@@ -190,7 +190,6 @@ const CertificationForm = ({ authorizeCode }: any) => {
                   name="eductionRange"
                   selectedDates={value || []}
                   onDateChange={onChange}
-                  usePortal
                 />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>

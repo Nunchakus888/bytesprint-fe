@@ -12,12 +12,7 @@ export default function Tasker() {
   return (
     <>
       <Box>
-        <Navbar
-          paths={[
-            { path: '#', name: 'My Tasker' },
-            { path: `/`, name: 'Tasker' },
-          ]}
-        />
+        <Navbar paths={[{ path: '/profile', name: 'My Tasker' }, { name: 'Tasker' }]} />
       </Box>
       <div className={styles.taskerWrap}>
         {isNextStep ? (
