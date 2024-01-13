@@ -1,3 +1,5 @@
+import { MdGroups, MdOutlinePersonOutline } from 'react-icons/md';
+
 import Logo from '../../public/img/logo.png';
 import Twitter from '../../public/img/media/twitter.png';
 import Docs from '../../public/img/media/docs.png';
@@ -38,24 +40,29 @@ export const enum TabsEnum {
   PERSON_TASK = 'Personnel Requirement',
   ALL_TASK = 'Whole Project',
 }
+
 export enum RequirementType {
   Single = 1,
   Person = 2,
   Global = 3,
 }
+
 // 需求类型
 export const Tabs = [
   {
     label: TabsEnum.SINGLE_TASK,
     value: RequirementType.Single,
+    icon: '🔥',
   },
   {
     label: TabsEnum.PERSON_TASK,
     value: RequirementType.Person,
+    icon: '🌍',
   },
   {
     label: TabsEnum.ALL_TASK,
     value: RequirementType.Global,
+    icon: <MdGroups fontSize={22} />,
   },
 ];
 

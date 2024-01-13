@@ -1,63 +1,79 @@
 .tabswrap {
-	// borderRadius="40px" backgroundColor="rgba(255,255,255, 0.1)" padding="10px" display="inline-block"
-	border-radius: 40px;
-	background-color: rgba(255,255,255, 0.06);
-	padding: 10px;
-	display: inline-block;
-	.tabs {
-		display: inline-block;
-		button {
-			display: inline-block;
-			margin-right: 10px;
-			color: #7551FF;
-			background-color: rgba(255,255,255, 0.05);
-			&.tab_active {
-				background-color: #7551FF;
-				color: #fff;
-			}
-			&:last-child {
-				margin-right: 0;
-			}
-		}
-	}
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  //   border-bottom: 1px solid hsla(0, 0%, 100%, 0.07);
+  .tabs {
+    display: flex;
+    align-items: center;
+    button {
+      margin-right: 10px;
+      color: rgba(255, 255, 255, 0.6);
+      background-color: transparent;
+      font-weight: bolder;
+      position: relative;
+      &.tab_active {
+        color: var(--theme-color);
+        &::after {
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          content: '';
+          display: inline-block;
+          width: 100%;
+          height: 2px;
+          background-color: var(--theme-color);
+        }
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+.line {
+  height: 1px;
+  background-color: hsla(0, 0%, 100%, 0.07);
+  margin-left: -16px;
+  margin-right: -16px;
 }
 
 .detail {
-	background: rgba(255,255,255, 0.05);
-	border-radius: 10px;
-	padding: 25px;
-	.itemTitle {
-		font-size: 22px;
-		margin: 20px 0;
-		color: #fff;
-	}
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 25px;
+  .itemTitle {
+    font-size: 22px;
+    margin: 20px 0;
+    color: #fff;
+  }
 }
 
 .visitor {
-	.itemTitle {
-		color: rgba(255,255,255, 0.6);;
-	}
+  .itemTitle {
+    color: rgba(255, 255, 255, 0.6);
+  }
 }
 
 // add requirement
 .add {
- position: absolute;
- right: 0;
- top: 90px;
+  position: absolute;
+  right: 0;
+  top: 90px;
 }
 .auth {
-	background: rgba(255, 255, 255, 0.01);
-	backdrop-filter: blur(5px);
-	position: fixed;
-	bottom: 0;
-	width: -webkit-fill-available;
-	height: 200px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	p {
-		font-size: 20px;
-		margin-bottom: 30px;
-	}
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(5px);
+  position: fixed;
+  bottom: 0;
+  width: -webkit-fill-available;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
 }

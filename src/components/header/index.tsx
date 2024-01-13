@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import CustomConnectButton from './CustomConnectButton';
 import useConnect from 'hooks/useConnect';
 import { IMG_SRC } from 'common/constant';
+import Link from 'next/link';
 
 export default function Header() {
   const toast = useToast();
@@ -24,7 +25,9 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
-        <img src={IMG_SRC.Logo} alt="logo" className={styles.logo} />
+        <Link href="/">
+          <img src={IMG_SRC.Logo} alt="logo" className={styles.logo} />
+        </Link>
         <div className={styles.rightContent}>
           <div className={styles.mediawrap}>
             <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />

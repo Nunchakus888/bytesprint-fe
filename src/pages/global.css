@@ -4,7 +4,8 @@
 }
 
 body {
-  background-color: #000 !important;
+  background-color: #121217 !important;
+  color-scheme: dark;
 }
 
 .ql-toolbar,
@@ -81,7 +82,7 @@ body {
   overflow-y: scroll;
   background-image: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(117, 81, 255, 0.3) 0,
+    rgba(117, 81, 255, 0.25) 0,
     hsla(0, 0%, 100%, 0) 100%
   ) !important;
   background-position: 5vw 0 !important;

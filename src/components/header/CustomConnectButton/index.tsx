@@ -46,7 +46,7 @@ const CustomConnectButton = () => {
                 return (
                   <Button
                     id="connect-btn"
-                    className={classnames(styles.connect_btn)}
+                    className={classnames(styles.connect_btn, 'theme-button')}
                     onClick={openConnectModal}
                   >
                     Connect

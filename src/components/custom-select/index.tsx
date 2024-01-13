@@ -17,7 +17,7 @@ function CustionSelect(props: any) {
         }),
         placeholder: (provided: any) => ({
           ...provided,
-          color: 'rgba(255, 255, 255, 0.5)',
+          color: '#646a7b',
         }),
         menuList: (provided: any) => ({
           ...provided,
@@ -28,8 +28,8 @@ function CustionSelect(props: any) {
         }),
         option: (provided: any, state: any) => ({
           ...provided,
-          backgroundColor: state.isSelected ? '#2d3749' : '',
-          color: state.isSelected ? '#fff' : 'rgba(255, 255, 255, 0.8)',
+          backgroundColor: state.isSelected ? '#2d3749  !important' : '',
+          color: state.isSelected ? '#fff !important' : 'rgba(255, 255, 255, 0.8) !important',
           boxShadow: '0px 2px 10px 0px rgba(0,0,0,0.1)',
           borderRadius: '4px',
           _hover: {

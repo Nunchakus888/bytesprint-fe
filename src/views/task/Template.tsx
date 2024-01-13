@@ -69,12 +69,16 @@ export default function TaskTemplate(props: {
                       handleTabChange(it.value);
                     }}
                   >
-                    {it.label}
+                    <span className="flex">
+                      {it.icon}
+                      <span className="ml-2">{it.label}</span>
+                    </span>
                   </Tab>
                 );
               })}
             </TabList>
           </Box>
+          <div className={styles.line} />
           <TabPanels padding="0">
             {tabs?.map((it) => {
               return (
