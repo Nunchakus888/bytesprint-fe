@@ -5,9 +5,6 @@ import 'styles/Fonts.css';
 import 'styles/Contact.css';
 import '@vercel/examples-ui/globals.css';
 
-import 'react-calendar/dist/Calendar.css';
-import 'styles/MiniCalendar.css';
-
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
 import React from 'react';
