@@ -79,11 +79,11 @@ body {
   background-size: 100% 100% !important;
   height: calc(100vh);
   overflow-y: scroll;
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(117, 81, 255, 0.25) 0,
+    rgba(117, 81, 255, 0.1) 0,
     hsla(0, 0%, 100%, 0) 100%
-  ) !important;
+  ) !important; */
   background-position: 5vw 0 !important;
 }
 
