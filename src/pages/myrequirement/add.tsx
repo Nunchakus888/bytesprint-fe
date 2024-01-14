@@ -36,7 +36,7 @@ export default function AddRequirement() {
         <Box
           className={styles.content}
           marginTop="20px"
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -50,7 +50,7 @@ export default function AddRequirement() {
                 return (
                   <Box
                     key={it.type}
-                    background="rgba(255,255,255,0.05)"
+                    background="#1b1e24"
                     position="relative"
                     padding="10px 20px"
                     borderRadius={4}

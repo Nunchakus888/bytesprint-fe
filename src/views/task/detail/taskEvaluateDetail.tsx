@@ -165,7 +165,7 @@ export default function TaskEvaluateDetail(props: {
           )}
         </Flex>
       </Flex>
-      <Box marginTop="20px" background="rgba(255,255,255,0.05)" borderRadius={8}>
+      <Box marginTop="20px" background="#1b1e24" borderRadius={8}>
         <BYTable columns={columns} dataSource={data.list}></BYTable>
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize="lg" width="40%">

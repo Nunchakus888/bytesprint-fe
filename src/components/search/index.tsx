@@ -61,7 +61,7 @@ export function SearchInput(props: {
         bg={background ? background : inputBg}
         color={inputText}
         fontWeight="500"
-        _placeholder={{ color: 'gray.400', fontSize: '14px' }}
+        _placeholder={{ color: '#646a7b', fontSize: '14px' }}
         borderRadius={borderRadius ? borderRadius : '30px'}
         placeholder={placeholder ? placeholder : 'Search...'}
         onChange={(e) => handleChangeText(e)}

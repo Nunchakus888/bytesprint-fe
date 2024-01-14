@@ -117,7 +117,7 @@ export default function FileUpload(props: FileUploadProps) {
           return (
             <Flex
               key={`${file.name}_${Date.now()}`}
-              background="rgba(255,255,255,0.05)"
+              background="#1b1e24"
               borderRadius={4}
               padding="15px 20px"
             >

@@ -171,7 +171,7 @@ export default function AddRequirement(props: {}) {
                       return (
                         <Box
                           key={`${it.label}_${index}`}
-                          background="rgba(255,255,255,0.05)"
+                          background="#1b1e24"
                           position="relative"
                           padding="10px 20px"
                           borderRadius={4}

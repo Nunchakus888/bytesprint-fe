@@ -42,7 +42,7 @@ export default function TaskBaseInfo(props: {
       </Box>
       <p className={styles.itemTitle}>{data.name}</p>
       <Box className={styles.btns} display="flex" justifyContent="space-between">
-        <Tag size="lg" variant="solid" background="rgba(255,255,255,0.05)">
+        <Tag size="lg" variant="solid" background="#1b1e24">
           {ProfessionTypes.filter((v) => v.value === data.positionType)[0]?.label}
         </Tag>
       </Box>

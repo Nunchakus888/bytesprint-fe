@@ -1,10 +1,11 @@
 :root {
   --theme-color: #7551ff;
   --theme-bg: #000;
+  --theme-bg-2: #1b1e24;
 }
 
 body {
-  background-color: #121217 !important;
+  background-color: #0f1114 !important;
 }
 
 .ql-toolbar,

@@ -37,7 +37,7 @@ function SingleTask(props: {
     <Box mt={{ base: '30px' }}>
       <Flex justify="space-between">
         <SearchInput
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           searchIconColor="#7551FF"
           placeholder="Task Name"
           search={handleSearch}
