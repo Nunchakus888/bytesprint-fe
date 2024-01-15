@@ -240,20 +240,20 @@ export const ExperienceTypes = [
 
 export const EducationTypes = [
   {
-    label: 'College',
-    value: 1,
-  },
-  {
-    label: 'Undergraduate',
-    value: 2,
-  },
-  {
-    label: 'Postgraduate',
+    label: 'High School',
     value: 3,
   },
   {
-    label: 'Doctor',
+    label: 'College',
     value: 4,
+  },
+  {
+    label: 'Undergraduate',
+    value: 5,
+  },
+  {
+    label: 'Postgraduate',
+    value: 6,
   },
 ];
 
