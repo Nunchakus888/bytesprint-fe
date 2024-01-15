@@ -26,7 +26,7 @@ export default function ModalDialog(props: {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={size || '6xl'} isCentered={true}>
       <ModalOverlay />
-      <ModalContent background="#0C1437" width={width}>
+      <ModalContent background="rgb(15, 17, 20)" width={width}>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>

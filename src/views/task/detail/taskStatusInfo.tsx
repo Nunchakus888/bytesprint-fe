@@ -72,7 +72,8 @@ export default function TaskStatusInfo(props: {
           );
           break;
         case IStatus.COMPLETE:
-          return <Button className={styles.statusbtn}>I have completed</Button>;
+          // return <Button className={styles.statusbtn}>I have completed</Button>;
+          return <Text className={styles.statustext}>Completed</Text>;
           break;
         default:
           return <></>;

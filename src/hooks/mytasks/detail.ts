@@ -36,7 +36,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     const res = await Post(API_ROUTERS.tasks.REQUIREMENT_SUBMIT, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
-      projectid: +id,
+      projectId: +id,
       assetRecordId: myrecordId,
     });
     toast({

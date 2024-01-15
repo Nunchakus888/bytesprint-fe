@@ -30,7 +30,7 @@ const API_ROUTERS = {
     REQUIREMENT_SUBMIT: `/project/pendingAccept`,
     PROJECT_SIGN: `/project/sign`,
     PROJECT_UNSIGN: `/project/unsign`,
-    PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
+    PROJECT_ACCEPT: `/project/accept`,
     TASKS_LIST_MINI: (params: any) => createRoute(`/project/listByUser`, params),
     // 发布需求
     PROJECT_SUBMIT: `/project/submit`,

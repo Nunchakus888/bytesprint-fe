@@ -1,5 +1,4 @@
 import { Select } from 'chakra-react-select';
-
 function CustionSelect(props: any) {
   return (
     <div style={{ width: props.width }}>
