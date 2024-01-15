@@ -15,6 +15,7 @@ import {
   TaskTypes,
 } from 'common/constant';
 import CustomSelect from 'components/custom-select';
+import styles from './index.module.scss';
 
 function SingleTask(props: {
   isCurrent?: boolean;
@@ -35,7 +36,11 @@ function SingleTask(props: {
   console.log('data>>>>>>>>>>>>>', data);
   return (
     <Box mt={{ base: '30px' }}>
-      <Flex justify="space-between">
+      <Flex
+        justify="space-between"
+        gap="10px"
+        className={props.from === IPath.MYREQUIREMENT ? styles.hasAdd : ''}
+      >
         <SearchInput
           background="#1b1e24"
           searchIconColor="#7551FF"

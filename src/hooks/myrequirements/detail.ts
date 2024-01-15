@@ -27,7 +27,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 
   // 验收任务
   const acceptTask = async () => {
-    const res = await API_ROUTERS.tasks.PROJECT_ACCEPT({
+    const res = await Post(API_ROUTERS.tasks.PROJECT_ACCEPT, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
@@ -35,11 +35,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     toast({
       title: `Operate SuccessFully`,
       status: `success`,
-      isClosable: true,
-      onCloseComplete: () => {
-        window.location.reload();
-      },
+      isClosable: false,
     });
+    window.location.reload();
   };
 
   // 签约TA

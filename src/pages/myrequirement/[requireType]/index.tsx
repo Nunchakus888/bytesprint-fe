@@ -37,6 +37,7 @@ import {
 } from 'common/constant';
 import styles from './index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import CustomSelect from 'components/custom-select';
 
 const ReactQuillComponent = dynamic(() => import('../../../components/richTextBlock'), {
   ssr: false,
@@ -141,15 +142,21 @@ export default function AddRequirement(props: {}) {
               >
                 <FormLabel htmlFor="professionType">Select job type</FormLabel>
                 <Select
+                  background="#1b1e24"
                   placeholder="Job Type"
                   iconSize="16"
+                  colorScheme="blackAlpha"
                   {...register('professionType', {
                     required: 'required',
                   })}
                 >
                   {ProfessionTypes?.map((it, index) => {
                     return (
-                      <option value={it.value} key={`${it.value}-${index}`}>
+                      <option
+                        style={{ background: 'black', color: 'white' }}
+                        value={it.value}
+                        key={`${it.value}-${index}`}
+                      >
                         {it.label}
                       </option>
                     );
