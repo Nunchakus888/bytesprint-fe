@@ -1,6 +1,5 @@
 import { useAccount, useBalance, useNetwork } from 'wagmi';
-import { toLowerCase } from '../common/utils';
-//TODO 多资产
+
 export default function useAcountBalance() {
   const { chain } = useNetwork();
   const chainId = chain?.id || 1;

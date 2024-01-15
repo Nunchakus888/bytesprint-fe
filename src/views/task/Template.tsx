@@ -2,11 +2,11 @@
 import { Box, Flex, Portal, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 
-import { IPath, RequirementType, TabsEnum } from 'common/utils/constant';
+import { IPath, RequirementType, TabsEnum } from 'common/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
-import Navbar from 'components/navbar/Navbar';
+
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
   isMine?: boolean; // 是否是我的
@@ -69,12 +69,16 @@ export default function TaskTemplate(props: {
                       handleTabChange(it.value);
                     }}
                   >
-                    {it.label}
+                    <span className="flex">
+                      {it.icon}
+                      <span className="ml-2">{it.label}</span>
+                    </span>
                   </Tab>
                 );
               })}
             </TabList>
           </Box>
+          <div className={styles.line} />
           <TabPanels padding="0">
             {tabs?.map((it) => {
               return (

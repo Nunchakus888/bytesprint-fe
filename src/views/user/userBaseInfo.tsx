@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Input, Link, Tag, Text } from '@chakra-ui/re
 import Copy from 'components/copy';
 import { useUserInfo } from 'hooks/user';
 import { useState } from 'react';
-import { Identification, IPath, ProfessionTypes, USER_LEVEL } from 'common/utils/constant';
+import { Identification, IPath, ProfessionTypes, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import { GrCheckmark } from 'react-icons/gr';
 import { GrClose } from 'react-icons/gr';
@@ -94,7 +94,7 @@ export default function UserBaseInfo(props: {
 
       {/* 我的Navigator 详情 */}
       {/* {from === IPath.MYOPERATORDetail && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='rgba(255,255,255,0.05)'>  
+        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Navigator
         </Tag>
         <Flex alignItems="center" justifyContent="center" gap="20px">
@@ -110,7 +110,7 @@ export default function UserBaseInfo(props: {
 
       {/* Tasker审核详情 */}
       {/* {from === IPath.ENGINEERCheck && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='rgba(255,255,255,0.05)'>  
+        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Tasker
         </Tag>
         <Flex gap="20px">
@@ -122,7 +122,7 @@ export default function UserBaseInfo(props: {
       {/* TODO Tasker有3个等级 */}
       {/* 我的Tasker 详情 */}
       {/* {from === IPath.MYENGINEERDetail && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='rgba(255,255,255,0.05)'>  
+        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Tasker
         </Tag>
         <Flex alignItems="center" justifyContent="center" gap="20px">
@@ -138,7 +138,7 @@ export default function UserBaseInfo(props: {
       {/* 用户中心 */}
       {from === IPath.PROFILE && (
         <>
-          <Tag size="lg" padding="10px 20px" variant="solid" background="rgba(255,255,255,0.05)">
+          <Tag size="lg" padding="10px 20px" variant="solid" background="#1b1e24">
             {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
           </Tag>
           {/* Tasker */}

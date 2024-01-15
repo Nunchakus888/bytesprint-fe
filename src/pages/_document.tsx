@@ -7,7 +7,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" type="image/x-icon" href="./favicon.svg" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
       <body id="root">
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />

@@ -5,9 +5,6 @@ import 'styles/Fonts.css';
 import 'styles/Contact.css';
 import '@vercel/examples-ui/globals.css';
 
-import 'react-calendar/dist/Calendar.css';
-import 'styles/MiniCalendar.css';
-
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
 import React from 'react';
@@ -29,6 +26,8 @@ import Head from 'next/head';
 import ReduxProvider from 'common/reduxProvider';
 import Header from 'components/header';
 import Sidebar from 'components/sidebar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
@@ -83,6 +82,7 @@ function App({ Component, pageProps }: AppProps<{}>) {
                 <main className="v-main">
                   <Component {...pageProps} />
                 </main>
+                <ToastContainer />
               </LanguageProvider>
             </QueryClientProvider>
           </RainbowKitProvider>

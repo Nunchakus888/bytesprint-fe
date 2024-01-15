@@ -9,7 +9,8 @@
   z-index: 9;
   width: 100%;
   z-index: 9;
-  background-color: var(--theme-bg);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.07);
+  backdrop-filter: blur(25px);
   .content {
     display: flex;
     justify-content: space-between;
@@ -18,7 +19,7 @@
     padding: 0 16px 0 20px;
   }
   .logo {
-    width: 200px;
+    width: 180px;
   }
   .rightContent {
     display: flex;
@@ -28,6 +29,13 @@
       display: flex;
       align-items: center;
       gap: 16px;
+      cursor: pointer;
+      img {
+        opacity: 0.8;
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
   }
 }

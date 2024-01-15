@@ -3,11 +3,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Get } from 'common/utils/axios';
 import useSWR from 'swr';
 import useChange from 'hooks/useChange';
-import { RequirementType, Tabs } from 'common/utils/constant';
+import { RequirementType, Tabs } from 'common/constant';
 import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setJobTypes } from 'common/slice/commonSlice';
 import { useUserInfo } from 'hooks/user';
+import { onWarmToast } from 'common/utils/toast';
+
 const PAGE_SIZE = 10;
 
 // 根据角色返回对应的任务数据
@@ -15,18 +17,13 @@ const PAGE_SIZE = 10;
 // 任务列表
 export const useTasks = () => {
   const [tabs, setTabs] = useState(Tabs);
-  const toast = useToast();
   const [activeTab, setActiveTab] = useState(tabs?.[0].value);
   const handleTabChange = (val: RequirementType) => {
     // const value = tabs.filter((it) => it.value === val)[0].value;
 
     // 点击其他任务
     if (val !== RequirementType.Single) {
-      toast({
-        title: `Coming soon`,
-        status: `info`,
-        isClosable: true,
-      });
+      onWarmToast('Coming soon');
       return false;
     }
     // setActiveTab(val);

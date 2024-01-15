@@ -7,7 +7,7 @@ import { useMyPledge, useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import UserBaseInfo from 'views/user/userBaseInfo';
-import { Identification, IPath } from 'common/utils/constant';
+import { Identification, IPath } from 'common/constant';
 import UserMyPledge from 'views/user/userMyPledge';
 import UserMyReward from 'views/user/userMyReward';
 import UserMajor from 'views/user/userMajor';

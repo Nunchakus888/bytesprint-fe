@@ -2,7 +2,7 @@ import { Box, Button, Flex, Tag, Text } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import { shortAddress } from 'common/utils';
-import { IPath } from 'common/utils/constant';
+import { IPath } from 'common/constant';
 import styles from './index.module.scss';
 export default function EngineerItem(props: { item: any }) {
   return (
@@ -38,10 +38,10 @@ export default function EngineerItem(props: { item: any }) {
 
             <Box display="flex" justifyContent="space-between" marginTop="10px">
               <Flex gap="10px">
-                <Tag size="lg" padding="10px" variant="solid" background="rgba(255,255,255,0.05)">
+                <Tag size="lg" padding="10px" variant="solid" background="#1b1e24">
                   Java
                 </Tag>
-                <Tag size="lg" padding="10px" variant="solid" background="rgba(255,255,255,0.05)">
+                <Tag size="lg" padding="10px" variant="solid" background="#1b1e24">
                   Skills Tags
                 </Tag>
               </Flex>

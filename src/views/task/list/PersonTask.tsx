@@ -9,13 +9,7 @@ import PersonTaskItem from '../item/PersonTaskItem';
 import useChange from 'hooks/useChange';
 import { useEffect } from 'react';
 import Loading from 'components/loading';
-import {
-  IPath,
-  ProfessionTypes,
-  ProTypes,
-  RequirementStatus,
-  TaskTypes,
-} from 'common/utils/constant';
+import { IPath, ProfessionTypes, ProTypes, RequirementStatus, TaskTypes } from 'common/constant';
 
 function PersonTask(props: {
   isCurrent?: boolean;
@@ -36,7 +30,7 @@ function PersonTask(props: {
     <Box mt={{ base: '30px' }}>
       <Flex justify="space-between">
         <SearchInput
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           searchIconColor="#7551FF"
           placeholder="需求名称"
           search={handleSearch}

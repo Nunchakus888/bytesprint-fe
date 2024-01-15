@@ -1,5 +1,5 @@
 import { Box, Text, Flex, Image, Tag } from '@chakra-ui/react';
-import { IStatus, PledgeStatus } from 'common/utils/constant';
+import { IStatus, PledgeStatus } from 'common/constant';
 import styles from './index.module.scss';
 
 export default function UserMyPledge(props: { data: any[] }) {
@@ -29,7 +29,7 @@ export default function UserMyPledge(props: { data: any[] }) {
               justifyContent="space-between"
               alignItems="center"
               gap="10px"
-              background="rgba(255,255,255,0.05)"
+              background="#1b1e24"
               borderRadius={4}
               margin="10px 0"
               padding="30px 25px"

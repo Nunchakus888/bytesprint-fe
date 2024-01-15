@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 axios.defaults.timeout = 180000;
-import { parseJson } from './index';
+import { onErrorToast } from 'common/utils/toast';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: '/',
@@ -30,29 +30,13 @@ axiosInstance.interceptors.response.use(
     const res = response?.data || {};
     console.log('res>>>>', res);
     if (res?.result.code !== 0) {
+      onErrorToast(res?.result.message);
       // 判断是否过期，根据不同的错误码
       // expires token
       if (res?.result.code === 1003) {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('authorization');
-        // @ts-ignore
-        window?.toast({
-          title: res?.result.message,
-          status: `error`,
-          isClosable: true,
-          onCloseComplete: () => {
-            // window.location.reload()
-          },
-        });
         document.getElementById('connect-btn').click();
-      } else {
-        debugger;
-        // @ts-ignore
-        window?.toast({
-          title: res?.result.message,
-          status: `error`,
-          isClosable: true,
-        });
       }
       return Promise.reject(res);
     }

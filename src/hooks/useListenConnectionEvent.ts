@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIdentification, setLoginLoading, setUserInfo } from 'common/slice/commonSlice';
 import { getItem, parseJson, removeItem, setItem } from 'common/utils';
 import { Get, Post } from 'common/utils/axios';
-import { Identification } from 'common/utils/constant';
+import { Identification } from 'common/constant';
 import getSigner from 'common/contract/lib/getSigner';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useCookies } from 'react-cookie';

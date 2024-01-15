@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Identification } from 'common/utils/constant';
+import { Identification } from 'common/constant';
 import MyEngineerItem from 'views/engineer/myEngineerItem';
 
 export default function MyEngineer() {
@@ -35,7 +35,7 @@ export default function MyEngineer() {
           <Box position="sticky">
             <Flex justify="space-between">
               <SearchInput
-                background="rgba(255,255,255,0.05)"
+                background="#1b1e24"
                 searchIconColor="#7551FF"
                 placeholder="User Name"
                 search={handleSearch}

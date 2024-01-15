@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Link, Tag, Text } from '@chakra-ui/react';
 import ModalDialog from 'components/modal';
-import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/utils/constant';
+import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import Image from 'next/image';
 import { shortAddress } from 'common/utils';
@@ -165,7 +165,7 @@ export default function TaskEvaluateDetail(props: {
           )}
         </Flex>
       </Flex>
-      <Box marginTop="20px" background="rgba(255,255,255,0.05)" borderRadius={8}>
+      <Box marginTop="20px" background="#1b1e24" borderRadius={8}>
         <BYTable columns={columns} dataSource={data.list}></BYTable>
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize="lg" width="40%">

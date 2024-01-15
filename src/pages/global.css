@@ -1,10 +1,11 @@
 :root {
   --theme-color: #7551ff;
   --theme-bg: #000;
+  --theme-bg-2: #1b1e24;
 }
 
 body {
-  /* background-color: #000000 !important; */
+  background-color: #0f1114 !important;
 }
 
 .ql-toolbar,
@@ -75,6 +76,16 @@ body {
 
 .v-main {
   padding: 88px 16px 0px 256px;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  height: calc(100vh);
+  overflow-y: scroll;
+  /* background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(117, 81, 255, 0.1) 0,
+    hsla(0, 0%, 100%, 0) 100%
+  ) !important; */
+  background-position: 5vw 0 !important;
 }
 
 @media (max-width: 1200px) {

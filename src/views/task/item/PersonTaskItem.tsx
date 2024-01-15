@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Tag } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import Link from 'next/link';
-import { IPath, RequirementStatus, TaskStatus } from 'common/utils/constant';
+import { IPath, RequirementStatus, TaskStatus } from 'common/constant';
 import styles from './index.module.scss';
 export default function PersonTaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   return (
@@ -34,7 +34,7 @@ export default function PersonTaskItem(props: { item: any; isMine?: boolean; fro
           </Box>
 
           <Box className={styles.btns} display="flex" justifyContent="space-between">
-            <Tag size="lg" variant="solid" background="rgba(255,255,255,0.05)">
+            <Tag size="lg" variant="solid" background="#1b1e24">
               技能标签
             </Tag>
             <Button background="#7551FF" size="md" color="#fff">

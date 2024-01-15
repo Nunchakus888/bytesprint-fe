@@ -46,7 +46,7 @@ const CustomConnectButton = () => {
                 return (
                   <Button
                     id="connect-btn"
-                    className={classnames(styles.connect_btn)}
+                    className={classnames(styles.connect_btn, 'theme-button')}
                     onClick={openConnectModal}
                   >
                     Connect
@@ -110,7 +110,7 @@ const CustomConnectButton = () => {
                   <PopoverContent
                     w={'200px'}
                     p={1}
-                    bgColor="transparent"
+                    bgColor="#000"
                     className="cursor-pointer flex flex-col gap-1 rounded-md h-full bg-white/0 backdrop-blur-[4px]"
                   >
                     {/* <Button

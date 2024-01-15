@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MdBarChart, MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { Identification, IPath } from 'common/utils/constant';
+import { Identification, IPath } from 'common/constant';
 import API_ROUTERS from 'api';
 import { Get } from 'common/utils/axios';
 

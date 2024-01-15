@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Portal, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 import Back from 'components/back';
 import { requirementTypes } from 'hooks/myrequirements/add';
 import { useState } from 'react';
@@ -6,19 +6,15 @@ import styles from './add.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import Navbar from 'components/navbar/Navbar';
-import { IPath, RequirementType } from 'common/utils/constant';
+import { IPath, RequirementType } from 'common/constant';
+import { onWarmToast } from 'common/utils/toast';
 
 export default function AddRequirement() {
   const [selectType, setSelectType] = useState('');
-  const toast = useToast();
   // 选中
   const handleClick = (it: (typeof requirementTypes)[0]) => {
     if (it.value !== RequirementType.Single) {
-      toast({
-        title: `Coming soon`,
-        status: `info`,
-        isClosable: true,
-      });
+      onWarmToast('Coming soon');
       return false;
     }
     setSelectType(it.type);
@@ -26,23 +22,21 @@ export default function AddRequirement() {
 
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: `/${IPath.TASKS}`, name: 'Crowdsourcing Management' },
-              { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-              { path: '#', name: 'Publish Requirement' },
-            ]}
-          />
-        </Box>
-      </Portal>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
+      <Box>
+        <Navbar
+          paths={[
+            { path: `/${IPath.TASKS}`, name: 'Crowdsourcing Management' },
+            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
+            { path: '#', name: 'Publish Requirement' },
+          ]}
+        />
+      </Box>
+      <Box position="relative">
         <Back />
         <Box
           className={styles.content}
           marginTop="20px"
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -56,7 +50,7 @@ export default function AddRequirement() {
                 return (
                   <Box
                     key={it.type}
-                    background="rgba(255,255,255,0.05)"
+                    background="#1b1e24"
                     position="relative"
                     padding="10px 20px"
                     borderRadius={4}

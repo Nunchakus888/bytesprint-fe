@@ -4,7 +4,7 @@ import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
 import TaskTemplate from 'views/task/Template';
 import { IoMdAdd } from 'react-icons/io';
 import Link from 'next/link';
-import { IPath } from 'common/utils/constant';
+import { IPath } from 'common/constant';
 import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';

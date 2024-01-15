@@ -96,6 +96,7 @@ export function SidebarLinks(props: SidebarLinksProps) {
                                 {/* {route.icon} */}
                               </Box>
                               <Text
+                                pl={1}
                                 me="auto"
                                 color={
                                   activeRoute(cit.path.toLowerCase()) ? activeColor : textColor

@@ -4,7 +4,7 @@ import { useUserInfo, useUserInfoByUid } from 'hooks/user';
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { Get } from 'common/utils/axios';
-import { IStatus, TaskBidStatus } from 'common/utils/constant';
+import { IStatus, TaskBidStatus } from 'common/constant';
 
 export interface IPlanItem extends ISchedule {
   actualCompleteTime: number;

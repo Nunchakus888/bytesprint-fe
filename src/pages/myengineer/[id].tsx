@@ -2,7 +2,7 @@ import { Box, Flex, Button, toast, useToast } from '@chakra-ui/react';
 import Loading from 'components/loading';
 import { useEngineerDetail } from 'hooks/engineer';
 import { useRouter } from 'next/router';
-import { IPath } from 'common/utils/constant';
+import { IPath } from 'common/constant';
 import UserAttachedResume from 'views/user/userAttachedResume';
 import UserBaseInfo from 'views/user/userBaseInfo';
 import UserCertificates from 'views/user/userCertificates';

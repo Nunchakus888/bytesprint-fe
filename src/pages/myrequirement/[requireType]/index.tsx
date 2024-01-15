@@ -9,7 +9,6 @@ import {
   FormLabel,
   Icon,
   Input,
-  Portal,
   Radio,
   RadioGroup,
   Select,
@@ -35,7 +34,7 @@ import {
   ProType,
   ProTypes,
   RequirementType,
-} from 'common/utils/constant';
+} from 'common/constant';
 import styles from './index.module.scss';
 import Navbar from 'components/navbar/Navbar';
 
@@ -77,18 +76,16 @@ export default function AddRequirement(props: {}) {
   };
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'Crowdsourcing Management ' },
-              { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-              { path: '#', name: 'Publish Requirement' },
-            ]}
-          />
-        </Box>
-      </Portal>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative" overflow="visible">
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'Crowdsourcing Management ' },
+            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
+            { path: '#', name: 'Publish Requirement' },
+          ]}
+        />
+      </Box>
+      <Box position="relative" overflow="visible">
         <Text fontSize={24} fontWeight="bold">
           Requirement Type：{currentRequire?.title}
         </Text>
@@ -174,7 +171,7 @@ export default function AddRequirement(props: {}) {
                       return (
                         <Box
                           key={`${it.label}_${index}`}
-                          background="rgba(255,255,255,0.05)"
+                          background="#1b1e24"
                           position="relative"
                           padding="10px 20px"
                           borderRadius={4}

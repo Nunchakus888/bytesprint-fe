@@ -6,26 +6,26 @@ import CertificationForm from './CertificationForm';
 import styles from './index.module.scss';
 
 export default function Tasker() {
-  const [isNextStep, setIsNextStep] = useState(false);
+  const [isNextStep, setIsNextStep] = useState(true);
   const [authorizeCode, setAuthorizeCode] = useState('');
 
   return (
     <>
       <Box>
-        <Navbar
-          paths={[
-            { path: '#', name: 'My Tasker' },
-            { path: `/`, name: 'Tasker' },
-          ]}
-        />
+        <Navbar paths={[{ path: '/profile', name: 'My Tasker' }, { name: 'Tasker' }]} />
       </Box>
       <div className={styles.taskerWrap}>
-        {/* <div className={styles.authorizeCodeWrap}>
-          <div className={styles.title}>Taker Authentication</div>
-          <Input placeholder={`Please enter the Navigation's authorization code`} />
-          <Button className="theme-button">Continue</Button>
-        </div> */}
-        <CertificationForm authorizeCode={authorizeCode} />
+        {isNextStep ? (
+          <CertificationForm authorizeCode={authorizeCode} />
+        ) : (
+          <div className={styles.authorizeCodeWrap}>
+            <div className={styles.title}>Taker Authentication</div>
+            <Input placeholder={`Please enter the Navigation's authorization code`} />
+            <Button className="theme-button" onClick={() => setIsNextStep(true)}>
+              Continue
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );

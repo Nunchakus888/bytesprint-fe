@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { IPath, IStatus, RequirementStatus, TaskStatus } from 'common/utils/constant';
+import { IPath, IStatus, RequirementStatus, TaskStatus } from 'common/constant';
 import styles from './index.module.scss';
 import ModalDialog from 'components/modal';
 export default function TaskStatusInfo(props: {

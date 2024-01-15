@@ -3,10 +3,9 @@ import styles from './index.module.scss';
 import { useToast } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import CustomConnectButton from './CustomConnectButton';
-import Logo from '../../../public/img/logo.png';
-import Twitter from '../../../public/img/media/twitter.png';
-import Docs from '../../../public/img/media/docs.png';
 import useConnect from 'hooks/useConnect';
+import { IMG_SRC } from 'common/constant';
+import Link from 'next/link';
 
 export default function Header() {
   const toast = useToast();
@@ -26,11 +25,14 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.content}>
-        <img src={Logo.src} alt="logo" className={styles.logo} />
+        <Link href="/">
+          <img src={IMG_SRC.Logo} alt="logo" className={styles.logo} />
+        </Link>
         <div className={styles.rightContent}>
           <div className={styles.mediawrap}>
-            <img src={Docs.src} alt="Docs" width="20" />
-            <img src={Twitter.src} alt="Twitter" width="16" />
+            <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
+            <img src={IMG_SRC.Discord} alt="Discord" width="20" />
+            <img src={IMG_SRC.Docs} alt="Docs" width="20" />
           </div>
           <CustomConnectButton />
         </div>

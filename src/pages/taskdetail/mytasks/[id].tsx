@@ -8,7 +8,7 @@ import { useTaskPlanList } from 'hooks/task/detai';
 import { useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
-import { Identification, IPath, IStatus, TaskBidStatus } from 'common/utils/constant';
+import { Identification, IPath, IStatus, TaskBidStatus } from 'common/constant';
 import Auth from 'views/task/Auth';
 import TaskBaseInfo from 'views/task/detail/taskBaseInfo';
 import TaskBidRecords from 'views/task/detail/taskBidRecords';
@@ -89,17 +89,15 @@ const TaskDetail = () => {
 
   return (
     <>
-      <Portal>
-        <Box>
-          <Navbar
-            paths={[
-              { path: '#', name: 'Crowdsourcing Management ' },
-              { path: `/${IPath.MYTASKS}`, name: 'My Task' },
-              { path: '#', name: 'Task Details' },
-            ]}
-          />
-        </Box>
-      </Portal>
+      <Box>
+        <Navbar
+          paths={[
+            { path: '#', name: 'Crowdsourcing Management ' },
+            { path: `/${IPath.MYTASKS}`, name: 'My Task' },
+            { path: '#', name: 'Task Details' },
+          ]}
+        />
+      </Box>
       <Box
         pt={{ base: '130px', md: '80px', xl: '80px' }}
         className={identification === Identification.VISITOR ? styles.visitor : ''}

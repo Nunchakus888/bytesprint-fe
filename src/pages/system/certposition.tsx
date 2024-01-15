@@ -194,12 +194,7 @@ export default function CertPosition() {
   return (
     <>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <Box
-          mt={{ base: '30px' }}
-          padding="30px 20px"
-          background="rgba(255,255,255,0.05)"
-          borderRadius={8}
-        >
+        <Box mt={{ base: '30px' }} padding="30px 20px" background="#1b1e24" borderRadius={8}>
           <Text fontSize={24}>认证职位类型设置</Text>
           <Button
             margin="20px 0"

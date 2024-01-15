@@ -8,40 +8,35 @@ import {
   Input,
   Button,
   Container,
-  useToast,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/utils/constant';
+import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/constant';
 import CustionSelect from 'components/custom-select';
 import { RangeDatepicker } from 'chakra-dayzed-datepicker';
 import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
 import FileUpload from 'components/fileupload';
+import { onSuccessToast } from 'common/utils/toast';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
-  const toast = useToast();
-  const {
-    control,
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
 
   const onSubmit = async (values: any) => {
-    setLoading(true);
-    console.log('提交表单', values);
-    const params = {};
-    const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(params));
-    setLoading(false);
-    toast({
-      title: `successfully`,
-      status: 'success',
-      isClosable: true,
-    });
+    try {
+      setLoading(true);
+      const { position, eductionRange, ...restValues } = values;
+      const params = {
+        position: position.map((it: any) => it.value),
+        ...restValues,
+      };
+      console.log('提交表单', params, values);
+      const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(params));
+      setLoading(false);
+      onSuccessToast('Successfully');
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -55,11 +50,11 @@ const CertificationForm = ({ authorizeCode }: any) => {
   return (
     <div className={styles.certificationForm}>
       <Container my={8} as="form" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="font-20 font-bold mb-4">Tasker认证</h2>
+        <h2 className="font-20 font-bold mb-4">Tasker Certification</h2>
 
         {authorizeCode && (
           <>
-            <h3 className="font-16 font-bold mb-2">认证Navigator信息</h3>
+            <h3 className="font-16 font-bold mb-2">Certified Navigator</h3>
             <FormControl className="mb-4" {...register('authorizeCode')}>
               <Input
                 value={getValues('authorizeCode')}
@@ -71,107 +66,117 @@ const CertificationForm = ({ authorizeCode }: any) => {
           </>
         )}
 
-        <h3 className="font-16 font-bold mb-2">基础信息</h3>
-        <Controller
-          control={control}
-          name="position"
-          rules={{ required: 'Please select position' }}
-          render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" isInvalid={!!error} id="position" isRequired>
-              <FormLabel fontSize={12}>认证职位类型（最多选择2个）</FormLabel>
-              <CustionSelect
-                placeholder="Select position"
-                isMulti
-                name={name}
-                ref={ref}
-                onChange={(val: any) => {
-                  //限制最大只能选2个
-                  const newValue = val.slice(0, 2);
-                  onChange(newValue);
-                }}
-                value={value}
-                options={ProfessionTypes}
-                closeMenuOnSelect={false}
-                isSearchable={false}
-              />
-              <FormErrorMessage>{error && error.message}</FormErrorMessage>
-            </FormControl>
-          )}
-        />
-        <Controller
-          control={control}
-          name="experience"
-          rules={{ required: 'Please select experience' }}
-          render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" isInvalid={!!error} id="experience" isRequired>
-              <FormLabel fontSize={12}>工作经验</FormLabel>
-              <CustionSelect
-                name={name}
-                ref={ref}
-                onChange={onChange}
-                value={value}
-                options={ExperienceTypes}
-                closeMenuOnSelect={false}
-                isSearchable={false}
-              />
-              <FormErrorMessage>{error && error.message}</FormErrorMessage>
-            </FormControl>
-          )}
-        />
-        <Controller
-          control={control}
-          name="address"
-          rules={{ required: 'Please input address' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
-            return (
-              <FormControl className="mb-4" id="address" isInvalid={!!error} isRequired>
-                <FormLabel fontSize={12}>当前工作区域</FormLabel>
-                <Input value={value} onChange={onChange} />
+        <div>
+          <h3 className="font-16 font-bold mb-2">Basic Information</h3>
+          <Controller
+            control={control}
+            name="position"
+            rules={{ required: 'Please select position' }}
+            render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
+              <FormControl className="mb-4" isInvalid={!!error} id="position" isRequired>
+                <FormLabel fontSize={12}>Certified Job Type</FormLabel>
+                <CustionSelect
+                  placeholder="Select position (Choose up to 2)"
+                  isMulti
+                  name={name}
+                  ref={ref}
+                  onChange={(val: any) => {
+                    //限制最大只能选2个
+                    const newValue = val.slice(0, 2);
+                    onChange(newValue);
+                  }}
+                  value={value}
+                  options={ProfessionTypes}
+                  closeMenuOnSelect={false}
+                  isSearchable={false}
+                />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
-            );
-          }}
-        />
-        <Controller
-          control={control}
-          name="phone"
-          rules={{ required: 'Please input phone' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" id="phone" isInvalid={!!error} isRequired>
-              <FormLabel fontSize={12}>联系电话</FormLabel>
-              <Input type="tel" value={value} onChange={onChange} />
-              <FormErrorMessage>{error && error.message}</FormErrorMessage>
-            </FormControl>
-          )}
-        />
+            )}
+          />
+          <Controller
+            control={control}
+            name="experience"
+            rules={{ required: 'Please select experience' }}
+            render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
+              <FormControl className="mb-4" isInvalid={!!error} id="experience" isRequired>
+                <FormLabel fontSize={12}>Work Experience</FormLabel>
+                <CustionSelect
+                  placeholder="Select experience"
+                  name={name}
+                  ref={ref}
+                  onChange={onChange}
+                  value={value}
+                  options={ExperienceTypes}
+                  closeMenuOnSelect={false}
+                  isSearchable={false}
+                />
+                <FormErrorMessage>{error && error.message}</FormErrorMessage>
+              </FormControl>
+            )}
+          />
+          <Controller
+            control={control}
+            name="address"
+            rules={{ required: 'Please input Current Work Area' }}
+            render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
+              return (
+                <FormControl className="mb-4" id="address" isInvalid={!!error} isRequired>
+                  <FormLabel fontSize={12}>Current Work Area</FormLabel>
+                  <Input
+                    value={value}
+                    onChange={onChange}
+                    placeholder="e.g Berlin, London, New York"
+                  />
+                  <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                </FormControl>
+              );
+            }}
+          />
+          <Controller
+            control={control}
+            name="phone"
+            rules={{ required: 'Please input phone' }}
+            render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
+              <FormControl className="mb-4" id="phone" isInvalid={!!error} isRequired>
+                <FormLabel fontSize={12}>Phone</FormLabel>
+                <Input type="tel" value={value} onChange={onChange} />
+                <FormErrorMessage>{error && error.message}</FormErrorMessage>
+              </FormControl>
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="email"
-          rules={{ required: 'Please input email' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" id="email" isInvalid={!!error} isRequired>
-              <FormLabel fontSize={12}>邮箱</FormLabel>
-              <Input type="email" value={value} onChange={onChange} />
-              <FormErrorMessage>{error && error.message}</FormErrorMessage>
-            </FormControl>
-          )}
-        />
-
-        <h3 className="font-16 font-bold mb-2">技能标签</h3>
+          <Controller
+            control={control}
+            name="email"
+            rules={{ required: 'Please input email' }}
+            render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
+              <FormControl className="mb-4" id="email" isInvalid={!!error} isRequired>
+                <FormLabel fontSize={12}>Email</FormLabel>
+                <Input type="email" value={value} onChange={onChange} />
+                <FormErrorMessage>{error && error.message}</FormErrorMessage>
+              </FormControl>
+            )}
+          />
+        </div>
+        <h3 className="font-16 font-bold mb-2">Skill Tag</h3>
         <Controller
           control={control}
           name="skillList"
           rules={{ required: 'Please input skillList' }}
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
             <FormControl className="mb-4" id="skillList" isInvalid={!!error} isRequired>
-              <Input placeholder="请输入，用，隔开" value={value} onChange={onChange} />
+              <Input
+                placeholder="Please enter, separated by a comma"
+                value={value}
+                onChange={onChange}
+              />
               <FormErrorMessage>{error && error.message}</FormErrorMessage>
             </FormControl>
           )}
         />
 
-        <h3 className="font-16 font-bold mb-2">教育经历</h3>
+        <h3 className="font-16 font-bold mb-2">Education</h3>
         <Controller
           control={control}
           name="school"
@@ -179,7 +184,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
             return (
               <FormControl className="mb-4" id="school" isInvalid={!!error} isRequired>
-                <FormLabel fontSize={12}>学校名称</FormLabel>
+                <FormLabel fontSize={12}>School</FormLabel>
                 <Input value={value} onChange={onChange} />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
@@ -193,8 +198,16 @@ const CertificationForm = ({ authorizeCode }: any) => {
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
             return (
               <FormControl className="mb-4" id="eductionRange" isInvalid={!!error}>
-                <FormLabel fontSize={12}>就读时间</FormLabel>
-                <RangeDatepicker selectedDates={value || []} onDateChange={onChange} />
+                <FormLabel fontSize={12}>Study Time</FormLabel>
+                <RangeDatepicker
+                  name="eductionRange"
+                  selectedDates={value || []}
+                  onDateChange={(val) => {
+                    console.log(99, val);
+                    onChange(val);
+                  }}
+                  usePortal
+                />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
             );
@@ -207,7 +220,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
             return (
               <FormControl className="mb-4" id="major" isInvalid={!!error} isRequired>
-                <FormLabel fontSize={12}>专业名称</FormLabel>
+                <FormLabel fontSize={12}>Major</FormLabel>
                 <Input value={value} onChange={onChange} />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
@@ -220,8 +233,9 @@ const CertificationForm = ({ authorizeCode }: any) => {
           rules={{ required: 'Please select education' }}
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
             <FormControl className="mb-4" isInvalid={!!error} id="education" isRequired>
-              <FormLabel fontSize={12}>学历</FormLabel>
+              <FormLabel fontSize={12}>Academic Degree</FormLabel>
               <CustionSelect
+                placeholder="Select education"
                 name={name}
                 ref={ref}
                 onChange={onChange}
@@ -235,7 +249,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             </FormControl>
           )}
         />
-        <h3 className="font-16 font-bold mb-2">附件简历</h3>
+        <h3 className="font-16 font-bold mb-2">Attachment Resume</h3>
         <Controller
           control={control}
           name="resume"
@@ -258,7 +272,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
         />
         <div className="flex justify-center">
           <Button mt={4} className="theme-button" type="submit" isLoading={loading}>
-            申请成为Tasker
+            Apply becoming Tasker
           </Button>
         </div>
       </Container>

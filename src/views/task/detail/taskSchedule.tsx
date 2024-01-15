@@ -140,7 +140,7 @@ export default function TaskSchedule(props: {
   ];
   return (
     <ModalDialog title="Task scheduling" onClose={onClose} isOpen={true} btnGroup={<></>}>
-      <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
+      <Box background="#1b1e24" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center">
             Serial Number

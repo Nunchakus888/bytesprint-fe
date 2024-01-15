@@ -1,11 +1,11 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { removeItem } from 'common/utils';
 import { useDisconnect } from 'wagmi';
 import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import useListenConnectionEvent from './useListenConnectionEvent';
 import { useDispatch } from 'react-redux';
-import { setIdentification, setUserInfo } from 'common/slice/commonSlice';
+import { setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
 import { Post } from 'common/utils/axios';
 
@@ -15,6 +15,7 @@ const useConnect = () => {
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
   useListenConnectionEvent();
+
   const connect = useCallback(() => {
     typeof openConnectModal === 'function' && openConnectModal();
   }, [openConnectModal]);

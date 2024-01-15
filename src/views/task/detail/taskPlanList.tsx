@@ -1,6 +1,6 @@
 import { ISchedule } from 'hooks/mytasks/schedule';
 import { Avatar, Box, Button, Flex, Link, Text } from '@chakra-ui/react';
-import { IPath, TaskBidStatus } from 'common/utils/constant';
+import { IPath, TaskBidStatus } from 'common/constant';
 import styles from './index.module.scss';
 import BYTable from 'components/table';
 import dayjs from 'dayjs';
