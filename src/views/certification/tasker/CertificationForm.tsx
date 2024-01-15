@@ -25,13 +25,17 @@ const CertificationForm = ({ authorizeCode }: any) => {
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
-      const { position, eductionRange, ...restValues } = values;
+      const { position, experience, eductionRange, education, skillList, ...restValues } = values;
       const params = {
         position: position.map((it: any) => it.value),
+        experience: experience?.value,
+        skillList: skillList.split(','),
+        jobList: [],
+        educationList: [],
         ...restValues,
       };
       console.log('提交表单', params, values);
-      const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(params));
+      const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(), params);
       setLoading(false);
       onSuccessToast('Successfully');
     } catch (error) {
@@ -176,22 +180,22 @@ const CertificationForm = ({ authorizeCode }: any) => {
           )}
         />
 
-        <h3 className="font-16 font-bold mb-2">Education</h3>
+        {/* <h3 className="font-16 font-bold mb-2">Education</h3>
         <Controller
           control={control}
           name="school"
           rules={{ required: 'Please input school' }}
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
             return (
-              <FormControl className="mb-4" id="school" isInvalid={!!error} isRequired>
+              <FormControl className="mb-4" id="school" isInvalid={!!error}>
                 <FormLabel fontSize={12}>School</FormLabel>
                 <Input value={value} onChange={onChange} />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
               </FormControl>
             );
           }}
-        />
-        <Controller
+        /> */}
+        {/* <Controller
           control={control}
           name="eductionRange"
           rules={{ required: 'Please select ' }}
@@ -219,7 +223,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           rules={{ required: 'Please input major' }}
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
             return (
-              <FormControl className="mb-4" id="major" isInvalid={!!error} isRequired>
+              <FormControl className="mb-4" id="major" isInvalid={!!error}>
                 <FormLabel fontSize={12}>Major</FormLabel>
                 <Input value={value} onChange={onChange} />
                 <FormErrorMessage>{error && error.message}</FormErrorMessage>
@@ -232,7 +236,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           name="education"
           rules={{ required: 'Please select education' }}
           render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" isInvalid={!!error} id="education" isRequired>
+            <FormControl className="mb-4" isInvalid={!!error} id="education">
               <FormLabel fontSize={12}>Academic Degree</FormLabel>
               <CustionSelect
                 placeholder="Select education"
@@ -248,7 +252,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
               <FormErrorMessage>{error && error.message}</FormErrorMessage>
             </FormControl>
           )}
-        />
+        /> */}
         <h3 className="font-16 font-bold mb-2">Attachment Resume</h3>
         <Controller
           control={control}

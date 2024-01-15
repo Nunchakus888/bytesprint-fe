@@ -46,7 +46,7 @@ const API_ROUTERS = {
     USER_UPDATE: `/user/update`,
     MY_PLEDGE: (params?: any) => createRoute(`/user/stakings`, params),
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
-    CERTIF_ENGINEER: (params?: any) => createRoute(`/user/certify/engineer`, params),
+    CERTIF_ENGINEER: () => createRoute(`/user/certify/engineer`),
   },
   positions: {
     LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),
