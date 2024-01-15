@@ -138,7 +138,7 @@ export default function UserBaseInfo(props: {
       {/* 用户中心 */}
       {from === IPath.PROFILE && (
         <>
-          <Tag size="lg" padding="10px 20px" variant="solid" background="#1b1e24">
+          <Tag size="lg" padding="10px 20px" variant="solid" background="#242537">
             {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
           </Tag>
           {/* Tasker */}
