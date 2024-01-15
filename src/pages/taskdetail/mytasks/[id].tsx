@@ -1,4 +1,4 @@
-import { Box, Button, Code, Container, Flex, Portal, Tag } from '@chakra-ui/react';
+import { Box, Button, Code, Container, Flex, Portal, Tag, useToast } from '@chakra-ui/react';
 import Back from 'components/back';
 import FileReviewer from 'components/fileReview';
 import Loading from 'components/loading';
@@ -25,6 +25,7 @@ import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
 
 const TaskDetail = () => {
+  const toast = useToast();
   const router = useRouter();
   const { id = null } = router.query;
   // detail
@@ -84,6 +85,11 @@ const TaskDetail = () => {
   // 完成任务计划
   const completePlan = async (planId: string) => {
     await completePlanItem(planId);
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: false,
+    });
     window.location.reload();
   };
 

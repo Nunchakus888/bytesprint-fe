@@ -16,14 +16,37 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const { connect } = useConnect();
   const [signLoading, setSignLoading] = useState(false);
   // 打开任务
-  const openTask = () => {
+  const openTask = async () => {
     // prompt
     // open
     // refresh
+    const res = await Post(API_ROUTERS.tasks.TASK_OPEN, {
+      uid: userInfo.uid,
+      walletAddress: userInfo.address,
+      projectId: id,
+    });
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: false,
+    });
+    window.location.reload();
   };
 
-  // 关闭任务 TODO
-  const closeTask = () => {};
+  // 关闭任务
+  const closeTask = async () => {
+    const res = await Post(API_ROUTERS.tasks.TASK_CLOSE, {
+      uid: userInfo.uid,
+      walletAddress: userInfo.address,
+      projectId: id,
+    });
+    toast({
+      title: `Operate SuccessFully`,
+      status: `success`,
+      isClosable: false,
+    });
+    window.location.reload();
+  };
 
   // 验收任务
   const acceptTask = async () => {
