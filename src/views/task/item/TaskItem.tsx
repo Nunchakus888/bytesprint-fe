@@ -45,7 +45,7 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
             dangerouslySetInnerHTML={{ __html: item.description }}
           ></Box>
           <Box className={styles.btns} display="flex" justifyContent="space-between">
-            <Tag size="lg" variant="solid" background="#1b1e24">
+            <Tag size="lg" variant="solid" background="#242537">
               {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
             </Tag>
             <Button background="#7551FF" size="md" color="#fff">
