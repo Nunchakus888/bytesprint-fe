@@ -84,6 +84,7 @@ export default function Evaluate(props: {
                       placeholder="Enter task name"
                       size="md"
                       {...register(`datas.${index}.taskname`, { required: true })}
+                      disabled={isLoading}
                     />
                     <FormErrorMessage>
                       {errors?.datas?.[index]?.taskname && (
@@ -102,6 +103,7 @@ export default function Evaluate(props: {
                       placeholder="Enter"
                       size="md"
                       {...register(`datas.${index}.usdt`, { required: true, min: 0 })}
+                      disabled={isLoading}
                     />
                     <FormErrorMessage>
                       {errors?.datas?.[index]?.usdt && <>{errors?.datas?.[index]?.usdt.message}</>}
@@ -110,7 +112,13 @@ export default function Evaluate(props: {
                 </Flex>
                 {/* <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex> */}
                 <Flex width="100px" alignItems="center" justifyContent="center">
-                  <Link color="#7551FF" onClick={() => remove(index)}>
+                  <Link
+                    color="#7551FF"
+                    onClick={() => {
+                      if (isLoading) return;
+                      remove(index);
+                    }}
+                  >
                     Delete
                   </Link>
                 </Flex>
@@ -118,7 +126,10 @@ export default function Evaluate(props: {
             );
           })}
           <Link
-            onClick={() => append({ taskname: '', usdt: '' })}
+            onClick={() => {
+              if (isLoading) return;
+              append({ taskname: '', usdt: '' });
+            }}
             color="#7551FF"
             display="flex"
             justifyContent="center"
@@ -158,7 +169,7 @@ export default function Evaluate(props: {
             ></Input>
           </InputGroup>
           <Text fontSize="xs" color="#7551FF">
-            质押数量=Total Cost*10%
+            Need pledge amount=Total Cost*10%
           </Text>
         </Box>
       </Box>
