@@ -138,7 +138,7 @@ export default function UserBaseInfo(props: {
       {/* 用户中心 */}
       {from === IPath.PROFILE && (
         <>
-          <Tag size="lg" padding="10px 20px" variant="solid" background="#1b1e24">
+          <Tag size="lg" padding="10px 20px" variant="solid" background="rgb(15, 17, 20)">
             {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
           </Tag>
           {/* Tasker */}
@@ -158,7 +158,7 @@ export default function UserBaseInfo(props: {
                 {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
               </Flex>
               <Flex gap="20px">
-                {userInfo?.data.engineer.position?.map((positionType: number) => {
+                {userInfo?.data?.engineer?.position?.map((positionType: number) => {
                   return (
                     <Box
                       key={`positiontype_${positionType}`}
