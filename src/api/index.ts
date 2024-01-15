@@ -25,7 +25,7 @@ const API_ROUTERS = {
     TASKS_DETAIL: (params: any) => createRoute(`/project/detail`, params),
     EVALUATE: `/project/evaluate`,
     PLANSUBMIT: `/requirement/plan/submit`,
-    PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
+    PLAN_COMPLETE: `/requirement/finish`,
     // 项目验收
     REQUIREMENT_SUBMIT: `/project/pendingAccept`,
     PROJECT_SIGN: `/project/sign`,
@@ -35,6 +35,8 @@ const API_ROUTERS = {
     // 发布需求
     PROJECT_SUBMIT: `/project/submit`,
     FILE_UPLOAD: `/file/upload`,
+    TASK_OPEN: `/project/open`,
+    TASK_CLOSE: `/project/close`,
   },
   users: {
     LOGIN: `/passport/login`,

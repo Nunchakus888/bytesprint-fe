@@ -53,21 +53,21 @@ function SingleTask(props: {
               <CustomSelect
                 options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
                 placeholder="Task Status"
-                change={(val: any) => onChange('taskStatus', val)}
+                onChange={(val: any) => onChange('status', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 width={220}
               />
               <CustomSelect
                 options={ProTypes}
                 placeholder="Crowdsourcing Method"
-                change={(val: any) => onChange('proType', val)}
+                onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 width={220}
               />
               <CustomSelect
                 options={ProfessionTypes}
                 placeholder="Job Type"
-                change={(val: any) => onChange('professionType', val)}
+                onChange={(val: any) => onChange('positiontype', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 width={220}
               />
@@ -77,21 +77,21 @@ function SingleTask(props: {
               <CustomSelect
                 options={ProTypes}
                 placeholder="Crowdsourcing Method"
-                change={(val: any) => onChange('proType', val)}
+                onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 width={220}
               />
               <CustomSelect
                 options={TaskTypes}
                 placeholder="Task Type"
-                change={(val: any) => onChange('taskType', val)}
+                onChange={(val: any) => onChange('categorytype', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 width={220}
               />
               <CustomSelect
                 options={ProfessionTypes}
                 placeholder="Job Type"
-                change={(val: any) => onChange('professionType', val)}
+                onChange={(val: any) => onChange('positiontype', val?.value)}
                 focusBorderColor="rgba(255, 255, 255, 0.4)"
                 style={{ width: 200 }}
                 width={220}

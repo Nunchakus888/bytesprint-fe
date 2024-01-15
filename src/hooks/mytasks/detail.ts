@@ -51,7 +51,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   // const startTask = () => {}
   // 完成任务计划某项
   const completePlanItem = async (planId: string) => {
-    const res = await API_ROUTERS.tasks.PLAN_COMPLETE({
+    const res = await Post(API_ROUTERS.tasks.PLAN_COMPLETE, {
       projectId: id,
       requirementId: planId,
       uid: userInfo.uid,

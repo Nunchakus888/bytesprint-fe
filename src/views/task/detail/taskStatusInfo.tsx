@@ -35,7 +35,17 @@ export default function TaskStatusInfo(props: {
       switch (taskStatus) {
         case IStatus.CLOSED:
           return (
-            <Button className={styles.statusbtn} onClick={props?.openTask}>
+            <Button
+              className={styles.statusbtn}
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure open the Task?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  props?.openTask();
+                };
+              }}
+            >
               Open Task
             </Button>
           );
@@ -43,7 +53,17 @@ export default function TaskStatusInfo(props: {
         case IStatus.EVALUATION:
         case IStatus.WAIT_SIGN:
           return (
-            <Button className={styles.statusbtn} onClick={props?.closeTask}>
+            <Button
+              className={styles.statusbtn}
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure close the Task?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  props?.closeTask();
+                };
+              }}
+            >
               Close Task
             </Button>
           );
@@ -156,7 +176,7 @@ export default function TaskStatusInfo(props: {
             confirmRef.current.content = '';
           }}
           onSure={confirmRef.current.onSure}
-          width="300px"
+          width="400px"
         >
           <Box>{confirmRef.current.content}</Box>
         </ModalDialog>

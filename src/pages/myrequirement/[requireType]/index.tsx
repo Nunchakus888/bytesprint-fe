@@ -141,7 +141,14 @@ export default function AddRequirement(props: {}) {
                 margin="20px 0"
               >
                 <FormLabel htmlFor="professionType">Select job type</FormLabel>
-                <Select
+                <CustomSelect
+                  options={ProfessionTypes}
+                  placeholder="Task Type"
+                  onChange={(val: any) => setValue('professionType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                {/* <Select
                   background="#1b1e24"
                   placeholder="Job Type"
                   iconSize="16"
@@ -161,7 +168,7 @@ export default function AddRequirement(props: {}) {
                       </option>
                     );
                   })}
-                </Select>
+                </Select> */}
                 {/* <FormErrorMessage>
                 {(errors as unknown as IRequirementSingle).professionType && (errors as unknown as IRequirementSingle).professionType.message}
               </FormErrorMessage> */}

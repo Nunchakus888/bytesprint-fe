@@ -23,6 +23,7 @@ export default function BYTable(props: { columns: any[]; dataSource: any[] }) {
                   width={width}
                   textAlign={textAlign}
                   padding="10px"
+                  textTransform="initial"
                 >
                   {it.title}
                 </Th>
