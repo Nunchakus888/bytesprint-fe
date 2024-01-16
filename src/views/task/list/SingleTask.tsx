@@ -100,8 +100,12 @@ function SingleTask(props: {
           )}
         </Box>
       </Flex>
-      <Box mt={{ base: '20px' }}>
-        {loading ? (
+      <Box
+        mt={{ base: '20px' }}
+        id="items_list_scrollable_box"
+        style={{ height: 'calc(100vh - 240px)', overflow: 'scroll' }}
+      >
+        {data.length === 0 ? (
           <Loading />
         ) : (
           <InfiniteScroll
@@ -123,12 +127,12 @@ function SingleTask(props: {
                 />
               );
             })}
-            {data.length === 0 && (
-              <Box display="flex" justifyContent="center">
-                No data
-              </Box>
-            )}
           </InfiniteScroll>
+        )}
+        {data.length === 0 && (
+          <Box display="flex" justifyContent="center">
+            No data
+          </Box>
         )}
       </Box>
 

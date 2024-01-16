@@ -41,11 +41,10 @@ export const useSingleTaskFilter = () => {
     crowdsourcingtype: '', // 众包类型
     categorytype: '', //项目类别
     positiontype: '', // 职位类型
-    // name: 1, // 项目名称
+    name: '', // 项目名称
     status: '',
     address: '',
     querytype: '',
-    timestamp: '',
     size: PAGE_SIZE,
   });
   const onChange = (key: string, value: string) => {
@@ -62,11 +61,10 @@ export const useSingleTaskFilter = () => {
       crowdsourcingtype: '', // 众包类型
       categorytype: '', //项目类别
       positiontype: '', // 职位类型
-      // name: 1, // 项目名称
+      name: '', // 项目名称
       status: '',
       address: '',
       querytype: '',
-      timestamp: '',
       size: PAGE_SIZE,
     });
   };
@@ -77,15 +75,16 @@ export const useSingleTaskFilter = () => {
 // 任务大厅列表单一需求
 export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [loading, setLoading] = useState(false);
-  const [time, setTime] = useState(Date.now());
+  const [time, setTime] = useState<any>();
   // const [total, setTotal] = useState(0);
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
   const [hadMore, setHasMore] = useState(true);
   const oldFilterRef = useRef({});
   const { userInfo } = useUserInfo();
-  const getList = async (params: any) => {
-    setLoading(!time);
+  const [page, setPage] = useState(1);
+  const getList = async (params: any, time: number) => {
+    setLoading(true);
     try {
       const _params = {
         ...params,
@@ -114,6 +113,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   const fetchMoreData = useCallback(() => {
     const time = data[data.length - 1]?.startTime;
+    setPage((prevPage) => prevPage + 1);
     setTime(time);
   }, [data]);
 
@@ -123,14 +123,14 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   }, [filter]);
 
   useEffect(() => {
-    toggleTiger();
+    // toggleTiger();
   }, [userInfo]);
 
   useEffect(() => {
     console.log('triger', triger);
     // console.log(JSON.stringify({ user_addresses, page, filter, triger }));
     const params = {
-      time: Date.now(),
+      page,
       filter,
       triger,
     };
@@ -138,10 +138,10 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
     if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
       console.log('params>>>', params, activeTab);
       oldFilterRef.current = params;
-      getList(filter);
+      getList(filter, time);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [time, filter, triger]);
+  }, [page, filter, triger]);
 
   return {
     loading,

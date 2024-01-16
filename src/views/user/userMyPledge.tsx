@@ -76,6 +76,11 @@ export default function UserMyPledge(props: { data: any[] }) {
             </Flex>
           );
         })}
+        {data?.length === 0 && (
+          <Flex justifyContent="center" alignItems="center">
+            No data
+          </Flex>
+        )}
       </Box>
     </Box>
   );
