@@ -105,7 +105,7 @@ function SingleTask(props: {
         id="items_list_scrollable_box"
         style={{ height: 'calc(100vh - 240px)', overflow: 'scroll' }}
       >
-        {data.length === 0 ? (
+        {loading ? (
           <Loading />
         ) : (
           <InfiniteScroll

@@ -42,9 +42,9 @@ export default function TaskBaseInfo(props: {
       </Box>
       <p className={styles.itemTitle}>{data.name}</p>
       <Box className={styles.btns} display="flex" justifyContent="space-between">
-        <Tag size="lg" variant="solid" background="#1b1e24">
+        <span className="tag-primary">
           {ProfessionTypes.filter((v) => v.value === data.positionType)[0]?.label}
-        </Tag>
+        </span>
       </Box>
       {/* 来自Task Hall且是Tasker，可以进行评估 */}
       {props.from === IPath.TASKS && !isEvaluate && (

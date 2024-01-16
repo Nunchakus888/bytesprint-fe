@@ -32,6 +32,10 @@ export function SearchInput(props: {
 
   const handleChangeText = (e: any) => {
     setSearch(e.target.value);
+    return _.debounce(() => {
+      const format = e.target.value.trim();
+      props?.search(format);
+    }, 1000)();
   };
   return (
     <InputGroup w={{ base: '100%', md: '400px' }} {...rest}>
@@ -65,6 +69,7 @@ export function SearchInput(props: {
         borderRadius={borderRadius ? borderRadius : '30px'}
         placeholder={placeholder ? placeholder : 'Search...'}
         onChange={(e) => handleChangeText(e)}
+
         // value={search}
       />
     </InputGroup>

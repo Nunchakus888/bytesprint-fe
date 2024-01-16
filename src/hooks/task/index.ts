@@ -84,7 +84,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const { userInfo } = useUserInfo();
   const [page, setPage] = useState(1);
   const getList = async (params: any, time: number) => {
-    setLoading(true);
+    setLoading(page === 1);
     try {
       const _params = {
         ...params,
@@ -98,7 +98,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
       if (data.length < PAGE_SIZE) {
         setHasMore(false);
       }
-      if (!time) {
+      if (page === 1) {
         setData(data);
       } else {
         //@ts-ignore
@@ -118,6 +118,8 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   }, [data]);
 
   useEffect(() => {
+    document.getElementById('items_list_scrollable_box').scrollTo(0, 0);
+    setPage(1);
     setTime(Date.now());
     setHasMore(true);
   }, [filter]);
