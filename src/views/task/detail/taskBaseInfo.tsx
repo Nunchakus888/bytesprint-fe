@@ -60,7 +60,7 @@ export default function TaskBaseInfo(props: {
           borderRadius="30px"
           onClick={handClick}
         >
-          参与评估
+          Join
         </Button>
       )}
     </Box>
