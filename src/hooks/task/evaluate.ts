@@ -130,7 +130,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
       const contactRes = await stakeTasker({
         account,
         projectId,
-        amount,
+        amount: amount * 0.1, // 质押10%
         lockDays: Math.max(lockDays, 1),
       });
       if (!contactRes) {
