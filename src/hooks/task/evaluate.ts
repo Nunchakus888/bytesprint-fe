@@ -10,6 +10,7 @@ import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { Post } from 'common/utils/axios';
 import { useAccount } from 'wagmi';
 import useConnect from 'hooks/useConnect';
+import { BigNumber, ethers } from 'ethers';
 
 export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const { userInfo } = useUserInfo();
@@ -119,7 +120,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
         requirementList,
       };
       const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
-      if (res.code !== 0) {
+      if (res.result.code !== 0) {
         return false;
       }
       const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
@@ -130,7 +131,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
       const contactRes = await stakeTasker({
         account,
         projectId,
-        amount: amount * 0.1, // 质押10%
+        amount: ethers.BigNumber.from(String(Number((amount * 0.1).toFixed(2)) * Math.pow(10, 18))), // 质押10%
         lockDays: Math.max(lockDays, 1),
       });
       if (!contactRes) {

@@ -45,12 +45,12 @@ export default function AddRequirement() {
             <Text color="#fff" fontSize={20} fontWeight="bold">
               Select Requirement Type
             </Text>
-            <Flex justifyContent="space-between" gap="10px">
+            <Flex justifyContent="space-between" gap="10px" width="97%">
               {requirementTypes.map((it) => {
                 return (
                   <Box
                     key={it.type}
-                    background="#1b1e24"
+                    background="rgb(15, 17, 20)"
                     position="relative"
                     padding="10px 20px"
                     borderRadius={4}

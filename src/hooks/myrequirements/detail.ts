@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { useAccount, useConnect } from 'wagmi';
+import { ethers } from 'ethers';
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
@@ -78,7 +79,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         assetRecordId,
         status: TaskBidStatus.BID_SUCCESS,
       });
-      if (res.code !== 0) {
+      if (res.result.code !== 0) {
         return false;
       }
       // 质押天数
@@ -87,7 +88,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       const result = await stakeEmployer({
         account,
         projectId: id,
-        amount: totalCost,
+        amount: ethers.BigNumber.from(String(Number(totalCost) * Math.pow(10, 18))),
         lockDays: Math.max(lockDays, 1),
         withdrawAddr: wallet,
       });

@@ -86,7 +86,12 @@ export default function AddRequirement(props: {}) {
           ]}
         />
       </Box>
-      <Box position="relative" overflow="visible">
+      <Box
+        position="relative"
+        overflow="visible"
+        background="rgba(255,255,255,0.06)"
+        padding="25px"
+      >
         <Text fontSize={24} fontWeight="bold">
           Requirement Type：{currentRequire?.title}
         </Text>
@@ -185,7 +190,7 @@ export default function AddRequirement(props: {}) {
                       return (
                         <Box
                           key={`${it.label}_${index}`}
-                          background="#1b1e24"
+                          // background="#1b1e24"
                           position="relative"
                           padding="10px 20px"
                           borderRadius={4}
