@@ -138,9 +138,9 @@ export default function UserBaseInfo(props: {
       {/* 用户中心 */}
       {from === IPath.PROFILE && (
         <>
-          <Tag size="lg" padding="10px 20px" variant="solid" background="rgb(15, 17, 20)">
+          <span className="tag-primary">
             {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
-          </Tag>
+          </span>
           {/* Tasker */}
           {isEngineer && (
             <>
@@ -187,9 +187,9 @@ export default function UserBaseInfo(props: {
           {!(isEngineer || isOperator) && (
             <Flex gap="20px">
               <Link href={`/certification/tasker`}>
-                <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>
+                <Button className="btn-primary" padding="8px 20px" color="#fff" borderRadius={25}>
                   Tasker Certification
-                </Box>
+                </Button>
               </Link>
               {/* <Text>or</Text>
           <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box> */}

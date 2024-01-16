@@ -142,7 +142,7 @@ const operator = [
 
 const loginNav = [
   {
-    name: 'User Center',
+    name: 'My portfolio',
     path: '/profile',
     icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
   },

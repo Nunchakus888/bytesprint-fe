@@ -11,6 +11,7 @@ import {
   TaskTypes,
 } from 'common/constant';
 import styles from './index.module.scss';
+
 export default function TaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   const { item } = props;
   return (
@@ -18,16 +19,11 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
       <Flex justify="space-between" position="relative">
         <Box
           className={styles.imgbox}
-          background="#7551FF"
           display="flex"
           alignItems="center"
           justifyContent="center"
           fontSize="30px"
         >
-          {/* <Image
-            src={`https://picsum.photos/200/250?random=${Math.ceil(Math.random() * 100)}`}
-            alt={item.categoryName}
-          /> */}
           {Tabs.filter((v) => v.value === item.categoryType)[0]?.label}
         </Box>
         <Box display="flex" flexDirection="column" width="100%">
@@ -45,10 +41,10 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
             dangerouslySetInnerHTML={{ __html: item.description }}
           ></Box>
           <Box className={styles.btns} display="flex" justifyContent="space-between">
-            <Tag size="lg" variant="solid" background="#242537">
+            <span className="tag-primary">
               {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
-            </Tag>
-            <Button background="#7551FF" size="md" color="#fff">
+            </span>
+            <Button color="#fff" className="btn-primary" borderRadius={25}>
               <Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}> Details</Link>
               {/* Test */}
               {/* <Link href={`/taskdetail/${props.from || IPath.TASKS}/202401082128568241`}> Details</Link> */}
