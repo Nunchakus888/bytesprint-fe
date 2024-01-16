@@ -17,9 +17,6 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const [signLoading, setSignLoading] = useState(false);
   // 打开任务
   const openTask = async () => {
-    // prompt
-    // open
-    // refresh
     const res = await Post(API_ROUTERS.tasks.TASK_OPEN, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
@@ -65,7 +62,6 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 
   // 签约TA
   const signBid = async (record: any) => {
-    // TODO 合约交互执行签约 错误提示 amount金额 锁定时间
     // 判断是否登录
     if (!account.address) {
       connect();
@@ -74,6 +70,17 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     try {
       setSignLoading(true);
       let { totalCost, totalTime, uid, wallet, assetRecordId, finishTime } = record;
+      // 先调用接口
+      const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
+        uid: userInfo.uid,
+        walletAddress: wallet,
+        projectId: id,
+        assetRecordId,
+        status: TaskBidStatus.BID_SUCCESS,
+      });
+      if (res.code !== 0) {
+        return false;
+      }
       // 质押天数
       const lockDays = Math.ceil((+finishTime - Date.now()) / (24 * 60 * 60 * 1000));
       // 合约交互
@@ -85,13 +92,6 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         withdrawAddr: wallet,
       });
       if (result) {
-        const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
-          uid: userInfo.uid,
-          walletAddress: wallet,
-          projectId: id,
-          assetRecordId,
-          status: TaskBidStatus.BID_SUCCESS,
-        });
         toast({
           title: `Operate SuccessFully`,
           status: `success`,
@@ -119,7 +119,6 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       assetRecordId,
       // status: TaskBidStatus.BID_FAIL
     });
-    debugger;
     toast({
       title: `Operate SuccessFully`,
       status: `success`,

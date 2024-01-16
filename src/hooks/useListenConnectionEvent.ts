@@ -34,7 +34,12 @@ const useListenConnectionEvent = () => {
     if (userInfo.address && isDisconnected) {
       disconnect();
     }
-  }, [isDisconnected, disconnect]);
+    if (isDisconnected) {
+      removeItem('authorization');
+      dispatch(setUserInfo({}));
+      removeItem('userInfo');
+    }
+  }, [isDisconnected, disconnect, userInfo.address, dispatch]);
 
   useEffect(() => {
     const checkLogin = async () => {

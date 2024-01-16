@@ -102,8 +102,7 @@ export default function FileUpload(props: FileUploadProps) {
           width="100%"
           height="100px"
           background="rgba(255,255,255,0.03)"
-          border="solid 1px rgba(255,255,255,0.1);"
-          borderRadius={6}
+          border="solid 1px rgba(255,255,255,0.25);"
         >
           <Text>Drag the file here, or click to upload</Text>
           <Text>
@@ -117,7 +116,7 @@ export default function FileUpload(props: FileUploadProps) {
           return (
             <Flex
               key={`${file.name}_${Date.now()}`}
-              background="#1b1e24"
+              background="rgba(255,255,255,0.05)"
               borderRadius={4}
               padding="15px 20px"
             >

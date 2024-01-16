@@ -52,13 +52,13 @@ export default function ProfileOverview() {
           <Flex gap="20px" justifyContent="space-between" width="100%">
             <Box width="50%">
               <UserSkillsTag />
-              <UserExperience data={[{}, {}, {}]} />
               <UserCertificates data={[{}, {}, {}]} />
               <UserAttachedResume data={{}} />
             </Box>
             <Box width="50%">
               {/* 任务经历 */}
-              <UserTaskExperience data={[{}, {}, {}]} />
+              {/* <UserTaskExperience data={[{}, {}, {}]} /> */}
+              <UserExperience data={[{}, {}, {}]} />
             </Box>
           </Flex>
         )}

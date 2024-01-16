@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Identification, IPath } from 'common/constant';
 import API_ROUTERS from 'api';
 import { Get } from 'common/utils/axios';
+import { removeItem } from 'common/utils';
 
 let defaultRoutes: any[] = [
   // {

@@ -65,10 +65,8 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
         title: `Operate SuccessFully`,
         status: `success`,
         isClosable: false,
-        onCloseComplete: () => {
-          window.location.reload();
-        },
       });
+      window.location.reload();
       // 保存成功后，可以开始任务
       // setIsStartTask(true)
     } finally {

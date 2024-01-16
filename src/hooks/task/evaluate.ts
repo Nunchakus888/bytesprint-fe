@@ -104,29 +104,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
     console.log('提交数据>>>>', data);
     setLoading(true);
     try {
-      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
-      // TODO amount 是否是质押的金额 lockdays
-      console.log({ account, projectId, amount, lockDays: 1 });
-      // 质押天数 完成时间 - 当前时间
-      const lockDays = Math.ceil(
-        (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
-      );
-      const contactRes = await stakeTasker({
-        account,
-        projectId,
-        amount,
-        lockDays: Math.max(lockDays, 1),
-      });
-      if (!contactRes) {
-        toast({
-          title: `Operate Error`,
-          status: `error`,
-          isClosable: true,
-        });
-        setLoading(false);
-        return false;
-      }
-      // 合约交互完成后再调用接口
+      // 先调用接口
       const requirementList = data.datas.map((it: any) => {
         return {
           requirementName: it.taskname,
@@ -141,6 +119,29 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
         requirementList,
       };
       const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
+      if (res.code !== 0) {
+        return false;
+      }
+      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
+      // 质押天数 完成时间 - 当前时间
+      const lockDays = Math.ceil(
+        (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
+      );
+      const contactRes = await stakeTasker({
+        account,
+        projectId,
+        amount: amount * 0.1, // 质押10%
+        lockDays: Math.max(lockDays, 1),
+      });
+      if (!contactRes) {
+        toast({
+          title: `Operate Error`,
+          status: `error`,
+          isClosable: true,
+        });
+        setLoading(false);
+        return false;
+      }
       // 请求成功后返回任务列表
       toast({
         title: `successFully`,
