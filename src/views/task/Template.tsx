@@ -6,6 +6,7 @@ import { IPath, RequirementType, TabsEnum } from 'common/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
+import classNames from 'classnames';
 
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
@@ -63,7 +64,6 @@ export default function TaskTemplate(props: {
                 return (
                   <Tab
                     key={it.label}
-                    className={it.value === activeTab ? styles.tab_active : ''}
                     onClick={(e) => {
                       e.preventDefault();
                       handleTabChange(it.value);
@@ -71,7 +71,14 @@ export default function TaskTemplate(props: {
                   >
                     <span className="flex">
                       {it.icon}
-                      <span className="ml-2">{it.label}</span>
+                      <span
+                        className={classNames(
+                          'ml-2',
+                          it.value === activeTab ? 'text-linear-gradient' : ''
+                        )}
+                      >
+                        {it.label}
+                      </span>
                     </span>
                   </Tab>
                 );

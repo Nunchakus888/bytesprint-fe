@@ -33,6 +33,7 @@ function CustionSelect(props: any) {
             color: state.isSelected ? '#fff !important' : 'rgba(255, 255, 255, 0.8) !important',
             boxShadow: '0px 2px 10px 0px rgba(0,0,0,0.1)',
             borderRadius: '4px',
+            margin: '4px 0',
             _hover: {
               backgroundColor: '#2d3749',
             },
