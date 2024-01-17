@@ -13,6 +13,9 @@ import { setUserInfo } from 'common/slice/commonSlice';
 import _ from 'lodash';
 import { setItem } from 'common/utils';
 import WalletAvatar from 'components/WalletAvatar';
+import { MdArrowForward } from 'react-icons/md';
+import { shortAddress } from 'common/utils';
+import { RiEdit2Fill } from 'react-icons/ri';
 
 export default function UserBaseInfo(props: {
   from?: IPath;
@@ -44,56 +47,104 @@ export default function UserBaseInfo(props: {
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      position="relative"
-      paddingBottom="20px"
-      gap="20px"
-      className={styles.container}
-    >
-      <WalletAvatar value={userInfo?.address || ''} size={60} />
-      <Flex alignItems="center" gap="10px">
-        {modify && (
-          <Flex alignItems="center" gap="10px">
-            <Input
-              variant="unstyled"
-              fontSize="sm"
-              color="#fff"
-              fontWeight="500"
-              className={styles.modify_input}
-              defaultValue={data?.nickname}
-              onChange={(e) => handleChangeText(e)}
-            />
-            <Box cursor="pointer">
-              <GrCheckmark fontSize={28} onClick={handleModify} />
-            </Box>
-            <Box cursor="pointer">
-              <GrClose fontSize={28} onClick={() => setModify(false)} />
-            </Box>
-          </Flex>
-        )}
-        {!modify && (
-          <>
-            <Text fontSize={24} fontWeight="bold">
-              {data?.nickname}
-            </Text>
+    <Box className={styles.baseinfoContainer}>
+      <div>
+        <div className="flex gap-4">
+          <WalletAvatar value={userInfo?.address || ''} size={100} />
+          <div>
+            <Flex alignItems="center" gap="10px" mb={2}>
+              {modify && (
+                <Flex alignItems="center" gap="10px">
+                  <Input
+                    variant="unstyled"
+                    fontSize="sm"
+                    color="#fff"
+                    fontWeight="500"
+                    className={styles.modify_input}
+                    defaultValue={data?.nickname}
+                    onChange={(e) => handleChangeText(e)}
+                  />
+                  <Box cursor="pointer">
+                    <GrCheckmark fontSize={28} onClick={handleModify} />
+                  </Box>
+                  <Box cursor="pointer">
+                    <GrClose fontSize={28} onClick={() => setModify(false)} />
+                  </Box>
+                </Flex>
+              )}
+              {!modify && (
+                <>
+                  <Text fontSize={24} fontWeight="bold">
+                    {shortAddress(data?.nickname)}
+                  </Text>
+                  {from === IPath.PROFILE && (
+                    <RiEdit2Fill
+                      className="cursor-pointer"
+                      fontSize="22"
+                      onClick={() => setModify(true)}
+                    />
+                  )}
+                </>
+              )}
+            </Flex>
+            {/* 用户中心 */}
             {from === IPath.PROFILE && (
-              <Link fontSize={16} color="#7551FF" fontWeight="bold" onClick={() => setModify(true)}>
-                Modify
-              </Link>
+              <div>
+                <span className="tag-primary" style={{ maxWidth: 120 }}>
+                  {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
+                </span>
+                {/* Tasker */}
+                {isEngineer && (
+                  <>
+                    <Flex alignItems="center" justifyContent="center" gap="20px">
+                      {/* @ts-ignore */}
+                      <Box>
+                        <Text>
+                          Level：
+                          {
+                            //@ts-ignore
+                            USER_LEVEL[+data?.level]
+                          }
+                        </Text>
+                      </Box>
+                      {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
+                    </Flex>
+                    <Flex gap="20px">
+                      {userInfo?.data?.engineer?.position?.map((positionType: number) => {
+                        return (
+                          <Box
+                            key={`positiontype_${positionType}`}
+                            background="#7551FF"
+                            padding="8px 20px"
+                            color="#fff"
+                            borderRadius={4}
+                          >
+                            {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
+                          </Box>
+                        );
+                      })}
+                    </Flex>
+                  </>
+                )}
+                {/* Navigator */}
+                {/* {identification === Identification.OPERATOR && <Flex alignItems="center" justifyContent="center" gap="20px">
+          <Box><Text>到期：2024/11/24</Text></Box>
+          <Flex justifyContent="center" gap="10px">
+            <Text>授权码：</Text>
+            <Text color="#7551FF" marginLeft="10px">BTYD32423942</Text>
+            <Copy text="BTYD32423942"></Copy>
+          </Flex>
+        </Flex>} */}
+              </div>
             )}
-          </>
-        )}
-      </Flex>
+          </div>
+        </div>
 
-      {/* Navigator 审核 */}
-      {/* {from === IPath.OperatorCheck && <Box background="#7551FF" padding="10px 20px" color="#fff" borderRadius={4}>珍珠号 · 一年有效期</Box>} */}
+        {/* Navigator 审核 */}
+        {/* {from === IPath.OperatorCheck && <Box background="#7551FF" padding="10px 20px" color="#fff" borderRadius={4}>珍珠号 · 一年有效期</Box>} */}
 
-      {/* 我的Navigator 详情 */}
-      {/* {from === IPath.MYOPERATORDetail && <>
+        {/* 我的Navigator 详情 */}
+        {/* {from === IPath.MYOPERATORDetail && <>
         <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Navigator
         </Tag>
@@ -108,8 +159,8 @@ export default function UserBaseInfo(props: {
         <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>珍珠号</Box>
       </>} */}
 
-      {/* Tasker审核详情 */}
-      {/* {from === IPath.ENGINEERCheck && <>
+        {/* Tasker审核详情 */}
+        {/* {from === IPath.ENGINEERCheck && <>
         <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Tasker
         </Tag>
@@ -119,9 +170,9 @@ export default function UserBaseInfo(props: {
         </Flex>
       </>} */}
 
-      {/* TODO Tasker有3个等级 */}
-      {/* 我的Tasker 详情 */}
-      {/* {from === IPath.MYENGINEERDetail && <>
+        {/* TODO Tasker有3个等级 */}
+        {/* 我的Tasker 详情 */}
+        {/* {from === IPath.MYENGINEERDetail && <>
         <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
           Tasker
         </Tag>
@@ -134,68 +185,19 @@ export default function UserBaseInfo(props: {
           <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box>
         </Flex>
       </>} */}
+      </div>
 
-      {/* 用户中心 */}
-      {from === IPath.PROFILE && (
-        <>
-          <span className="tag-primary">
-            {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
-          </span>
-          {/* Tasker */}
-          {isEngineer && (
-            <>
-              <Flex alignItems="center" justifyContent="center" gap="20px">
-                {/* @ts-ignore */}
-                <Box>
-                  <Text>
-                    Level：
-                    {
-                      //@ts-ignore
-                      USER_LEVEL[+data?.level]
-                    }
-                  </Text>
-                </Box>
-                {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
-              </Flex>
-              <Flex gap="20px">
-                {userInfo?.data?.engineer?.position?.map((positionType: number) => {
-                  return (
-                    <Box
-                      key={`positiontype_${positionType}`}
-                      background="#7551FF"
-                      padding="8px 20px"
-                      color="#fff"
-                      borderRadius={4}
-                    >
-                      {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
-                    </Box>
-                  );
-                })}
-              </Flex>
-            </>
-          )}
-          {/* Navigator */}
-          {/* {identification === Identification.OPERATOR && <Flex alignItems="center" justifyContent="center" gap="20px">
-          <Box><Text>到期：2024/11/24</Text></Box>
-          <Flex justifyContent="center" gap="10px">
-            <Text>授权码：</Text>
-            <Text color="#7551FF" marginLeft="10px">BTYD32423942</Text>
-            <Copy text="BTYD32423942"></Copy>
-          </Flex>
-        </Flex>} */}
-
-          {!(isEngineer || isOperator) && (
-            <Flex gap="20px">
-              <Link href={`/certification/tasker`}>
-                <Button className="btn-primary" padding="8px 20px" color="#fff" borderRadius={25}>
-                  Tasker Certification
-                </Button>
-              </Link>
-              {/* <Text>or</Text>
+      {!(isEngineer || isOperator) && (
+        <Flex gap="20px">
+          <Link href={`/certification/tasker`} className="flex items-center underline">
+            <Text fontSize={16} fontWeight="600">
+              Tasker Certification{' '}
+            </Text>
+            <MdArrowForward className="ml-2" />
+          </Link>
+          {/* <Text>or</Text>
           <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box> */}
-            </Flex>
-          )}
-        </>
+        </Flex>
       )}
     </Box>
   );

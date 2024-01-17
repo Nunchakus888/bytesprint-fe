@@ -1,28 +1,41 @@
 @import '../common.module.scss';
-.positionIcon {
-  background: url('../../../public/img/workplace.png') no-repeat left center;
-  background-size: 20px 20px!important;
-  padding-left: 30px!important;
+
+.baseinfoContainer {
+  background: url('../../../public/img/profile/bg.png') no-repeat left center;
+  background-size: 100% 100% !important;
+  height: 240px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 42px;
 }
 
+.positionIcon {
+  background: url('../../../public/img/workplace.png') no-repeat left center;
+  background-size: 20px 20px !important;
+  padding-left: 30px !important;
+}
 
 .numsIcon {
   background: url('../../../public/img/worktime.png') no-repeat left center;
-  background-size: 20px 20px!important;
-  padding-left: 30px!important;
+  background-size: 20px 20px !important;
+  padding-left: 30px !important;
 }
+
 .modify_input {
-  outline: none!important;
+  outline: none !important;
   border: 0;
-  border-radius: 0!important;
-  border-bottom: 1px solid!important;
-  font-size: 28px!important;
-  min-width: 400px!important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid !important;
+  font-size: 28px !important;
+  min-width: 400px !important;
   &:focus {
-    outline: none!important;
-    box-shadow: none!important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
+
 .active {
-  color: #7551FF;
+  color: #7551ff;
 }

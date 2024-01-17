@@ -111,6 +111,10 @@ body {
   white-space: nowrap;
 }
 
+.underline {
+  text-decoration: underline !important;
+}
+
 .v-main {
   padding: 88px 16px 0px 256px;
   background-repeat: no-repeat !important;
