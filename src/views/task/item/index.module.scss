@@ -1,25 +1,20 @@
 .itemContainer,
 .personItemContainer {
   padding: 30px;
-  background-color: #1b1e24;
+  background-color: #18191f;
   border-radius: 20px;
   margin-bottom: 20px;
   .imgbox {
-    width: 200px;
-    min-width: 200px;
-    height: 230px;
-    border-radius: 20px;
+    width: 162px;
+    min-width: 162px;
+    height: 200px;
     overflow: hidden;
     margin-right: 30px;
-    background: radial-gradient(
-      101.86% 128.55% at 7.92% 9.25%,
-      rgb(52 58 104) 6.63%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    border-color: #353d6a;
-    border-radius: 12px;
-    border-width: 1px;
-    filter: drop-shadow(rgba(0, 0, 0, 0.35) -1px -1px 40px);
+    background: linear-gradient(158deg, #3c4897 0%, #1d1e23 100%);
+    border: 1px solid rgba(160, 198, 255, 0.3);
+    border-radius: 8px 8px 8px 8px;
+    font-size: 20px;
+    font-weight: 500;
     img {
       max-width: 100%;
       height: 100%;
@@ -27,7 +22,8 @@
   }
   .itemTitle {
     font-size: 22px;
-    margin: 20px 0;
+    font-weight: 800;
+    max-width: 600px;
   }
   .itemContent {
     color: #ffffff;
@@ -37,13 +33,14 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* 这里是超出几行省略 */
+    -webkit-line-clamp: 3; /* 这里是超出几行省略 */
     overflow: hidden;
-    margin-bottom: 35px;
+    min-height: 96px;
+    margin-top: 14px;
   }
   .btns {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 20px;
+    border-top: 1px solid #34353d;
+    padding-top: 16px;
   }
 }
 
@@ -56,7 +53,7 @@
     margin: 25px 0;
   }
   .btns {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid #34353d;
     padding-top: 30px;
   }
   .educational,

@@ -5,24 +5,14 @@
   .tabs {
     display: flex;
     align-items: center;
+    gap: 16px;
     button {
-      margin-right: 10px;
-      color: #fff;
       background-color: transparent;
       font-weight: bolder;
       position: relative;
+      color: rgba(255, 255, 255, 0.8);
       &.tab_active {
-        color: var(--theme-color);
-        &::after {
-          position: absolute;
-          bottom: -10px;
-          left: 0;
-          content: '';
-          display: inline-block;
-          width: 100%;
-          height: 2px;
-          background-color: var(--theme-color);
-        }
+        color: #fff;
       }
       &:last-child {
         margin-right: 0;

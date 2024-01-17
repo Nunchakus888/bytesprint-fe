@@ -43,7 +43,6 @@ function SingleTask(props: {
       >
         <SearchInput
           background="#1b1e24"
-          searchIconColor="#7551FF"
           placeholder="Task Name"
           search={handleSearch}
         ></SearchInput>

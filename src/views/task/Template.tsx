@@ -64,6 +64,7 @@ export default function TaskTemplate(props: {
                 return (
                   <Tab
                     key={it.label}
+                    className={classNames(it.value === activeTab ? styles.tab_active : '')}
                     onClick={(e) => {
                       e.preventDefault();
                       handleTabChange(it.value);
@@ -71,14 +72,7 @@ export default function TaskTemplate(props: {
                   >
                     <span className="flex">
                       {it.icon}
-                      <span
-                        className={classNames(
-                          'ml-2',
-                          it.value === activeTab ? 'text-linear-gradient' : ''
-                        )}
-                      >
-                        {it.label}
-                      </span>
+                      <span className={classNames('ml-2')}>{it.label}</span>
                     </span>
                   </Tab>
                 );

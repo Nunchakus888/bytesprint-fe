@@ -1,4 +1,7 @@
-import { MdGroups, MdOutlinePersonOutline } from 'react-icons/md';
+import { MdGroups } from 'react-icons/md';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { TbDiscount2 } from 'react-icons/tb';
+import { BiCategory } from 'react-icons/bi';
 
 import Logo from '../../public/img/logo.png';
 import Twitter from '../../public/img/media/twitter.png';
@@ -52,17 +55,17 @@ export const Tabs = [
   {
     label: TabsEnum.SINGLE_TASK,
     value: RequirementType.Single,
-    icon: '🔥',
+    icon: <FaCalendarAlt fontSize={20} />,
   },
   {
     label: TabsEnum.PERSON_TASK,
     value: RequirementType.Person,
-    icon: '🌍',
+    icon: <TbDiscount2 fontSize={22} />,
   },
   {
     label: TabsEnum.ALL_TASK,
     value: RequirementType.Global,
-    icon: <MdGroups fontSize={22} />,
+    icon: <BiCategory fontSize={22} />,
   },
 ];
 

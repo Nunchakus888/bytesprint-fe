@@ -89,15 +89,26 @@ body {
 }
 
 .tag-primary {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  border-bottom-right-radius: 0;
+  background: linear-gradient(90deg, #de8a8d 0%, #b78fee 52%, #4468fc 100%);
+  border-radius: 8px 8px 8px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 16px;
-  background: #0f1114;
+  padding: 4px 12px;
   border: 1px solid #394960;
+}
+
+.task-tag {
+  background: linear-gradient(158deg, #3c4897 0%, #1d1e23 100%) !important;
+  border: 1px solid rgba(160, 198, 255, 0.3);
+  border-radius: 4px 4px 4px 4px;
+  font-weight: 800;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .v-main {
