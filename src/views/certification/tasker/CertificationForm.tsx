@@ -18,6 +18,7 @@ import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
 import FileUpload from 'components/fileupload';
 import { onSuccessToast } from 'common/utils/toast';
+import EducationFormArea from './EducationFormArea';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
@@ -26,20 +27,35 @@ const CertificationForm = ({ authorizeCode }: any) => {
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
-      const { position, experience, eductionRange, education, skillList, ...restValues } = values;
+      const {
+        position,
+        experience,
+        eductionRange,
+        education,
+        skillList,
+        educationList,
+        ...restValues
+      } = values;
       const params = {
-        position: position.map((it: any) => it.value),
+        position: position?.map((it: any) => it.value),
         experience: experience?.value,
-        skillList: skillList.split(','),
+        skillList: skillList?.split(','),
         jobList: [],
-        educationList: [],
+        educationList: educationList?.map((it: any) => {
+          return {
+            ...it,
+            education: it.education?.value,
+          };
+        }),
+        authorizeCode,
         ...restValues,
       };
-      console.log('提交表单', params, values);
+      console.log('提交表单', values);
       const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(), params);
       setLoading(false);
       onSuccessToast('Successfully');
     } catch (error) {
+      console.log(error);
       setLoading(false);
     }
   };
@@ -72,7 +88,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             </>
           )}
 
-          {/* <Box>
+          <Box className={styles.formArea}>
             <h3 className="font-16 font-bold mb-2">Basic Information</h3>
             <Controller
               control={control}
@@ -157,7 +173,6 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 </FormControl>
               )}
             />
-
             <Controller
               control={control}
               name="email"
@@ -173,7 +188,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 </FormControl>
               )}
             />
-          </Box> */}
+          </Box>
 
           <Box className={styles.formArea}>
             <h3 className="font-16 font-bold mb-2">Skill Tag</h3>
@@ -197,95 +212,15 @@ const CertificationForm = ({ authorizeCode }: any) => {
             />
           </Box>
 
-          <Box className={styles.formArea}>
-            <h3 className="font-16 font-bold mb-2">Education</h3>
-            <Controller
-              control={control}
-              name="school"
-              rules={{ required: 'Please input school' }}
-              render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { error },
-              }) => {
-                return (
-                  <FormControl className="mb-4" id="school" isInvalid={!!error}>
-                    <FormLabel fontSize={12}>School</FormLabel>
-                    <Input value={value} onChange={onChange} />
-                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
-                  </FormControl>
-                );
-              }}
-            />
-            <Controller
-              control={control}
-              name="eductionRange"
-              rules={{ required: 'Please select ' }}
-              render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { error },
-              }) => {
-                return (
-                  <FormControl className="mb-4" id="eductionRange" isInvalid={!!error}>
-                    <FormLabel fontSize={12}>Study Time</FormLabel>
-                    <RangeDatepicker
-                      name="eductionRange"
-                      selectedDates={value || []}
-                      onDateChange={(val) => {
-                        console.log(99, val);
-                        onChange(val);
-                      }}
-                      usePortal
-                    />
-                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
-                  </FormControl>
-                );
-              }}
-            />
-            <Controller
-              control={control}
-              name="major"
-              rules={{ required: 'Please input major' }}
-              render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { error },
-              }) => {
-                return (
-                  <FormControl className="mb-4" id="major" isInvalid={!!error}>
-                    <FormLabel fontSize={12}>Major</FormLabel>
-                    <Input value={value} onChange={onChange} />
-                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
-                  </FormControl>
-                );
-              }}
-            />
-            <Controller
-              control={control}
-              name="education"
-              rules={{ required: 'Please select education' }}
-              render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { error },
-              }) => (
-                <FormControl className="mb-4" isInvalid={!!error} id="education">
-                  <FormLabel fontSize={12}>Academic Degree</FormLabel>
-                  <CustionSelect
-                    placeholder="Select education"
-                    name={name}
-                    ref={ref}
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    options={EducationTypes}
-                    closeMenuOnSelect={false}
-                    isSearchable={false}
-                  />
-                  <FormErrorMessage>{error && error.message}</FormErrorMessage>
-                </FormControl>
-              )}
-            />
-          </Box>
+          <Controller
+            control={control}
+            name="educationList"
+            render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => {
+              return <EducationFormArea value={value} onChange={onChange} />;
+            }}
+          />
 
-          {/*<Box className={styles.formArea}>
+          <Box className={styles.formArea}>
             <h3 className="font-16 font-bold mb-2">Attachment Resume</h3>
             <Controller
               control={control}
@@ -310,7 +245,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 );
               }}
             />
-          </Box> */}
+          </Box>
 
           <div className="flex justify-center">
             <Button mt={4} className="btn-primary" type="submit" isLoading={loading}>
