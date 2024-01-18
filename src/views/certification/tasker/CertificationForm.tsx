@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   Container,
+  Box,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/constant';
@@ -71,7 +72,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             </>
           )}
 
-          <div>
+          {/* <Box>
             <h3 className="font-16 font-bold mb-2">Basic Information</h3>
             <Controller
               control={control}
@@ -172,118 +173,145 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 </FormControl>
               )}
             />
-          </div>
-          <h3 className="font-16 font-bold mb-2">Skill Tag</h3>
-          <Controller
-            control={control}
-            name="skillList"
-            rules={{ required: 'Please input skillList' }}
-            render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
-              <FormControl className="mb-4" id="skillList" isInvalid={!!error} isRequired>
-                <Input
-                  placeholder="Please enter, separated by a comma"
-                  value={value}
-                  onChange={onChange}
-                />
-                <FormErrorMessage>{error && error.message}</FormErrorMessage>
-              </FormControl>
-            )}
-          />
+          </Box> */}
 
-          {/* <h3 className="font-16 font-bold mb-2">Education</h3>
-        <Controller
-          control={control}
-          name="school"
-          rules={{ required: 'Please input school' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
-            return (
-              <FormControl className="mb-4" id="school" isInvalid={!!error}>
-                <FormLabel fontSize={12}>School</FormLabel>
-                <Input value={value} onChange={onChange} />
-                <FormErrorMessage>{error && error.message}</FormErrorMessage>
-              </FormControl>
-            );
-          }}
-        /> */}
-          {/* <Controller
-          control={control}
-          name="eductionRange"
-          rules={{ required: 'Please select ' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
-            return (
-              <FormControl className="mb-4" id="eductionRange" isInvalid={!!error}>
-                <FormLabel fontSize={12}>Study Time</FormLabel>
-                <RangeDatepicker
-                  name="eductionRange"
-                  selectedDates={value || []}
-                  onDateChange={(val) => {
-                    console.log(99, val);
-                    onChange(val);
-                  }}
-                  usePortal
-                />
-                <FormErrorMessage>{error && error.message}</FormErrorMessage>
-              </FormControl>
-            );
-          }}
-        />
-        <Controller
-          control={control}
-          name="major"
-          rules={{ required: 'Please input major' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
-            return (
-              <FormControl className="mb-4" id="major" isInvalid={!!error}>
-                <FormLabel fontSize={12}>Major</FormLabel>
-                <Input value={value} onChange={onChange} />
-                <FormErrorMessage>{error && error.message}</FormErrorMessage>
-              </FormControl>
-            );
-          }}
-        />
-        <Controller
-          control={control}
-          name="education"
-          rules={{ required: 'Please select education' }}
-          render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => (
-            <FormControl className="mb-4" isInvalid={!!error} id="education">
-              <FormLabel fontSize={12}>Academic Degree</FormLabel>
-              <CustionSelect
-                placeholder="Select education"
-                name={name}
-                ref={ref}
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                options={EducationTypes}
-                closeMenuOnSelect={false}
-                isSearchable={false}
-              />
-              <FormErrorMessage>{error && error.message}</FormErrorMessage>
-            </FormControl>
-          )}
-        /> */}
-          <h3 className="font-16 font-bold mb-2">Attachment Resume</h3>
-          <Controller
-            control={control}
-            name="resume"
-            render={({ field: { onChange, onBlur, value, name, ref }, fieldState: { error } }) => {
-              return (
-                <FormControl className="mb-4" id="resume" isInvalid={!!error}>
-                  <FileUpload
-                    accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
-                    multiple
-                    max={3}
-                    maxSize={50 * 1024 * 1024}
-                    register={(files: any) => {
-                      console.log(111, files);
-                    }}
+          <Box className={styles.formArea}>
+            <h3 className="font-16 font-bold mb-2">Skill Tag</h3>
+            <Controller
+              control={control}
+              name="skillList"
+              rules={{ required: 'Please input skillList' }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => (
+                <FormControl className="mb-4" id="skillList" isInvalid={!!error} isRequired>
+                  <Input
+                    placeholder="Please enter, separated by a comma"
+                    value={value}
+                    onChange={onChange}
                   />
                   <FormErrorMessage>{error && error.message}</FormErrorMessage>
                 </FormControl>
-              );
-            }}
-          />
+              )}
+            />
+          </Box>
+
+          <Box className={styles.formArea}>
+            <h3 className="font-16 font-bold mb-2">Education</h3>
+            <Controller
+              control={control}
+              name="school"
+              rules={{ required: 'Please input school' }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => {
+                return (
+                  <FormControl className="mb-4" id="school" isInvalid={!!error}>
+                    <FormLabel fontSize={12}>School</FormLabel>
+                    <Input value={value} onChange={onChange} />
+                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                  </FormControl>
+                );
+              }}
+            />
+            <Controller
+              control={control}
+              name="eductionRange"
+              rules={{ required: 'Please select ' }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => {
+                return (
+                  <FormControl className="mb-4" id="eductionRange" isInvalid={!!error}>
+                    <FormLabel fontSize={12}>Study Time</FormLabel>
+                    <RangeDatepicker
+                      name="eductionRange"
+                      selectedDates={value || []}
+                      onDateChange={(val) => {
+                        console.log(99, val);
+                        onChange(val);
+                      }}
+                      usePortal
+                    />
+                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                  </FormControl>
+                );
+              }}
+            />
+            <Controller
+              control={control}
+              name="major"
+              rules={{ required: 'Please input major' }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => {
+                return (
+                  <FormControl className="mb-4" id="major" isInvalid={!!error}>
+                    <FormLabel fontSize={12}>Major</FormLabel>
+                    <Input value={value} onChange={onChange} />
+                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                  </FormControl>
+                );
+              }}
+            />
+            <Controller
+              control={control}
+              name="education"
+              rules={{ required: 'Please select education' }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => (
+                <FormControl className="mb-4" isInvalid={!!error} id="education">
+                  <FormLabel fontSize={12}>Academic Degree</FormLabel>
+                  <CustionSelect
+                    placeholder="Select education"
+                    name={name}
+                    ref={ref}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    value={value}
+                    options={EducationTypes}
+                    closeMenuOnSelect={false}
+                    isSearchable={false}
+                  />
+                  <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                </FormControl>
+              )}
+            />
+          </Box>
+
+          {/*<Box className={styles.formArea}>
+            <h3 className="font-16 font-bold mb-2">Attachment Resume</h3>
+            <Controller
+              control={control}
+              name="resume"
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { error },
+              }) => {
+                return (
+                  <FormControl className="mb-4" id="resume" isInvalid={!!error}>
+                    <FileUpload
+                      accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
+                      multiple
+                      max={3}
+                      maxSize={50 * 1024 * 1024}
+                      register={(files: any) => {
+                        console.log(111, files);
+                      }}
+                    />
+                    <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                  </FormControl>
+                );
+              }}
+            />
+          </Box> */}
+
           <div className="flex justify-center">
             <Button mt={4} className="btn-primary" type="submit" isLoading={loading}>
               Apply becoming Tasker
