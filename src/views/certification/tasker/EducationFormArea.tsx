@@ -4,15 +4,15 @@ import React, { useCallback, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Box } from '@chakra-ui/react';
 
 import CustionSelect from 'components/custom-select';
-import { RangeDatepicker } from 'chakra-dayzed-datepicker';
+import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import { EducationTypes } from 'common/constant';
 import { MdClose, MdOutlineAdd } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 
 const defaultItem = {
   school: '',
-  startTime: '',
-  endTime: '',
+  startTime: new Date(),
+  endTime: new Date(),
   education: '',
   major: '',
 };
@@ -52,11 +52,10 @@ export default function EducationFormArea({ value = [], onChange }: any) {
         };
         value.splice(index, 1, newCurrentValue);
         onChange(value);
-      } else if (key === 'eductionRange') {
+      } else if (key === 'startTime' || key === 'endTime') {
         const newCurrentValue = {
           ...currentValue,
-          startTime: val[0],
-          endTime: val[0],
+          [key]: val,
         };
         value.splice(index, 1, newCurrentValue);
         onChange(value);
@@ -64,6 +63,8 @@ export default function EducationFormArea({ value = [], onChange }: any) {
     },
     [value, onChange]
   );
+
+  console.log(1111, value);
 
   return (
     <Box>
@@ -94,14 +95,21 @@ export default function EducationFormArea({ value = [], onChange }: any) {
 
             <FormControl className="mb-4">
               <FormLabel fontSize={12}>Study Time</FormLabel>
-              <RangeDatepicker
-                name="eductionRange"
-                selectedDates={[value[index].startTime, value[index].endTime]}
-                onDateChange={(val) => {
-                  handleChange('eductionRange', val, index);
-                }}
-                usePortal
-              />
+              <div className="flex items-center ga">
+                <SingleDatepicker
+                  date={value[index].startTime}
+                  onDateChange={(val) => {
+                    handleChange('startTime', val, index);
+                  }}
+                />
+                <span className="mx-4">-</span>
+                <SingleDatepicker
+                  date={value[index].endTime}
+                  onDateChange={(val) => {
+                    handleChange('endTime', val, index);
+                  }}
+                />
+              </div>
             </FormControl>
 
             <FormControl className="mb-4">
