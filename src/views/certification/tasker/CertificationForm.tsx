@@ -11,9 +11,8 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { useForm, Controller } from 'react-hook-form';
-import { ProfessionTypes, ExperienceTypes, EducationTypes } from 'common/constant';
+import { ProfessionTypes, ExperienceTypes } from 'common/constant';
 import CustionSelect from 'components/custom-select';
-import { RangeDatepicker } from 'chakra-dayzed-datepicker';
 import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
 import FileUpload from 'components/fileupload';
