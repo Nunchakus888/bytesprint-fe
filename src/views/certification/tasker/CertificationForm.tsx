@@ -18,6 +18,7 @@ import API_ROUTERS from 'api';
 import FileUpload from 'components/fileupload';
 import { onSuccessToast } from 'common/utils/toast';
 import EducationFormArea from './EducationFormArea';
+import JobFormArea from './JobFormArea';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
@@ -33,13 +34,14 @@ const CertificationForm = ({ authorizeCode }: any) => {
         education,
         skillList,
         educationList,
+        jobList,
         ...restValues
       } = values;
       const params = {
         position: position?.map((it: any) => it.value),
         experience: experience?.value,
         skillList: skillList?.split(','),
-        jobList: [],
+        jobList: jobList,
         educationList: educationList?.map((it: any) => {
           return {
             ...it,
@@ -210,6 +212,14 @@ const CertificationForm = ({ authorizeCode }: any) => {
               )}
             />
           </Box>
+
+          <Controller
+            control={control}
+            name="jobList"
+            render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => {
+              return <JobFormArea value={value} onChange={onChange} />;
+            }}
+          />
 
           <Controller
             control={control}

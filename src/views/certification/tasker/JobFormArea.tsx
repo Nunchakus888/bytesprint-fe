@@ -3,18 +3,16 @@ import styles from './index.module.scss';
 import React, { useCallback, useEffect } from 'react';
 import { FormControl, FormLabel, Input, Box } from '@chakra-ui/react';
 
-import CustionSelect from 'components/custom-select';
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
-import { EducationTypes } from 'common/constant';
 import { MdClose, MdOutlineAdd } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
 
 const defaultItem = {
-  school: '',
+  companyName: '',
+  department: '',
+  position: '',
   startTime: new Date(),
   endTime: new Date(),
-  education: '',
-  major: '',
 };
 
 export default function EducationFormArea({ value = [], onChange }: any) {
@@ -62,7 +60,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
         return (
           <Box key={educationForm.id} className={styles.formArea}>
             <h3 className="font-16 font-bold mb-2 flex justify-between items-center">
-              Education {moreThanOne ? `#${index + 1}` : ''}
+              Work Experience {moreThanOne ? `#${index + 1}` : ''}
               {moreThanOne && (
                 <MdClose
                   fontSize={18}
@@ -75,15 +73,15 @@ export default function EducationFormArea({ value = [], onChange }: any) {
             </h3>
 
             <FormControl className="mb-4">
-              <FormLabel fontSize={12}>School</FormLabel>
+              <FormLabel fontSize={12}>companyName</FormLabel>
               <Input
-                value={[value[index].school]}
-                onChange={(e) => handleChange('school', e.target.value, index)}
+                value={[value[index].companyName]}
+                onChange={(e) => handleChange('companyName', e.target.value, index)}
               />
             </FormControl>
 
             <FormControl className="mb-4">
-              <FormLabel fontSize={12}>Study Time</FormLabel>
+              <FormLabel fontSize={12}>Working Time</FormLabel>
               <div className="flex items-center ga">
                 <SingleDatepicker
                   date={value[index].startTime}
@@ -102,22 +100,18 @@ export default function EducationFormArea({ value = [], onChange }: any) {
             </FormControl>
 
             <FormControl className="mb-4">
-              <FormLabel fontSize={12}>Major</FormLabel>
+              <FormLabel fontSize={12}>Department</FormLabel>
               <Input
-                value={[value[index].major]}
-                onChange={(e) => handleChange('major', e.target.value, index)}
+                value={[value[index].department]}
+                onChange={(e) => handleChange('department', e.target.value, index)}
               />
             </FormControl>
 
             <FormControl className="mb-4">
-              <FormLabel fontSize={12}>Academic Degree</FormLabel>
-              <CustionSelect
-                placeholder="Select education"
-                onChange={(val: any) => handleChange('education', val, index)}
-                value={[value[index].education]}
-                options={EducationTypes}
-                closeMenuOnSelect={false}
-                isSearchable={false}
+              <FormLabel fontSize={12}>Position</FormLabel>
+              <Input
+                value={[value[index].position]}
+                onChange={(e) => handleChange('position', e.target.value, index)}
               />
             </FormControl>
           </Box>
@@ -125,7 +119,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
       })}
       {value?.length <= 3 && (
         <div className={styles.addButton} onClick={handleAdd}>
-          <MdOutlineAdd fontSize={16} className="mr-1" /> Add Education
+          <MdOutlineAdd fontSize={16} className="mr-1" /> Add Work Experience
         </div>
       )}
     </Box>
