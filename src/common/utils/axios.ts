@@ -3,7 +3,7 @@ axios.defaults.timeout = 180000;
 import { onErrorToast } from 'common/utils/toast';
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: '/',
+  baseURL: 'http://42.192.37.117:8080/',
   headers: {
     'Content-Type': 'application/json',
   },
