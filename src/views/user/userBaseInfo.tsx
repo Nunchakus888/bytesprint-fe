@@ -48,7 +48,7 @@ export default function UserBaseInfo(props: {
 
   return (
     <Box className={styles.baseinfoContainer}>
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', width: '100%' }}>
         <div className="flex gap-4">
           <WalletAvatar value={userInfo?.address || ''} size={100} />
           <div>
