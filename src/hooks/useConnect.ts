@@ -3,7 +3,6 @@ import { removeItem } from 'common/utils';
 import { useDisconnect } from 'wagmi';
 import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
-import useListenConnectionEvent from './useListenConnectionEvent';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
@@ -14,7 +13,6 @@ const useConnect = () => {
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
-  useListenConnectionEvent();
 
   const connect = useCallback(() => {
     typeof openConnectModal === 'function' && openConnectModal();
@@ -30,7 +28,7 @@ const useConnect = () => {
       dispatch(setUserInfo({}));
       removeItem('userInfo');
     },
-    [dispatch]
+    [dis, dispatch]
   );
 
   return { isConnected, address, connect, disconnects };

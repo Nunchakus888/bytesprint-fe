@@ -6,31 +6,31 @@ const http = require('http');
 const devProxy = {
   '/passport': {
     target: 'http://42.192.37.117:8080/',
-    // target: "https://hub.composablelabs.io",
+    // target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },
   '/user': {
     target: 'http://42.192.37.117:8080/',
-    // target: "https://hub.composablelabs.io",
+    // target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },
   '/project': {
     target: 'http://42.192.37.117:8080/',
-    // target: "https://hub.composablelabs.io",
+    // target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },
   '/position': {
     target: 'http://42.192.37.117:8080/',
-    // target: "https://hub.composablelabs.io",
+    // target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },
   '/requirement': {
     target: 'http://42.192.37.117:8080/',
-    // target: "https://hub.composablelabs.io",
+    // target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },

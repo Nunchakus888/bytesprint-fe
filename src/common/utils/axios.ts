@@ -58,6 +58,5 @@ export const Get = (url: string, params = {}): Promise<any> => {
 };
 
 export const Post = (url: string, params = {}): Promise<any> => {
-  console.log('url.>>>>', axiosInstance);
   return axiosInstance.post(url, params);
 };

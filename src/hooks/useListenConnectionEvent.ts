@@ -2,34 +2,21 @@ import API_ROUTERS from 'api';
 import { ethers } from 'ethers';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIdentification, setLoginLoading, setUserInfo } from 'common/slice/commonSlice';
-import { getItem, parseJson, removeItem, setItem } from 'common/utils';
+import { setLoginLoading, setUserInfo } from 'common/slice/commonSlice';
+import { getItem, removeItem, setItem } from 'common/utils';
 import { Get, Post } from 'common/utils/axios';
-import { Identification } from 'common/constant';
 import getSigner from 'common/contract/lib/getSigner';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
-import { useCookies } from 'react-cookie';
-import useConnect from './useConnect';
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
-  // const { disconnects } = useConnect();
   const { disconnect } = useDisconnect();
   const dispatch = useDispatch();
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
 
-  //切换账户，刷新页面
-  // useEffect(() => {
-  //   const localAddress = localStorage.getItem("address") || "";
-  //   if (ethers.utils.isAddress(localAddress) && address && localAddress !== address) {
-  //     window.location.reload();
-  //   }
-  // }, [address]);
-
   //监听到登录退出
   useEffect(() => {
-    // const userInfo = localStorage?.getItem("userInfo") || {};
     //@ts-ignore
     if (userInfo.address && isDisconnected) {
       disconnect();
@@ -100,13 +87,12 @@ const useListenConnectionEvent = () => {
         setItem('authorization', userInfo.authorization);
       }
     };
-    // console.log("checkLogin address>>>>", address);
     const localAddress = localStorage.getItem('address') || '';
     if (address !== undefined && ethers.utils.isAddress(address)) {
       localStorage.setItem('address', address);
       checkLogin();
     }
-  }, [address, chain?.id]);
+  }, [address, disconnect, dispatch]);
 };
 
 function sleep(time: number) {

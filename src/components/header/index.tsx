@@ -6,10 +6,12 @@ import CustomConnectButton from './CustomConnectButton';
 import useConnect from 'hooks/useConnect';
 import { IMG_SRC } from 'common/constant';
 import Link from 'next/link';
+import useListenConnectionEvent from 'hooks/useListenConnectionEvent';
 
 export default function Header() {
   const toast = useToast();
   const { connect } = useConnect();
+  useListenConnectionEvent();
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr';
