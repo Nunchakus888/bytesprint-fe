@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
       if (res?.result.code === 1003) {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('authorization');
-        document.getElementById('connect-btn').click();
+        document.getElementById('connect-btn')?.click();
       }
       return Promise.reject(res);
     }

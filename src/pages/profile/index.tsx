@@ -38,7 +38,9 @@ export default function ProfileOverview() {
       <Box>
         <UserBaseInfo from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
         {/* 水手展示个人信息 */}
-        {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} />}
+        {isEngineer && (
+          <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
+        )}
         <Flex gap="20px">
           <Flex basis="50%">
             <UserMyPledge data={mypledge} />
@@ -51,14 +53,14 @@ export default function ProfileOverview() {
         {isEngineer && (
           <Flex gap="20px" justifyContent="space-between" width="100%">
             <Box width="50%">
-              <UserSkillsTag />
-              <UserCertificates data={[{}, {}, {}]} />
+              <UserSkillsTag userInfo={userInfo} />
+              {/* <UserCertificates data={[{}, {}, {}]} /> */}
               <UserAttachedResume data={{}} />
             </Box>
             <Box width="50%">
               {/* 任务经历 */}
               {/* <UserTaskExperience data={[{}, {}, {}]} /> */}
-              <UserExperience data={[{}, {}, {}]} />
+              <UserExperience userInfo={userInfo} />
             </Box>
           </Flex>
         )}
