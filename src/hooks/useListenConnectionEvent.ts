@@ -47,7 +47,10 @@ const useListenConnectionEvent = () => {
       let userInfo = getItem('userInfo') || {};
       //判断当前地址，是否在本地记录了签名信息（主要为了避免重复登录请求签名接口）
       // 新增时间检验，超过了4小时的设置，直接设置为空
-      if (userInfo.timestamp + 4 * 60 * 60 * 1000 < Date.now()) {
+      const expireTime = 4 * 60 * 60 * 1000;
+      // test
+      // const expireTime = 1 * 1 * 60 * 1000;
+      if (userInfo.timestamp + expireTime < Date.now()) {
         userInfo = {};
       }
       if (
@@ -90,33 +93,33 @@ const useListenConnectionEvent = () => {
         // setItem("authorization",authorization)
         // const userData = {userType: 1}
         // test
-        userData.engineer = {
-          position: [1, 3],
-          experience: 3,
-          skillList: ['java', ' javascript', 'react', 'vue', ''],
-          jobList: [
-            {
-              companyName: 'shf1fho1',
-              department: 'dssdfs',
-              position: 'rwer',
-              startTime: '2024-01-07T16:00:00.000Z',
-              endTime: '2024-01-23T16:00:00.000Z',
-            },
-          ],
-          educationList: [
-            {
-              school: 'wwerwer24',
-              startTime: '2023-12-31T16:00:00.000Z',
-              endTime: '2024-01-30T16:00:00.000Z',
-              education: 5,
-              major: 'erwewr2',
-            },
-          ],
-          authorizeCode: '',
-          address: 'hangzhou',
-          phone: '18879479324',
-          email: 'bella@gmail.com',
-        };
+        // userData.engineer = {
+        //   position: [1, 3],
+        //   experience: 3,
+        //   skillList: ['java', ' javascript', 'react', 'vue', ''],
+        //   jobList: [
+        //     {
+        //       companyName: 'shf1fho1',
+        //       department: 'dssdfs',
+        //       position: 'rwer',
+        //       startTime: '2024-01-07T16:00:00.000Z',
+        //       endTime: '2024-01-23T16:00:00.000Z',
+        //     },
+        //   ],
+        //   educationList: [
+        //     {
+        //       school: 'wwerwer24',
+        //       startTime: '2023-12-31T16:00:00.000Z',
+        //       endTime: '2024-01-30T16:00:00.000Z',
+        //       education: 5,
+        //       major: 'erwewr2',
+        //     },
+        //   ],
+        //   authorizeCode: '',
+        //   address: 'hangzhou',
+        //   phone: '18879479324',
+        //   email: 'bella@gmail.com',
+        // };
         dispatch(setLoginLoading(false));
         let newuseInfo: any = {};
         newuseInfo.signature = signature;
