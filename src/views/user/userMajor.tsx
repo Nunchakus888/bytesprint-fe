@@ -1,14 +1,28 @@
 import { Avatar, Box, Button, Flex, Tag, Text } from '@chakra-ui/react';
-import { IPath } from 'common/constant';
+import { EducationTypes, ExperienceTypes, IPath } from 'common/constant';
+import { useMemo } from 'react';
 import styles from './index.module.scss';
 
 export default function UserMajor(props: {
   from: IPath;
   isEngineer?: boolean;
   isOperator?: boolean;
+  userInfo: any;
 }) {
-  const { from = '', isOperator, isEngineer } = props;
+  const { from = '', isOperator, isEngineer, userInfo } = props;
   // const from = IPath.ENGINEERManage
+  const educationVal = useMemo(() => {
+    if (isEngineer) {
+      const maxEdu = userInfo?.data?.engineer?.educationList?.sort((a: any, b: any) =>
+        a.education > b.education ? -1 : 1
+      );
+      if (maxEdu?.length > 0) {
+        return EducationTypes.filter((v) => v.value === maxEdu[0].education)[0]?.label;
+      }
+      return null;
+    }
+    return null;
+  }, [isEngineer, userInfo]);
   return (
     <Box
       display="flex"
@@ -22,7 +36,7 @@ export default function UserMajor(props: {
       className={styles.container}
     >
       {/* Navigator */}
-      {from.includes(IPath.OPERATOR) ||
+      {/* {from.includes(IPath.OPERATOR) ||
         (isOperator && (
           <Flex justifyContent="space-around" alignItems="center" width="100%">
             <Box className={styles.numsIcon}>
@@ -32,7 +46,7 @@ export default function UserMajor(props: {
               <Text>信息传输、软件和信息技术服务业 / 软件和信息技术服务业</Text>
             </Box>
           </Flex>
-        ))}
+        ))} */}
 
       {from.includes(IPath.ENGINEERManage) ||
         (isEngineer && (
@@ -43,11 +57,16 @@ export default function UserMajor(props: {
             direction="row"
             className={styles.itemKeyInfo}
           >
-            <Box className={styles.experience}>1年经验</Box>
-            <Box className={styles.educational}>大专</Box>
-            <Box className={styles.phone}>86+15195451161</Box>
-            <Box className={styles.workTime}>lipeibina@outlook.com</Box>
-            <Box className={styles.workPlace}>中国-江苏省-苏州市-姑苏区</Box>
+            <Box className={styles.experience}>
+              {
+                ExperienceTypes.filter((v) => v.value === userInfo?.data?.engineer?.experience)[0]
+                  ?.label
+              }
+            </Box>
+            {educationVal && <Box className={styles.educational}>{educationVal}</Box>}
+            <Box className={styles.phone}>{userInfo?.data?.engineer?.phone}</Box>
+            <Box className={styles.workTime}>{userInfo?.data?.engineer?.email}</Box>
+            <Box className={styles.workPlace}>{userInfo?.data?.engineer?.address}</Box>
           </Flex>
         ))}
     </Box>

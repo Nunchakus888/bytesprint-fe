@@ -6,7 +6,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
-import { Post } from 'common/utils/axios';
+import { Get, Post } from 'common/utils/axios';
 
 const useConnect = () => {
   const { disconnect: dis } = useDisconnect();
@@ -21,7 +21,7 @@ const useConnect = () => {
   const disconnects = useCallback(
     async function () {
       dis();
-      await Post(API_ROUTERS.users.LOGOUT);
+      await Get(API_ROUTERS.users.LOGOUT, {});
       removeItem('address');
       removeItem('network');
       removeItem('authorization');

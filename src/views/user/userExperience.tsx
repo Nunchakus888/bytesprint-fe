@@ -1,8 +1,10 @@
 import { Box, Text, Flex, Image, Tag } from '@chakra-ui/react';
+import { EducationTypes } from 'common/constant';
+import dayjs from 'dayjs';
 import styles from './index.module.scss';
 
-export default function UserExperience(props: { data: any[] }) {
-  const { data } = props;
+export default function UserExperience(props: { userInfo: any }) {
+  const { userInfo } = props;
   return (
     <Box
       display="flex"
@@ -18,13 +20,13 @@ export default function UserExperience(props: { data: any[] }) {
         Work and Education Experience
       </Text>
       <Box justifyContent="center" margin="20px 0" width="100%">
-        {data.map((it, index) => {
+        {userInfo?.data?.engineer?.jobList.map((it: any, index: number) => {
           return (
             <Flex
               key={`ex_${index}`}
-              justifyContent="flex-start"
-              gap="30px"
-              background="#1b1e24"
+              justifyContent="space-between"
+              gap="10px"
+              background="#18191F"
               borderRadius={4}
               margin="10px 0"
               padding="30px 25px"
@@ -35,25 +37,73 @@ export default function UserExperience(props: { data: any[] }) {
                 width="60px"
                 height="60px"
                 borderRadius={4}
-                background="#F2F2F2"
+                fontSize={12}
+                background="linear-gradient(158deg, #3c4897 0%, #1d1e23 100%)"
               >
-                <Image
+                {/* <Image
                   src="https://bit.ly/dan-abramov"
                   alt="Dan Abramov"
                   width="30px"
                   height="30px"
-                />
+                /> */}
+                Work
               </Flex>
               <Flex width="45%" direction="column" gap="10px">
                 <Box>
-                  <Text>苏州有农网络技术有限公司</Text>
+                  <Text>{it.companyName}</Text>
                 </Box>
-                <Flex gap="10px">
-                  <Text>产品部门</Text> · <Text>产品经理</Text>
+                <Flex gap="5px">
+                  <Text>{it.department}</Text> · <Text>{it.position}</Text>
                 </Flex>
               </Flex>
               <Flex justifyContent="flex-end" alignItems="flex-start">
-                2021年6月 - 至今
+                {dayjs(it.startTime).format('YYYY-MM-DD')} -{' '}
+                {dayjs(it.endTime).format('YYYY-MM-DD')}
+              </Flex>
+            </Flex>
+          );
+        })}
+
+        {userInfo?.data?.engineer?.educationList.map((it: any, index: number) => {
+          return (
+            <Flex
+              key={`ex_${index}`}
+              justifyContent="space-between"
+              gap="10px"
+              background="#18191F"
+              borderRadius={4}
+              margin="10px 0"
+              padding="30px 25px"
+            >
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                width="60px"
+                height="60px"
+                borderRadius={4}
+                fontSize={12}
+                background="linear-gradient(158deg, #3c4897 0%, #1d1e23 100%)"
+              >
+                {/* <Image
+                  src="https://bit.ly/dan-abramov"
+                  alt="Dan Abramov"
+                  width="30px"
+                  height="30px"
+                /> */}
+                Education
+              </Flex>
+              <Flex width="45%" direction="column" gap="10px">
+                <Box>
+                  <Text>{it.school}</Text>
+                </Box>
+                <Flex gap="5px">
+                  <Text>{EducationTypes.filter((v) => v.value === it.education)[0]?.label}</Text> ·{' '}
+                  <Text>{it.major}</Text>
+                </Flex>
+              </Flex>
+              <Flex justifyContent="flex-end" alignItems="flex-start">
+                {dayjs(it.startTime).format('YYYY-MM-DD')} -{' '}
+                {dayjs(it.endTime).format('YYYY-MM-DD')}
               </Flex>
             </Flex>
           );

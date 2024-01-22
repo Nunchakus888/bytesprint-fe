@@ -48,7 +48,7 @@ export default function UserBaseInfo(props: {
 
   return (
     <Box className={styles.baseinfoContainer}>
-      <div>
+      <div style={{ position: 'relative', width: '100%' }}>
         <div className="flex gap-4">
           <WalletAvatar value={userInfo?.address || ''} size={100} />
           <div>
@@ -95,7 +95,15 @@ export default function UserBaseInfo(props: {
                 </span>
                 {/* Tasker */}
                 {isEngineer && (
-                  <>
+                  <Box
+                    position="absolute"
+                    top="0"
+                    right="0"
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    gap="20px"
+                  >
                     <Flex alignItems="center" justifyContent="center" gap="20px">
                       {/* @ts-ignore */}
                       <Box>
@@ -112,19 +120,22 @@ export default function UserBaseInfo(props: {
                     <Flex gap="20px">
                       {userInfo?.data?.engineer?.position?.map((positionType: number) => {
                         return (
-                          <Box
-                            key={`positiontype_${positionType}`}
-                            background="#7551FF"
-                            padding="8px 20px"
-                            color="#fff"
-                            borderRadius={4}
-                          >
+                          // <Box
+                          //   key={`positiontype_${positionType}`}
+                          //   background="#7551FF"
+                          //   padding="8px 20px"
+                          //   color="#fff"
+                          //   borderRadius={4}
+                          // >
+                          //   {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
+                          // </Box>
+                          <span key={`positiontype_${positionType}`} className="tag-primary">
                             {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
-                          </Box>
+                          </span>
                         );
                       })}
                     </Flex>
-                  </>
+                  </Box>
                 )}
                 {/* Navigator */}
                 {/* {identification === Identification.OPERATOR && <Flex alignItems="center" justifyContent="center" gap="20px">
