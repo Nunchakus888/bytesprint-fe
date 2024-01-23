@@ -2,8 +2,9 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 axios.defaults.timeout = 180000;
 import { onErrorToast } from 'common/utils/toast';
 
+//http://api.btyd.io:8080/
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://42.192.37.117:8080/',
+  baseURL: 'http://api.btyd.io:8080/',
   headers: {
     'Content-Type': 'application/json',
   },
