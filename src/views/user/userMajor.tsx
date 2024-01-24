@@ -7,7 +7,7 @@ export default function UserMajor(props: {
   from: IPath;
   isEngineer?: boolean;
   isOperator?: boolean;
-  userInfo: any;
+  userInfo?: any;
 }) {
   const { from = '', isOperator, isEngineer, userInfo } = props;
   // const from = IPath.ENGINEERManage

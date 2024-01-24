@@ -27,7 +27,7 @@ export default function MyEngineerDetail() {
             <Flex gap="20px" justifyContent="space-between" width="100%">
               <Box width="50%">
                 <UserSkillsTag />
-                <UserExperience data={[{}, {}, {}]} />
+                <UserExperience userInfo={[{}, {}, {}]} />
                 <UserCertificates data={[{}, {}, {}]} />
                 <UserAttachedResume data={{}} />
               </Box>
