@@ -4,7 +4,7 @@ import { onErrorToast } from 'common/utils/toast';
 
 //http://api.btyd.io:8080/
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://api.btyd.io:8080/',
+  baseURL: '/api2r',
   headers: {
     'Content-Type': 'application/json',
   },
