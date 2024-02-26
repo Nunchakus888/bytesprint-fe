@@ -4,42 +4,42 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const http = require('http');
 
 const devProxy = {
-  // 'api/passport': {
+  // '/passport': {
   //   // target: 'http://api.btyd.io:8080/',
+  //   target: 'https://api.btyd.io/',
+  //   changeOrigin: true,
+  //   secure: false,
+  // },
+  // '/user': {
+  //   target: 'https://api.btyd.io/',
   //   // target: 'https://api.btyd.io/',
   //   changeOrigin: true,
   //   secure: false,
   // },
-  // 'api/user': {
-  //   target: 'http://api.btyd.io:8080/',
+  // '/project': {
+  //   target: 'https://api.btyd.io/',
   //   // target: 'https://api.btyd.io/',
   //   changeOrigin: true,
   //   secure: false,
   // },
-  // 'api/project': {
-  //   target: 'http://api.btyd.io:8080/',
+  // '/position': {
+  //   target: 'https://api.btyd.io/',
   //   // target: 'https://api.btyd.io/',
   //   changeOrigin: true,
   //   secure: false,
   // },
-  // 'api/position': {
-  //   target: 'http://api.btyd.io:8080/',
+  // '/requirement': {
+  //   target: 'https://api.btyd.io/',
   //   // target: 'https://api.btyd.io/',
   //   changeOrigin: true,
   //   secure: false,
   // },
-  // 'api/requirement': {
-  //   target: 'http://api.btyd.io:8080/',
-  //   // target: 'https://api.btyd.io/',
+  // '/api2r': {
+  //   // target: 'http://42.192.37.117:8080',
+  //   target: 'https://api.btyd.io/',
   //   changeOrigin: true,
   //   secure: false,
   // },
-  '/api': {
-    // target: 'http://42.192.37.117:8080',
-    target: 'https://api.btyd.io/',
-    changeOrigin: true,
-    secure: false,
-  },
 };
 
 let port = parseInt(process.env.PORT, 10) || 3001;
