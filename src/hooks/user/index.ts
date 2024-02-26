@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MdBarChart, MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { Identification, IPath } from 'common/constant';
+import { Identification, IPath, StakedType } from 'common/constant';
 import API_ROUTERS from 'api';
-import { Get } from 'common/utils/axios';
+import { Get, Post } from 'common/utils/axios';
 import { removeItem } from 'common/utils';
+import { withdraw } from 'common/contract/lib/bytd';
+import { useAccount, useConnect } from 'wagmi';
+import { onErrorToast, onSuccessToast } from 'common/utils/toast';
+import useChange from 'hooks/useChange';
 
 let defaultRoutes: any[] = [
   // {
@@ -190,6 +194,7 @@ export const useUserRoute = () => {
 
 // 我的质押
 export const useMyPledge = () => {
+  const { toggleTiger, triger } = useChange();
   const [data, setData] = useState([]);
   const getData = async () => {
     const res = await Get(API_ROUTERS.users.MY_PLEDGE());
@@ -197,9 +202,85 @@ export const useMyPledge = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [triger]);
+
   return {
     data,
+    refresh: toggleTiger,
+  };
+};
+// 提取
+export const useWithdraw = () => {
+  const account = useAccount();
+  const { connect } = useConnect();
+  const { identification } = useUserInfo();
+
+  const stakeType = useMemo(() => {
+    if ([Identification.ENGINEER, Identification.VISITOR].includes(identification))
+      return StakedType.Tasker;
+    if (identification === Identification.OPERATOR) return StakedType.Employer;
+  }, [identification]);
+
+  // 质押提取
+  const stakingWithdraw = async (item: any) => {
+    const { stakingId, stakingAmount, projectId } = item;
+    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId });
+    // 判断是否登录
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    // 合约交互
+    const isSuccess = await withdraw({
+      account,
+      projectId: projectId || stakingId,
+      amountWithdraw: stakingAmount,
+      stakeType,
+    });
+    isSuccess ? onSuccessToast('Successfully') : onErrorToast(`Failed`);
+    return isSuccess;
+  };
+
+  // 质押提取
+  const rewardWithdraw = async (item: any) => {
+    const { rewardId, rewardAmount, projectId } = item;
+    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId });
+    // 判断是否登录
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    // 合约交互
+    const isSuccess = await withdraw({
+      account,
+      projectId: projectId || rewardId,
+      amountWithdraw: rewardAmount,
+      stakeType,
+    });
+    isSuccess ? onSuccessToast('Successfully') : onErrorToast(`Failed`);
+    return isSuccess;
+  };
+  return {
+    stakingWithdraw,
+    rewardWithdraw,
+  };
+};
+
+// 我的报酬
+export const useMyRewards = () => {
+  const { toggleTiger, triger } = useChange();
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const res = await Get(API_ROUTERS.users.MY_REWARDS());
+    setData(res?.rewards || []);
+  };
+  useEffect(() => {
+    getData();
+  }, [triger]);
+
+  return {
+    data,
+    refresh: toggleTiger,
   };
 };
 

@@ -1,9 +1,18 @@
 import { Box, Text, Flex, Image, Tag } from '@chakra-ui/react';
-import { IStatus, PledgeStatus } from 'common/constant';
+import { IStatus, PledgeStatus, TaskStatus } from 'common/constant';
+import { useWithdraw } from 'hooks/user';
 import styles from './index.module.scss';
 
-export default function UserMyPledge(props: { data: any[] }) {
-  const { data } = props;
+export default function UserMyPledge(props: { data: any[]; refresh: () => void }) {
+  const { data, refresh } = props;
+  const { stakingWithdraw } = useWithdraw();
+  const handleWithdraw = async (item: any) => {
+    if (item.stakingStatus !== 3) return;
+    const isSuccess = await stakingWithdraw(item);
+    if (isSuccess) {
+      refresh();
+    }
+  };
   return (
     <Box
       display="flex"
@@ -48,29 +57,37 @@ export default function UserMyPledge(props: { data: any[] }) {
               </Flex>
               <Flex direction="column" gap="5px">
                 <Box>
-                  <Text fontSize="12px">任务名称任务名称</Text>
+                  <Text fontSize="12px">{it.taskName}</Text>
                 </Box>
                 <Flex gap="5px">
                   <Text fontSize="10px" whiteSpace="nowrap">
                     Task Status
-                  </Text>{' '}
-                  <Text fontSize="10px">Contracted</Text>
+                  </Text>
+                  {/* @ts-ignore */}
+                  <Text fontSize="10px">{TaskStatus[it.taskStatus]}</Text>
                 </Flex>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text fontSize="12px">600.00 USDT</Text>
+                  <Text fontSize="12px">{it.stakingAmount} USDT</Text>
                 </Box>
                 {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text fontSize="12px">质押中</Text>
+                  {/* @ts-ignore */}
+                  <Text fontSize="12px">{PledgeStatus[it.stakingStatus]}</Text>
                 </Box>
               </Flex>
               <Flex direction="column" gap="10px">
                 <Box>
-                  <Text fontSize="12px">Withdraw to Wallet</Text>
+                  <Text
+                    fontSize="12px"
+                    opacity={it.stakingStatus === 3 ? 1 : 0.6}
+                    onClick={() => handleWithdraw(it)}
+                  >
+                    Withdraw to Wallet
+                  </Text>
                 </Box>
               </Flex>
             </Flex>

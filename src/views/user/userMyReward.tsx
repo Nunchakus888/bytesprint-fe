@@ -2,9 +2,19 @@ import styles from './index.module.scss';
 import { Box, Text, Flex, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { GoLinkExternal } from 'react-icons/go';
+import { TaskStatus } from 'common/constant';
+import { useWithdraw } from 'hooks/user';
 
-export default function UserMyReward(props: { data: any[] }) {
-  const { data } = props;
+export default function UserMyReward(props: { data: any[]; refresh: () => void }) {
+  const { data, refresh } = props;
+  const { rewardWithdraw } = useWithdraw();
+  const handleWithdraw = async (item: any) => {
+    if (item.rewardStatus !== 3) return;
+    const isSuccess = await rewardWithdraw(item);
+    if (isSuccess) {
+      refresh();
+    }
+  };
   return (
     <Box
       display="flex"
@@ -39,25 +49,26 @@ export default function UserMyReward(props: { data: any[] }) {
               <Flex direction="column" gap="5px">
                 <Box>
                   <Text fontSize="14px" color="#7B7E8F">
-                    任务名称任务名称
+                    {it.taskName}
                   </Text>
                 </Box>
                 <Box>
                   <Text fontSize="22px" className="flex items-center font-bold">
-                    600.00
+                    {it.rewardAmount}
                     <Text fontSize="16px" className="ml-2">
                       USDT
                     </Text>
                   </Text>
                 </Box>
-                {/* <Flex gap="5px">
+                <Flex gap="5px">
                   <Text fontSize="10px" whiteSpace="nowrap">
                     Task Status
-                  </Text>{' '}
-                  <Text fontSize="10px">Contracted</Text>
-                </Flex> */}
+                  </Text>
+                  {/* @ts-ignore */}
+                  <Text fontSize="10px">{TaskStatus[it.taskStatus]}</Text>
+                </Flex>
               </Flex>
-              <Flex direction="column" gap="10px">
+              {/* <Flex direction="column" gap="10px">
                 <Link href={'./'}>
                   <Text color="#7B7E8F" className="flex items-center underline">
                     0x81Aa...fd3817 <GoLinkExternal className="ml-2" />
@@ -66,12 +77,31 @@ export default function UserMyReward(props: { data: any[] }) {
                 <Button size={'sm'} className="btn-primary">
                   Withdraw {'>'}
                 </Button>
-              </Flex>
-              {/* <Flex direction="column" gap="10px">
-                <Box>
-                  <Text fontSize="12px">质押中</Text>
-                </Box>
               </Flex> */}
+
+              <Flex direction="column" gap="10px">
+                <Box>
+                  <Text fontSize="12px">{it.rewardAmount} USDT</Text>
+                </Box>
+                {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
+              </Flex>
+              <Flex direction="column" gap="10px">
+                <Box>
+                  {/* @ts-ignore */}
+                  <Text fontSize="12px">{PledgeStatus[it.rewardStatus]}</Text>
+                </Box>
+              </Flex>
+              <Flex direction="column" gap="10px">
+                <Box>
+                  <Text
+                    fontSize="12px"
+                    opacity={it.rewardStatus === 3 ? 1 : 0.6}
+                    onClick={() => handleWithdraw(it)}
+                  >
+                    Withdraw
+                  </Text>
+                </Box>
+              </Flex>
             </Flex>
           );
         })}

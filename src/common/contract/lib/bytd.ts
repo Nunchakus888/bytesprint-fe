@@ -40,10 +40,8 @@ export const stakeEmployer = async ({
   amount = String(BigNumber.from(amount));
   // 授权
   let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-  debugger;
   console.log('eth20Instance>>>', eth20Instance, BYTD_ADDRESS, String(BigNumber.from(amount)));
   const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, amount);
-  debugger;
   console.log('eth20Approve>>>>', eth20Approve);
   if (!eth20Approve) {
     return false;
@@ -53,7 +51,6 @@ export const stakeEmployer = async ({
   const result = await bytdInstance.stakeEmployer(projectId, amount, lockDays, withdrawAddr);
   if (result) {
     console.log('result>>>>', result);
-    debugger;
     const receipt = await result.wait();
     return receipt?.status === 1 ? true : false;
   }
@@ -68,21 +65,18 @@ export const stakeTasker = async ({ account, projectId, amount, lockDays }: any)
   if (!eth20Approve) {
     return false;
   }
-  debugger;
   const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  debugger;
   const result = await bytdInstance.stakeTasker(projectId, amount, lockDays);
   console.log('result>>>', result);
   if (result) {
     const receipt = await result.wait();
     console.log('rees>>>', receipt?.status);
-    debugger;
     return receipt?.status === 1 ? true : false;
   }
   return false;
 };
 
-// TODO _type 提款人的角色。发包方/接单方/运营商
+// _type 提款人的角色。发包方/接单方/运营商
 export const withdraw = async ({ account, projectId, amountWithdraw, type }: any) => {
   const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
   const result = await bytdInstance.withdraw(projectId, amountWithdraw, type);

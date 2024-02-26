@@ -5,7 +5,7 @@ import Loading from 'components/loading';
 import { useMyTaskDetail, useMyTaskDetailStatusAction } from 'hooks/mytasks/detail';
 import { useTaskDetail } from 'hooks/task';
 import { useTaskPlanList } from 'hooks/task/detai';
-import { useUserInfo } from 'hooks/user';
+import { useUserInfo, useWithdraw } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { Identification, IPath, IStatus, TaskBidStatus } from 'common/constant';
@@ -40,8 +40,10 @@ const TaskDetail = () => {
       return bidSuc[0].assetRecordId;
     }
   }, [data, userInfo.address]);
-  const { scheduleTask, submitAccept, withdrawMyRewards, completePlanItem } =
-    useMyTaskDetailStatusAction(id, myrecordId);
+  const { scheduleTask, submitAccept, completePlanItem } = useMyTaskDetailStatusAction(
+    id,
+    myrecordId
+  );
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false);
   const [scheduledata, setScheduledata] = useState([]);
@@ -93,6 +95,8 @@ const TaskDetail = () => {
     window.location.reload();
   };
 
+  const { rewardWithdraw } = useWithdraw();
+
   return (
     <>
       <Box>
@@ -141,7 +145,8 @@ const TaskDetail = () => {
                 taskStatus={data.taskStatus}
                 scheduleTask={() => setSchedule(true)}
                 submitAccept={submitAccept}
-                withdrawMyRewards={withdrawMyRewards}
+                withdrawMyRewards={rewardWithdraw}
+                data={data}
               />
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />

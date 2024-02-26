@@ -47,7 +47,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     window.location.reload();
   };
   // 提取My Rewards
-  const withdrawMyRewards = () => {};
+  // const withdrawMyRewards = () => {};
   // const startTask = () => {}
   // 完成任务计划某项
   const completePlanItem = async (planId: string) => {
@@ -63,7 +63,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   return {
     scheduleTask,
     submitAccept,
-    withdrawMyRewards,
+    // withdrawMyRewards,
     // startTask,
     completePlanItem,
   };

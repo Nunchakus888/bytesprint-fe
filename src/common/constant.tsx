@@ -23,6 +23,12 @@ export enum Identification {
   SYSTEM = 3,
 }
 
+export enum StakedType {
+  Employer,
+  Tasker,
+  Navigator,
+}
+
 export enum IPath {
   TASKS = `tasks`,
   MYREQUIREMENT = `myrequirement`,

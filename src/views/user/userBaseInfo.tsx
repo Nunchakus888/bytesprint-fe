@@ -16,6 +16,7 @@ import WalletAvatar from 'components/WalletAvatar';
 import { MdArrowForward } from 'react-icons/md';
 import { shortAddress } from 'common/utils';
 import { RiEdit2Fill } from 'react-icons/ri';
+import { onSuccessToast } from 'common/utils/toast';
 
 export default function UserBaseInfo(props: {
   from?: IPath;
@@ -43,6 +44,8 @@ export default function UserBaseInfo(props: {
       newUserInfo.data.nickname = modifyText;
       dispatch(setUserInfo(newUserInfo));
       setItem('userInfo', newUserInfo);
+      // 新增提示
+      onSuccessToast('Successfully');
     }
   };
 

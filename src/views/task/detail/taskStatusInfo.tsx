@@ -11,9 +11,10 @@ export default function TaskStatusInfo(props: {
   acceptTask?: () => void;
   scheduleTask?: () => void;
   submitAccept?: () => void;
-  withdrawMyRewards?: () => void;
+  withdrawMyRewards?: (item: any) => Promise<boolean>;
+  data?: any;
 }) {
-  const { from, taskStatus } = props;
+  const { from, taskStatus, data } = props;
 
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
@@ -29,7 +30,14 @@ export default function TaskStatusInfo(props: {
     content: '',
     onSure: () => {},
   });
-
+  // 提取报酬 TODO
+  const handleWithDraw = async () => {
+    const { rewardId, rewardAmount, projectId } = data;
+    const isSuccess = await props?.withdrawMyRewards({ rewardId, rewardAmount, projectId });
+    if (isSuccess) {
+      window.location.reload();
+    }
+  };
   const action = useCallback(() => {
     if (from === IPath.MYREQUIREMENT) {
       switch (taskStatus) {
@@ -136,7 +144,7 @@ export default function TaskStatusInfo(props: {
           break;
         case IStatus.COMPLETE:
           return (
-            <Button className={styles.statusbtn} onClick={props?.withdrawMyRewards}>
+            <Button className={styles.statusbtn} onClick={handleWithDraw}>
               Withdraw my rewards
             </Button>
           );

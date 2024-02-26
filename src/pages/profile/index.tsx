@@ -3,7 +3,7 @@ import { Box, Flex, Grid, Portal } from '@chakra-ui/react';
 
 import Navbar from 'components/navbar/Navbar';
 
-import { useMyPledge, useUserInfo } from 'hooks/user';
+import { useMyPledge, useMyRewards, useUserInfo } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import UserBaseInfo from 'views/user/userBaseInfo';
@@ -19,7 +19,8 @@ import UserTaskExperience from 'views/user/userTaskExperience';
 
 export default function ProfileOverview() {
   const { identification, userInfo } = useUserInfo();
-  const { data: mypledge } = useMyPledge();
+  const { data: mypledge, refresh: pledgeRefresh } = useMyPledge();
+  const { data: myrewards, refresh: rewardsRefresh } = useMyRewards();
   const router = useRouter();
 
   useEffect(() => {
@@ -43,10 +44,10 @@ export default function ProfileOverview() {
         )}
         <Flex gap="20px">
           <Flex basis="50%">
-            <UserMyPledge data={mypledge} />
+            <UserMyPledge data={mypledge} refresh={pledgeRefresh} />
           </Flex>
           <Flex basis="50%">
-            <UserMyReward data={[{}, {}, {}, {}, {}]} />
+            <UserMyReward data={myrewards} refresh={rewardsRefresh} />
           </Flex>
         </Flex>
         {/* 水手展示以下信息 */}
@@ -55,6 +56,7 @@ export default function ProfileOverview() {
             <Box width="50%">
               <UserSkillsTag userInfo={userInfo} />
               {/* <UserCertificates data={[{}, {}, {}]} /> */}
+              {/* TODO 附件 */}
               <UserAttachedResume data={{}} />
             </Box>
             <Box width="50%">

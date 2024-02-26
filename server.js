@@ -34,6 +34,12 @@ const devProxy = {
   //   changeOrigin: true,
   //   secure: false,
   // },
+  '/api': {
+    target: 'http://42.192.37.117:8080',
+    // target: 'https://api.btyd.io/',
+    changeOrigin: true,
+    secure: false,
+  },
 };
 
 let port = parseInt(process.env.PORT, 10) || 3001;
