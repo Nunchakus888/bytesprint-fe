@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import { Post } from 'common/utils/axios';
 import { IRequirement, RequirementType } from 'common/constant';
+import { publishTask } from 'common/contract/lib/bytd';
+import { useAccount, useConnect } from 'wagmi';
 
 export const requirementTypes = [
   {
@@ -40,10 +42,17 @@ export const useAddRequirement = () => {
     return requirementTypes.filter((it) => it.type === requireType)[0];
   }, [router]);
   const { userInfo } = useUserInfo();
+  const account = useAccount();
+  const { connect } = useConnect();
 
   // 保存需求 TODO upload
   const saveRequirement = useCallback(
     async (data: any) => {
+      if (!account.address) {
+        connect();
+        return false;
+      }
+
       // {
       //   "projectName": "bella test",
       //   "professionType": "3",
@@ -78,10 +87,10 @@ export const useAddRequirement = () => {
       };
       console.log('publish _params>>>', _params);
       const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params);
-      debugger;
-      console.log('publish res>>>', res);
+      // 执行合约 TODO 需返回projectId
+      const res1 = await publishTask(res.data.projectId);
       // 任务类型，根据身份匹配
-      return true;
+      return res1;
     },
     [currentRequire, userInfo.address]
   );

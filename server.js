@@ -35,8 +35,8 @@ const devProxy = {
   //   secure: false,
   // },
   '/api': {
-    target: 'http://42.192.37.117:8080',
-    // target: 'https://api.btyd.io/',
+    // target: 'http://42.192.37.117:8080',
+    target: 'https://api.btyd.io/',
     changeOrigin: true,
     secure: false,
   },

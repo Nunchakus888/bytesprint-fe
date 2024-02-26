@@ -62,7 +62,7 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
     try {
       const res = await scheduleTask(data.datas);
       toast({
-        title: `Operate SuccessFully`,
+        title: `SuccessFully`,
         status: `success`,
         isClosable: false,
       });

@@ -5,13 +5,25 @@ import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { Get, Post } from 'common/utils/axios';
 import { IStatus, TaskBidStatus } from 'common/constant';
+import { useAccount, useConnect } from 'wagmi';
+import { startTask, submitTask } from 'common/contract/lib/bytd';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: string) => {
   const { userInfo } = useUserInfo();
   const toast = useToast();
+  const account = useAccount();
+  const { connect } = useConnect();
   // 任务排期
   const scheduleTask = async (list: any[]) => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    const res1 = await startTask(id);
+    if (!res1) {
+      return false;
+    }
     const data = list?.map((it) => {
       return {
         expectedstartTime: dayjs(it.startTime).unix() * 1000,
@@ -21,7 +33,6 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       };
     });
     console.log('userInfo>>>', userInfo);
-    debugger;
     const res = await Post(API_ROUTERS.tasks.PLANSUBMIT, {
       requirementPlan: data,
       uid: userInfo.uid,
@@ -32,7 +43,14 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   };
   // 提交验收
   const submitAccept = async () => {
-    debugger;
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    const res1 = await submitTask(id);
+    if (!res1) {
+      return false;
+    }
     const res = await Post(API_ROUTERS.tasks.REQUIREMENT_SUBMIT, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
@@ -40,7 +58,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       assetRecordId: myrecordId,
     });
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });

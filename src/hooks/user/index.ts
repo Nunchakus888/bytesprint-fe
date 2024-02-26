@@ -5,10 +5,10 @@ import { Identification, IPath, StakedType } from 'common/constant';
 import API_ROUTERS from 'api';
 import { Get, Post } from 'common/utils/axios';
 import { removeItem } from 'common/utils';
-import { withdraw } from 'common/contract/lib/bytd';
 import { useAccount, useConnect } from 'wagmi';
 import { onErrorToast, onSuccessToast } from 'common/utils/toast';
 import useChange from 'hooks/useChange';
+import { withdrawReward, withdrawStakedToken } from 'common/contract/lib/bytd';
 
 let defaultRoutes: any[] = [
   // {
@@ -231,11 +231,9 @@ export const useWithdraw = () => {
       return false;
     }
     // 合约交互
-    const isSuccess = await withdraw({
+    const isSuccess = await withdrawStakedToken({
       account,
       projectId: projectId || stakingId,
-      amountWithdraw: stakingAmount,
-      stakeType,
     });
     isSuccess ? onSuccessToast('Successfully') : onErrorToast(`Failed`);
     return isSuccess;
@@ -251,7 +249,7 @@ export const useWithdraw = () => {
       return false;
     }
     // 合约交互
-    const isSuccess = await withdraw({
+    const isSuccess = await withdrawReward({
       account,
       projectId: projectId || rewardId,
       amountWithdraw: rewardAmount,

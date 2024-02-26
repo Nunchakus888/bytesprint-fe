@@ -24,7 +24,6 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
         </Box>
         <Box display="flex" flexDirection="column" width="100%">
           <Box className="flex items-center justify-between">
-            <div className={classNames(styles.itemTitle, 'ellipsis')}>{item.name}</div>
             <Box className="flex items-center gap-2">
               <Tag size="lg" variant="solid" className="task-tag">
                 {TaskTypes.filter((v) => v.value === item.categoryType)[0]?.label}
@@ -34,7 +33,7 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
               </Tag>
             </Box>
           </Box>
-
+          <div className={classNames(styles.itemTitle, 'ellipsis')}>{item.name}</div>
           <Box
             className={styles.itemContent}
             dangerouslySetInnerHTML={{ __html: item.description }}

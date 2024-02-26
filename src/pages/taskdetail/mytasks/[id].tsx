@@ -88,7 +88,7 @@ const TaskDetail = () => {
   const completePlan = async (planId: string) => {
     await completePlanItem(planId);
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });

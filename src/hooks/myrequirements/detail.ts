@@ -1,6 +1,11 @@
 import { useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
-import { stakeEmployer } from 'common/contract/lib/bytd';
+import {
+  publishTask,
+  signTask,
+  acceptTask as acceptTaskForEmployee,
+  closeTask as closeTaskForEmployee,
+} from 'common/contract/lib/bytd';
 import { Get, Post } from 'common/utils/axios';
 import { TaskBidStatus } from 'common/constant';
 import dayjs from 'dayjs';
@@ -18,28 +23,51 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const [signLoading, setSignLoading] = useState(false);
   // 打开任务
   const openTask = async () => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
     const res = await Post(API_ROUTERS.tasks.TASK_OPEN, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
     });
-    toast({
-      title: `Operate SuccessFully`,
-      status: `success`,
-      isClosable: false,
-    });
-    window.location.reload();
+    // 执行合约 TODO 需返回projectId
+    const res1 = await publishTask(res.data.projectId);
+    // 任务类型，根据身份匹配
+    if (res1) {
+      toast({
+        title: `SuccessFully`,
+        status: `success`,
+        isClosable: false,
+      });
+      window.location.reload();
+    } else {
+      toast({
+        title: `Occur Error, Please try again later`,
+        status: `error`,
+        isClosable: true,
+      });
+    }
   };
 
   // 关闭任务
   const closeTask = async () => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    const res1 = await closeTaskForEmployee(id);
+    if (!res1) {
+      return false;
+    }
     const res = await Post(API_ROUTERS.tasks.TASK_CLOSE, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
     });
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
@@ -48,13 +76,21 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 
   // 验收任务
   const acceptTask = async () => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
+    const res1 = await acceptTaskForEmployee(id);
+    if (!res1) {
+      return false;
+    }
     const res = await Post(API_ROUTERS.tasks.PROJECT_ACCEPT, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
     });
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
@@ -71,7 +107,20 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     try {
       setSignLoading(true);
       let { totalCost, totalTime, uid, wallet, assetRecordId, finishTime } = record;
-      // 先调用接口
+      // // 质押天数
+      // const lockDays = Math.ceil((+finishTime - Date.now()) / (24 * 60 * 60 * 1000));
+      // 合约交互
+      const result = await signTask({
+        account,
+        projectId: id,
+        taskerAddress: wallet,
+        totalCost: totalCost * 10,
+      });
+      if (!result) {
+        setSignLoading(false);
+        return false;
+      }
+      // 调用接口
       const res = await Post(API_ROUTERS.tasks.PROJECT_SIGN, {
         uid: userInfo.uid,
         walletAddress: wallet,
@@ -82,30 +131,12 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       if (res.result.code !== 0) {
         return false;
       }
-      // 质押天数
-      const lockDays = Math.ceil((+finishTime - Date.now()) / (24 * 60 * 60 * 1000));
-      // 合约交互
-      const result = await stakeEmployer({
-        account,
-        projectId: id,
-        amount: ethers.BigNumber.from(String(Number(totalCost) * Math.pow(10, 18))),
-        lockDays: Math.max(lockDays, 1),
-        withdrawAddr: wallet,
+      toast({
+        title: `SuccessFully`,
+        status: `success`,
+        isClosable: false,
       });
-      if (result) {
-        toast({
-          title: `Operate SuccessFully`,
-          status: `success`,
-          isClosable: false,
-        });
-        window.location.reload();
-      } else {
-        toast({
-          title: `Operate Error`,
-          status: `error`,
-          isClosable: true,
-        });
-      }
+      window.location.reload();
     } finally {
       setSignLoading(false);
     }
@@ -121,7 +152,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       // status: TaskBidStatus.BID_FAIL
     });
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {

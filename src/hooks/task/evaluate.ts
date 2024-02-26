@@ -1,7 +1,7 @@
 import { toast, useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
 import axios from 'axios';
-import { stakeTasker } from 'common/contract/lib/bytd';
+import { evaluateTask, stakeTasker } from 'common/contract/lib/bytd';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import _ from 'lodash';
@@ -105,7 +105,27 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
     console.log('提交数据>>>>', data);
     setLoading(true);
     try {
-      // 先调用接口
+      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
+      // // 质押天数 完成时间 - 当前时间
+      // const lockDays = Math.ceil(
+      //   (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
+      // );
+      // 合约质押
+      const contactRes = await evaluateTask({
+        account,
+        projectId,
+        amount: ethers.BigNumber.from(String(Number((amount * 0.1).toFixed(2)) * Math.pow(10, 18))), // 质押10%
+      });
+      if (!contactRes) {
+        // toast({
+        //   title: `Operate Error`,
+        //   status: `error`,
+        //   isClosable: true,
+        // });
+        setLoading(false);
+        return false;
+      }
+      // 调用接口
       const requirementList = data.datas.map((it: any) => {
         return {
           requirementName: it.taskname,
@@ -121,26 +141,6 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
       };
       const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
       if (res.result.code !== 0) {
-        return false;
-      }
-      const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
-      // 质押天数 完成时间 - 当前时间
-      const lockDays = Math.ceil(
-        (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
-      );
-      const contactRes = await stakeTasker({
-        account,
-        projectId,
-        amount: ethers.BigNumber.from(String(Number((amount * 0.1).toFixed(2)) * Math.pow(10, 18))), // 质押10%
-        lockDays: Math.max(lockDays, 1),
-      });
-      if (!contactRes) {
-        toast({
-          title: `Operate Error`,
-          status: `error`,
-          isClosable: true,
-        });
-        setLoading(false);
         return false;
       }
       // 请求成功后返回任务列表
