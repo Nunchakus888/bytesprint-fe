@@ -41,7 +41,7 @@ const TaskDetail = () => {
 
   // 中标记录
   const signEdRecord = useMemo(() => {
-    const bidSuc = data?.assetRecordList.filter(
+    const bidSuc = data?.assetRecordList?.filter(
       (it: any) => it.signStatus === TaskBidStatus.BID_SUCCESS
     );
     if (bidSuc?.length) {
