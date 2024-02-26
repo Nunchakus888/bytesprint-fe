@@ -33,7 +33,7 @@ const TaskDetail = () => {
   const { data, isLoading } = useMyTaskDetail(id, userInfo.address);
   // 我的投标记录id
   const myrecordId = useMemo(() => {
-    const bidSuc = data?.assetRecordList.filter(
+    const bidSuc = data?.assetRecordList?.filter(
       (it: any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS
     );
     if (bidSuc?.length) {
