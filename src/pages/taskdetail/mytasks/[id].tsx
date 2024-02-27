@@ -40,10 +40,8 @@ const TaskDetail = () => {
       return bidSuc[0].assetRecordId;
     }
   }, [data, userInfo.address]);
-  const { scheduleTask, submitAccept, completePlanItem } = useMyTaskDetailStatusAction(
-    id,
-    myrecordId
-  );
+  const { scheduleTask, submitAccept, completePlanItem, buttonLoading } =
+    useMyTaskDetailStatusAction(id, myrecordId);
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false);
   const [scheduledata, setScheduledata] = useState([]);
@@ -95,7 +93,7 @@ const TaskDetail = () => {
     window.location.reload();
   };
 
-  const { rewardWithdraw } = useWithdraw();
+  const { rewardWithdraw, buttonLoading: withdrawLoding } = useWithdraw();
 
   return (
     <>
@@ -147,6 +145,8 @@ const TaskDetail = () => {
                 submitAccept={submitAccept}
                 withdrawMyRewards={rewardWithdraw}
                 data={data}
+                buttonLoading={buttonLoading}
+                withdrawLoding={withdrawLoding}
               />
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />

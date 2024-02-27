@@ -87,8 +87,8 @@ export const useAddRequirement = () => {
       };
       console.log('publish _params>>>', _params);
       const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params);
-      // 执行合约 TODO 需返回projectId
-      const res1 = await publishTask(res.data.projectId);
+      // 执行合约
+      const res1 = await publishTask({ projectId: res.projectId });
       // 任务类型，根据身份匹配
       return res1;
     },

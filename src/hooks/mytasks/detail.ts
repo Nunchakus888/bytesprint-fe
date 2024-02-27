@@ -14,14 +14,18 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   const toast = useToast();
   const account = useAccount();
   const { connect } = useConnect();
+  const [buttonLoading, setButtonLoading] = useState(false);
   // 任务排期
   const scheduleTask = async (list: any[]) => {
+    setButtonLoading(true);
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
-    const res1 = await startTask(id);
+    const res1 = await startTask({ projectId: id });
     if (!res1) {
+      setButtonLoading(false);
       return false;
     }
     const data = list?.map((it) => {
@@ -39,16 +43,20 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       walletAddress: userInfo.address,
       projectId: id,
     });
+    setButtonLoading(false);
     return res;
   };
   // 提交验收
   const submitAccept = async () => {
+    setButtonLoading(true);
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
-    const res1 = await submitTask(id);
+    const res1 = await submitTask({ projectId: id });
     if (!res1) {
+      setButtonLoading(false);
       return false;
     }
     const res = await Post(API_ROUTERS.tasks.REQUIREMENT_SUBMIT, {
@@ -62,6 +70,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       status: `success`,
       isClosable: false,
     });
+    setButtonLoading(false);
     window.location.reload();
   };
   // 提取My Rewards
@@ -84,6 +93,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     // withdrawMyRewards,
     // startTask,
     completePlanItem,
+    buttonLoading,
   };
 };
 

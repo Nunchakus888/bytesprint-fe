@@ -36,8 +36,16 @@ const TaskDetail = () => {
   console.log('data>>', data);
   const { identification } = useUserInfo();
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false);
-  const { openTask, closeTask, acceptTask, signBid, unSignBid, openRecordDetail, signLoading } =
-    useMyRequirementDetailStatusAction(id);
+  const {
+    openTask,
+    closeTask,
+    acceptTask,
+    signBid,
+    unSignBid,
+    openRecordDetail,
+    buttonLoading,
+    signLoading,
+  } = useMyRequirementDetailStatusAction(id);
 
   // 中标记录
   const signEdRecord = useMemo(() => {
@@ -117,6 +125,7 @@ const TaskDetail = () => {
                 openTask={openTask}
                 closeTask={closeTask}
                 acceptTask={acceptTask}
+                buttonLoading={buttonLoading}
               />
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />

@@ -1,1174 +1,1669 @@
 [
-    {
-      "inputs": [],
-      "name": "InvalidStakedType",
-      "type": "error"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "previousAdmin",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "newAdmin",
-          "type": "address"
-        }
-      ],
-      "name": "AdminChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "beacon",
-          "type": "address"
-        }
-      ],
-      "name": "BeaconUpgraded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint8",
-          "name": "version",
-          "type": "uint8"
-        }
-      ],
-      "name": "Initialized",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "projectID",
-          "type": "string"
-        }
-      ],
-      "name": "Lock",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "string",
-          "name": "projectID",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_withdraw",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint32",
-          "name": "_lockDays",
-          "type": "uint32"
-        }
-      ],
-      "name": "Stake",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint32",
-          "name": "_lockDays",
-          "type": "uint32"
-        }
-      ],
-      "name": "StakeManagement",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "string",
-          "name": "projectID",
-          "type": "string"
-        }
-      ],
-      "name": "Unlock",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "string",
-          "name": "projectID",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_stake",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_unlockTime",
-          "type": "uint256"
-        }
-      ],
-      "name": "UpdateWithdrawInfo",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_stake",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_unlockTime",
-          "type": "uint256"
-        }
-      ],
-      "name": "UpdateWithdrawInfoManagement",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "implementation",
-          "type": "address"
-        }
-      ],
-      "name": "Upgraded",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "string",
-          "name": "projectID",
-          "type": "string"
-        },
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_stakeAddr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_withdraw",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint64",
-          "name": "_index",
-          "type": "uint64"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "Withdraw",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "address",
-          "name": "_stakeAddr",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "WithdrawManagement",
-      "type": "event"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        }
-      ],
-      "name": "getEmployerNum",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_pageSize",
-          "type": "uint64"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_start",
-          "type": "uint64"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_end",
-          "type": "uint64"
-        }
-      ],
-      "name": "getEmployerStakedList",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint64",
-              "name": "pageNo",
-              "type": "uint64"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "projectID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "address",
-                  "name": "stakeAddr",
-                  "type": "address"
-                },
-                {
-                  "internalType": "address",
-                  "name": "withdrawAddr",
-                  "type": "address"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "amount",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "amountWithdraw",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "unlockTime",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint32",
-                  "name": "lockDays",
-                  "type": "uint32"
-                },
-                {
-                  "internalType": "bool",
-                  "name": "isLock",
-                  "type": "bool"
-                }
-              ],
-              "internalType": "struct StakeUPool.StakedBalance[]",
-              "name": "list",
-              "type": "tuple[]"
-            }
-          ],
-          "internalType": "struct StakeUPool.PageValue[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        }
-      ],
-      "name": "getStakedEmployerByProjectID",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "projectID",
-              "type": "string"
-            },
-            {
-              "internalType": "address",
-              "name": "stakeAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "withdrawAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amountWithdraw",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "unlockTime",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint32",
-              "name": "lockDays",
-              "type": "uint32"
-            },
-            {
-              "internalType": "bool",
-              "name": "isLock",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct StakeUPool.StakedBalance",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        }
-      ],
-      "name": "getStakedNavigator",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "projectID",
-              "type": "string"
-            },
-            {
-              "internalType": "address",
-              "name": "stakeAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "withdrawAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amountWithdraw",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "unlockTime",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint32",
-              "name": "lockDays",
-              "type": "uint32"
-            },
-            {
-              "internalType": "bool",
-              "name": "isLock",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct StakeUPool.StakedBalance",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        }
-      ],
-      "name": "getStakedTaskerByProjectID",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "string",
-              "name": "projectID",
-              "type": "string"
-            },
-            {
-              "internalType": "address",
-              "name": "stakeAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "withdrawAddr",
-              "type": "address"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amount",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "amountWithdraw",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "unlockTime",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint32",
-              "name": "lockDays",
-              "type": "uint32"
-            },
-            {
-              "internalType": "bool",
-              "name": "isLock",
-              "type": "bool"
-            }
-          ],
-          "internalType": "struct StakeUPool.StakedBalance",
-          "name": "",
-          "type": "tuple"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        }
-      ],
-      "name": "getTaskerNum",
-      "outputs": [
-        {
-          "internalType": "uint64",
-          "name": "",
-          "type": "uint64"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_pageSize",
-          "type": "uint64"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_start",
-          "type": "uint64"
-        },
-        {
-          "internalType": "uint64",
-          "name": "_end",
-          "type": "uint64"
-        }
-      ],
-      "name": "getTaskerStakedList",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "uint64",
-              "name": "pageNo",
-              "type": "uint64"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "projectID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "address",
-                  "name": "stakeAddr",
-                  "type": "address"
-                },
-                {
-                  "internalType": "address",
-                  "name": "withdrawAddr",
-                  "type": "address"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "amount",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "amountWithdraw",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "unlockTime",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint32",
-                  "name": "lockDays",
-                  "type": "uint32"
-                },
-                {
-                  "internalType": "bool",
-                  "name": "isLock",
-                  "type": "bool"
-                }
-              ],
-              "internalType": "struct StakeUPool.StakedBalance[]",
-              "name": "list",
-              "type": "tuple[]"
-            }
-          ],
-          "internalType": "struct StakeUPool.PageValue[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getTotalStaked",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getUserStaked",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "governance",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract IERC20Upgradeable",
-          "name": "_stakeToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_governance",
-          "type": "address"
-        },
-        {
-          "internalType": "uint8",
-          "name": "_percentage",
-          "type": "uint8"
-        }
-      ],
-      "name": "initialize",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "bool",
-          "name": "isEmployer",
-          "type": "bool"
-        }
-      ],
-      "name": "lock",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "proxiableUUID",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "renounceOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_governance",
-          "type": "address"
-        }
-      ],
-      "name": "setGovernance",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint8",
-          "name": "_percentage",
-          "type": "uint8"
-        }
-      ],
-      "name": "setWithdrawFeePercentage",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_receiver",
-          "type": "address"
-        }
-      ],
-      "name": "setWithdrawalFeeReceiver",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint32",
-          "name": "_lockDays",
-          "type": "uint32"
-        },
-        {
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        }
-      ],
-      "name": "stakeEmployer",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint32",
-          "name": "_lockDays",
-          "type": "uint32"
-        }
-      ],
-      "name": "stakeNavigator",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint32",
-          "name": "_lockDays",
-          "type": "uint32"
-        }
-      ],
-      "name": "stakeTasker",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "stakeToken",
-      "outputs": [
-        {
-          "internalType": "contract IERC20Upgradeable",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "totalFee",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "totalStaked",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "bool",
-          "name": "isEmployer",
-          "type": "bool"
-        }
-      ],
-      "name": "unlock",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_unlockTime",
-          "type": "uint256"
-        }
-      ],
-      "name": "updateNavigator",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_unlockTime",
-          "type": "uint256"
-        }
-      ],
-      "name": "updateStakeEmployer",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "internalType": "address",
-          "name": "_withdrawAddr",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_unlockTime",
-          "type": "uint256"
-        }
-      ],
-      "name": "updateStakeTasker",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newImplementation",
-          "type": "address"
-        }
-      ],
-      "name": "upgradeTo",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "newImplementation",
-          "type": "address"
-        },
-        {
-          "internalType": "bytes",
-          "name": "data",
-          "type": "bytes"
-        }
-      ],
-      "name": "upgradeToAndCall",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_projectID",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amountWithdraw",
-          "type": "uint256"
-        },
-        {
-          "internalType": "enum StakeUPool.StakedType",
-          "name": "_type",
-          "type": "uint8"
-        }
-      ],
-      "name": "withdraw",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "withdrawFee",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "withdrawFee",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "withdrawFeePercentage",
-      "outputs": [
-        {
-          "internalType": "uint8",
-          "name": "",
-          "type": "uint8"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "withdrawFeeReceiver",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ]
+  {
+    "inputs": [],
+    "name": "AccessControlBadConfirmation",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "neededRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "AccessControlUnauthorizedAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "target",
+        "type": "address"
+      }
+    ],
+    "name": "AddressEmptyCode",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "AddressInsufficientBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "ERC1967InvalidImplementation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ERC1967NonPayable",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FailedInnerCall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidInitialization",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotInitializing",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnableInvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "OwnableUnauthorizedAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "SafeERC20FailedOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "UUPSUnauthorizedCallContext",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "slot",
+        "type": "bytes32"
+      }
+    ],
+    "name": "UUPSUnsupportedProxiableUUID",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "AcceptTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "CloseTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "EvaluateTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      }
+    ],
+    "name": "ForceCloseTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "version",
+        "type": "uint64"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "stakedToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "name": "PublishTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "SignTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "StartTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TaskerStatus",
+        "name": "taskerStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "SubmitTask",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "fee",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "withdrawAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawReward",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawStakedToken",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ForceCloseTimeoutTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "OPERATOR_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "UPGRADE_INTERFACE_VERSION",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "acceptedTokens",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "closeTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "defaultConfig",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskerStakeRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "notSignedWithdrawDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardFeeRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardWithdrawDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "feeWallet",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "stakedToken",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "employerMap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "stakedAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stakedAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "availableAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "unlockTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "unlockDuration",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "evaluateTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "forceClosedTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "getAcceptedTokens",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getConfig",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskerStakeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "notSignedWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardFeeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "feeWallet",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Config",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      }
+    ],
+    "name": "getEmployer",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "availableAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "unlockTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "unlockDuration",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct EmployerStakedInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTask",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "employer",
+            "type": "address"
+          },
+          {
+            "internalType": "address[]",
+            "name": "taskers",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address",
+            "name": "taskerMatched",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "evaluatingTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum TaskStatus",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "taskerStakeRate",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "notSignedWithdrawDuration",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "rewardFeeRate",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "rewardWithdrawDuration",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "feeWallet",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "stakedToken",
+                "type": "address"
+              }
+            ],
+            "internalType": "struct Config",
+            "name": "config",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct Task",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      }
+    ],
+    "name": "getTasker",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedAddr",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "unlockTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "unlockDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isWithdrawed",
+            "type": "bool"
+          },
+          {
+            "internalType": "enum TaskerStatus",
+            "name": "status",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct TaskStakedInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "stakedToken",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "publishTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "callerConfirmation",
+        "type": "address"
+      }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "rewardTasker",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "accepted",
+        "type": "bool"
+      }
+    ],
+    "name": "setAcceptedTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskerStakeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "notSignedWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardFeeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "feeWallet",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Config",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "name": "setConfig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskerStakeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "notSignedWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardFeeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "feeWallet",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Config",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "name": "setDefaultConfig",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "tasker",
+        "type": "address"
+      }
+    ],
+    "name": "signTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "startTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "submitTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "taskerMap",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "stakedAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stakedAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "unlockTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "unlockDuration",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isWithdrawed",
+        "type": "bool"
+      },
+      {
+        "internalType": "enum TaskerStatus",
+        "name": "status",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "tasks",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "employer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "taskerMatched",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "evaluatingTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum TaskStatus",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "taskerStakeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "notSignedWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardFeeRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardWithdrawDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "feeWallet",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "stakedToken",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Config",
+        "name": "config",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalStakedAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "totalTaskAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userStakedAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "taskId",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawStakedToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_to",
+        "type": "address"
+      }
+    ],
+    "name": "withdrawStuckToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

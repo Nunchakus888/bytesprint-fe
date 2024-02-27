@@ -20,11 +20,21 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const toast = useToast();
   const account = useAccount();
   const { connect } = useConnect();
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [signLoading, setSignLoading] = useState(false);
   // 打开任务
   const openTask = async () => {
+    setButtonLoading(true);
     if (!account.address) {
       connect();
+      setButtonLoading(false);
+      return false;
+    }
+    // 执行合约
+    const res1 = await publishTask({ projectId: id });
+    // 任务类型，根据身份匹配
+    if (!res1) {
+      setButtonLoading(false);
       return false;
     }
     const res = await Post(API_ROUTERS.tasks.TASK_OPEN, {
@@ -32,33 +42,27 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       walletAddress: userInfo.address,
       projectId: id,
     });
-    // 执行合约 TODO 需返回projectId
-    const res1 = await publishTask(res.data.projectId);
-    // 任务类型，根据身份匹配
-    if (res1) {
-      toast({
-        title: `SuccessFully`,
-        status: `success`,
-        isClosable: false,
-      });
-      window.location.reload();
-    } else {
-      toast({
-        title: `Occur Error, Please try again later`,
-        status: `error`,
-        isClosable: true,
-      });
-    }
+    toast({
+      title: `SuccessFully`,
+      status: `success`,
+      isClosable: false,
+    });
+    setButtonLoading(false);
+    window.location.reload();
   };
 
   // 关闭任务
   const closeTask = async () => {
+    setButtonLoading(true);
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
-    const res1 = await closeTaskForEmployee(id);
+    const res1 = await closeTaskForEmployee({ projectId: id });
+    debugger;
     if (!res1) {
+      setButtonLoading(false);
       return false;
     }
     const res = await Post(API_ROUTERS.tasks.TASK_CLOSE, {
@@ -71,17 +75,21 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       status: `success`,
       isClosable: false,
     });
+    setButtonLoading(false);
     window.location.reload();
   };
 
   // 验收任务
   const acceptTask = async () => {
+    setButtonLoading(true);
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
-    const res1 = await acceptTaskForEmployee(id);
+    const res1 = await acceptTaskForEmployee({ projectId: id });
     if (!res1) {
+      setButtonLoading(false);
       return false;
     }
     const res = await Post(API_ROUTERS.tasks.PROJECT_ACCEPT, {
@@ -94,6 +102,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       status: `success`,
       isClosable: false,
     });
+    setButtonLoading(false);
     window.location.reload();
   };
 
@@ -170,6 +179,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     signBid,
     unSignBid,
     openRecordDetail,
+    buttonLoading,
     signLoading,
   };
 };

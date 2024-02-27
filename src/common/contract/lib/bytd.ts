@@ -31,32 +31,42 @@ const getBYTDInstance = async (address: string, readOnly = false) => {
 
 // 发布任务
 export const publishTask = async ({ account, projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.publishTask(projectId);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.publishTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 评估质押 接包方质押
 export const evaluateTask = async ({ account, projectId, amount }: any) => {
-  // 授权
-  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-  const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, amount);
-  if (!eth20Approve) {
+  try {
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, amount);
+    if (!eth20Approve) {
+      return false;
+    }
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.evaluateTask(String(projectId), amount);
+    console.log('result>>>', result);
+    if (result) {
+      const receipt = await result.wait();
+      console.log('rees>>>', receipt?.status);
+      return receipt?.status === 1 ? true : false;
+    }
     return false;
-  }
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  const result = await bytdInstance.evaluateTask(projectId, amount);
-  console.log('result>>>', result);
-  if (result) {
-    const receipt = await result.wait();
-    console.log('rees>>>', receipt?.status);
-    return receipt?.status === 1 ? true : false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
@@ -91,93 +101,129 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
 
 // 签约任务
 export const signTask = async ({ account, projectId, taskerAddress, totalCost }: any) => {
-  // 授权
-  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-  const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, totalCost);
-  if (!eth20Approve) {
+  try {
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, totalCost);
+    if (!eth20Approve) {
+      return false;
+    }
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+
+    const result = await bytdInstance.signTask(String(projectId), taskerAddress);
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
     return false;
-  }
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.signTask(projectId, taskerAddress);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 开始任务
 export const startTask = async ({ projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.startTask(projectId);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.startTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 提交任务
 export const submitTask = async ({ projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.submitTask(projectId);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.submitTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 验收任务
 export const acceptTask = async ({ projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.acceptTask(projectId);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.acceptTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 关闭任务
 export const closeTask = async ({ projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  console.log('bytdInstance>>>>', bytdInstance);
-  const result = await bytdInstance.closeTask(projectId);
-  if (result) {
-    console.log('result>>>>', result);
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.closeTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 提取质押金，只有tasker才能提取质押金。
 export const withdrawStakedToken = async ({ account, projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  const result = await bytdInstance.withdrawStakedToken(projectId);
-  if (result) {
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.withdrawStakedToken(String(projectId));
+    if (result) {
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };
 
 // 提取奖励，只有tasker才能提取奖励。
 export const withdrawReward = async ({ account, projectId }: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-  const result = await bytdInstance.withdrawReward(projectId);
-  if (result) {
-    const receipt = await result.wait();
-    return receipt?.status === 1 ? true : false;
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.withdrawReward(String(projectId));
+    if (result) {
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e) {
+    console.log(e);
   }
   return false;
 };

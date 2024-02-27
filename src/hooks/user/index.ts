@@ -214,7 +214,7 @@ export const useWithdraw = () => {
   const account = useAccount();
   const { connect } = useConnect();
   const { identification } = useUserInfo();
-
+  const [buttonLoading, setButtonLoading] = useState(false);
   const stakeType = useMemo(() => {
     if ([Identification.ENGINEER, Identification.VISITOR].includes(identification))
       return StakedType.Tasker;
@@ -223,11 +223,12 @@ export const useWithdraw = () => {
 
   // 质押提取
   const stakingWithdraw = async (item: any) => {
+    setButtonLoading(true);
     const { stakingId, stakingAmount, projectId } = item;
-    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId });
     // 判断是否登录
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
     // 合约交互
@@ -235,17 +236,25 @@ export const useWithdraw = () => {
       account,
       projectId: projectId || stakingId,
     });
-    isSuccess ? onSuccessToast('Successfully') : onErrorToast(`Failed`);
+    if (!isSuccess) {
+      setButtonLoading(false);
+      return false;
+    }
+    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId });
+    onSuccessToast('Successfully');
+    setButtonLoading(false);
     return isSuccess;
   };
 
   // 质押提取
   const rewardWithdraw = async (item: any) => {
+    debugger;
+    setButtonLoading(true);
     const { rewardId, rewardAmount, projectId } = item;
-    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId });
     // 判断是否登录
     if (!account.address) {
       connect();
+      setButtonLoading(false);
       return false;
     }
     // 合约交互
@@ -255,12 +264,19 @@ export const useWithdraw = () => {
       amountWithdraw: rewardAmount,
       stakeType,
     });
-    isSuccess ? onSuccessToast('Successfully') : onErrorToast(`Failed`);
+    if (!isSuccess) {
+      setButtonLoading(false);
+      return false;
+    }
+    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId });
+    onSuccessToast('Successfully');
+    setButtonLoading(false);
     return isSuccess;
   };
   return {
     stakingWithdraw,
     rewardWithdraw,
+    buttonLoading,
   };
 };
 

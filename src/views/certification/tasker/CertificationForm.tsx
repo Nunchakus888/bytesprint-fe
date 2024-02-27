@@ -19,11 +19,16 @@ import FileUpload from 'components/fileupload';
 import { onSuccessToast } from 'common/utils/toast';
 import EducationFormArea from './EducationFormArea';
 import JobFormArea from './JobFormArea';
+import { removeItem } from 'common/utils';
+import { setUserInfo } from 'common/slice/commonSlice';
+import { useDispatch } from 'react-redux';
+import { useCheckLogin } from 'hooks/useCheckLogin';
 
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
-
+  const dispatch = useDispatch();
+  const { checkLogin } = useCheckLogin();
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
