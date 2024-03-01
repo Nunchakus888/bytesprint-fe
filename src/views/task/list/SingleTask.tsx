@@ -46,58 +46,60 @@ function SingleTask(props: {
           placeholder="Task Name"
           search={handleSearch}
         ></SearchInput>
-        <Box display="flex" justifyContent="flex-end" style={{ gap: 16 }}>
-          {props.isMine ? (
-            <>
-              <CustomSelect
-                options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
-                placeholder="Task Status"
-                onChange={(val: any) => onChange('status', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                width={220}
-              />
-              <CustomSelect
-                options={ProTypes}
-                placeholder="Crowdsourcing Method"
-                onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                width={220}
-              />
-              <CustomSelect
-                options={ProfessionTypes}
-                placeholder="Job Type"
-                onChange={(val: any) => onChange('positiontype', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                width={220}
-              />
-            </>
-          ) : (
-            <>
-              <CustomSelect
-                options={ProTypes}
-                placeholder="Crowdsourcing Method"
-                onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                width={220}
-              />
-              <CustomSelect
-                options={TaskTypes}
-                placeholder="Task Type"
-                onChange={(val: any) => onChange('categorytype', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                width={220}
-              />
-              <CustomSelect
-                options={ProfessionTypes}
-                placeholder="Job Type"
-                onChange={(val: any) => onChange('positiontype', val?.value)}
-                focusBorderColor="rgba(255, 255, 255, 0.4)"
-                style={{ width: 200 }}
-                width={220}
-              />
-            </>
-          )}
-        </Box>
+        {props.from === IPath.TASKS && (
+          <Box display="flex" justifyContent="flex-end" style={{ gap: 16 }}>
+            {props.isMine ? (
+              <>
+                <CustomSelect
+                  options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
+                  placeholder="Task Status"
+                  onChange={(val: any) => onChange('status', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProTypes}
+                  placeholder="Crowdsourcing Method"
+                  onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProfessionTypes}
+                  placeholder="Job Type"
+                  onChange={(val: any) => onChange('positiontype', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+              </>
+            ) : (
+              <>
+                <CustomSelect
+                  options={ProTypes}
+                  placeholder="Crowdsourcing Method"
+                  onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={TaskTypes}
+                  placeholder="Task Type"
+                  onChange={(val: any) => onChange('categorytype', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProfessionTypes}
+                  placeholder="Job Type"
+                  onChange={(val: any) => onChange('positiontype', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  style={{ width: 200 }}
+                  width={220}
+                />
+              </>
+            )}
+          </Box>
+        )}
       </Flex>
       <Box
         mt={{ base: '20px' }}

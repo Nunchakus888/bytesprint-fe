@@ -50,6 +50,7 @@ const API_ROUTERS = {
     MY_REWARDS: (params?: any) => createRoute(`/user/rewards`, params),
     STAKING_WITHDRAW: '/user/stakings/withdraw',
     REWARDS_WITHDRAW: '/rewards/withdraw',
+    UPLOAD: '/file/upload',
   },
   positions: {
     LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),
