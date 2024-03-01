@@ -51,7 +51,8 @@ function SingleTask(props: {
             {props.isMine ? (
               <>
                 <CustomSelect
-                  options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
+                  // options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
+                  options={TaskStatus}
                   placeholder="Task Status"
                   onChange={(val: any) => onChange('status', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"

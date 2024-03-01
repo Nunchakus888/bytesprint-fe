@@ -1,7 +1,7 @@
 import { toast, useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
 import axios from 'axios';
-import { evaluateTask, stakeTasker } from 'common/contract/lib/bytd';
+import { evaluateTask } from 'common/contract/lib/bytd';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import _ from 'lodash';
