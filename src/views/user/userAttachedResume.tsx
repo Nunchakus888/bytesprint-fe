@@ -3,8 +3,7 @@ import styles from './index.module.scss';
 
 export default function UserAttachedResume(props: { data: any }) {
   const { data } = props;
-  debugger;
-  const certificate = data?.engineer?.certificateList?.[0] || {};
+  const certificate = data?.data?.engineer?.certificateList?.[0] || {};
   return (
     <Box
       display="flex"

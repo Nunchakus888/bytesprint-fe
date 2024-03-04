@@ -37,7 +37,7 @@ export default function ProfileOverview() {
     local_userInfo.timestamp = Date.now();
     dispatch(setUserInfoStore(local_userInfo));
     setItem('userInfo', local_userInfo);
-    setUserInfo(userData);
+    setUserInfo({ data: userData });
   };
 
   useEffect(() => {
@@ -68,8 +68,6 @@ export default function ProfileOverview() {
             <UserMyReward data={myrewards} refresh={rewardsRefresh} />
           </Flex>
         </Flex>
-
-        <UserAttachedResume data={userInfo} />
         {/* 水手展示以下信息 */}
         {isEngineer && (
           <Flex gap="20px" justifyContent="space-between" width="100%">
