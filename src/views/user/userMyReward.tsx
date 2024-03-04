@@ -105,6 +105,11 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
             </Flex>
           );
         })}
+        {data?.length === 0 && (
+          <Flex justifyContent="center" alignItems="center">
+            No data
+          </Flex>
+        )}
       </Box>
     </Box>
   );

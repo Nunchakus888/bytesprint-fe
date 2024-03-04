@@ -76,14 +76,7 @@ export const useAddRequirement = () => {
         projectInfo,
         contactInfo,
         ownerAddress: userInfo.address,
-        fileList: [
-          {
-            fileName: '项目介绍',
-            fileType: 'doc',
-            fileUrl: 'https://mybuckethc.s3.amazonaws.com/1400-350.png',
-            fileData: '',
-          },
-        ],
+        fileList: data.fileList,
       };
       console.log('publish _params>>>', _params);
       const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params);

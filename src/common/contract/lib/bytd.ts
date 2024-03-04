@@ -4,8 +4,8 @@ import getSigner from './getSigner';
 import BYTD_ABI from '../ABI/stake.abi.json';
 
 // 质押合约
-const BYTD_ADDRESS = '0x6123593d91c834a30634E3FD2A75d1A79dd4CB48';
-const USDT_B_ADDRESS = '0xf6F9C2BB380b85b03aaE7f48547D9F0C07E3D388';
+const BYTD_ADDRESS = '0xb19C40e44B6a56Ef0C98F248B6AC31aE948CbaFf';
+const USDT_B_ADDRESS = '0xD8d76d720b0250207fDa709ad59aBa164099d323';
 
 //获取USDT实例
 const getUSDTInstance = async (address: string, readOnly = false) => {

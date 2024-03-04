@@ -29,6 +29,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
   const dispatch = useDispatch();
   const { checkLogin } = useCheckLogin();
+  const [files, setFiles] = useState([]);
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
@@ -55,6 +56,14 @@ const CertificationForm = ({ authorizeCode }: any) => {
         }),
         authorizeCode,
         ...restValues,
+        certificateList: files.map((it) => {
+          return {
+            expiration: null,
+            name: it.name,
+            path: it.fileUrl,
+            time: Date.now(),
+          };
+        }),
       };
       console.log('提交表单', values);
       const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(), params);
@@ -248,10 +257,10 @@ const CertificationForm = ({ authorizeCode }: any) => {
                     <FileUpload
                       accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
                       multiple
-                      max={3}
-                      maxSize={50 * 1024 * 1024}
+                      max={1}
+                      maxSize={10 * 1024 * 1024}
                       register={(files: any) => {
-                        console.log(111, files);
+                        setFiles(files);
                       }}
                     />
                     <FormErrorMessage>{error && error.message}</FormErrorMessage>

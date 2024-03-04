@@ -21,6 +21,7 @@ import API_ROUTERS from 'api';
 import Upload from 'rc-upload';
 import { onErrorToast } from 'common/utils/toast';
 import { RcFile } from 'rc-upload/lib/interface';
+import axios from 'axios';
 type FileUploadProps = {
   children?: React.ReactNode;
   register: (f: any) => void;
@@ -63,20 +64,49 @@ export default function FileUpload(props: FileUploadProps) {
       console.log('file:', file);
       const isValid = checkFile(file, [...chooseFiles, file]);
       return isValid;
-      // if (isValid) {
-      //   setChooseFiles((prev) => {
-      //     return [...prev, file];
-      //   });
-      // }
-      // return false;
     },
-    onSuccess: (res: Object) => {
+    onSuccess: (res: any, file: RcFile) => {
       console.log('onSuccess: ', res);
-      debugger;
-      // TODO 成功后
-      // setChooseFiles((prev) => {
-      //   return [...prev, file];
-      // });
+      if (res?.fileList?.[0]) {
+        // 成功后
+        setChooseFiles((prev: any[]) => {
+          return [...prev, { ...res?.fileList?.[0], size: file.size, name: file.name }];
+        });
+      }
+    },
+    customRequest({
+      action,
+      data,
+      file,
+      filename,
+      headers,
+      onError,
+      onProgress,
+      onSuccess,
+      withCredentials,
+    }: any) {
+      // EXAMPLE: post form-data with 'axios'
+      // eslint-disable-next-line no-undef
+      const formData = new FormData();
+      formData.append('files', file);
+      axios
+        .post(action, formData, {
+          withCredentials,
+          headers,
+          onUploadProgress: ({ total, loaded }) => {
+            onProgress({ percent: Math.round((loaded / total) * 100).toFixed(2) }, file);
+          },
+        })
+        .then(({ data: response }) => {
+          onSuccess(response, file);
+        })
+        .catch(onError);
+
+      return {
+        abort() {
+          console.log('upload progress is aborted.');
+        },
+      };
     },
     style: {},
   };
@@ -146,7 +176,7 @@ export default function FileUpload(props: FileUploadProps) {
         {chooseFiles.map((file, index) => {
           return (
             <Flex
-              key={`${file.name}_${Date.now()}`}
+              key={index}
               background="rgba(255,255,255,0.05)"
               borderRadius={4}
               padding="15px 20px"
