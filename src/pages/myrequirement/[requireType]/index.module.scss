@@ -1,16 +1,16 @@
 .radios {
-  background: rgba(255,255,255,0.03);
-  padding: 10px 0!important;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 0 !important;
   width: 320px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   & > label {
-    width: 100%!important;
-    padding-left: 55px!important;
+    width: 100% !important;
+    padding-left: 55px !important;
     [data-checked] {
-      color: #7551FF;
-      padding: 0 10px!important
+      color: #7551ff;
+      padding: 0 10px !important;
     }
   }
   input {
@@ -19,7 +19,7 @@
   input + span {
     opacity: 0;
   }
-  
+
   i {
     opacity: 0;
   }
@@ -27,13 +27,13 @@
     position: relative;
     width: 100%;
     padding-left: 40px;
-    
+
     i {
       opacity: 1;
       width: 0px;
       height: 0px;
       border-radius: 4px;
-      border-top: 30px solid #2460F7;
+      border-top: 30px solid #2460f7;
       border-left: 30px solid transparent;
       position: absolute;
       top: -10px;
@@ -49,22 +49,26 @@
   &:nth-of-type(1) {
     & > label {
       background: url('../../../../public/img/bidding.png') no-repeat 20px center;
-      background-size: 45px 45px; 
-    } 
-    
+      background-size: 45px 45px;
+    }
   }
   &:nth-of-type(2) {
     & > label {
       background: url('../../../../public/img/pitch.png') no-repeat 20px center;
-    background-size: 45px 45px; 
+      background-size: 45px 45px;
     }
-    
   }
   &:nth-of-type(3) {
     & > label {
       background: url('../../../../public/img/bid.png') no-repeat 20px center;
-    background-size: 45px 45px; 
+      background-size: 45px 45px;
     }
-    
+  }
+}
+.phoneInput {
+  input {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 6px;
   }
 }

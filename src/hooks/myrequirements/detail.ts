@@ -11,8 +11,9 @@ import { TaskBidStatus } from 'common/constant';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { ethers } from 'ethers';
+import useConnect from 'hooks/useConnect';
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {

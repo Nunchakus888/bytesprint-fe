@@ -28,7 +28,7 @@ import Header from 'components/header';
 import Sidebar from 'components/sidebar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'react-phone-number-input/style.css';
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
 const { chains, provider } = configureChains(

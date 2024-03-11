@@ -5,8 +5,9 @@ import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { Get, Post } from 'common/utils/axios';
 import { IStatus, TaskBidStatus } from 'common/constant';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { startTask, submitTask } from 'common/contract/lib/bytd';
+import useConnect from 'hooks/useConnect';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: string) => {

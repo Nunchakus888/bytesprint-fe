@@ -38,7 +38,11 @@ import {
 import styles from './index.module.scss';
 import Navbar from 'components/navbar/Navbar';
 import CustomSelect from 'components/custom-select';
-
+import PhoneInput, {
+  formatPhoneNumber,
+  isPossiblePhoneNumber,
+  isValidPhoneNumber,
+} from 'react-phone-number-input';
 const ReactQuillComponent = dynamic(() => import('../../../components/richTextBlock'), {
   ssr: false,
 });
@@ -54,7 +58,16 @@ export default function AddRequirement(props: {}) {
     setValue,
     getValues,
   } = useForm<IRequirementPerson | IRequirementSingle>();
+  const [phoneError, setPhoneError] = useState('');
   const onSubmit = handleSubmit(async (data) => {
+    console.log(isValidPhoneNumber(data.contactInfo), data.contactInfo);
+    if (!isValidPhoneNumber(data.contactInfo)) {
+      setPhoneError(`Please enter a valid phone number`);
+      return false;
+    } else {
+      setPhoneError('');
+    }
+
     data.fileList = files;
     console.log('On Submit: ', data);
     await saveRequirement(data);
@@ -65,12 +78,17 @@ export default function AddRequirement(props: {}) {
     if (!value) {
       return `Please Enter Phone number`;
     }
-    if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value)) {
+    if (
+      !/\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/.test(
+        value
+      )
+    ) {
       return 'Please enter a valid phone number';
     }
     return true;
   };
   const [radioVal, setRadioVal] = useState<ProType>();
+  const [phoneNumber, setPhoneNumber] = useState();
   // 草稿
   const handleTempSave = () => {
     console.log('getValues>>', getValues());
@@ -227,19 +245,27 @@ export default function AddRequirement(props: {}) {
                 </RadioGroup>
               </FormControl>
 
-              <FormControl isInvalid={!!errors.contactInfo} isRequired margin="20px 0">
+              <FormControl isInvalid={!!phoneError} isRequired margin="20px 0">
                 <FormLabel>Phone number</FormLabel>
-                <Input
+                {/* <Input
                   color="#fff"
                   id="contactInfo"
                   placeholder="Enter"
                   {...register('contactInfo', {
                     validate: validatePhone,
                   })}
+                /> */}
+                <PhoneInput
+                  className={styles.phoneInput}
+                  placeholder="Enter phone number"
+                  value={phoneNumber}
+                  onChange={(val) => {
+                    setValue('contactInfo', val);
+                    // @ts-ignore
+                    setPhoneNumber(val);
+                  }}
                 />
-                <FormErrorMessage>
-                  {errors.contactInfo && errors?.contactInfo.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{phoneError}</FormErrorMessage>
               </FormControl>
               <Flex>
                 <Button

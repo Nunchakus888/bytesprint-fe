@@ -23,6 +23,7 @@ import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 
 const TaskDetail = () => {
   const toast = useToast();
@@ -94,7 +95,7 @@ const TaskDetail = () => {
   };
 
   const { rewardWithdraw, buttonLoading: withdrawLoding } = useWithdraw();
-
+  const account = useAccount();
   return (
     <>
       <Box>
@@ -173,7 +174,7 @@ const TaskDetail = () => {
             </Flex>
           </Box>
         )}
-        <Auth from={IPath.TASKS} />
+        {account?.address && <Auth from={IPath.TASKS} />}
         {openschedule && scheduledata.length && (
           <TaskSchedule
             onClose={() => setSchedule(false)}

@@ -5,10 +5,11 @@ import { Identification, IPath, StakedType } from 'common/constant';
 import API_ROUTERS from 'api';
 import { Get, Post } from 'common/utils/axios';
 import { removeItem } from 'common/utils';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { onErrorToast, onSuccessToast } from 'common/utils/toast';
 import useChange from 'hooks/useChange';
 import { withdrawReward, withdrawStakedToken } from 'common/contract/lib/bytd';
+import useConnect from 'hooks/useConnect';
 
 let defaultRoutes: any[] = [
   // {
@@ -248,7 +249,6 @@ export const useWithdraw = () => {
 
   // 质押提取
   const rewardWithdraw = async (item: any) => {
-    debugger;
     setButtonLoading(true);
     const { rewardId, rewardAmount, projectId } = item;
     // 判断是否登录
@@ -261,8 +261,6 @@ export const useWithdraw = () => {
     const isSuccess = await withdrawReward({
       account,
       projectId: projectId || rewardId,
-      amountWithdraw: rewardAmount,
-      stakeType,
     });
     if (!isSuccess) {
       setButtonLoading(false);

@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 
 export default function Auth(props: { from?: string }) {
   const { from } = props;
-  const { identification } = useUserInfo();
+  const { identification, userInfo } = useUserInfo();
   return (
     <>
       {identification !== Identification.ENGINEER && from === IPath.TASKS && (

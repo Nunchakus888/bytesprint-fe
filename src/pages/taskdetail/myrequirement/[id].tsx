@@ -25,6 +25,7 @@ import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
@@ -74,7 +75,7 @@ const TaskDetail = () => {
   // 任务计划列表
   const { planlist, openRecordDetailId, handleOpenRecordDetail, closeRecordDetail } =
     useTaskPlanList(data, isShowExtendTaskInfo);
-
+  const account = useAccount();
   return (
     <>
       <Box>
@@ -151,7 +152,7 @@ const TaskDetail = () => {
             </Flex>
           </Box>
         )}
-        <Auth from={IPath.MYREQUIREMENT} />
+        {account?.address && <Auth from={IPath.MYREQUIREMENT} />}
       </Box>
 
       {isOpenEvaluate && (

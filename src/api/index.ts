@@ -49,7 +49,7 @@ const API_ROUTERS = {
     CERTIF_ENGINEER: () => createRoute(`/user/certify/engineer`),
     MY_REWARDS: (params?: any) => createRoute(`/user/rewards`, params),
     STAKING_WITHDRAW: '/user/stakings/withdraw',
-    REWARDS_WITHDRAW: '/rewards/withdraw',
+    REWARDS_WITHDRAW: '/user/rewards/withdraw',
     UPLOAD: '/file/upload',
   },
   positions: {

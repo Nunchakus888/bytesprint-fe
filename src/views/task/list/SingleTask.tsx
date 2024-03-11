@@ -16,6 +16,7 @@ import {
 } from 'common/constant';
 import CustomSelect from 'components/custom-select';
 import styles from './index.module.scss';
+import { useAccount } from 'wagmi';
 
 function SingleTask(props: {
   isCurrent?: boolean;
@@ -34,6 +35,7 @@ function SingleTask(props: {
 
   const { loading, data, hasMore, fetchMoreData, handleSearch, onChange } = props.single;
   console.log('data>>>>>>>>>>>>>', data);
+  const account = useAccount();
   return (
     <Box mt={{ base: '30px' }}>
       <Flex
@@ -138,7 +140,7 @@ function SingleTask(props: {
         )}
       </Box>
 
-      <Auth from={props.from} />
+      {account?.address && <Auth from={props.from} />}
     </Box>
   );
 }

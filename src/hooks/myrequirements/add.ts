@@ -6,7 +6,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { Post } from 'common/utils/axios';
 import { IRequirement, RequirementType } from 'common/constant';
 import { publishTask } from 'common/contract/lib/bytd';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount } from 'wagmi';
+import useConnect from 'hooks/useConnect';
 
 export const requirementTypes = [
   {

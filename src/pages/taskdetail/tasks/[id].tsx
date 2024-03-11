@@ -14,6 +14,7 @@ import Evaluate from 'views/task/Evaluate';
 import Test from 'views/task/Test';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 
 const TaskDetail = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const TaskDetail = () => {
   const { identification } = useUserInfo();
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false);
   console.log('data>>>>', data);
-
+  const account = useAccount();
   // 是否已评估
   const isEvaluate = useMemo(() => {
     if (data) {
@@ -64,7 +65,7 @@ const TaskDetail = () => {
             />
           </>
         )}
-        <Auth from={IPath.TASKS} />
+        {account?.address && <Auth from={IPath.TASKS} />}
       </Box>
       {/* {isOpenEvaluate && <Test></Test>} */}
       {isOpenEvaluate && (

@@ -58,6 +58,7 @@
     "react-is": "^18.0.0",
     "react-jazzicon": "^1.0.4",
     "react-pdf": "^7.5.1",
+    "react-phone-number-input": "^3.3.9",
     "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-redux": "^8.1.3",

@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { useUserInfo } from 'hooks/user';
 import { Identification, IPath, ProfessionTypes, ProTypes, TaskTypes } from 'common/constant';
 import { onWarmToast } from 'common/utils/toast';
+import { useAccount } from 'wagmi';
+import useConnect from 'hooks/useConnect';
 
 export default function TaskBaseInfo(props: {
   from?: string;
@@ -14,8 +16,13 @@ export default function TaskBaseInfo(props: {
 }) {
   const { identification } = useUserInfo();
   const { data, setIsOpenEvaluate, isEvaluate } = props;
-
+  const account = useAccount();
+  const { connect } = useConnect();
   const handClick = () => {
+    if (!account.address) {
+      connect();
+      return false;
+    }
     if (identification !== Identification.ENGINEER) {
       onWarmToast('Participate after Tasker Certification');
       return;
