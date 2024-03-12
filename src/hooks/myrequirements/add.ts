@@ -47,18 +47,22 @@ export const useAddRequirement = () => {
   const { userInfo } = useUserInfo();
   const account = useAccount();
   const { connect } = useConnect();
-
+  const [buttonLoading, setButtonLoading] = useState(false);
   // 保存需求
   const saveRequirement = useCallback(
     async (data: any) => {
+      setButtonLoading(true);
       if (!account.address) {
         connect();
+        setButtonLoading(false);
         return false;
       }
+
       // 执行合约
       const projectId = await getNextTaskId();
       const res1 = await publishTask({ projectId: projectId });
       if (!res1) {
+        setButtonLoading(false);
         return false;
       }
       const projectInfo = {
@@ -85,7 +89,8 @@ export const useAddRequirement = () => {
         status: `success`,
         isClosable: false,
       });
-      return res;
+      setButtonLoading(false);
+      return true;
     },
     [currentRequire, userInfo.address]
   );
@@ -93,5 +98,6 @@ export const useAddRequirement = () => {
     currentRequire,
     saveRequirement,
     router,
+    buttonLoading,
   };
 };

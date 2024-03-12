@@ -34,7 +34,8 @@ export const getNextTaskId = async () => {
   try {
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
     const projectId = await bytdInstance.getNextTaskId();
-    return projectId;
+    console.log('BigNumber.from(projectId).toNumber()', BigNumber.from(projectId).toNumber());
+    return BigNumber.from(projectId).toNumber();
   } catch (e) {
     onErrorToast('Operation error');
     console.log(e);

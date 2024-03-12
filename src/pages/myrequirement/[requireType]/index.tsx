@@ -48,7 +48,7 @@ const ReactQuillComponent = dynamic(() => import('../../../components/richTextBl
 });
 
 export default function AddRequirement(props: {}) {
-  const { currentRequire, saveRequirement, router } = useAddRequirement();
+  const { currentRequire, saveRequirement, router, buttonLoading } = useAddRequirement();
   const [files, setFiles] = useState([]);
   const {
     register,
@@ -70,8 +70,10 @@ export default function AddRequirement(props: {}) {
 
     data.fileList = files;
     console.log('On Submit: ', data);
-    await saveRequirement(data);
-    router.push('/myrequirement');
+    const res = await saveRequirement(data);
+    if (res) {
+      router.push('/myrequirement');
+    }
   });
 
   const validatePhone = (value: string) => {
@@ -274,6 +276,7 @@ export default function AddRequirement(props: {}) {
                   borderRadius={4}
                   type="submit"
                   margin="20px 0"
+                  isLoading={buttonLoading}
                 >
                   Post a task
                 </Button>
