@@ -45,20 +45,21 @@ export default function TaskStatusInfo(props: {
       switch (taskStatus) {
         case IStatus.CLOSED:
           return (
-            <Button
-              className={styles.statusbtn}
-              onClick={() => {
-                setIsOpenConfirm(true);
-                confirmRef.current.content = `Are you sure open the Task?`;
-                confirmRef.current.onSure = () => {
-                  setIsOpenConfirm(false);
-                  props?.openTask();
-                };
-              }}
-              isLoading={buttonLoading}
-            >
-              Open Task
-            </Button>
+            // <Button
+            //   className={styles.statusbtn}
+            //   onClick={() => {
+            //     setIsOpenConfirm(true);
+            //     confirmRef.current.content = `Are you sure open the Task?`;
+            //     confirmRef.current.onSure = () => {
+            //       setIsOpenConfirm(false);
+            //       props?.openTask();
+            //     };
+            //   }}
+            //   isLoading={buttonLoading}
+            // >
+            //   Open Task
+            // </Button>
+            <Text className={styles.statustext}>task closed</Text>
           );
           break;
         case IStatus.EVALUATION:

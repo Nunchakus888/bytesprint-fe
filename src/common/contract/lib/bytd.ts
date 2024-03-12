@@ -2,6 +2,7 @@ import { BigNumber, ethers, getDefaultProvider } from 'ethers';
 import USDT_ABI from '../ABI/udst_b.abi.json';
 import getSigner from './getSigner';
 import BYTD_ABI from '../ABI/stake.abi.json';
+import { onErrorToast } from 'common/utils/toast';
 
 // 质押合约
 const BYTD_ADDRESS = '0xb19C40e44B6a56Ef0C98F248B6AC31aE948CbaFf';
@@ -29,6 +30,18 @@ const getBYTDInstance = async (address: string, readOnly = false) => {
   return new ethers.Contract(address, BYTD_ABI, signer);
 };
 
+export const getNextTaskId = async () => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const projectId = await bytdInstance.getNextTaskId();
+    return projectId;
+  } catch (e) {
+    onErrorToast('Operation error');
+    console.log(e);
+  }
+  return false;
+};
+
 // 发布任务
 export const publishTask = async ({ account, projectId }: any) => {
   try {
@@ -42,6 +55,7 @@ export const publishTask = async ({ account, projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Publishing task failed');
     console.log(e);
   }
   return false;
@@ -66,38 +80,11 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Pledge failed');
     console.log(e);
   }
   return false;
 };
-
-// 发包方质押
-// export const stakeEmployer = async ({
-//   account,
-//   projectId,
-//   amount,
-//   lockDays,
-//   withdrawAddr,
-// }: any) => {
-//   amount = String(BigNumber.from(amount));
-//   // 授权
-//   let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-//   console.log('eth20Instance>>>', eth20Instance, BYTD_ADDRESS, String(BigNumber.from(amount)));
-//   const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, amount);
-//   console.log('eth20Approve>>>>', eth20Approve);
-//   if (!eth20Approve) {
-//     return false;
-//   }
-//   const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-//   console.log('bytdInstance>>>>', bytdInstance);
-//   const result = await bytdInstance.stakeEmployer(projectId, amount, lockDays, withdrawAddr);
-//   if (result) {
-//     console.log('result>>>>', result);
-//     const receipt = await result.wait();
-//     return receipt?.status === 1 ? true : false;
-//   }
-//   return false;
-// };
 
 // 签约任务
 export const signTask = async ({ account, projectId, taskerAddress, totalCost }: any) => {
@@ -119,6 +106,7 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
     }
     return false;
   } catch (e) {
+    onErrorToast('Signing task failed');
     console.log(e);
   }
   return false;
@@ -137,6 +125,7 @@ export const startTask = async ({ projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Failed to start task');
     console.log(e);
   }
   return false;
@@ -155,6 +144,7 @@ export const submitTask = async ({ projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Failed to submit task');
     console.log(e);
   }
   return false;
@@ -173,6 +163,7 @@ export const acceptTask = async ({ projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Acceptance task failed');
     console.log(e);
   }
   return false;
@@ -191,6 +182,7 @@ export const closeTask = async ({ projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Failed to close task');
     console.log(e);
   }
   return false;
@@ -207,6 +199,7 @@ export const withdrawStakedToken = async ({ account, projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Failed to withdraw pledged funds');
     console.log(e);
   }
   return false;
@@ -223,18 +216,8 @@ export const withdrawReward = async ({ account, projectId }: any) => {
     }
     return false;
   } catch (e) {
+    onErrorToast('Failed to withdraw reward funds');
     console.log(e);
   }
   return false;
 };
-
-// _type 提款人的角色。发包方/接单方/运营商
-// export const withdraw = async ({ account, projectId, amountWithdraw, type }: any) => {
-//   const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-//   const result = await bytdInstance.withdraw(projectId, amountWithdraw, type);
-//   if (result) {
-//     const receipt = await result.wait();
-//     return receipt?.status === 1 ? true : false;
-//   }
-//   return false;
-// };

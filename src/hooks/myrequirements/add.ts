@@ -5,9 +5,10 @@ import { useRouter } from 'next/router';
 import { useCallback, useMemo, useState } from 'react';
 import { Post } from 'common/utils/axios';
 import { IRequirement, RequirementType } from 'common/constant';
-import { publishTask } from 'common/contract/lib/bytd';
+import { getNextTaskId, publishTask } from 'common/contract/lib/bytd';
 import { useAccount } from 'wagmi';
 import useConnect from 'hooks/useConnect';
+import { useToast } from '@chakra-ui/react';
 
 export const requirementTypes = [
   {
@@ -32,6 +33,7 @@ export const requirementTypes = [
 
 export const useAddRequirement = () => {
   const router = useRouter();
+  const toast = useToast();
   const currentRequire = useMemo(() => {
     const { requireType = '' } = router.query;
     console.log(
@@ -46,23 +48,21 @@ export const useAddRequirement = () => {
   const account = useAccount();
   const { connect } = useConnect();
 
-  // 保存需求 TODO upload
+  // 保存需求
   const saveRequirement = useCallback(
     async (data: any) => {
       if (!account.address) {
         connect();
         return false;
       }
-
-      // {
-      //   "projectName": "bella test",
-      //   "professionType": "3",
-      //   "crowSourcingMethod": "1",
-      //   "contactInfo": "15533334444",
-      //   "description": "<p><strong>bella test </strong></p><p><br></p><p>The days feel long,</p><p>The weeks even longer,</p><p>But the months seem to fly by.</p><p>One day you’re 6,</p><p>Then next you’re 16.</p><p>Time is fleeting</p><p>As if you're drifting out to sea</p><p>Yet you always manage to stay afloat, even when it's hard.</p><p>You make it to the next:</p><p>Month, season, and year</p><p>Before having to return to the beginning again.</p>"
-      // }
-
+      // 执行合约
+      const projectId = await getNextTaskId();
+      const res1 = await publishTask({ projectId: projectId });
+      if (!res1) {
+        return false;
+      }
       const projectInfo = {
+        projectId,
         name: data.projectName,
         categoryType: currentRequire?.value,
         positionType: +data.professionType,
@@ -72,7 +72,6 @@ export const useAddRequirement = () => {
       const contactInfo = {
         phoneNumber: data.contactInfo,
       };
-
       const _params = {
         projectInfo,
         contactInfo,
@@ -81,10 +80,12 @@ export const useAddRequirement = () => {
       };
       console.log('publish _params>>>', _params);
       const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params);
-      // 执行合约
-      const res1 = await publishTask({ projectId: res.projectId });
-      // 任务类型，根据身份匹配
-      return res1;
+      toast({
+        title: `SuccessFully`,
+        status: `success`,
+        isClosable: false,
+      });
+      return res;
     },
     [currentRequire, userInfo.address]
   );

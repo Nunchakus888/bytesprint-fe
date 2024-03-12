@@ -730,6 +730,11 @@
         "internalType": "uint256",
         "name": "unlockDuration",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isWithdrawed",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -882,11 +887,29 @@
             "internalType": "uint256",
             "name": "unlockDuration",
             "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isWithdrawed",
+            "type": "bool"
           }
         ],
         "internalType": "struct EmployerStakedInfo",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getNextTaskId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1123,6 +1146,19 @@
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nextTaskId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
