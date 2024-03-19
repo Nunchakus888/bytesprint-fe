@@ -55,7 +55,7 @@ export default function AddRequirement() {
                     padding="10px 20px"
                     borderRadius={4}
                     cursor="pointer"
-                    _hover={{ background: 'rgba(255,255,255,0.9)', color: '#7551FF' }}
+                    _hover={{ background: 'rgba(255,255,255,0.1)', color: '#7551FF' }}
                     onClick={(e) => handleClick(it)}
                   >
                     {selectType === it.type && (
