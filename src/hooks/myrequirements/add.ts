@@ -60,7 +60,7 @@ export const useAddRequirement = () => {
 
       // 执行合约
       const projectId = await getNextTaskId();
-      const res1 = await publishTask({ projectId: 4 });
+      const res1 = await publishTask({ projectId });
       if (!res1) {
         setButtonLoading(false);
         return false;
