@@ -11,9 +11,10 @@ import { TaskBidStatus } from 'common/constant';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { ethers } from 'ethers';
 import useConnect from 'hooks/useConnect';
+import useCheckChain from 'hooks/useCheckChain';
 
 // detail status operator
 export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
@@ -23,6 +24,8 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const { connect } = useConnect();
   const [buttonLoading, setButtonLoading] = useState(false);
   const [signLoading, setSignLoading] = useState(false);
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 打开任务
   const openTask = async () => {
     setButtonLoading(true);
@@ -60,8 +63,15 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
       return false;
     }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
     const res1 = await closeTaskForEmployee({ projectId: id });
-    debugger;
     if (!res1) {
       setButtonLoading(false);
       return false;
@@ -70,13 +80,14 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
+    }).finally(() => {
+      setButtonLoading(false);
     });
     toast({
       title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
-    setButtonLoading(false);
     window.location.reload();
   };
 
@@ -88,6 +99,14 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
       return false;
     }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setSignLoading(false);
+        return false;
+      }
+    }
     const res1 = await acceptTaskForEmployee({ projectId: id });
     if (!res1) {
       setButtonLoading(false);
@@ -97,28 +116,36 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
+    }).finally(() => {
+      setButtonLoading(false);
     });
     toast({
       title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
-    setButtonLoading(false);
     window.location.reload();
   };
 
   // 签约TA
   const signBid = async (record: any) => {
+    setSignLoading(true);
     // 判断是否登录
     if (!account.address) {
       connect();
+      setSignLoading(false);
       return false;
     }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setSignLoading(false);
+        return false;
+      }
+    }
     try {
-      setSignLoading(true);
       let { totalCost, totalTime, uid, wallet, assetRecordId, finishTime } = record;
-      // // 质押天数
-      // const lockDays = Math.ceil((+finishTime - Date.now()) / (24 * 60 * 60 * 1000));
       // 合约交互
       const result = await signTask({
         account,

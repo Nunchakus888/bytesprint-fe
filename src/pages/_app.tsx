@@ -14,7 +14,7 @@ import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import theme from 'common/theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet, goerli, sepolia } from 'wagmi/chains';
+import { mainnet, goerli, sepolia, arbitrum } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { darkTheme, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
@@ -33,7 +33,7 @@ const projectId = '467f25289c817c42bc541efb8f04be1d';
 
 const { chains, provider } = configureChains(
   // [sepolia, mainnet, goerli],
-  [sepolia],
+  [sepolia, arbitrum],
   [
     // alchemyProvider({
     //   apiKey: alchemyKey, //process.env.REACT_APP_ALCHEMY_ID,

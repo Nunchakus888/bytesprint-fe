@@ -5,9 +5,10 @@ import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { Get, Post } from 'common/utils/axios';
 import { IStatus, TaskBidStatus } from 'common/constant';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { startTask, submitTask } from 'common/contract/lib/bytd';
 import useConnect from 'hooks/useConnect';
+import useCheckChain from 'hooks/useCheckChain';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: string) => {
@@ -16,6 +17,8 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   const account = useAccount();
   const { connect } = useConnect();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 任务排期
   const scheduleTask = async (list: any[]) => {
     setButtonLoading(true);
@@ -23,6 +26,14 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       connect();
       setButtonLoading(false);
       return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
     }
     const res1 = await startTask({ projectId: id });
     if (!res1) {
@@ -43,8 +54,10 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
+    }).finally(() => {
+      setButtonLoading(false);
     });
-    setButtonLoading(false);
+
     return res;
   };
   // 提交验收
@@ -54,6 +67,14 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       connect();
       setButtonLoading(false);
       return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
     }
     const res1 = await submitTask({ projectId: id });
     if (!res1) {
@@ -65,13 +86,15 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       walletAddress: userInfo.address,
       projectId: +id,
       assetRecordId: myrecordId,
+    }).finally(() => {
+      setButtonLoading(false);
     });
     toast({
       title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
-    setButtonLoading(false);
+
     window.location.reload();
   };
   // 提取My Rewards

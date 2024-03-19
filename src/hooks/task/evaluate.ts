@@ -8,9 +8,10 @@ import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { Post } from 'common/utils/axios';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import useConnect from 'hooks/useConnect';
 import { BigNumber, ethers } from 'ethers';
+import useCheckChain from 'hooks/useCheckChain';
 
 export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const { userInfo } = useUserInfo();
@@ -18,6 +19,8 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const account = useAccount();
   const [isLoading, setLoading] = useState(false);
   const { connect } = useConnect();
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 汇率
   // const [rate, setRate] = useState(0)
 
@@ -105,11 +108,15 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
     console.log('提交数据>>>>', data);
     setLoading(true);
     try {
+      const isUncorrectChain = await checkChain();
+      if (isUncorrectChain) {
+        const isSwitch = await switchChain();
+        if (!isSwitch) {
+          setLoading(false);
+          return false;
+        }
+      }
       const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
-      // // 质押天数 完成时间 - 当前时间
-      // const lockDays = Math.ceil(
-      //   (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
-      // );
       // 合约质押
       const contactRes = await evaluateTask({
         account,

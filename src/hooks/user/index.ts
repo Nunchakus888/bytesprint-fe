@@ -5,11 +5,12 @@ import { Identification, IPath, StakedType } from 'common/constant';
 import API_ROUTERS from 'api';
 import { Get, Post } from 'common/utils/axios';
 import { removeItem } from 'common/utils';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import { onErrorToast, onSuccessToast } from 'common/utils/toast';
 import useChange from 'hooks/useChange';
 import { withdrawReward, withdrawStakedToken } from 'common/contract/lib/bytd';
 import useConnect from 'hooks/useConnect';
+import useCheckChain from 'hooks/useCheckChain';
 
 let defaultRoutes: any[] = [
   // {
@@ -221,7 +222,8 @@ export const useWithdraw = () => {
       return StakedType.Tasker;
     if (identification === Identification.OPERATOR) return StakedType.Employer;
   }, [identification]);
-
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 质押提取
   const stakingWithdraw = async (item: any) => {
     setButtonLoading(true);
@@ -232,6 +234,14 @@ export const useWithdraw = () => {
       setButtonLoading(false);
       return false;
     }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
     // 合约交互
     const isSuccess = await withdrawStakedToken({
       account,
@@ -241,9 +251,10 @@ export const useWithdraw = () => {
       setButtonLoading(false);
       return false;
     }
-    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId });
+    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId }).finally(() => {
+      setButtonLoading(false);
+    });
     onSuccessToast('Successfully');
-    setButtonLoading(false);
     return isSuccess;
   };
 
@@ -257,6 +268,14 @@ export const useWithdraw = () => {
       setButtonLoading(false);
       return false;
     }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
     // 合约交互
     const isSuccess = await withdrawReward({
       account,
@@ -266,9 +285,10 @@ export const useWithdraw = () => {
       setButtonLoading(false);
       return false;
     }
-    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId });
+    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId }).finally(() => {
+      setButtonLoading(false);
+    });
     onSuccessToast('Successfully');
-    setButtonLoading(false);
     return isSuccess;
   };
   return {

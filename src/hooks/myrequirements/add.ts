@@ -6,9 +6,10 @@ import { useCallback, useMemo, useState } from 'react';
 import { Post } from 'common/utils/axios';
 import { IRequirement, RequirementType } from 'common/constant';
 import { getNextTaskId, publishTask } from 'common/contract/lib/bytd';
-import { useAccount } from 'wagmi';
+import { sepolia, useAccount, useChainId, useNetwork } from 'wagmi';
 import useConnect from 'hooks/useConnect';
 import { useToast } from '@chakra-ui/react';
+import useCheckChain from 'hooks/useCheckChain';
 
 export const requirementTypes = [
   {
@@ -48,6 +49,8 @@ export const useAddRequirement = () => {
   const account = useAccount();
   const { connect } = useConnect();
   const [buttonLoading, setButtonLoading] = useState(false);
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 保存需求
   const saveRequirement = useCallback(
     async (data: any) => {
@@ -56,6 +59,14 @@ export const useAddRequirement = () => {
         connect();
         setButtonLoading(false);
         return false;
+      }
+      const isUncorrectChain = await checkChain();
+      if (isUncorrectChain) {
+        const isSwitch = await switchChain();
+        if (!isSwitch) {
+          setButtonLoading(false);
+          return false;
+        }
       }
 
       // 执行合约
