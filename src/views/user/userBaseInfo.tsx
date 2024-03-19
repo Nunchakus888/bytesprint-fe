@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Flex, Input, Link, Tag, Text } from '@chakra-ui/react';
 import Copy from 'components/copy';
 import { useUserInfo } from 'hooks/user';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Identification, IPath, ProfessionTypes, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import { GrCheckmark } from 'react-icons/gr';
@@ -34,6 +34,11 @@ export default function UserBaseInfo(props: {
     setModifyText(e.target.value);
   };
 
+  const [nickName, setNickName] = useState(data?.nickname);
+  useEffect(() => {
+    setNickName(data?.nickname);
+  }, [data]);
+
   const handleModify = async () => {
     const txt = modifyText.trim();
     if (txt) {
@@ -41,9 +46,10 @@ export default function UserBaseInfo(props: {
       setModify(false);
       // 更新获取用户的信息
       const newUserInfo = _.cloneDeep(userInfo);
-      newUserInfo.data.nickname = modifyText;
+      newUserInfo.data.nickname = txt;
       dispatch(setUserInfo(newUserInfo));
       setItem('userInfo', newUserInfo);
+      setNickName(txt);
       // 新增提示
       onSuccessToast('Successfully');
     }
@@ -64,7 +70,7 @@ export default function UserBaseInfo(props: {
                     color="#fff"
                     fontWeight="500"
                     className={styles.modify_input}
-                    defaultValue={data?.nickname}
+                    defaultValue={nickName}
                     onChange={(e) => handleChangeText(e)}
                   />
                   <Box cursor="pointer">
@@ -78,7 +84,7 @@ export default function UserBaseInfo(props: {
               {!modify && (
                 <>
                   <Text fontSize={24} fontWeight="bold">
-                    {shortAddress(data?.nickname)}
+                    {shortAddress(nickName)}
                   </Text>
                   {from === IPath.PROFILE && (
                     <RiEdit2Fill
