@@ -131,12 +131,12 @@ function SingleTask(props: {
                 />
               );
             })}
+            {data.length === 0 && (
+              <Box display="flex" justifyContent="center">
+                No data
+              </Box>
+            )}
           </InfiniteScroll>
-        )}
-        {data.length === 0 && (
-          <Box display="flex" justifyContent="center">
-            No data
-          </Box>
         )}
       </Box>
 
