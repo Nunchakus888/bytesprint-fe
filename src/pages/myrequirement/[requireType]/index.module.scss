@@ -5,12 +5,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   & > label {
     width: 100% !important;
     padding-left: 55px !important;
-    [data-checked] {
+    .radioChecked {
       color: #7551ff;
-      padding: 0 10px !important;
+    }
+    & > span:nth-of-type(2) {
+      width: 100%;
     }
   }
   input {
@@ -23,10 +26,10 @@
   i {
     opacity: 0;
   }
-  & > [data-checked] {
+  .radioChecked {
     position: relative;
     width: 100%;
-    padding-left: 40px;
+    padding-left: 18px;
 
     i {
       opacity: 1;

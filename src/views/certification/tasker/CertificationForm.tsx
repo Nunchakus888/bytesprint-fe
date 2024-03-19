@@ -24,12 +24,14 @@ import { setUserInfo } from 'common/slice/commonSlice';
 import { useDispatch } from 'react-redux';
 import { useCheckLogin } from 'hooks/useCheckLogin';
 import PhoneInput from 'react-phone-number-input';
+import { useRouter } from 'next/router';
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
   const dispatch = useDispatch();
   const { checkLogin } = useCheckLogin();
   const [files, setFiles] = useState([]);
+  const route = useRouter();
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
@@ -65,10 +67,11 @@ const CertificationForm = ({ authorizeCode }: any) => {
           };
         }),
       };
-      console.log('提交表单', values);
+      // console.log('提交表单', values);
       const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(), params);
       setLoading(false);
-      onSuccessToast('Successfully');
+      onSuccessToast('Submission successful, please wait for approval');
+      route.push('/');
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -213,7 +216,6 @@ const CertificationForm = ({ authorizeCode }: any) => {
           </Box>
 
           <Box className={styles.formArea}>
-            <h3 className="font-16 font-bold mb-2">Skill Tag</h3>
             <Controller
               control={control}
               name="skillList"
@@ -223,6 +225,9 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 fieldState: { error },
               }) => (
                 <FormControl className="mb-4" id="skillList" isInvalid={!!error} isRequired>
+                  <FormLabel fontSize={16} fontWeight="bold" mb={2}>
+                    Skill Tag
+                  </FormLabel>
                   <Input
                     placeholder="Please enter, separated by a comma"
                     value={value}

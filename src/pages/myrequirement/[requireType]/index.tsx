@@ -58,15 +58,15 @@ export default function AddRequirement(props: {}) {
     setValue,
     getValues,
   } = useForm<IRequirementPerson | IRequirementSingle>();
-  const [phoneError, setPhoneError] = useState('');
+  // const [phoneError, setPhoneError] = useState('');
   const onSubmit = handleSubmit(async (data) => {
-    console.log(isValidPhoneNumber(data.contactInfo), data.contactInfo);
-    if (!isValidPhoneNumber(data.contactInfo)) {
-      setPhoneError(`Please enter a valid phone number`);
-      return false;
-    } else {
-      setPhoneError('');
-    }
+    // console.log(isValidPhoneNumber(data.contactInfo), data.contactInfo);
+    // if (!isValidPhoneNumber(data.contactInfo)) {
+    //   setPhoneError(`Please enter a valid phone number`);
+    //   return false;
+    // } else {
+    //   setPhoneError('');
+    // }
 
     data.fileList = files;
     console.log('On Submit: ', data);
@@ -122,22 +122,53 @@ export default function AddRequirement(props: {}) {
           {currentRequire?.value === RequirementType.Single && (
             // @ts-ignore
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
-              <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
-                <FormLabel htmlFor="projectName">Give the task a name</FormLabel>
-                <Input
-                  color="#fff"
-                  id="projectName"
-                  placeholder="Task Name"
-                  {...register('projectName', {
-                    required: 'required',
-                  })}
-                />
-                <FormErrorMessage>
-                  {errors.projectName && errors.projectName.message}
-                </FormErrorMessage>
-              </FormControl>
+              <Controller
+                control={control}
+                name="projectName"
+                rules={{ required: 'Please input task name' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl className="mb-4" id="projectName" isInvalid={!!error} isRequired>
+                      <FormLabel htmlFor="projectName">Give the task a name</FormLabel>
+                      <Input
+                        color="#fff"
+                        id="projectName"
+                        placeholder="Task Name"
+                        value={value}
+                        onChange={onChange}
+                      />
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
 
-              <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
+              <Controller
+                control={control}
+                name="description"
+                rules={{ required: 'Please input task description' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl className="mb-4" id="description" isInvalid={!!error} isRequired>
+                      <FormLabel>Fill in the task description</FormLabel>
+                      <ReactQuillComponent
+                        placeholder="Task Description"
+                        value={value}
+                        onChange={onChange}
+                      />
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
+
+              {/* <FormControl isInvalid={!!errors.description} isRequired margin="20px 0">
                 <FormLabel>Fill in the task description</FormLabel>
                 <ReactQuillComponent
                   placeholder="Task Description"
@@ -147,9 +178,9 @@ export default function AddRequirement(props: {}) {
                 <FormErrorMessage>
                   {errors.description && errors.description.message}
                 </FormErrorMessage>
-              </FormControl>
+              </FormControl> */}
 
-              <FormControl isInvalid={!!errors.fileList} isRequired paddingTop="25px">
+              <FormControl isInvalid={!!errors.fileList} paddingTop="25px">
                 <FileUpload
                   accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
                   multiple
@@ -160,45 +191,101 @@ export default function AddRequirement(props: {}) {
                 <FormErrorMessage>{errors.fileList && errors?.fileList.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl
-                isInvalid={!!(errors as unknown as IRequirementSingle).professionType}
-                isRequired
-                margin="20px 0"
-              >
-                <FormLabel htmlFor="professionType">Select job type</FormLabel>
-                <CustomSelect
-                  options={ProfessionTypes}
-                  placeholder="Task Type"
-                  onChange={(val: any) => setValue('professionType', val?.value)}
-                  focusBorderColor="rgba(255, 255, 255, 0.4)"
-                  width={220}
-                />
-                {/* <Select
-                  background="#1b1e24"
-                  placeholder="Job Type"
-                  iconSize="16"
-                  colorScheme="blackAlpha"
-                  {...register('professionType', {
-                    required: 'required',
-                  })}
-                >
-                  {ProfessionTypes?.map((it, index) => {
-                    return (
-                      <option
-                        style={{ background: 'black', color: 'white' }}
-                        value={it.value}
-                        key={`${it.value}-${index}`}
-                      >
-                        {it.label}
-                      </option>
-                    );
-                  })}
-                </Select> */}
-                {/* <FormErrorMessage>
-                {(errors as unknown as IRequirementSingle).professionType && (errors as unknown as IRequirementSingle).professionType.message}
-              </FormErrorMessage> */}
-              </FormControl>
-              <FormControl
+              <Controller
+                control={control}
+                name="professionType"
+                rules={{ required: 'Please select task type' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl
+                      className="mb-4"
+                      id="professionType"
+                      isInvalid={!!error}
+                      isRequired
+                    >
+                      <FormLabel htmlFor="professionType">Select job type</FormLabel>
+                      <CustomSelect
+                        options={ProfessionTypes}
+                        placeholder="Task Type"
+                        onChange={(val: any) => {
+                          onChange(val.value);
+                        }}
+                        focusBorderColor="rgba(255, 255, 255, 0.4)"
+                        width={220}
+                      />
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
+
+              <Controller
+                control={control}
+                name="crowSourcingMethod"
+                rules={{ required: 'Please choose crowdsourcing method' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl
+                      className="mb-4"
+                      id="crowSourcingMethod"
+                      isInvalid={!!error}
+                      isRequired
+                    >
+                      <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
+                      <RadioGroup value={value} onChange={onChange}>
+                        <Stack direction="row">
+                          {ProTypes.map((it, index) => {
+                            return (
+                              <Box
+                                key={`${it.label}_${index}`}
+                                // background="#1b1e24"
+                                position="relative"
+                                padding="10px 20px"
+                                borderRadius={4}
+                                cursor="pointer"
+                                _hover={{ color: '#7551FF' }}
+                                className={styles.radios}
+                                // onClick={() => {
+                                //   setRadioVal(it.value);
+                                //   setValue('crowSourcingMethod', it.value);
+                                // }}
+                              >
+                                <Radio value={it.value}>
+                                  <Flex className={+value === it.value ? styles.radioChecked : ''}>
+                                    <i>
+                                      <IoCheckmarkOutline
+                                        className={styles.checkIcon}
+                                        fontSize={18}
+                                      />
+                                    </i>
+                                    <Box display="flex" alignItems="center" flexDirection="column">
+                                      <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
+                                        {it.label}
+                                      </Text>
+                                      <Text fontSize={14} whiteSpace="nowrap">
+                                        {it.description}
+                                      </Text>
+                                    </Box>
+                                  </Flex>
+                                </Radio>
+                              </Box>
+                            );
+                          })}
+                        </Stack>
+                      </RadioGroup>
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
+
+              {/* <FormControl
                 isInvalid={!!(errors as unknown as IRequirementSingle).crowSourcingMethod}
                 isRequired
                 margin="20px 0"
@@ -245,18 +332,33 @@ export default function AddRequirement(props: {}) {
                     })}
                   </Stack>
                 </RadioGroup>
-              </FormControl>
+              </FormControl> */}
 
-              <FormControl isInvalid={!!phoneError} isRequired margin="20px 0">
+              <Controller
+                control={control}
+                name="contactInfo"
+                rules={{ required: 'Please input phone number' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl className="mb-4" id="contactInfo" isInvalid={!!error} isRequired>
+                      <FormLabel>Phone number</FormLabel>
+                      <PhoneInput
+                        className={styles.phoneInput}
+                        placeholder="Enter phone number"
+                        value={value}
+                        onChange={onChange}
+                      />
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
+              {/* <FormControl isInvalid={!!phoneError} isRequired margin="20px 0">
                 <FormLabel>Phone number</FormLabel>
-                {/* <Input
-                  color="#fff"
-                  id="contactInfo"
-                  placeholder="Enter"
-                  {...register('contactInfo', {
-                    validate: validatePhone,
-                  })}
-                /> */}
+                
                 <PhoneInput
                   className={styles.phoneInput}
                   placeholder="Enter phone number"
@@ -268,7 +370,7 @@ export default function AddRequirement(props: {}) {
                   }}
                 />
                 <FormErrorMessage>{phoneError}</FormErrorMessage>
-              </FormControl>
+              </FormControl> */}
               <Flex>
                 <Button
                   background="#7551FF"

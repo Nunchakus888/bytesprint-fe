@@ -32,9 +32,16 @@ export default function Header() {
         </Link>
         <div className={styles.rightContent}>
           <div className={styles.mediawrap}>
-            <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
-            <img src={IMG_SRC.Discord} alt="Discord" width="20" />
-            <img src={IMG_SRC.Docs} alt="Docs" width="20" />
+            {/* TODO 链接 */}
+            <Link href="/">
+              <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
+            </Link>
+            <Link href="/">
+              <img src={IMG_SRC.Discord} alt="Discord" width="20" />
+            </Link>
+            <Link href="/">
+              <img src={IMG_SRC.Docs} alt="Docs" width="20" />
+            </Link>
           </div>
           <CustomConnectButton />
         </div>
