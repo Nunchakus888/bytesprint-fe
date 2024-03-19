@@ -60,7 +60,7 @@ export const useAddRequirement = () => {
 
       // 执行合约
       const projectId = await getNextTaskId();
-      const res1 = await publishTask({ projectId: projectId });
+      const res1 = await publishTask({ projectId: 4 });
       if (!res1) {
         setButtonLoading(false);
         return false;
@@ -83,13 +83,14 @@ export const useAddRequirement = () => {
         fileList: data.fileList,
       };
       console.log('publish _params>>>', _params);
-      const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params);
+      const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params).finally(() => {
+        setButtonLoading(false);
+      });
       toast({
         title: `SuccessFully`,
         status: `success`,
         isClosable: false,
       });
-      setButtonLoading(false);
       return true;
     },
     [currentRequire, userInfo.address]

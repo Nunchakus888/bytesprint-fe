@@ -121,7 +121,7 @@ export default function AddRequirement(props: {}) {
           </Text>
           {currentRequire?.value === RequirementType.Single && (
             // @ts-ignore
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
               <FormControl isInvalid={!!errors.projectName} isRequired margin="20px 0">
                 <FormLabel htmlFor="projectName">Give the task a name</FormLabel>
                 <Input

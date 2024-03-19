@@ -23,7 +23,7 @@ import { removeItem } from 'common/utils';
 import { setUserInfo } from 'common/slice/commonSlice';
 import { useDispatch } from 'react-redux';
 import { useCheckLogin } from 'hooks/useCheckLogin';
-
+import PhoneInput from 'react-phone-number-input';
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
@@ -85,7 +85,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
 
   return (
     <div className={styles.certificationForm}>
-      <Container my={8} as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Container my={8} as="form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.pageTittle}>Tasker Certification</div>
 
         <div className={styles.certificationFormConrtent}>
@@ -183,7 +183,14 @@ const CertificationForm = ({ authorizeCode }: any) => {
               }) => (
                 <FormControl className="mb-4" id="phone" isInvalid={!!error} isRequired>
                   <FormLabel fontSize={12}>Phone</FormLabel>
-                  <Input type="tel" value={value} onChange={onChange} />
+                  {/* <Input type="tel" value={value} onChange={onChange} /> */}
+                  {/* <FormErrorMessage>{error && error.message}</FormErrorMessage> */}
+                  <PhoneInput
+                    className={styles.phoneInput}
+                    placeholder="Enter phone number"
+                    value={value}
+                    onChange={onChange}
+                  />
                   <FormErrorMessage>{error && error.message}</FormErrorMessage>
                 </FormControl>
               )}
