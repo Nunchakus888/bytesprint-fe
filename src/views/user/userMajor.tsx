@@ -24,19 +24,21 @@ export default function UserMajor(props: {
     return null;
   }, [isEngineer, userInfo]);
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="space-around"
-      position="relative"
-      marginTop="20px"
-      paddingBottom="20px"
-      height="150px"
-      className={styles.container}
-    >
-      {/* Navigator */}
-      {/* {from.includes(IPath.OPERATOR) ||
+    <>
+      {userInfo?.data?.engineer && (
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="space-around"
+          position="relative"
+          marginTop="20px"
+          paddingBottom="20px"
+          height="150px"
+          className={styles.container}
+        >
+          {/* Navigator */}
+          {/* {from.includes(IPath.OPERATOR) ||
         (isOperator && (
           <Flex justifyContent="space-around" alignItems="center" width="100%">
             <Box className={styles.numsIcon}>
@@ -48,27 +50,30 @@ export default function UserMajor(props: {
           </Flex>
         ))} */}
 
-      {from.includes(IPath.ENGINEERManage) ||
-        (isEngineer && (
-          <Flex
-            justifyContent="space-around"
-            alignItems="center"
-            width="100%"
-            direction="row"
-            className={styles.itemKeyInfo}
-          >
-            <Box className={styles.experience}>
-              {
-                ExperienceTypes.filter((v) => v.value === userInfo?.data?.engineer?.experience)[0]
-                  ?.label
-              }
-            </Box>
-            {educationVal && <Box className={styles.educational}>{educationVal}</Box>}
-            <Box className={styles.phone}>{userInfo?.data?.engineer?.phone}</Box>
-            <Box className={styles.workTime}>{userInfo?.data?.engineer?.email}</Box>
-            <Box className={styles.workPlace}>{userInfo?.data?.engineer?.address}</Box>
-          </Flex>
-        ))}
-    </Box>
+          {from.includes(IPath.ENGINEERManage) ||
+            (isEngineer && (
+              <Flex
+                justifyContent="space-around"
+                alignItems="center"
+                width="100%"
+                direction="row"
+                className={styles.itemKeyInfo}
+              >
+                <Box className={styles.experience}>
+                  {
+                    ExperienceTypes.filter(
+                      (v) => v.value === userInfo?.data?.engineer?.experience
+                    )[0]?.label
+                  }
+                </Box>
+                {educationVal && <Box className={styles.educational}>{educationVal}</Box>}
+                <Box className={styles.phone}>{userInfo?.data?.engineer?.phone}</Box>
+                <Box className={styles.workTime}>{userInfo?.data?.engineer?.email}</Box>
+                <Box className={styles.workPlace}>{userInfo?.data?.engineer?.address}</Box>
+              </Flex>
+            ))}
+        </Box>
+      )}
+    </>
   );
 }

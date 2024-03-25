@@ -25,7 +25,6 @@ export default function TaskBidRecords(props: {
 }) {
   const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
   console.log('taskStatus>>>', taskStatus);
-  debugger;
   return (
     <Box
       display="flex"

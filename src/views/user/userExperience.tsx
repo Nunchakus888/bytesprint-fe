@@ -57,8 +57,9 @@ export default function UserExperience(props: { userInfo: any }) {
                 </Flex>
               </Flex>
               <Flex justifyContent="flex-end" alignItems="flex-start">
-                {dayjs(it.startTime).format('YYYY-MM-DD')} -{' '}
-                {dayjs(it.endTime).format('YYYY-MM-DD')}
+                {it.startTime && dayjs(it.startTime).format('YYYY-MM-DD')}
+                {it.startTime && '-'}
+                {it.endTime && dayjs(it.endTime).format('YYYY-MM-DD')}
               </Flex>
             </Flex>
           );
@@ -102,8 +103,9 @@ export default function UserExperience(props: { userInfo: any }) {
                 </Flex>
               </Flex>
               <Flex justifyContent="flex-end" alignItems="flex-start">
-                {dayjs(it.startTime).format('YYYY-MM-DD')} -{' '}
-                {dayjs(it.endTime).format('YYYY-MM-DD')}
+                {it.startTime && dayjs(it.startTime).format('YYYY-MM-DD')}
+                {it.startTime && '-'}
+                {it.endTime && dayjs(it.endTime).format('YYYY-MM-DD')}
               </Flex>
             </Flex>
           );

@@ -36,8 +36,8 @@ export const getNextTaskId = async () => {
     const projectId = await bytdInstance.getNextTaskId();
     console.log('BigNumber.from(projectId).toNumber()', BigNumber.from(projectId).toNumber());
     return BigNumber.from(projectId).toNumber();
-  } catch (e) {
-    onErrorToast('Operation error');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Operation error');
     console.log(e);
   }
   return false;
@@ -80,8 +80,8 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Pledge failed');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Pledge failed');
     console.log(e);
   }
   return false;
@@ -106,8 +106,8 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Signing task failed');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Signing task failed');
     console.log(e);
   }
   return false;
@@ -125,8 +125,8 @@ export const startTask = async ({ projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Failed to start task');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to start task');
     console.log(e);
   }
   return false;
@@ -144,8 +144,8 @@ export const submitTask = async ({ projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Failed to submit task');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to submit task');
     console.log(e);
   }
   return false;
@@ -163,8 +163,8 @@ export const acceptTask = async ({ projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Acceptance task failed');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Acceptance task failed');
     console.log(e);
   }
   return false;
@@ -182,9 +182,9 @@ export const closeTask = async ({ projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Failed to close task');
-    console.log(e);
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to close task');
+    console.log(e.message);
   }
   return false;
 };
@@ -199,8 +199,8 @@ export const withdrawStakedToken = async ({ account, projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Failed to withdraw pledged funds');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw pledged funds');
     console.log(e);
   }
   return false;
@@ -216,9 +216,20 @@ export const withdrawReward = async ({ account, projectId }: any) => {
       return receipt?.status === 1 ? true : false;
     }
     return false;
-  } catch (e) {
-    onErrorToast('Failed to withdraw reward funds');
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw reward funds');
     console.log(e);
   }
   return false;
 };
+
+function getErrorMessage(message: string) {
+  let error = '';
+  const d = `${message}`.match(/\"message\"\:(.*)"/);
+  console.log(d);
+  if (d) {
+    // @ts-ignore
+    return d[1].split(',')[0];
+  }
+  return null;
+}
