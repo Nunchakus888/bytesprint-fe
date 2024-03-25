@@ -10,7 +10,7 @@ import { IPath, RequirementType } from 'common/constant';
 import { onWarmToast } from 'common/utils/toast';
 
 export default function AddRequirement() {
-  const [selectType, setSelectType] = useState('');
+  const [selectType, setSelectType] = useState('single');
   // 选中
   const handleClick = (it: (typeof requirementTypes)[0]) => {
     if (it.value !== RequirementType.Single) {

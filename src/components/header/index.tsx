@@ -31,8 +31,8 @@ export default function Header() {
           <img src={IMG_SRC.Logo} alt="logo" className={styles.logo} />
         </Link>
         <div className={styles.rightContent}>
-          <div className={styles.mediawrap}>
-            {/* TODO 链接 */}
+          {/* TODO 链接 */}
+          {/* <div className={styles.mediawrap}>
             <Link href="/">
               <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
             </Link>
@@ -42,7 +42,7 @@ export default function Header() {
             <Link href="/">
               <img src={IMG_SRC.Docs} alt="Docs" width="20" />
             </Link>
-          </div>
+          </div> */}
           <CustomConnectButton />
         </div>
       </div>
