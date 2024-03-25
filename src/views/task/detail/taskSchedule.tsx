@@ -58,6 +58,9 @@ export default function TaskSchedule(props: {
       title: 'Task Name',
       dataIndex: 'taskname',
       key: 'taskname',
+      render: (_: any, record: any, index: number) => {
+        return <Box width={'300px'}>{record.taskname}</Box>;
+      },
     },
     {
       title: 'Estimated Hours',
@@ -148,13 +151,13 @@ export default function TaskSchedule(props: {
           <Flex alignItems="center" justifyContent="center" width="300px">
             Task Name
           </Flex>
-          <Flex alignItems="center" justifyContent="center" width="300px">
+          <Flex alignItems="center" justifyContent="center" width="200px">
             Estimated Hours
           </Flex>
-          <Flex width="300px" alignItems="center" justifyContent="center">
+          <Flex width="200px" alignItems="center" justifyContent="center">
             Estimated Start Time
           </Flex>
-          <Flex width="300px" alignItems="center" justifyContent="center">
+          <Flex width="200px" alignItems="center" justifyContent="center">
             Estimated Completion Time
           </Flex>
         </Flex>
@@ -165,9 +168,11 @@ export default function TaskSchedule(props: {
                 {index + 1}
               </Flex>
               <Flex alignItems="center" justifyContent="center" width="300px">
-                {it.taskname}
+                <Box width={'300px'} display="inline">
+                  {it.taskname}
+                </Box>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.workhours} isRequired>
                   <Input
                     key={`datas.${index}.workhours`}
@@ -184,13 +189,15 @@ export default function TaskSchedule(props: {
                   </FormErrorMessage>
                 </FormControl>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.startTime} isRequired>
                   <SingleDatepicker
                     key={`datas.${index}.startTime`}
                     name="date-input"
                     date={getValues(`datas.${index}.startTime`)}
                     onDateChange={(date) => setValue(`datas.${index}.startTime`, date)}
+                    minDate={new Date()}
+                    maxDate={getValues(`datas.${index}.endTime`)}
                     {...register(`datas.${index}.startTime`, { required: true })}
                   />
                   {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.startTime`, { required: true })}  />  */}
@@ -201,7 +208,7 @@ export default function TaskSchedule(props: {
                   </FormErrorMessage>
                 </FormControl>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.endTime} isRequired>
                   <SingleDatepicker
                     key={`datas.${index}.endTime`}
@@ -210,6 +217,7 @@ export default function TaskSchedule(props: {
                     // onDateChange={setDate}
                     date={getValues(`datas.${index}.endTime`)}
                     onDateChange={(date) => setValue(`datas.${index}.endTime`, date)}
+                    minDate={getValues(`datas.${index}.startTime`) || new Date()}
                     {...register(`datas.${index}.endTime`, { required: true })}
                   />
                   {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  />  */}
