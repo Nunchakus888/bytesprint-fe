@@ -57,6 +57,7 @@ export default function AddRequirement(props: {}) {
     control,
     setValue,
     getValues,
+    watch,
   } = useForm<IRequirementPerson | IRequirementSingle>();
   // const [phoneError, setPhoneError] = useState('');
   const onSubmit = handleSubmit(async (data) => {
@@ -67,7 +68,6 @@ export default function AddRequirement(props: {}) {
     // } else {
     //   setPhoneError('');
     // }
-
     data.fileList = files;
     console.log('On Submit: ', data);
     const res = await saveRequirement(data);
@@ -95,6 +95,10 @@ export default function AddRequirement(props: {}) {
   const handleTempSave = () => {
     console.log('getValues>>', getValues());
   };
+  watch((data) => {
+    console.log('data>>>', data);
+  });
+
   return (
     <>
       <Box>
@@ -180,7 +184,7 @@ export default function AddRequirement(props: {}) {
                 </FormErrorMessage>
               </FormControl> */}
 
-              <FormControl isInvalid={!!errors.fileList} paddingTop="25px">
+              <FormControl isInvalid={!!errors.fileList}>
                 <FileUpload
                   accept={['jpg', 'png', 'doc', 'docx', 'pptx', 'pdf']}
                   multiple
