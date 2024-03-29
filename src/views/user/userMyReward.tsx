@@ -1,8 +1,8 @@
 import styles from './index.module.scss';
-import { Box, Text, Flex, Button } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Tooltip } from '@chakra-ui/react';
 import Link from 'next/link';
 import { GoLinkExternal } from 'react-icons/go';
-import { TaskStatus } from 'common/constant';
+import { PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
 
 export default function UserMyReward(props: { data: any[]; refresh: () => void }) {
@@ -47,25 +47,19 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
               padding="30px 25px"
             >
               <Flex direction="column" gap="5px">
-                <Box>
-                  <Text fontSize="14px" color="#7B7E8F">
+                <Box maxWidth="200px">
+                  <Text className={styles.textOverflow} fontSize="16px" color="#7B7E8F">
                     {it.taskName}
                   </Text>
                 </Box>
-                <Box>
-                  <Text fontSize="22px" className="flex items-center font-bold">
-                    {it.rewardAmount}
-                    <Text fontSize="16px" className="ml-2">
-                      USDT
-                    </Text>
-                  </Text>
-                </Box>
                 <Flex gap="5px">
-                  <Text fontSize="10px" whiteSpace="nowrap">
+                  <Text fontSize="14px" whiteSpace="nowrap">
                     Task Status
                   </Text>
                   {/* @ts-ignore */}
-                  <Text fontSize="10px">{TaskStatus[it.taskStatus]}</Text>
+                  <Text fontSize="14px">
+                    {TaskStatus.filter((v) => v.value === it.taskStatus)[0]?.label}
+                  </Text>
                 </Flex>
               </Flex>
               {/* <Flex direction="column" gap="10px">
@@ -78,28 +72,29 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
                   Withdraw {'>'}
                 </Button>
               </Flex> */}
-
-              <Flex direction="column" gap="10px">
+              <Flex fontSize="16px" direction="column" gap="10px">
                 <Box>
-                  <Text fontSize="12px">{it.rewardAmount} USDT</Text>
+                  <Text>{it.rewardAmount} USDT</Text>
                 </Box>
-                {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
               </Flex>
+
+              {/* <Flex direction="column" gap="10px">
+                <Box>
+                  <Text fontSize="16px">{PledgeStatus[it.rewardStatus]}</Text>
+                </Box>
+              </Flex> */}
               <Flex direction="column" gap="10px">
                 <Box>
                   {/* @ts-ignore */}
-                  <Text fontSize="12px">{PledgeStatus[it.rewardStatus]}</Text>
-                </Box>
-              </Flex>
-              <Flex direction="column" gap="10px">
-                <Box>
-                  <Text
-                    fontSize="12px"
-                    opacity={it.rewardStatus === 3 ? 1 : 0.6}
-                    onClick={() => handleWithdraw(it)}
-                  >
-                    Withdraw
-                  </Text>
+                  <Tooltip label={PledgeStatus[it.stakingStatus]}>
+                    <Text
+                      fontSize="16px"
+                      opacity={it.rewardStatus === 3 ? 1 : 0.6}
+                      onClick={() => handleWithdraw(it)}
+                    >
+                      Withdraw
+                    </Text>
+                  </Tooltip>
                 </Box>
               </Flex>
             </Flex>

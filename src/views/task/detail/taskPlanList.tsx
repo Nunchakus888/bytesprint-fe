@@ -101,8 +101,8 @@ export default function TaskPlanList(props: {
       render: (_: any, record: IPlanItem, index: number) => {
         return (
           <Box margin="5px 0" textAlign="center" fontSize={14}>
-            {record.startTime ? dayjs(record.startTime).format('YYYY-MM-DD') : '-'} ~
-            {record.endTime ? dayjs(record.endTime).format('YYYY-MM-DD') : '-'}
+            {record.startTime ? dayjs(record.startTime).format('YYYY/MM/DD') : '-'} ~
+            {record.endTime ? dayjs(record.endTime).format('YYYY/MM/DD') : '-'}
           </Box>
         );
       },
@@ -114,7 +114,7 @@ export default function TaskPlanList(props: {
     //   render: (_: any, record: IPlanItem, index: number) => {
     //     return (
     //       <Box margin="5px 0" textAlign="center" fontSize={14}>
-    //        {record.endTime ? dayjs(record.endTime).format('YYYY-MM-DD') : '-'}
+    //        {record.endTime ? dayjs(record.endTime).format('YYYY/MM/DD') : '-'}
     //       </Box>
     //     );
     //   },
@@ -127,7 +127,7 @@ export default function TaskPlanList(props: {
         return (
           <Box margin="5px 0" textAlign="center" fontSize={14}>
             {record.actualCompleteTime
-              ? dayjs(record.actualCompleteTime).format('YYYY-MM-DD')
+              ? dayjs(record.actualCompleteTime).format('YYYY/MM/DD')
               : '-'}
           </Box>
         );

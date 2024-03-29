@@ -147,7 +147,7 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
         setLoading(false);
       });
 
-      // TODO 取status最后一个值
+      // 取status最后一个值
       res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status;
       // test
       // res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status =

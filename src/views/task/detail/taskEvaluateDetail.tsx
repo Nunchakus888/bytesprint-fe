@@ -180,7 +180,7 @@ export default function TaskEvaluateDetail(props: {
       <Flex justifyContent="flex-start" margin="20px 0">
         <Text fontSize="lg">Estimated Completion Time: </Text>
         <Text color="#7551FF" marginLeft="10px">
-          {dayjs(data.complateTime).format('YYYY-MM-DD HH:mm:ss')}
+          {dayjs(data.complateTime).format('YYYY/MM/DD HH:mm:ss')}
         </Text>
       </Flex>
     </ModalDialog>

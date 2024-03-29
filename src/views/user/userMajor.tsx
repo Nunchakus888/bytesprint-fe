@@ -17,7 +17,7 @@ export default function UserMajor(props: {
         a.education > b.education ? -1 : 1
       );
       if (maxEdu?.length > 0) {
-        return EducationTypes.filter((v) => v.value === maxEdu[0].education)[0]?.label;
+        return EducationTypes.filter((v) => +v.value === +maxEdu[0].education)[0]?.label;
       }
       return null;
     }
@@ -59,13 +59,15 @@ export default function UserMajor(props: {
                 direction="row"
                 className={styles.itemKeyInfo}
               >
-                <Box className={styles.experience}>
-                  {
-                    ExperienceTypes.filter(
-                      (v) => v.value === userInfo?.data?.engineer?.experience
-                    )[0]?.label
-                  }
-                </Box>
+                {userInfo?.data?.engineer?.experience && (
+                  <Box className={styles.experience}>
+                    {
+                      ExperienceTypes.filter(
+                        (v) => +v.value === +userInfo?.data?.engineer?.experience
+                      )[0]?.label
+                    }
+                  </Box>
+                )}
                 {educationVal && <Box className={styles.educational}>{educationVal}</Box>}
                 <Box className={styles.phone}>{userInfo?.data?.engineer?.phone}</Box>
                 <Box className={styles.workTime}>{userInfo?.data?.engineer?.email}</Box>

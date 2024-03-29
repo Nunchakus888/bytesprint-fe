@@ -23,6 +23,68 @@ import { setUserInfo as setUserInfoStore } from 'common/slice/commonSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProfileOverview() {
+  // // test
+  // const userInfo: any = {
+  //   data: {
+  //     result: { code: 0, message: 'success' },
+  //     uid: 'E0351099955257511005',
+  //     userType: 2,
+  //     walletAddress: '0x524e93A271d2e50Ce78b39F4E3df2d828DA490a9',
+  //     nickname: '0x524e93A271d2e50Ce78b39F4E3df2d828DA490a9',
+  //     currency: 'USDT',
+  //     level: 0,
+  //     engineer: {
+  //       status: 0,
+  //       position: [2],
+  //       name: null,
+  //       age: null,
+  //       sex: -1,
+  //       address: 'New York 666666 aa',
+  //       phone: '+861111122222',
+  //       email: 'wuwenjie@sina.com',
+  //       experience: '3',
+  //       workingStatus: -1,
+  //       educationType: 0,
+  //       jobList: [
+  //         {
+  //           companyName: '牛逼puls，NTFC++ Inc.',
+  //           position: 'GGo,ctf',
+  //           startTime: Date.now(),
+  //           endTime: Date.now(),
+  //           department: 'NTFc depaerment puls',
+  //         },
+  //         {
+  //           companyName: '牛逼11puls，NTFC++ Inc.',
+  //           position: 'GGo,ctf',
+  //           startTime: null,
+  //           endTime: null,
+  //           department: 'NTFc depaerment puls1',
+  //         },
+  //       ],
+  //       educationList: [
+  //         {
+  //           school: 'jialidun college',
+  //           major: 'neural network',
+  //           education: '5',
+  //           startTime: null,
+  //           endTime: null,
+  //         },
+  //       ],
+  //       certificateList: [
+  //         {
+  //           name: '1.jpg',
+  //           expiration: null,
+  //           path: 'https://bytesprintdata.obs.ap-southeast-1.myhuaweicloud.com:443/1.jpg%3A1711444872846',
+  //         },
+  //       ],
+  //       skillList: ['java', 'go', 'aa', 'bb', 'cc', 'ios', 'android'],
+  //       authorizeCode: '',
+  //     },
+  //     operator: null,
+  //   },
+  // };
+  // const setUserInfo = (a: any) => {};
+
   const [userInfo, setUserInfo] = useState({});
   const { identification, userInfo: oldUserInfo } = useUserInfo();
   const { data: mypledge, refresh: pledgeRefresh } = useMyPledge();
