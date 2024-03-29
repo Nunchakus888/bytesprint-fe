@@ -29,7 +29,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   // 打开任务
   const openTask = async () => {
     setButtonLoading(true);
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
@@ -58,7 +58,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   // 关闭任务
   const closeTask = async () => {
     setButtonLoading(true);
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
@@ -94,7 +94,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   // 验收任务
   const acceptTask = async () => {
     setButtonLoading(true);
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
@@ -131,7 +131,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const signBid = async (record: any) => {
     setSignLoading(true);
     // 判断是否登录
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setSignLoading(false);
       return false;

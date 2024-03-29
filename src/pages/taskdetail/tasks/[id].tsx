@@ -41,9 +41,19 @@ const TaskDetail = () => {
       <Box>
         <Navbar
           paths={[
-            { path: '#', name: 'Crowdsourcing Management ' },
-            { path: `/${IPath.TASKS}`, name: 'Task Hall' },
-            { path: '#', name: 'Task Details' },
+            {
+              name: 'Crowdsourcing Management ',
+              onClick: () => {
+                router.push('/');
+              },
+            },
+            {
+              name: 'Task Hall',
+              onClick: () => {
+                router.push(`/${IPath.TASKS}`);
+              },
+            },
+            { name: 'Task Details' },
           ]}
         />
       </Box>

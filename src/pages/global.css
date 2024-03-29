@@ -129,7 +129,17 @@ body {
 .underline {
   text-decoration: underline !important;
 }
-
+.PhoneInputCountrySelect {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.PhoneInputCountrySelect option,
+.PhoneInput--focus option {
+  background-color: #0f1114 !important;
+  color: yellow;
+  appearance: none;
+  -webkit-appearance: none;
+}
 .v-main {
   padding: 88px 16px 0px 256px;
   background-repeat: no-repeat !important;

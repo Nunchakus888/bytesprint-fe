@@ -46,7 +46,6 @@ export const useAddRequirement = () => {
     return requirementTypes.filter((it) => it.type === requireType)[0];
   }, [router]);
   const { userInfo } = useUserInfo();
-  const account = useAccount();
   const { connect } = useConnect();
   const [buttonLoading, setButtonLoading] = useState(false);
   const { chain } = useNetwork();
@@ -55,7 +54,7 @@ export const useAddRequirement = () => {
   const saveRequirement = useCallback(
     async (data: any) => {
       setButtonLoading(true);
-      if (!account.address) {
+      if (!userInfo.address) {
         connect();
         setButtonLoading(false);
         return false;

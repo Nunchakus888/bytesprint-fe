@@ -1,8 +1,11 @@
 import { Box, Container, Flex, Link, Text } from '@chakra-ui/react';
 // import FileReview from "components/fileReview";
 import ModalDialog from 'components/modal';
+import useConnect from 'hooks/useConnect';
+import { useUserInfo } from 'hooks/user';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useAccount } from 'wagmi';
 import styles from './index.module.scss';
 
 // const FileReview = dynamic(() => import("../../../components/fileReview"), { ssr: false });
@@ -20,6 +23,20 @@ export default function TaskDescription(props: { description?: string; fileList?
   //   setReviewFile({url: '', name: ''})
   // }
   // console.log("isReviewer", isReviewer, reviewFile)
+  const { userInfo } = useUserInfo();
+  const account = useAccount();
+  const { connect } = useConnect();
+  // 判断是否登录
+  const handleViewClick = useCallback(
+    (e: any) => {
+      if (!userInfo.address) {
+        connect();
+        e.preventDefault();
+        return false;
+      }
+    },
+    [connect, userInfo]
+  );
   return (
     <Box
       display="flex"
@@ -54,7 +71,7 @@ export default function TaskDescription(props: { description?: string; fileList?
                 </Box>
                 {/* <Box>200kb</Box> */}
                 <Link color="#7551FF" fontWeight="bold">
-                  <a href={it.fileUrl} target="_blank" rel="noreferrer">
+                  <a href={it.fileUrl} target="_blank" rel="noreferrer" onClick={handleViewClick}>
                     View
                   </a>
                 </Link>

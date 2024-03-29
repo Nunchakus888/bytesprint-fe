@@ -105,8 +105,6 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
 export const useTaskEvaluateDetail = (record: any, data: any) => {
   const { userInfoForUid } = useUserInfoByUid(record?.uid);
   const data_ = useMemo(() => {
-    // const rids = record?.requirementAssociation
-    // console.log("rids>>>", rids)
     const list = record?.requirementAssociation;
     console.log('list>>>', list);
     const res = list.map((it: any) => {

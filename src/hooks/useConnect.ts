@@ -15,13 +15,13 @@ const useConnect = () => {
   const dispatch = useDispatch();
 
   const connect = useCallback(() => {
-    typeof openConnectModal === 'function' && openConnectModal();
+    openConnectModal?.();
   }, [openConnectModal]);
 
   const disconnects = useCallback(
     async function () {
-      dis();
       await Get(API_ROUTERS.users.LOGOUT, {});
+      dis();
       removeItem('address');
       removeItem('network');
       removeItem('authorization');

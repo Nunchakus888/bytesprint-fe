@@ -22,7 +22,7 @@ import FilSelect from 'components/select';
 import { requirementTypes, useAddRequirement } from 'hooks/myrequirements/add';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import {
@@ -98,18 +98,28 @@ export default function AddRequirement(props: {}) {
   watch((data) => {
     console.log('data>>>', data);
   });
+  //
+  useEffect(() => {
+    setValue('crowSourcingMethod', ProType.BIDDING);
+  }, []);
 
   return (
     <>
       <Box>
         <Navbar
           paths={[
-            { path: '#', name: 'Crowdsourcing Management ' },
-            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-            { path: '#', name: 'Publish Requirement' },
+            {
+              name: 'Crowdsourcing Management ',
+              onClick: () => {
+                router.push('/');
+              },
+            },
+
+            { name: 'Publish Requirement' },
           ]}
         />
       </Box>
+
       <Box
         position="relative"
         overflow="visible"
@@ -120,12 +130,78 @@ export default function AddRequirement(props: {}) {
           Requirement Type：{currentRequire?.title}
         </Text>
         <Box margin="20px 0">
-          <Text fontSize={18} fontWeight="bold">
+          <Text margin="20px 0" fontSize={18} fontWeight="bold">
             Basic information
           </Text>
           {currentRequire?.value === RequirementType.Single && (
             // @ts-ignore
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
+              <Controller
+                control={control}
+                name="crowSourcingMethod"
+                rules={{ required: 'Please choose crowdsourcing method' }}
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { error },
+                }) => {
+                  return (
+                    <FormControl
+                      className="mb-4"
+                      id="crowSourcingMethod"
+                      isInvalid={!!error}
+                      isRequired
+                    >
+                      <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
+                      <RadioGroup value={value} onChange={onChange}>
+                        <Stack direction="row">
+                          {ProTypes.map((it, index) => {
+                            return (
+                              <Box
+                                key={`${it.label}_${index}`}
+                                // background="#1b1e24"
+                                position="relative"
+                                padding="10px 20px"
+                                borderRadius={4}
+                                cursor="pointer"
+                                _hover={{ color: '#7551FF' }}
+                                className={styles.radios}
+                                // onClick={(e) => {
+
+                                // }}
+                              >
+                                <Radio
+                                  value={it.value}
+                                  isChecked={index === 0}
+                                  isDisabled={index !== 0}
+                                >
+                                  <Flex className={+value === it.value ? styles.radioChecked : ''}>
+                                    <i>
+                                      <IoCheckmarkOutline
+                                        className={styles.checkIcon}
+                                        fontSize={18}
+                                      />
+                                    </i>
+                                    <Box display="flex" alignItems="center" flexDirection="column">
+                                      <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
+                                        {it.label}
+                                      </Text>
+                                      <Text fontSize={14} whiteSpace="nowrap">
+                                        {it.description}
+                                      </Text>
+                                    </Box>
+                                  </Flex>
+                                </Radio>
+                              </Box>
+                            );
+                          })}
+                        </Stack>
+                      </RadioGroup>
+                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                    </FormControl>
+                  );
+                }}
+              />
+
               <Controller
                 control={control}
                 name="projectName"
@@ -220,69 +296,6 @@ export default function AddRequirement(props: {}) {
                         focusBorderColor="rgba(255, 255, 255, 0.4)"
                         width={220}
                       />
-                      <FormErrorMessage>{error && error.message}</FormErrorMessage>
-                    </FormControl>
-                  );
-                }}
-              />
-
-              <Controller
-                control={control}
-                name="crowSourcingMethod"
-                rules={{ required: 'Please choose crowdsourcing method' }}
-                render={({
-                  field: { onChange, onBlur, value, name, ref },
-                  fieldState: { error },
-                }) => {
-                  return (
-                    <FormControl
-                      className="mb-4"
-                      id="crowSourcingMethod"
-                      isInvalid={!!error}
-                      isRequired
-                    >
-                      <FormLabel htmlFor="crowSourcingMethod">Crowdsourcing Method</FormLabel>
-                      <RadioGroup value={value} onChange={onChange}>
-                        <Stack direction="row">
-                          {ProTypes.map((it, index) => {
-                            return (
-                              <Box
-                                key={`${it.label}_${index}`}
-                                // background="#1b1e24"
-                                position="relative"
-                                padding="10px 20px"
-                                borderRadius={4}
-                                cursor="pointer"
-                                _hover={{ color: '#7551FF' }}
-                                className={styles.radios}
-                                // onClick={() => {
-                                //   setRadioVal(it.value);
-                                //   setValue('crowSourcingMethod', it.value);
-                                // }}
-                              >
-                                <Radio value={it.value}>
-                                  <Flex className={+value === it.value ? styles.radioChecked : ''}>
-                                    <i>
-                                      <IoCheckmarkOutline
-                                        className={styles.checkIcon}
-                                        fontSize={18}
-                                      />
-                                    </i>
-                                    <Box display="flex" alignItems="center" flexDirection="column">
-                                      <Text fontSize={22} whiteSpace="nowrap" fontWeight="bold">
-                                        {it.label}
-                                      </Text>
-                                      <Text fontSize={14} whiteSpace="nowrap">
-                                        {it.description}
-                                      </Text>
-                                    </Box>
-                                  </Flex>
-                                </Radio>
-                              </Box>
-                            );
-                          })}
-                        </Stack>
-                      </RadioGroup>
                       <FormErrorMessage>{error && error.message}</FormErrorMessage>
                     </FormControl>
                   );

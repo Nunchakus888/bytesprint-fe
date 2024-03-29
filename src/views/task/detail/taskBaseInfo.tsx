@@ -14,12 +14,12 @@ export default function TaskBaseInfo(props: {
   data?: any;
   isEvaluate?: boolean;
 }) {
-  const { identification } = useUserInfo();
+  const { identification, userInfo } = useUserInfo();
   const { data, setIsOpenEvaluate, isEvaluate } = props;
   const account = useAccount();
   const { connect } = useConnect();
   const handClick = () => {
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       return false;
     }

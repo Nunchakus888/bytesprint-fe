@@ -48,7 +48,11 @@ export default function Navbar(props: { paths: any[] }) {
                   fontWeight="bold"
                   mb="10px"
                 >
-                  <BreadcrumbLink href={it.path}>{it.name}</BreadcrumbLink>
+                  {it.onClick ? (
+                    <BreadcrumbLink onClick={it.onClick}>{it.name}</BreadcrumbLink>
+                  ) : (
+                    <BreadcrumbLink>{it.name}</BreadcrumbLink>
+                  )}
                 </BreadcrumbItem>
               );
             })}

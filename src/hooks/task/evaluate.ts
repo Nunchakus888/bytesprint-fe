@@ -98,7 +98,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   }, [results]);
 
   const handleSure = () => {
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       return false;
     }

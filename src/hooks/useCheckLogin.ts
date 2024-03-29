@@ -98,6 +98,7 @@ export const useCheckLogin = () => {
       newuseInfo.timestamp = Date.now();
       dispatch(setUserInfo(newuseInfo));
       setItem('userInfo', newuseInfo);
+      setItem('authorization', authorization);
     } else {
       dispatch(setLoginLoading(false));
       dispatch(setUserInfo(userInfo));

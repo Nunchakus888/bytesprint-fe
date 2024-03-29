@@ -17,6 +17,7 @@ import { MdArrowForward } from 'react-icons/md';
 import { shortAddress } from 'common/utils';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { onSuccessToast } from 'common/utils/toast';
+import { useRouter } from 'next/router';
 
 export default function UserBaseInfo(props: {
   from?: IPath;
@@ -29,6 +30,7 @@ export default function UserBaseInfo(props: {
   const data = userInfo?.data;
   const [modify, setModify] = useState(false);
   const [modifyText, setModifyText] = useState('');
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleChangeText = (e: any) => {
     setModifyText(e.target.value);
@@ -209,7 +211,10 @@ export default function UserBaseInfo(props: {
 
       {!(isEngineer || isOperator) && (
         <Flex gap="20px">
-          <Link href={`/certification/tasker`} className="flex items-center underline">
+          <Link
+            onClick={() => router.push(`/certification/tasker`)}
+            className="flex items-center underline"
+          >
             <Text fontSize={16} fontWeight="600">
               Tasker Certification{' '}
             </Text>

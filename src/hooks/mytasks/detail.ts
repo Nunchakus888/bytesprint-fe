@@ -22,7 +22,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   // 任务排期
   const scheduleTask = async (list: any[]) => {
     setButtonLoading(true);
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
@@ -63,7 +63,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   // 提交验收
   const submitAccept = async () => {
     setButtonLoading(true);
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;

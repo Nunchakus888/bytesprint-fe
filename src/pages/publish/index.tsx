@@ -2,14 +2,14 @@ import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 import Back from 'components/back';
 import { requirementTypes } from 'hooks/myrequirements/add';
 import { useState } from 'react';
-import styles from './add.module.scss';
+import styles from './index.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import Navbar from 'components/navbar/Navbar';
 import { IPath, RequirementType } from 'common/constant';
 import { onWarmToast } from 'common/utils/toast';
 
-export default function AddRequirement() {
+export default function Index() {
   const [selectType, setSelectType] = useState('single');
   // 选中
   const handleClick = (it: (typeof requirementTypes)[0]) => {
@@ -22,17 +22,7 @@ export default function AddRequirement() {
 
   return (
     <>
-      <Box>
-        <Navbar
-          paths={[
-            { path: `/${IPath.TASKS}`, name: 'Crowdsourcing Management' },
-            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-            { path: '#', name: 'Publish Requirement' },
-          ]}
-        />
-      </Box>
       <Box position="relative">
-        <Back />
         <Box
           className={styles.content}
           marginTop="20px"

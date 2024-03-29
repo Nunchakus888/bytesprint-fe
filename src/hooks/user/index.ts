@@ -30,6 +30,11 @@ let defaultRoutes: any[] = [
         // icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
       },
       {
+        name: 'Publish Requirement',
+        // icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        path: `/publish`,
+      },
+      {
         name: 'My Requirements',
         // icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
         path: `/${IPath.MYREQUIREMENT}`,
@@ -60,6 +65,11 @@ let visitor_defaultRoutes: any[] = [
         name: 'Task Hall',
         path: `/${IPath.TASKS}`,
         // icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      },
+      {
+        name: 'Publish Requirement',
+        // icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        path: `/publish`,
       },
       {
         name: 'My Requirements',
@@ -215,7 +225,7 @@ export const useMyPledge = () => {
 export const useWithdraw = () => {
   const account = useAccount();
   const { connect } = useConnect();
-  const { identification } = useUserInfo();
+  const { identification, userInfo } = useUserInfo();
   const [buttonLoading, setButtonLoading] = useState(false);
   const stakeType = useMemo(() => {
     if ([Identification.ENGINEER, Identification.VISITOR].includes(identification))
@@ -229,7 +239,7 @@ export const useWithdraw = () => {
     setButtonLoading(true);
     const { stakingId, stakingAmount, projectId } = item;
     // 判断是否登录
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
@@ -263,7 +273,7 @@ export const useWithdraw = () => {
     setButtonLoading(true);
     const { rewardId, rewardAmount, projectId } = item;
     // 判断是否登录
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       setButtonLoading(false);
       return false;
