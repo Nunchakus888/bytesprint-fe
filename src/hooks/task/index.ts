@@ -38,13 +38,13 @@ export const useTasks = () => {
 // 单一任务的查询
 export const useSingleTaskFilter = () => {
   const [filter, setFilter] = useState({
-    crowdsourcingtype: '', // 众包类型
-    categorytype: '', //项目类别
-    positiontype: '', // 职位类型
+    crowdsourcingType: '', // 众包类型
+    categoryType: '', //项目类别
+    positionType: '', // 职位类型
     name: '', // 项目名称
     status: '',
     address: '',
-    querytype: '',
+    queryType: '',
     size: PAGE_SIZE,
   });
   const onChange = (key: string, value: string) => {
@@ -58,13 +58,13 @@ export const useSingleTaskFilter = () => {
 
   const refreshFilter = () => {
     setFilter({
-      crowdsourcingtype: '', // 众包类型
-      categorytype: '', //项目类别
-      positiontype: '', // 职位类型
+      crowdsourcingType: '', // 众包类型
+      categoryType: '', //项目类别
+      positionType: '', // 职位类型
       name: '', // 项目名称
       status: '',
       address: '',
-      querytype: '',
+      queryType: '',
       size: PAGE_SIZE,
     });
   };

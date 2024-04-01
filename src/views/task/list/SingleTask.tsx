@@ -63,14 +63,14 @@ function SingleTask(props: {
                 <CustomSelect
                   options={ProTypes}
                   placeholder="Crowdsourcing Method"
-                  onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
+                  onChange={(val: any) => onChange('crowdsourcingType', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"
                   width={220}
                 />
                 <CustomSelect
                   options={ProfessionTypes}
                   placeholder="Job Type"
-                  onChange={(val: any) => onChange('positiontype', val?.value)}
+                  onChange={(val: any) => onChange('positionType', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"
                   width={220}
                 />
@@ -80,21 +80,21 @@ function SingleTask(props: {
                 <CustomSelect
                   options={ProTypes}
                   placeholder="Crowdsourcing Method"
-                  onChange={(val: any) => onChange('crowdsourcingtype', val?.value)}
+                  onChange={(val: any) => onChange('crowdsourcingType', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"
                   width={220}
                 />
                 <CustomSelect
                   options={TaskTypes}
                   placeholder="Task Type"
-                  onChange={(val: any) => onChange('categorytype', val?.value)}
+                  onChange={(val: any) => onChange('categoryType', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"
                   width={220}
                 />
                 <CustomSelect
                   options={ProfessionTypes}
                   placeholder="Job Type"
-                  onChange={(val: any) => onChange('positiontype', val?.value)}
+                  onChange={(val: any) => onChange('positionType', val?.value)}
                   focusBorderColor="rgba(255, 255, 255, 0.4)"
                   style={{ width: 200 }}
                   width={220}
