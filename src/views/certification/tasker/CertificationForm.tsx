@@ -114,7 +114,9 @@ const CertificationForm = ({ authorizeCode }: any) => {
               rules={{ required: 'Please select position' }}
               render={({ field: { onChange, value, name, ref }, fieldState: { error } }) => (
                 <FormControl className="mb-4" isInvalid={!!error} id="position" isRequired>
-                  <FormLabel fontSize={12}>Certified Job Type</FormLabel>
+                  <FormLabel fontSize={12}>
+                    Certified Job Type ({value?.length || 0}/{2})
+                  </FormLabel>
                   <CustionSelect
                     placeholder="Select position (Choose up to 2)"
                     isMulti
@@ -123,6 +125,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
                     onChange={(val: any) => {
                       //限制最大只能选2个
                       const newValue = val.slice(0, 2);
+
                       onChange(newValue);
                     }}
                     value={value}

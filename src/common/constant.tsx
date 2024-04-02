@@ -295,7 +295,7 @@ export enum TaskBidStatus {
 
 // 用户身份等级
 export const USER_LEVEL = {
-  0: `Regular User`,
+  0: `Crew`, // 第一期先写死 TODO
   1: `Tasker`,
   2: `Craftsman`,
   3: `Pirate`,

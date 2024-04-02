@@ -121,8 +121,7 @@ export default function TaskEvaluateDetail(props: {
           <Flex>
             <Tag fontSize={16} padding="10px" className={styles.engineer}>
               {/* @ts-ignore */}
-              {/* {USER_LEVEL[userInfoForUid?.data.level]} */}
-              {/* 第一期先写死 TODO */} crew
+              {USER_LEVEL[userInfoForUid?.data.level]}
             </Tag>
           </Flex>
         </Flex>

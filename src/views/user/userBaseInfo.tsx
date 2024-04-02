@@ -102,7 +102,7 @@ export default function UserBaseInfo(props: {
             {from === IPath.PROFILE && (
               <div>
                 <span className="tag-primary" style={{ maxWidth: 120 }}>
-                  {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Regular User`}
+                  {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Crew`}
                 </span>
                 {/* Tasker */}
                 {isEngineer && (

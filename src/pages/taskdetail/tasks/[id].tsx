@@ -68,6 +68,7 @@ const TaskDetail = () => {
               data={data?.projectRawInfo}
               from={IPath.TASKS}
               setIsOpenEvaluate={setIsOpenEvaluate}
+              projectId={id as string}
             />
             <TaskDescription
               description={data?.projectRawInfo?.description}
