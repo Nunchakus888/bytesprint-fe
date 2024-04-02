@@ -33,16 +33,16 @@ const TaskDetail = () => {
   const { identification, userInfo } = useUserInfo();
   const { data, isLoading } = useMyTaskDetail(id, userInfo.address);
   // 我的投标记录id
-  const myrecordId = useMemo(() => {
+  const myBidSuccessRecord = useMemo(() => {
     const bidSuc = data?.assetRecordList?.filter(
       (it: any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS
     );
     if (bidSuc?.length) {
-      return bidSuc[0].assetRecordId;
+      return bidSuc[0];
     }
   }, [data, userInfo.address]);
   const { scheduleTask, submitAccept, completePlanItem, buttonLoading } =
-    useMyTaskDetailStatusAction(id, myrecordId);
+    useMyTaskDetailStatusAction(id, myBidSuccessRecord?.assetRecordId);
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false);
   const [scheduledata, setScheduledata] = useState([]);
@@ -151,7 +151,7 @@ const TaskDetail = () => {
             <Flex direction="column">
               <TaskStatusInfo
                 from={IPath.MYTASKS}
-                taskStatus={data.taskStatus}
+                taskStatus={myBidSuccessRecord ? data.taskStatus : IStatus.UN_BID}
                 scheduleTask={() => setSchedule(true)}
                 submitAccept={submitAccept}
                 withdrawMyRewards={rewardWithdraw}

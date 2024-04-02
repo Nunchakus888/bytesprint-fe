@@ -135,3 +135,49 @@
   background-size: 20px 20px !important;
   padding-left: 30px !important;
 }
+
+.richTextBlock {
+  padding: 24px;
+  // max-width: 1000px;
+  // margin: 0 auto;
+  font-size: 16px;
+  word-wrap: break-word;
+  font-weight: revert !important;
+  font-family: sans-serif !important;
+  white-space: pre-wrap;
+  span {
+    color: #fff;
+  }
+  a {
+    font-weight: 600;
+    color: rgb(29, 155, 240);
+  }
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 16px;
+  }
+  ul li {
+    list-style: disc;
+  }
+  ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 16px;
+  }
+  ol li {
+    list-style: decimal;
+  }
+  img {
+    display: inline-block;
+    cursor: pointer;
+  }
+}

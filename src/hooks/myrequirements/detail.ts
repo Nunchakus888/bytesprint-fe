@@ -151,7 +151,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         account,
         projectId: id,
         taskerAddress: wallet,
-        totalCost: totalCost * 10,
+        totalCost: totalCost,
       });
       if (!result) {
         setSignLoading(false);

@@ -39,15 +39,15 @@ function SingleTask(props: {
   return (
     <Box mt={{ base: '30px' }}>
       <Flex
-        justify="space-between"
+        justify="flex-end"
         gap="10px"
         className={props.from === IPath.MYREQUIREMENT ? styles.hasAdd : ''}
       >
-        <SearchInput
+        {/* <SearchInput
           background="#1b1e24"
           placeholder="Task Name"
           search={handleSearch}
-        ></SearchInput>
+        ></SearchInput> */}
         {props.from === IPath.TASKS && (
           <Box display="flex" justifyContent="flex-end" style={{ gap: 16 }}>
             {props.isMine ? (

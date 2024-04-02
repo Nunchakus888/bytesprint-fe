@@ -1,4 +1,5 @@
 import { Box, Container, Flex, Link, Text } from '@chakra-ui/react';
+import classNames from 'classnames';
 // import FileReview from "components/fileReview";
 import ModalDialog from 'components/modal';
 import useConnect from 'hooks/useConnect';
@@ -43,7 +44,7 @@ export default function TaskDescription(props: { description?: string; fileList?
       flexDirection="column"
       position="relative"
       marginTop="20px"
-      className={styles.container}
+      className={classNames(styles.container, styles.richTextBlock)}
     >
       {/* <p className={styles.itemTitle}>Task Description</p> */}
       <Text fontSize={18} fontWeight="bold">

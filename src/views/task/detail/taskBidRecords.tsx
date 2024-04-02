@@ -62,7 +62,7 @@ export default function TaskBidRecords(props: {
                 <WalletAvatar value={it.wallet} size={30} />
                 {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
                 <Flex direction="column" marginLeft="20px" className="w-20">
-                  <Text fontSize={16}>{it?.nickname}</Text>
+                  <Text fontSize={16}>{shortAddress(it?.nickname, 6, 2)}</Text>
                   <Text fontSize={12}>{shortAddress(it?.wallet.toString() || '')}</Text>
                 </Flex>
               </Flex>

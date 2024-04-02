@@ -121,7 +121,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
       const contactRes = await evaluateTask({
         account,
         projectId,
-        amount: ethers.BigNumber.from(String(Number((amount * 0.1).toFixed(2)) * Math.pow(10, 18))), // 质押10%
+        amount: Number(amount.toFixed(2)), // 质押10%
       });
       if (!contactRes) {
         // toast({
