@@ -15,6 +15,12 @@ export const IMG_SRC = {
   Discord: Discord.src,
 };
 
+export const LINK_SRC = {
+  twitter: `https://twitter.com/ByteSprint`,
+  youtube: `https://www.youtube.com/@ByteSprint-gj1ve`,
+  facebook: `https://www.facebook.com/profile.php?id=61555759670955`,
+  discord: `https://discord.com/channels/@me`,
+};
 // 身份
 export enum Identification {
   VISITOR = 0, // Regular User
