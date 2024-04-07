@@ -25,6 +25,7 @@ import { useDispatch } from 'react-redux';
 import { useCheckLogin } from 'hooks/useCheckLogin';
 import PhoneInput from 'react-phone-number-input';
 import { useRouter } from 'next/router';
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
@@ -32,6 +33,8 @@ const CertificationForm = ({ authorizeCode }: any) => {
   const { checkLogin } = useCheckLogin();
   const [files, setFiles] = useState([]);
   const route = useRouter();
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
   const onSubmit = async (values: any) => {
     try {
       setLoading(true);
@@ -161,7 +164,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
             <Controller
               control={control}
               name="address"
-              rules={{ required: 'Please input Current Work Area' }}
+              rules={{ required: 'Please select Current Work Area' }}
               render={({
                 field: { onChange, onBlur, value, name, ref },
                 fieldState: { error },
@@ -169,11 +172,27 @@ const CertificationForm = ({ authorizeCode }: any) => {
                 return (
                   <FormControl className="mb-4" id="address" isInvalid={!!error} isRequired>
                     <FormLabel fontSize={12}>Current Work Area</FormLabel>
-                    <Input
+                    {/* <Input
                       value={value}
                       onChange={onChange}
                       placeholder="e.g Berlin, London, New York"
+                    /> */}
+                    <CountryDropdown
+                      value={country}
+                      onChange={(val) => {
+                        setCountry(val);
+                        onChange(``);
+                      }}
                     />
+                    <RegionDropdown
+                      country={country}
+                      value={region}
+                      onChange={(val) => {
+                        setRegion(val);
+                        onChange(val ? `${country}, ${region}` : ``);
+                      }}
+                    />
+
                     <FormErrorMessage>{error && error.message}</FormErrorMessage>
                   </FormControl>
                 );

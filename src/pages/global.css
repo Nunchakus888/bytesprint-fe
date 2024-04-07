@@ -142,17 +142,34 @@ body {
 .underline {
   text-decoration: underline !important;
 }
-.PhoneInputCountrySelect {
+.PhoneInputCountrySelect,
+select {
   appearance: none;
   -webkit-appearance: none;
 }
 .PhoneInputCountrySelect option,
-.PhoneInput--focus option {
+.PhoneInput--focus option,
+select option {
   background-color: #1d1f22 !important;
   color: rgba(255, 255, 255, 0.8);
   appearance: none;
   -webkit-appearance: none;
 }
+
+select[name='rcrs-country'],
+select[name='rcrs-region'] {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent !important;
+  line-height: 40px !important;
+  border-radius: 4px !important;
+  width: 49%;
+  text-align: center;
+  margin-right: 1%;
+}
+select[name='rcrs-region'] {
+  margin-right: 0;
+}
+
 .v-main {
   padding: 88px 16px 0px 256px;
   background-repeat: no-repeat !important;
