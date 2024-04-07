@@ -1,8 +1,9 @@
-import { BigNumber, ethers, getDefaultProvider } from 'ethers';
+import { ethers, getDefaultProvider } from 'ethers';
 import USDT_ABI from '../ABI/udst_b.abi.json';
 import getSigner from './getSigner';
 import BYTD_ABI from '../ABI/stake.abi.json';
 import { onErrorToast } from 'common/utils/toast';
+import BN from 'bignumber.js';
 
 // 质押合约
 const BYTD_ADDRESS = '0xb19C40e44B6a56Ef0C98F248B6AC31aE948CbaFf';
@@ -34,8 +35,7 @@ export const getNextTaskId = async () => {
   try {
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
     const projectId = await bytdInstance.getNextTaskId();
-    console.log('BigNumber.from(projectId).toNumber()', BigNumber.from(projectId).toNumber());
-    return BigNumber.from(projectId).toNumber();
+    return String(projectId);
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Operation error');
     console.log(e);
@@ -67,12 +67,13 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
   try {
     // 授权
     let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, amount);
+    console.log('BN(amount)>>>', BN(amount));
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, new BN(amount).toNumber());
     if (!eth20Approve) {
       return false;
     }
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-    const result = await bytdInstance.evaluateTask(String(projectId), amount);
+    const result = await bytdInstance.evaluateTask(String(projectId), new BN(amount).toNumber());
     console.log('result>>>', result);
     if (result) {
       const receipt = await result.wait();

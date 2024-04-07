@@ -16,6 +16,7 @@ import { IoIosAdd } from 'react-icons/io';
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import styles from './index.module.scss';
 import _ from 'lodash';
+import { Controller } from 'react-hook-form';
 
 export default function Evaluate(props: {
   isOpen?: boolean;
@@ -37,6 +38,7 @@ export default function Evaluate(props: {
     setValue,
     getValues,
     isLoading,
+    control,
   } = useEvaluate(projectId, () => {
     onClose();
     onSuccess();
@@ -71,8 +73,13 @@ export default function Evaluate(props: {
           </Flex>
           {fields.map((it, index) => {
             return (
-              <Flex key={`line_${index}`} justify="space-between" padding="10px 0">
-                <Flex alignItems="center" justifyContent="center" width="100px">
+              <Flex
+                key={`line_${index}`}
+                justify="space-between"
+                alignItems="flex-start"
+                padding="10px 0"
+              >
+                <Flex alignItems="center" justifyContent="top" width="100px">
                   {index + 1}
                 </Flex>
                 <Flex alignItems="center" justifyContent="center" width="400px" paddingRight="10px">
@@ -83,7 +90,9 @@ export default function Evaluate(props: {
                       color="#fff"
                       placeholder="Enter task name"
                       size="md"
-                      {...register(`datas.${index}.taskname`, { required: true })}
+                      {...register(`datas.${index}.taskname`, {
+                        required: true,
+                      })}
                       disabled={isLoading}
                     />
                     <FormErrorMessage>
@@ -102,13 +111,64 @@ export default function Evaluate(props: {
                       type="number"
                       placeholder="Enter"
                       size="md"
-                      {...register(`datas.${index}.usdt`, { required: true, min: 0 })}
+                      {...register(`datas.${index}.usdt`, {
+                        required: true,
+                        min: 0,
+                        valueAsNumber: true,
+                        validate: (value) => {
+                          if (!/^(0|[1-9]\d*)(\.\d{0,2})?$/.test(String(value))) {
+                            return `Maximum 2 decimal places`;
+                          }
+                        },
+                      })}
                       disabled={isLoading}
                     />
                     <FormErrorMessage>
                       {errors?.datas?.[index]?.usdt && <>{errors?.datas?.[index]?.usdt.message}</>}
                     </FormErrorMessage>
                   </FormControl>
+
+                  {/* <Controller
+                    control={control}
+                    name={`datas.${index}.usdt`}
+                    rules={{ required: 'Please input usdt' }}
+                    render={({
+                      field: { onChange, onBlur, value, name, ref },
+                      fieldState: { error },
+                    }) => {
+                      return (
+                        <FormControl
+                          className="mb-4"
+                          id={`datas.${index}.usdt`}
+                          isInvalid={!!error}
+                          isRequired
+                        >
+                          <Input
+                            id={`id.${index}.usdt`}
+                            name={`datas.${index}.usdt`}
+                            color="#fff"
+                            type="number"
+                            placeholder="Enter"
+                            size="md"
+                            {...register(`datas.${index}.usdt`, {
+                              required: true,
+                              min: 0,
+                              valueAsNumber: true,
+                              validate: {
+                                onlyNumber: (value) => {
+                                  if (!/^([0-9][1-9]\d*)$/.test(String(value))) {
+                                    return `Please input number`;
+                                  }
+                                },
+                              },
+                            })}
+                            disabled={isLoading}
+                          />
+                          <FormErrorMessage>{error && error.message}</FormErrorMessage>
+                        </FormControl>
+                      );
+                    }}
+                  /> */}
                 </Flex>
                 {/* <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex> */}
                 <Flex width="100px" alignItems="center" justifyContent="center">

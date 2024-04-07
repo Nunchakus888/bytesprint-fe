@@ -93,7 +93,14 @@ const TaskDetail = () => {
     });
     window.location.reload();
   };
-
+  const myTaskStatus = useMemo(() => {
+    const myBid = data?.assetRecordList?.filter((it: any) => it.wallet === userInfo.address)[0];
+    // 如果bid 失败了，取失败态
+    if (myBid?.signStatus === TaskBidStatus.BID_FAIL) {
+      return IStatus.UN_BID;
+    }
+    return data?.taskStatus;
+  }, [data?.assetRecordList, data?.taskStatus, userInfo.address]);
   const { rewardWithdraw, buttonLoading: withdrawLoding } = useWithdraw();
   const account = useAccount();
   return (
@@ -151,7 +158,7 @@ const TaskDetail = () => {
             <Flex direction="column">
               <TaskStatusInfo
                 from={IPath.MYTASKS}
-                taskStatus={myBidSuccessRecord ? data.taskStatus : IStatus.UN_BID}
+                taskStatus={myTaskStatus}
                 scheduleTask={() => setSchedule(true)}
                 submitAccept={submitAccept}
                 withdrawMyRewards={rewardWithdraw}
