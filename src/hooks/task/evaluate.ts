@@ -1,15 +1,17 @@
 import { toast, useToast } from '@chakra-ui/react';
 import API_ROUTERS from 'api';
 import axios from 'axios';
-import { stakeTasker } from 'common/contract/lib/bytd';
+import { evaluateTask } from 'common/contract/lib/bytd';
 import dayjs from 'dayjs';
 import { useUserInfo } from 'hooks/user';
 import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { Post } from 'common/utils/axios';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import useConnect from 'hooks/useConnect';
+import { BigNumber, ethers } from 'ethers';
+import useCheckChain from 'hooks/useCheckChain';
 
 export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const { userInfo } = useUserInfo();
@@ -17,6 +19,8 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   const account = useAccount();
   const [isLoading, setLoading] = useState(false);
   const { connect } = useConnect();
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 汇率
   // const [rate, setRate] = useState(0)
 
@@ -94,7 +98,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
   }, [results]);
 
   const handleSure = () => {
-    if (!account.address) {
+    if (!userInfo.address) {
       connect();
       return false;
     }
@@ -104,29 +108,31 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
     console.log('提交数据>>>>', data);
     setLoading(true);
     try {
+      const isUncorrectChain = await checkChain();
+      if (isUncorrectChain) {
+        const isSwitch = await switchChain();
+        if (!isSwitch) {
+          setLoading(false);
+          return false;
+        }
+      }
       const amount = data.datas.reduce((prev: number, cur: any) => prev + +cur.usdt, 0);
-      // TODO amount 是否是质押的金额 lockdays
-      console.log({ account, projectId, amount, lockDays: 1 });
-      // 质押天数 完成时间 - 当前时间
-      const lockDays = Math.ceil(
-        (dayjs(data.endTime).unix() * 1000 - Date.now()) / (24 * 60 * 60 * 1000)
-      );
-      const contactRes = await stakeTasker({
+      // 合约质押
+      const contactRes = await evaluateTask({
         account,
         projectId,
-        amount,
-        lockDays: Math.max(lockDays, 1),
+        amount: Number(amount.toFixed(2)), // 质押10%
       });
       if (!contactRes) {
-        toast({
-          title: `Operate Error`,
-          status: `error`,
-          isClosable: true,
-        });
+        // toast({
+        //   title: `Operate Error`,
+        //   status: `error`,
+        //   isClosable: true,
+        // });
         setLoading(false);
         return false;
       }
-      // 合约交互完成后再调用接口
+      // 调用接口
       const requirementList = data.datas.map((it: any) => {
         return {
           requirementName: it.taskname,
@@ -141,6 +147,9 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
         requirementList,
       };
       const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
+      if (res.result.code !== 0) {
+        return false;
+      }
       // 请求成功后返回任务列表
       toast({
         title: `successFully`,

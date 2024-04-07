@@ -14,6 +14,7 @@ import Evaluate from 'views/task/Evaluate';
 import Test from 'views/task/Test';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 
 const TaskDetail = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const TaskDetail = () => {
   const { identification } = useUserInfo();
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false);
   console.log('data>>>>', data);
-
+  const account = useAccount();
   // 是否已评估
   const isEvaluate = useMemo(() => {
     if (data) {
@@ -40,9 +41,19 @@ const TaskDetail = () => {
       <Box>
         <Navbar
           paths={[
-            { path: '#', name: 'Crowdsourcing Management ' },
-            { path: `/${IPath.TASKS}`, name: 'Task Hall' },
-            { path: '#', name: 'Task Details' },
+            {
+              name: 'Crowdsourcing Management ',
+              onClick: () => {
+                router.push('/');
+              },
+            },
+            {
+              name: 'Task Hall',
+              onClick: () => {
+                router.push(`/${IPath.TASKS}`);
+              },
+            },
+            { name: 'Task Details' },
           ]}
         />
       </Box>
@@ -57,6 +68,7 @@ const TaskDetail = () => {
               data={data?.projectRawInfo}
               from={IPath.TASKS}
               setIsOpenEvaluate={setIsOpenEvaluate}
+              projectId={id as string}
             />
             <TaskDescription
               description={data?.projectRawInfo?.description}
@@ -64,7 +76,7 @@ const TaskDetail = () => {
             />
           </>
         )}
-        <Auth from={IPath.TASKS} />
+        {account?.address && <Auth from={IPath.TASKS} />}
       </Box>
       {/* {isOpenEvaluate && <Test></Test>} */}
       {isOpenEvaluate && (

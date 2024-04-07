@@ -1,11 +1,13 @@
-import { BigNumber, ethers, getDefaultProvider } from "ethers";
-import USDT_ABI from '../ABI/udst_b.abi.json'
-import getSigner from "./getSigner";
-import BYTD_ABI from '../ABI/stake.abi.json'
+import { ethers, getDefaultProvider } from 'ethers';
+import USDT_ABI from '../ABI/udst_b.abi.json';
+import getSigner from './getSigner';
+import BYTD_ABI from '../ABI/stake.abi.json';
+import { onErrorToast } from 'common/utils/toast';
+import BN from 'bignumber.js';
 
 // 质押合约
-const BYTD_ADDRESS = '0x6123593d91c834a30634E3FD2A75d1A79dd4CB48'
-const USDT_B_ADDRESS = '0xf6F9C2BB380b85b03aaE7f48547D9F0C07E3D388'
+const BYTD_ADDRESS = '0xb19C40e44B6a56Ef0C98F248B6AC31aE948CbaFf';
+const USDT_B_ADDRESS = '0xD8d76d720b0250207fDa709ad59aBa164099d323';
 
 //获取USDT实例
 const getUSDTInstance = async (address: string, readOnly = false) => {
@@ -29,66 +31,206 @@ const getBYTDInstance = async (address: string, readOnly = false) => {
   return new ethers.Contract(address, BYTD_ABI, signer);
 };
 
-// 发包方质押
-export const stakeEmployer = async ({account, projectId, amount, lockDays, withdrawAddr}: any) => {
-  amount = String(BigNumber.from(amount) )
-  // 授权
-  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
-  debugger
-  console.log("eth20Instance>>>", eth20Instance, BYTD_ADDRESS, String(BigNumber.from(amount)))
-  const eth20Approve = await eth20Instance.approve(
-    BYTD_ADDRESS,
-    amount,
-  );
-  debugger
-  console.log("eth20Approve>>>>", eth20Approve)
-  if (!eth20Approve) {
-    return false;
+export const getNextTaskId = async () => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const projectId = await bytdInstance.getNextTaskId();
+    return String(projectId);
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Operation error');
+    console.log(e);
   }
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
-  console.log("bytdInstance>>>>", bytdInstance)
-  const result = await bytdInstance.stakeEmployer(projectId, amount, lockDays, withdrawAddr)
-  if (result) {
-    console.log("result>>>>", result)
-    debugger
-    const receipt = await result.wait()
-    return receipt?.status === 1 ? true : false
-  }
-  return false
-}
+  return false;
+};
 
-// 接包方质押
-export const stakeTasker = async ({account, projectId, amount, lockDays}: any) => {
-  // 授权
-  let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS)
-  const eth20Approve = await eth20Instance.approve(
-    BYTD_ADDRESS,
-    amount,
-  );
-  if (!eth20Approve) {
+// 发布任务
+export const publishTask = async ({ account, projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.publishTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
     return false;
+  } catch (e) {
+    onErrorToast('Publishing task failed');
+    console.log(e);
   }
-  debugger
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
-  debugger
-  const result = await bytdInstance.stakeTasker(projectId, amount, lockDays)
-  console.log("result>>>", result)
-  if (result) {
-    const receipt = await result.wait()
-    console.log("rees>>>", receipt?.status)
-    debugger
-    return receipt?.status === 1 ? true : false
-  }
-  return false
-}
+  return false;
+};
 
-// TODO _type 提款人的角色。发包方/接单方/运营商
-export const withdraw = async({account, projectId, amountWithdraw, type}: any) => {
-  const bytdInstance = await getBYTDInstance(BYTD_ADDRESS)
-  const result = await bytdInstance.withdraw(projectId, amountWithdraw, type)
-  if (result) {
-    const receipt = await result.wait()
-    return receipt?.status === 1 ? true : false
+// 评估质押 接包方质押
+export const evaluateTask = async ({ account, projectId, amount }: any) => {
+  try {
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+    console.log('BN(amount)>>>', BN(amount));
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, new BN(amount).toNumber());
+    if (!eth20Approve) {
+      return false;
+    }
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.evaluateTask(String(projectId), new BN(amount).toNumber());
+    console.log('result>>>', result);
+    if (result) {
+      const receipt = await result.wait();
+      console.log('rees>>>', receipt?.status);
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Pledge failed');
+    console.log(e);
   }
-  return false
+  return false;
+};
+
+// 签约任务
+export const signTask = async ({ account, projectId, taskerAddress, totalCost }: any) => {
+  try {
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, totalCost);
+    if (!eth20Approve) {
+      return false;
+    }
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+
+    const result = await bytdInstance.signTask(String(projectId), taskerAddress);
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Signing task failed');
+    console.log(e);
+  }
+  return false;
+};
+
+// 开始任务
+export const startTask = async ({ projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.startTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to start task');
+    console.log(e);
+  }
+  return false;
+};
+
+// 提交任务
+export const submitTask = async ({ projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.submitTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to submit task');
+    console.log(e);
+  }
+  return false;
+};
+
+// 验收任务
+export const acceptTask = async ({ projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.acceptTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Acceptance task failed');
+    console.log(e);
+  }
+  return false;
+};
+
+// 关闭任务
+export const closeTask = async ({ projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    console.log('bytdInstance>>>>', bytdInstance);
+    const result = await bytdInstance.closeTask(String(projectId));
+    if (result) {
+      console.log('result>>>>', result);
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to close task');
+    console.log(e.message);
+  }
+  return false;
+};
+
+// 提取质押金，只有tasker才能提取质押金。
+export const withdrawStakedToken = async ({ account, projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.withdrawStakedToken(String(projectId));
+    if (result) {
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw pledged funds');
+    console.log(e);
+  }
+  return false;
+};
+
+// 提取奖励，只有tasker才能提取奖励。
+export const withdrawReward = async ({ account, projectId }: any) => {
+  try {
+    const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
+    const result = await bytdInstance.withdrawReward(String(projectId));
+    if (result) {
+      const receipt = await result.wait();
+      return receipt?.status === 1 ? true : false;
+    }
+    return false;
+  } catch (e: any) {
+    onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw reward funds');
+    console.log(e);
+  }
+  return false;
+};
+
+function getErrorMessage(message: string) {
+  let error = '';
+  const d = `${message}`.match(/\"message\"\:(.*)"/);
+  console.log(d);
+  if (d) {
+    // @ts-ignore
+    return d[1].split(',')[0];
+  }
+  return null;
 }

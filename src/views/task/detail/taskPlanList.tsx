@@ -5,7 +5,8 @@ import styles from './index.module.scss';
 import BYTable from 'components/table';
 import dayjs from 'dayjs';
 import { IPlanItem } from 'hooks/task/detai';
-import { useMemo } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import ModalDialog from 'components/modal';
 
 enum EPlanStatus {
   NO_START = `Not Started`,
@@ -20,35 +21,12 @@ export default function TaskPlanList(props: {
   planlist: any[];
 }) {
   const { from, data, completePlan, address, planlist } = props;
-
-  // 放在别处
-  // const planlist = useMemo(() => {
-  //   let data_ = []
-  //   const bidSuc = data?.assetRecordList.filter((it:any) => it.wallet === address && it.signStatus === TaskBidStatus.BID_SUCCESS)
-  //   console.log("bidSuc>>>", bidSuc)
-  //   if (bidSuc?.length) {
-  //     const rids = bidSuc[0].requirementAssociation?.map((it:any) => it.requirementId)
-  //     console.log("rids>>>", rids)
-  //     const list = data?.requirementList.filter((it:any) => rids.includes(it.requirementId))
-  //     console.log("list>>>", list)
-  //     data_ = list?.map((it:any) => {
-  //       return {
-  //         "taskname": it.requirementName,
-  //         "usdt": it.requirementCost,
-  //         "startTime": it.requirementPlan.expectedstartTime,
-  //         "endTime": it.requirementPlan.expectedFinishTime,
-  //         "workhours": it.requirementPlan.expectedWorkTime,
-  //         "actualCompleteTime": it.requirementPlan.actualFinishTime,
-  //         "completeStatus": it.requirementPlan.requirementStatus,
-  //         "id":it.requirementId
-  //       }
-  //     })
-  //   }
-  //   console.log("data_>>>", data_)
-  //   return data_
-  // }, [data])
-
-  // My Task有完成操作
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
+  // 再次确认
+  const confirmRef = useRef({
+    content: '',
+    onSure: () => {},
+  });
   const Action = {
     title: 'Operation',
     dataIndex: 'id',
@@ -61,7 +39,17 @@ export default function TaskPlanList(props: {
               Completed
             </Box>
           ) : (
-            <Link color="#7551FF" onClick={() => completePlan(record.id)}>
+            <Link
+              color="#7551FF"
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure you have completed the schedule?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  completePlan(record.id);
+                };
+              }}
+            >
               Completed
             </Link>
           )}
@@ -71,7 +59,7 @@ export default function TaskPlanList(props: {
   };
   const columns = [
     {
-      title: 'Serial Number',
+      title: '',
       dataIndex: 'xuhao',
       key: 'xuhao',
       render: (_: any, record: any, index: number) => {
@@ -107,29 +95,30 @@ export default function TaskPlanList(props: {
       },
     },
     {
-      title: 'Estimated Start Time',
+      title: 'Estimated Time',
       dataIndex: 'startTime',
       key: 'startTime',
       render: (_: any, record: IPlanItem, index: number) => {
         return (
           <Box margin="5px 0" textAlign="center" fontSize={14}>
-            {record.startTime ? dayjs(record.startTime).format('YYYY-MM-DD') : '-'}
+            {record.startTime ? dayjs(record.startTime).format('YYYY/MM/DD') : '-'} ~
+            {record.endTime ? dayjs(record.endTime).format('YYYY/MM/DD') : '-'}
           </Box>
         );
       },
     },
-    {
-      title: 'Estimated Completion Time',
-      dataIndex: 'endTime',
-      key: 'endTime',
-      render: (_: any, record: IPlanItem, index: number) => {
-        return (
-          <Box margin="5px 0" textAlign="center" fontSize={14}>
-            {record.endTime ? dayjs(record.endTime).format('YYYY-MM-DD') : '-'}
-          </Box>
-        );
-      },
-    },
+    // {
+    //   title: 'Estimated Completion Time',
+    //   dataIndex: 'endTime',
+    //   key: 'endTime',
+    //   render: (_: any, record: IPlanItem, index: number) => {
+    //     return (
+    //       <Box margin="5px 0" textAlign="center" fontSize={14}>
+    //        {record.endTime ? dayjs(record.endTime).format('YYYY/MM/DD') : '-'}
+    //       </Box>
+    //     );
+    //   },
+    // },
     {
       title: 'Actual Completion Time',
       dataIndex: 'actualEndTime',
@@ -138,7 +127,7 @@ export default function TaskPlanList(props: {
         return (
           <Box margin="5px 0" textAlign="center" fontSize={14}>
             {record.actualCompleteTime
-              ? dayjs(record.actualCompleteTime).format('YYYY-MM-DD')
+              ? dayjs(record.actualCompleteTime).format('YYYY/MM/DD')
               : '-'}
           </Box>
         );
@@ -175,6 +164,20 @@ export default function TaskPlanList(props: {
         Task Schedule
       </Text>
       <BYTable columns={columns} dataSource={planlist}></BYTable>
+
+      {isOpenConfirm && (
+        <ModalDialog
+          title="Confirm"
+          isOpen={isOpenConfirm}
+          onClose={() => {
+            setIsOpenConfirm(false);
+          }}
+          onSure={confirmRef.current.onSure}
+          width="400px"
+        >
+          <Box>{confirmRef.current.content}</Box>
+        </ModalDialog>
+      )}
     </Box>
   );
 }

@@ -4,7 +4,14 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // i18n,
+  async rewrites() {
+    return [
+      {
+        source: '/api2r/:path*',
+        destination: 'https://api.btyd.io/api/:path*',
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

@@ -1,7 +1,30 @@
+// .tabswrap {
+//   // borderRadius="40px" backgroundColor="rgba(255,255,255, 0.1)" padding="10px" display="inline-block"
+//   border-radius: 40px;
+//   background-color: rgba(255, 255, 255, 0.06);
+//   padding: 10px;
+//   display: inline-block;
+//   .tabs {
+//     display: inline-block;
+//     button {
+//       display: inline-block;
+//       margin-right: 10px;
+//       color: #7551ff;
+//       background-color: rgba(255, 255, 255, 0.05);
+//       &.tab_active {
+//         background-color: #7551ff;
+//         color: #fff;
+//       }
+//       &:last-child {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+// }
 .tabswrap {
   padding: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   //   border-bottom: 1px solid hsla(0, 0%, 100%, 0.07);
   .tabs {
     display: flex;
@@ -12,7 +35,8 @@
       background-color: transparent;
       font-weight: bolder;
       position: relative;
-      &.tab_active {
+      &.tab_active,
+      &:hover {
         color: var(--theme-color);
         &::after {
           position: absolute;
@@ -39,7 +63,7 @@
 }
 
 .detail {
-  background: rgba(255, 255, 255, 0.05);
+  background: #1b1e24;
   border-radius: 10px;
   padding: 25px;
   .itemTitle {
@@ -75,5 +99,18 @@
   p {
     font-size: 20px;
     margin-bottom: 30px;
+  }
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 100px;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover {
+      transform: rotate(90deg);
+    }
   }
 }

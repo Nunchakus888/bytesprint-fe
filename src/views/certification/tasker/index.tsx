@@ -4,15 +4,26 @@ import Navbar from 'components/navbar/Navbar';
 import CertificationForm from './CertificationForm';
 
 import styles from './index.module.scss';
+import { useRouter } from 'next/router';
 
 export default function Tasker() {
   const [isNextStep, setIsNextStep] = useState(true);
   const [authorizeCode, setAuthorizeCode] = useState('');
-
+  const router = useRouter();
   return (
     <>
       <Box>
-        <Navbar paths={[{ path: '/profile', name: 'My Tasker' }, { name: 'Tasker' }]} />
+        <Navbar
+          paths={[
+            {
+              name: 'My Portfolio',
+              onClick: () => {
+                router.push('/profile');
+              },
+            },
+            { name: 'Tasker Certification' },
+          ]}
+        />
       </Box>
       <div className={styles.taskerWrap}>
         {isNextStep ? (

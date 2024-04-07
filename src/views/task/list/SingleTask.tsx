@@ -3,11 +3,8 @@ import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useJobTypes, useSingleTaskFilter, useTaskList } from 'hooks/task';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import TaskItem from '../item/TaskItem';
 import Auth from '../Auth';
-import useChange from 'hooks/useChange';
-import { useEffect } from 'react';
 import Loading from 'components/loading';
 import {
   IPath,
@@ -17,6 +14,10 @@ import {
   TaskStatus,
   TaskTypes,
 } from 'common/constant';
+import CustomSelect from 'components/custom-select';
+import styles from './index.module.scss';
+import { useAccount } from 'wagmi';
+import HallTaskItem from '../item/HallTaskItem';
 
 function SingleTask(props: {
   isCurrent?: boolean;
@@ -35,56 +36,80 @@ function SingleTask(props: {
 
   const { loading, data, hasMore, fetchMoreData, handleSearch, onChange } = props.single;
   console.log('data>>>>>>>>>>>>>', data);
+  const account = useAccount();
   return (
     <Box mt={{ base: '30px' }}>
-      <Flex justify="space-between">
-        <SearchInput
-          background="rgba(255,255,255,0.05)"
-          searchIconColor="#7551FF"
+      <Flex
+        justify="flex-end"
+        gap="10px"
+        className={props.from === IPath.MYREQUIREMENT ? styles.hasAdd : ''}
+      >
+        {/* <SearchInput
+          background="#1b1e24"
           placeholder="Task Name"
           search={handleSearch}
-        ></SearchInput>
-        <Box display="flex" justifyContent="flex-end">
-          {props.isMine ? (
-            <>
-              <FilSelect
-                options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
-                placeholder="Task Status"
-                change={(val) => onChange('taskStatus', val)}
-              />
-              <FilSelect
-                options={ProTypes}
-                placeholder="Crowdsourcing Method"
-                change={(val) => onChange('proType', val)}
-              />
-              <FilSelect
-                options={ProfessionTypes}
-                placeholder="Job Type"
-                change={(val) => onChange('professionType', val)}
-              />
-            </>
-          ) : (
-            <>
-              <FilSelect
-                options={ProTypes}
-                placeholder="Crowdsourcing Method"
-                change={(val) => onChange('proType', val)}
-              />
-              <FilSelect
-                options={TaskTypes}
-                placeholder="Task Type"
-                change={(val) => onChange('taskType', val)}
-              />
-              <FilSelect
-                options={ProfessionTypes}
-                placeholder="Job Type"
-                change={(val) => onChange('professionType', val)}
-              />
-            </>
-          )}
-        </Box>
+        ></SearchInput> */}
+        {props.from === IPath.TASKS && (
+          <Box display="flex" justifyContent="flex-end" style={{ gap: 16 }}>
+            {props.isMine ? (
+              <>
+                <CustomSelect
+                  // options={props.from === IPath.MYREQUIREMENT ? RequirementStatus : TaskStatus}
+                  options={TaskStatus}
+                  placeholder="Task Status"
+                  onChange={(val: any) => onChange('status', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProTypes}
+                  placeholder="Crowdsourcing Method"
+                  onChange={(val: any) => onChange('crowdsourcingType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProfessionTypes}
+                  placeholder="Job Type"
+                  onChange={(val: any) => onChange('positionType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+              </>
+            ) : (
+              <>
+                <CustomSelect
+                  options={ProTypes}
+                  placeholder="Crowdsourcing Method"
+                  onChange={(val: any) => onChange('crowdsourcingType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={TaskTypes}
+                  placeholder="Task Type"
+                  onChange={(val: any) => onChange('categoryType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  width={220}
+                />
+                <CustomSelect
+                  options={ProfessionTypes}
+                  placeholder="Job Type"
+                  onChange={(val: any) => onChange('positionType', val?.value)}
+                  focusBorderColor="rgba(255, 255, 255, 0.4)"
+                  style={{ width: 200 }}
+                  width={220}
+                />
+              </>
+            )}
+          </Box>
+        )}
       </Flex>
-      <Box mt={{ base: '20px' }}>
+      <Box
+        mt={{ base: '20px' }}
+        id="items_list_scrollable_box"
+        style={{ height: 'calc(100vh - 240px)', overflow: 'scroll' }}
+      >
         {loading ? (
           <Loading />
         ) : (
@@ -99,12 +124,23 @@ function SingleTask(props: {
           >
             {data.map((item: any, index: number) => {
               return (
-                <TaskItem
-                  key={`${item.categoryId}-${index}`}
-                  item={item}
-                  isMine={props.isMine}
-                  from={props.from}
-                />
+                <>
+                  {props.from === IPath.TASKS ? (
+                    <HallTaskItem
+                      key={`${item.categoryId}-${index}`}
+                      item={item}
+                      isMine={props.isMine}
+                      from={props.from}
+                    />
+                  ) : (
+                    <TaskItem
+                      key={`${item.categoryId}-${index}`}
+                      item={item}
+                      isMine={props.isMine}
+                      from={props.from}
+                    />
+                  )}
+                </>
               );
             })}
             {data.length === 0 && (
@@ -116,7 +152,7 @@ function SingleTask(props: {
         )}
       </Box>
 
-      <Auth from={props.from} />
+      {account?.address && <Auth from={props.from} />}
     </Box>
   );
 }

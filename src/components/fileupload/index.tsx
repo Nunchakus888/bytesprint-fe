@@ -18,6 +18,10 @@ import { FileUploader } from 'react-drag-drop-files';
 import styles from './index.module.scss';
 import { Post } from 'common/utils/axios';
 import API_ROUTERS from 'api';
+import Upload from 'rc-upload';
+import { onErrorToast } from 'common/utils/toast';
+import { RcFile } from 'rc-upload/lib/interface';
+import axios from 'axios';
 type FileUploadProps = {
   children?: React.ReactNode;
   register: (f: any) => void;
@@ -39,59 +43,95 @@ export default function FileUpload(props: FileUploadProps) {
   const { register, accept, multiple, max = 3, maxSize, children, isDrag } = props;
   // const { ref, ...rest } = register as {ref: (instance: HTMLInputElement | null) => void}
   const toast = useToast();
+  // 选择的文件
+  const [chooseFiles, setChooseFiles] = useState<any[]>([]);
 
-  const [files, setFiles] = useState([]);
-  const handleChange = async (newFile: any) => {
-    console.log(newFile.length);
-    if (files.length > max) {
-      return;
-    }
-    const resetLength = Math.max(0, max - files.length);
-    if (resetLength <= 0) {
-      return;
-    }
-    // newFile 内截取前resetLength file
-    const needUploadFiles = Array.from(newFile).slice(0, resetLength);
-    // 校验文件大小
-    if (maxSize) {
-      let isInvalid = Array.from(newFile).some((it: any) => it.size > maxSize);
-      if (isInvalid) {
-        toast({
-          title: `文件大小不能超出50M`,
-          status: `error`,
-          isClosable: true,
-        });
-        return;
-      }
-    }
-    const promises = [];
-    // TODO 自动上传
-    // for(let i = 0; i < needUploadFiles.length; i++) {
-    //   promises.push(Post(API_ROUTERS.tasks.FILE_UPLOAD, needUploadFiles[i]))
-    // }
-    // const res = await Promise.all(promises)
-
-    console.log('needUploadFiles>>>', needUploadFiles);
-
-    const files_ = [...files, ...needUploadFiles];
-    setFiles(files_);
-  };
-
-  const handleDelete = (file: any) => {
-    console.log(files, file);
-    const files_ = files.filter((it) => it.name !== file.name);
-    console.log('files_>>.', files_);
-    setFiles(files_);
+  const handleDelete = (index: number) => {
+    const prevList = chooseFiles || [];
+    const newList = [...prevList.slice(0, index), ...prevList.slice(index + 1)];
+    setChooseFiles(newList);
   };
   // files变动，对应的fileList 属性值变动
   useEffect(() => {
-    // const names = files.map((it:any) => it.name)
-    console.log('files', files);
-    register(files);
-  }, [files, register]);
+    console.log('chooseFiles', chooseFiles);
+    register(chooseFiles);
+  }, [chooseFiles, register]);
+
+  const uploadProps = {
+    action: '/api2r/file/upload',
+    multiple: true,
+    beforeUpload: async (file: RcFile) => {
+      console.log('file:', file);
+      const isValid = checkFile(file, [...chooseFiles, file]);
+      return isValid;
+    },
+    onSuccess: (res: any, file: RcFile) => {
+      console.log('onSuccess: ', res);
+      if (res?.fileList?.[0]) {
+        // 成功后
+        setChooseFiles((prev: any[]) => {
+          return [...prev, { ...res?.fileList?.[0], size: file.size, name: file.name }];
+        });
+      }
+    },
+    customRequest({
+      action,
+      data,
+      file,
+      filename,
+      headers,
+      onError,
+      onProgress,
+      onSuccess,
+      withCredentials,
+    }: any) {
+      // EXAMPLE: post form-data with 'axios'
+      // eslint-disable-next-line no-undef
+      const formData = new FormData();
+      formData.append('files', file);
+      axios
+        .post(action, formData, {
+          withCredentials,
+          headers,
+          onUploadProgress: ({ total, loaded }) => {
+            onProgress({ percent: Math.round((loaded / total) * 100).toFixed(2) }, file);
+          },
+        })
+        .then(({ data: response }) => {
+          onSuccess(response, file);
+        })
+        .catch(onError);
+
+      return {
+        abort() {
+          console.log('upload progress is aborted.');
+        },
+      };
+    },
+    style: {},
+  };
+
+  const checkFile = (file: RcFile, files: RcFile[]) => {
+    // if (file.size > 380 * 1024) {
+    //   onErrorToast('Max per file size need under 380KB.');
+    //   return false;
+    // }
+    const totalSize = files.reduce((pre, cur, arr, index) => {
+      return pre + cur.size;
+    }, 0);
+    if (totalSize > 50 * 1024 * 1024) {
+      onErrorToast('Total upload size need under 50MB.');
+      return false;
+    }
+    if (files.length > max) {
+      onErrorToast('Limit of 3 files per upload.');
+      return false;
+    }
+    return true;
+  };
   return (
     <Box>
-      <FileUploader multiple={multiple} handleChange={handleChange} name="file" types={accept}>
+      {/* <FileUploader multiple={multiple} handleChange={handleChange} name="file" types={accept}>
         <Flex
           cursor="pointer"
           direction="column"
@@ -102,8 +142,7 @@ export default function FileUpload(props: FileUploadProps) {
           width="100%"
           height="100px"
           background="rgba(255,255,255,0.03)"
-          border="solid 1px rgba(255,255,255,0.1);"
-          borderRadius={6}
+          border="solid 1px rgba(255,255,255,0.25);"
         >
           <Text>Drag the file here, or click to upload</Text>
           <Text>
@@ -111,12 +150,33 @@ export default function FileUpload(props: FileUploadProps) {
           </Text>
           <Text>File size should be within 50MB, limited to {accept.join('、')}</Text>
         </Flex>
-      </FileUploader>
+      </FileUploader> */}
+
+      <Upload {...uploadProps}>
+        <Flex
+          cursor="pointer"
+          direction="column"
+          justify="center"
+          alignItems="center"
+          color="#fff"
+          fontSize={14}
+          width="100%"
+          height="100px"
+          background="rgba(255,255,255,0.03)"
+          border="solid 1px rgba(255,255,255,0.25);"
+        >
+          <Text>Drag the file here, or click to upload</Text>
+          <Text>
+            ({chooseFiles.length}/{max})
+          </Text>
+          <Text>File size should be within 50MB, limited to {accept.join('、')}</Text>
+        </Flex>
+      </Upload>
       <Box display="flex" flexFlow={'wrap'} gap={8} margin="16px 0">
-        {files.map((file) => {
+        {chooseFiles.map((file, index) => {
           return (
             <Flex
-              key={`${file.name}_${Date.now()}`}
+              key={index}
               background="rgba(255,255,255,0.05)"
               borderRadius={4}
               padding="15px 20px"
@@ -137,7 +197,7 @@ export default function FileUpload(props: FileUploadProps) {
                     marginLeft="20px"
                     fontSize={12}
                     color="red"
-                    onClick={() => handleDelete(file)}
+                    onClick={() => handleDelete(index)}
                   >
                     Delete
                   </Link>

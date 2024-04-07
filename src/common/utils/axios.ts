@@ -2,8 +2,9 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 axios.defaults.timeout = 180000;
 import { onErrorToast } from 'common/utils/toast';
 
+//http://api.btyd.io:8080/
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: '/',
+  baseURL: '/api2r',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -28,15 +29,20 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     const res = response?.data || {};
-    console.log('res>>>>', res);
+    console.log('response>>>>', response);
     if (res?.result.code !== 0) {
-      onErrorToast(res?.result.message);
+      // fix 钱包出现但用户未进行授权，然后刷新了页面，会造成login 、userInfo接口重复请求，导致上一次授权失败，会出现invalid token报错
+      // fix 单独针对user/info 报错不进行提示
+      if (!response.request.responseURL.includes('/user/info')) {
+        onErrorToast(res?.result.message);
+      }
+
       // 判断是否过期，根据不同的错误码
       // expires token
       if (res?.result.code === 1003) {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('authorization');
-        document.getElementById('connect-btn').click();
+        document.getElementById('connect-btn')?.click();
       }
       return Promise.reject(res);
     }
@@ -58,6 +64,5 @@ export const Get = (url: string, params = {}): Promise<any> => {
 };
 
 export const Post = (url: string, params = {}): Promise<any> => {
-  console.log('url.>>>>', axiosInstance);
   return axiosInstance.post(url, params);
 };

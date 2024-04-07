@@ -1,3 +1,5 @@
+import styles from './index.module.scss';
+
 import { Box, Button, Flex, Tag } from '@chakra-ui/react';
 import { Image } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -10,46 +12,47 @@ import {
   TaskStatus,
   TaskTypes,
 } from 'common/constant';
-import styles from './index.module.scss';
+import classNames from 'classnames';
+
 export default function TaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   const { item } = props;
   return (
     <Box className={styles.itemContainer}>
       <Flex justify="space-between" position="relative">
-        <Box
-          className={styles.imgbox}
-          background="#7551FF"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          fontSize="30px"
-        >
-          {/* <Image
-            src={`https://picsum.photos/200/250?random=${Math.ceil(Math.random() * 100)}`}
-            alt={item.categoryName}
-          /> */}
+        {/* 需求类型 single task */}
+        <Box className={styles.imgbox} display="flex" alignItems="center" justifyContent="center">
           {Tabs.filter((v) => v.value === item.categoryType)[0]?.label}
         </Box>
         <Box display="flex" flexDirection="column" width="100%">
-          <Box>
-            <Tag size="lg" variant="solid" background="#7551FF" marginRight="10px">
-              {TaskTypes.filter((v) => v.value === item.categoryType)[0]?.label}
-            </Tag>
-            <Tag size="lg" variant="solid" background="#7551FF">
-              {ProTypes.filter((v) => v.value === item.crowdsourcingType)[0]?.label}
-            </Tag>
+          <Box className="flex items-center justify-between">
+            <Box className="flex items-center gap-2">
+              {/* 任务类型 */}
+              <Tag size="lg" variant="solid" className="task-tag">
+                {TaskTypes.filter((v) => v.value === item.categoryType)[0]?.label}
+              </Tag>
+              <Tag size="lg" variant="solid" className="task-tag">
+                {/* 众包方式 */}
+                {ProTypes.filter((v) => v.value === item.crowdsourcingType)[0]?.label}
+              </Tag>
+            </Box>
           </Box>
-          <p className={styles.itemTitle}>{item.name}</p>
+          {/* 名称 */}
+          <div className={classNames(styles.itemTitle, 'ellipsis')}>{item.name}</div>
+          {/* 介绍 */}
           <Box
             className={styles.itemContent}
             dangerouslySetInnerHTML={{ __html: item.description }}
           ></Box>
           <Box className={styles.btns} display="flex" justifyContent="space-between">
-            <Tag size="lg" variant="solid" background="rgba(255,255,255,0.05)">
+            {/* 职位类型 */}
+            <span className="tag-primary">
               {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
-            </Tag>
-            <Button background="#7551FF" size="md" color="#fff">
-              <Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}> Details</Link>
+            </span>
+            {/* 详情 */}
+            <Button color="#fff" className="btn-primary" width={105}>
+              <Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}>
+                Details {' >'}
+              </Link>
               {/* Test */}
               {/* <Link href={`/taskdetail/${props.from || IPath.TASKS}/202401082128568241`}> Details</Link> */}
             </Button>

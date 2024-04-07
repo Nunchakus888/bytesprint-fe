@@ -1,4 +1,7 @@
-import { MdGroups, MdOutlinePersonOutline } from 'react-icons/md';
+import { MdGroups } from 'react-icons/md';
+import { FaCalendarAlt } from 'react-icons/fa';
+import { TbDiscount2 } from 'react-icons/tb';
+import { BiCategory } from 'react-icons/bi';
 
 import Logo from '../../public/img/logo.png';
 import Twitter from '../../public/img/media/twitter.png';
@@ -12,12 +15,24 @@ export const IMG_SRC = {
   Discord: Discord.src,
 };
 
+export const LINK_SRC = {
+  twitter: `https://twitter.com/ByteSprint`,
+  youtube: `https://www.youtube.com/@ByteSprint-gj1ve`,
+  facebook: `https://www.facebook.com/profile.php?id=61555759670955`,
+  discord: `https://discord.com/channels/@me`,
+};
 // 身份
 export enum Identification {
   VISITOR = 0, // Regular User
   ENGINEER = 2, // 开发
   OPERATOR = 1, // 运营商
   SYSTEM = 3,
+}
+
+export enum StakedType {
+  Employer,
+  Tasker,
+  Navigator,
 }
 
 export enum IPath {
@@ -52,17 +67,17 @@ export const Tabs = [
   {
     label: TabsEnum.SINGLE_TASK,
     value: RequirementType.Single,
-    icon: '🔥',
+    icon: <FaCalendarAlt fontSize={20} />,
   },
   {
     label: TabsEnum.PERSON_TASK,
     value: RequirementType.Person,
-    icon: '🌍',
+    icon: <TbDiscount2 fontSize={22} />,
   },
   {
     label: TabsEnum.ALL_TASK,
     value: RequirementType.Global,
-    icon: <MdGroups fontSize={22} />,
+    icon: <BiCategory fontSize={22} />,
   },
 ];
 
@@ -240,20 +255,20 @@ export const ExperienceTypes = [
 
 export const EducationTypes = [
   {
-    label: 'College',
-    value: 1,
-  },
-  {
-    label: 'Undergraduate',
-    value: 2,
-  },
-  {
-    label: 'Postgraduate',
+    label: 'High School',
     value: 3,
   },
   {
-    label: 'Doctor',
+    label: 'College',
     value: 4,
+  },
+  {
+    label: 'Undergraduate',
+    value: 5,
+  },
+  {
+    label: 'Postgraduate',
+    value: 6,
   },
 ];
 
@@ -286,7 +301,7 @@ export enum TaskBidStatus {
 
 // 用户身份等级
 export const USER_LEVEL = {
-  0: `Regular User`,
+  0: `Crew`, // 第一期先写死 TODO
   1: `Tasker`,
   2: `Craftsman`,
   3: `Pirate`,

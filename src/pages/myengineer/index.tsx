@@ -35,7 +35,7 @@ export default function MyEngineer() {
           <Box position="sticky">
             <Flex justify="space-between">
               <SearchInput
-                background="rgba(255,255,255,0.05)"
+                background="#1b1e24"
                 searchIconColor="#7551FF"
                 placeholder="User Name"
                 search={handleSearch}

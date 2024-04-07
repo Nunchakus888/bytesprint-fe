@@ -7,14 +7,14 @@ import '@vercel/examples-ui/globals.css';
 
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { LanguageProvider } from 'common/contexts/LanguageContext';
 import { appWithTranslation } from 'next-i18next';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import theme from 'common/theme/theme';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { mainnet, goerli, sepolia } from 'wagmi/chains';
+import { mainnet, goerli, sepolia, arbitrum } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { darkTheme, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
@@ -28,12 +28,16 @@ import Header from 'components/header';
 import Sidebar from 'components/sidebar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'react-phone-number-input/style.css';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
+import { useUserInfo } from 'hooks/user';
+import { useSelector } from 'react-redux';
 const projectId = '467f25289c817c42bc541efb8f04be1d';
 
 const { chains, provider } = configureChains(
   // [sepolia, mainnet, goerli],
-  [sepolia],
+  [sepolia, arbitrum],
   [
     // alchemyProvider({
     //   apiKey: alchemyKey, //process.env.REACT_APP_ALCHEMY_ID,
@@ -64,6 +68,11 @@ const wagmiClient = createClient({
 const queryClient = new QueryClient();
 
 function App({ Component, pageProps }: AppProps<{}>) {
+  const route = useRouter();
+  const isGuide = useMemo(() => {
+    return route.pathname.includes('guide');
+  }, [route]);
+
   return (
     <ChakraProvider theme={theme}>
       <Head>
@@ -78,8 +87,8 @@ function App({ Component, pageProps }: AppProps<{}>) {
             <QueryClientProvider client={queryClient}>
               <LanguageProvider>
                 <Header />
-                <Sidebar />
-                <main className="v-main">
+                {isGuide ? '' : <Sidebar />}
+                <main className={classNames(isGuide ? 'v-main-guide' : '', 'v-main')}>
                   <Component {...pageProps} />
                 </main>
                 <ToastContainer />

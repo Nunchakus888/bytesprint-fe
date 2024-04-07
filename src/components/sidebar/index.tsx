@@ -1,10 +1,12 @@
 import styles from './index.module.scss';
 
-import { Box } from '@chakra-ui/react';
+import { Box, Link } from '@chakra-ui/react';
 import SideContent from 'components/sidebar/SideContent';
 import { SidebarContext } from 'common/contexts/SidebarContext';
 import { PropsWithChildren, useState } from 'react';
-import { IMG_SRC } from 'common/constant';
+import { IMG_SRC, LINK_SRC } from 'common/constant';
+import { BsTwitterX } from 'react-icons/bs';
+import { FaDiscord, FaFacebook, FaYoutube } from 'react-icons/fa';
 
 interface DashboardLayoutProps extends PropsWithChildren {
   [x: string]: any;
@@ -26,9 +28,18 @@ export default function Sidebar(props: DashboardLayoutProps) {
           <SideContent display="none" {...rest} />
           <div className={styles.footer}>
             <div className={styles.mediawrap}>
-              <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
-              <img src={IMG_SRC.Discord} alt="Discord" width="20" />
-              <img src={IMG_SRC.Docs} alt="Docs" width="20" />
+              <Link href={LINK_SRC.twitter} target="_blank">
+                <BsTwitterX />
+              </Link>
+              <Link href={LINK_SRC.discord} target="_blank">
+                <FaDiscord />
+              </Link>
+              <Link href={LINK_SRC.facebook} target="_blank">
+                <FaFacebook />
+              </Link>
+              <Link href={LINK_SRC.youtube} target="_blank">
+                <FaYoutube />
+              </Link>
             </div>
             <p className={styles.version}>IT Crowdsourcing Web3 Platform</p>
           </div>

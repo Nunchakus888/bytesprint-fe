@@ -1,9 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MdBarChart, MdPerson } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { Identification, IPath } from 'common/constant';
+import { Identification, IPath, StakedType } from 'common/constant';
 import API_ROUTERS from 'api';
-import { Get } from 'common/utils/axios';
+import { Get, Post } from 'common/utils/axios';
+import { removeItem } from 'common/utils';
+import { useAccount, useNetwork } from 'wagmi';
+import { onErrorToast, onSuccessToast } from 'common/utils/toast';
+import useChange from 'hooks/useChange';
+import { withdrawReward, withdrawStakedToken } from 'common/contract/lib/bytd';
+import useConnect from 'hooks/useConnect';
+import useCheckChain from 'hooks/useCheckChain';
 
 let defaultRoutes: any[] = [
   // {
@@ -21,6 +28,11 @@ let defaultRoutes: any[] = [
         name: 'Task Hall',
         path: `/${IPath.TASKS}`,
         // icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      },
+      {
+        name: 'Publish Requirement',
+        // icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        path: `/publish`,
       },
       {
         name: 'My Requirements',
@@ -53,6 +65,11 @@ let visitor_defaultRoutes: any[] = [
         name: 'Task Hall',
         path: `/${IPath.TASKS}`,
         // icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+      },
+      {
+        name: 'Publish Requirement',
+        // icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+        path: `/publish`,
       },
       {
         name: 'My Requirements',
@@ -142,7 +159,7 @@ const operator = [
 
 const loginNav = [
   {
-    name: 'User Center',
+    name: 'My portfolio',
     path: '/profile',
     icon: MdPerson, // <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
   },
@@ -175,20 +192,23 @@ export const useUserInfo = () => {
 };
 
 export const useUserRoute = () => {
-  const { identification } = useUserInfo();
+  const { identification, userInfo } = useUserInfo();
   const d = useMemo(() => {
-    console.log('identification>>>>', identification);
-    if (!identification && identification !== Identification.VISITOR) {
-      return noLogin_defaultRoutes;
-    }
+    if (userInfo?.address) {
+      console.log('identification>>>>', identification);
+      if (!identification && identification !== Identification.VISITOR) {
+        return noLogin_defaultRoutes;
+      }
 
-    return routers[identification as Identification];
-  }, [identification]);
+      return routers[identification as Identification];
+    }
+  }, [identification, userInfo]);
   return d;
 };
 
 // 我的质押
 export const useMyPledge = () => {
+  const { toggleTiger, triger } = useChange();
   const [data, setData] = useState([]);
   const getData = async () => {
     const res = await Get(API_ROUTERS.users.MY_PLEDGE());
@@ -196,9 +216,115 @@ export const useMyPledge = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [triger]);
+
   return {
     data,
+    refresh: toggleTiger,
+  };
+};
+// 提取
+export const useWithdraw = () => {
+  const account = useAccount();
+  const { connect } = useConnect();
+  const { identification, userInfo } = useUserInfo();
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const stakeType = useMemo(() => {
+    if ([Identification.ENGINEER, Identification.VISITOR].includes(identification))
+      return StakedType.Tasker;
+    if (identification === Identification.OPERATOR) return StakedType.Employer;
+  }, [identification]);
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
+  // 质押提取
+  const stakingWithdraw = async (item: any) => {
+    setButtonLoading(true);
+    const { stakingId, stakingAmount, projectId } = item;
+    // 判断是否登录
+    if (!userInfo.address) {
+      connect();
+      setButtonLoading(false);
+      return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
+    // 合约交互
+    const isSuccess = await withdrawStakedToken({
+      account,
+      projectId: projectId || stakingId,
+    });
+    if (!isSuccess) {
+      setButtonLoading(false);
+      return false;
+    }
+    const res = await Post(API_ROUTERS.users.STAKING_WITHDRAW, { stakingId }).finally(() => {
+      setButtonLoading(false);
+    });
+    onSuccessToast('Successfully');
+    return isSuccess;
+  };
+
+  // 质押提取
+  const rewardWithdraw = async (item: any) => {
+    setButtonLoading(true);
+    const { rewardId, rewardAmount, projectId } = item;
+    // 判断是否登录
+    if (!userInfo.address) {
+      connect();
+      setButtonLoading(false);
+      return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
+    // 合约交互
+    const isSuccess = await withdrawReward({
+      account,
+      projectId: projectId || rewardId,
+    });
+    if (!isSuccess) {
+      setButtonLoading(false);
+      return false;
+    }
+    const res = await Post(API_ROUTERS.users.REWARDS_WITHDRAW, { rewardId }).finally(() => {
+      setButtonLoading(false);
+    });
+    onSuccessToast('Successfully');
+    return isSuccess;
+  };
+  return {
+    stakingWithdraw,
+    rewardWithdraw,
+    buttonLoading,
+  };
+};
+
+// 我的报酬
+export const useMyRewards = () => {
+  const { toggleTiger, triger } = useChange();
+  const [data, setData] = useState([]);
+  const getData = async () => {
+    const res = await Get(API_ROUTERS.users.MY_REWARDS());
+    setData(res?.rewards || []);
+  };
+  useEffect(() => {
+    getData();
+  }, [triger]);
+
+  return {
+    data,
+    refresh: toggleTiger,
   };
 };
 

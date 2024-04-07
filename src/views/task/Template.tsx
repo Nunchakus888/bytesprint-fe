@@ -6,7 +6,8 @@ import { IPath, RequirementType, TabsEnum } from 'common/constant';
 import styles from './index.module.scss';
 import PersonTask from './list/PersonTask';
 import SingleTask from './list/SingleTask';
-import Navbar from 'components/navbar/Navbar';
+import classNames from 'classnames';
+
 export default function TaskTemplate(props: {
   children?: React.ReactNode;
   isMine?: boolean; // 是否是我的
@@ -63,7 +64,7 @@ export default function TaskTemplate(props: {
                 return (
                   <Tab
                     key={it.label}
-                    className={it.value === activeTab ? styles.tab_active : ''}
+                    className={classNames(it.value === activeTab ? styles.tab_active : '')}
                     onClick={(e) => {
                       e.preventDefault();
                       handleTabChange(it.value);
@@ -71,7 +72,7 @@ export default function TaskTemplate(props: {
                   >
                     <span className="flex">
                       {it.icon}
-                      <span className="ml-2">{it.label}</span>
+                      <span className={classNames('ml-2')}>{it.label}</span>
                     </span>
                   </Tab>
                 );
@@ -86,9 +87,9 @@ export default function TaskTemplate(props: {
                   {it.label === TabsEnum.SINGLE_TASK && (
                     <SingleTask single={data} isMine={props.isMine} from={props.from} />
                   )}
-                  {it.label === TabsEnum.PERSON_TASK && (
+                  {/* {it.label === TabsEnum.PERSON_TASK && (
                     <PersonTask person={data} isMine={props.isMine} from={props.from} />
-                  )}
+                  )} */}
                 </TabPanel>
               );
             })}

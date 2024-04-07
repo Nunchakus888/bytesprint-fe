@@ -4,12 +4,18 @@ import { useToast } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import CustomConnectButton from './CustomConnectButton';
 import useConnect from 'hooks/useConnect';
-import { IMG_SRC } from 'common/constant';
+import { IMG_SRC, LINK_SRC } from 'common/constant';
 import Link from 'next/link';
-
+import useListenConnectionEvent from 'hooks/useListenConnectionEvent';
+import { FaDiscord, FaFacebook, FaYoutube } from 'react-icons/fa';
+import { BsTwitterX } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 export default function Header() {
   const toast = useToast();
   const { connect } = useConnect();
+  const route = useRouter();
+  useListenConnectionEvent();
 
   useEffect(() => {
     window.document.documentElement.dir = 'ltr';
@@ -30,9 +36,18 @@ export default function Header() {
         </Link>
         <div className={styles.rightContent}>
           <div className={styles.mediawrap}>
-            <img src={IMG_SRC.Twitter} alt="Twitter" width="16" />
-            <img src={IMG_SRC.Discord} alt="Discord" width="20" />
-            <img src={IMG_SRC.Docs} alt="Docs" width="20" />
+            <Link href={LINK_SRC.twitter} target="_blank">
+              <BsTwitterX />
+            </Link>
+            <Link href={LINK_SRC.discord} target="_blank">
+              <FaDiscord />
+            </Link>
+            <Link href={LINK_SRC.facebook} target="_blank">
+              <FaFacebook />
+            </Link>
+            <Link href={LINK_SRC.youtube} target="_blank">
+              <FaYoutube />
+            </Link>
           </div>
           <CustomConnectButton />
         </div>

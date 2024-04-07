@@ -25,6 +25,7 @@ import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 const TaskDetail = () => {
   const router = useRouter();
   const { id = null } = router.query;
@@ -36,12 +37,20 @@ const TaskDetail = () => {
   console.log('data>>', data);
   const { identification } = useUserInfo();
   const [isOpenEvaluate, setIsOpenEvaluate] = useState(false);
-  const { openTask, closeTask, acceptTask, signBid, unSignBid, openRecordDetail, signLoading } =
-    useMyRequirementDetailStatusAction(id);
+  const {
+    openTask,
+    closeTask,
+    acceptTask,
+    signBid,
+    unSignBid,
+    openRecordDetail,
+    buttonLoading,
+    signLoading,
+  } = useMyRequirementDetailStatusAction(id);
 
   // 中标记录
   const signEdRecord = useMemo(() => {
-    const bidSuc = data?.assetRecordList.filter(
+    const bidSuc = data?.assetRecordList?.filter(
       (it: any) => it.signStatus === TaskBidStatus.BID_SUCCESS
     );
     if (bidSuc?.length) {
@@ -66,15 +75,25 @@ const TaskDetail = () => {
   // 任务计划列表
   const { planlist, openRecordDetailId, handleOpenRecordDetail, closeRecordDetail } =
     useTaskPlanList(data, isShowExtendTaskInfo);
-
+  const account = useAccount();
   return (
     <>
       <Box>
         <Navbar
           paths={[
-            { path: '#', name: 'Crowdsourcing Management ' },
-            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-            { path: '#', name: 'Details' },
+            {
+              name: 'Crowdsourcing Management ',
+              onClick: () => {
+                router.push('/');
+              },
+            },
+            {
+              name: 'My Requirements',
+              onClick: () => {
+                router.push(`/${IPath.MYREQUIREMENT}`);
+              },
+            },
+            { name: 'Details' },
           ]}
         />
       </Box>
@@ -117,6 +136,7 @@ const TaskDetail = () => {
                 openTask={openTask}
                 closeTask={closeTask}
                 acceptTask={acceptTask}
+                buttonLoading={buttonLoading}
               />
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />
@@ -142,7 +162,7 @@ const TaskDetail = () => {
             </Flex>
           </Box>
         )}
-        <Auth from={IPath.MYREQUIREMENT} />
+        {account?.address && <Auth from={IPath.MYREQUIREMENT} />}
       </Box>
 
       {isOpenEvaluate && (

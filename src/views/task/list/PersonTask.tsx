@@ -30,7 +30,7 @@ function PersonTask(props: {
     <Box mt={{ base: '30px' }}>
       <Flex justify="space-between">
         <SearchInput
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           searchIconColor="#7551FF"
           placeholder="需求名称"
           search={handleSearch}

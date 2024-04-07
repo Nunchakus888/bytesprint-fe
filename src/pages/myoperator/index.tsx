@@ -24,7 +24,7 @@ export default function MyOperator() {
           <Box position="sticky">
             <Flex justify="space-between">
               <SearchInput
-                background="rgba(255,255,255,0.05)"
+                background="#1b1e24"
                 searchIconColor="#7551FF"
                 placeholder="团队昵称"
                 search={handleSearch}

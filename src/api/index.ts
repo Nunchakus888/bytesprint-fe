@@ -25,16 +25,18 @@ const API_ROUTERS = {
     TASKS_DETAIL: (params: any) => createRoute(`/project/detail`, params),
     EVALUATE: `/project/evaluate`,
     PLANSUBMIT: `/requirement/plan/submit`,
-    PLAN_COMPLETE: (params: any) => createRoute(`/requirement/finish`, params),
+    PLAN_COMPLETE: `/requirement/finish`,
     // 项目验收
     REQUIREMENT_SUBMIT: `/project/pendingAccept`,
     PROJECT_SIGN: `/project/sign`,
     PROJECT_UNSIGN: `/project/unsign`,
-    PROJECT_ACCEPT: (params: any) => createRoute(`/project/accept`, params),
+    PROJECT_ACCEPT: `/project/accept`,
     TASKS_LIST_MINI: (params: any) => createRoute(`/project/listByUser`, params),
     // 发布需求
     PROJECT_SUBMIT: `/project/submit`,
     FILE_UPLOAD: `/file/upload`,
+    TASK_OPEN: `/project/open`,
+    TASK_CLOSE: `/project/close`,
   },
   users: {
     LOGIN: `/passport/login`,
@@ -44,7 +46,11 @@ const API_ROUTERS = {
     USER_UPDATE: `/user/update`,
     MY_PLEDGE: (params?: any) => createRoute(`/user/stakings`, params),
     // LOGIN_MESSAGE: (params: any) =>createRoute(`/user/info`, params),
-    CERTIF_ENGINEER: (params?: any) => createRoute(`/user/certify/engineer`, params),
+    CERTIF_ENGINEER: () => createRoute(`/user/certify/engineer`),
+    MY_REWARDS: (params?: any) => createRoute(`/user/rewards`, params),
+    STAKING_WITHDRAW: '/user/stakings/withdraw',
+    REWARDS_WITHDRAW: '/user/rewards/withdraw',
+    UPLOAD: '/file/upload',
   },
   positions: {
     LIST_ENGINEER: (params: any) => createRoute(`/position/list/engineer`, params),

@@ -5,13 +5,41 @@ import { useUserInfo } from 'hooks/user';
 import { useEffect, useState } from 'react';
 import { Get, Post } from 'common/utils/axios';
 import { IStatus, TaskBidStatus } from 'common/constant';
+import { useAccount, useNetwork } from 'wagmi';
+import { startTask, submitTask } from 'common/contract/lib/bytd';
+import useConnect from 'hooks/useConnect';
+import useCheckChain from 'hooks/useCheckChain';
 
 // detail status operator
 export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: string) => {
   const { userInfo } = useUserInfo();
   const toast = useToast();
+  const account = useAccount();
+  const { connect } = useConnect();
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const { chain } = useNetwork();
+  const { checkChain, switchChain } = useCheckChain(chain?.id);
   // 任务排期
   const scheduleTask = async (list: any[]) => {
+    setButtonLoading(true);
+    if (!userInfo.address) {
+      connect();
+      setButtonLoading(false);
+      return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
+    const res1 = await startTask({ projectId: id });
+    if (!res1) {
+      setButtonLoading(false);
+      return false;
+    }
     const data = list?.map((it) => {
       return {
         expectedstartTime: dayjs(it.startTime).unix() * 1000,
@@ -21,37 +49,60 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       };
     });
     console.log('userInfo>>>', userInfo);
-    debugger;
     const res = await Post(API_ROUTERS.tasks.PLANSUBMIT, {
       requirementPlan: data,
       uid: userInfo.uid,
       walletAddress: userInfo.address,
       projectId: id,
+    }).finally(() => {
+      setButtonLoading(false);
     });
+
     return res;
   };
   // 提交验收
   const submitAccept = async () => {
-    debugger;
+    setButtonLoading(true);
+    if (!userInfo.address) {
+      connect();
+      setButtonLoading(false);
+      return false;
+    }
+    const isUncorrectChain = await checkChain();
+    if (isUncorrectChain) {
+      const isSwitch = await switchChain();
+      if (!isSwitch) {
+        setButtonLoading(false);
+        return false;
+      }
+    }
+    const res1 = await submitTask({ projectId: id });
+    if (!res1) {
+      setButtonLoading(false);
+      return false;
+    }
     const res = await Post(API_ROUTERS.tasks.REQUIREMENT_SUBMIT, {
       uid: userInfo.uid,
       walletAddress: userInfo.address,
-      projectid: +id,
+      projectId: +id,
       assetRecordId: myrecordId,
+    }).finally(() => {
+      setButtonLoading(false);
     });
     toast({
-      title: `Operate SuccessFully`,
+      title: `SuccessFully`,
       status: `success`,
       isClosable: false,
     });
+
     window.location.reload();
   };
   // 提取My Rewards
-  const withdrawMyRewards = () => {};
+  // const withdrawMyRewards = () => {};
   // const startTask = () => {}
   // 完成任务计划某项
   const completePlanItem = async (planId: string) => {
-    const res = await API_ROUTERS.tasks.PLAN_COMPLETE({
+    const res = await Post(API_ROUTERS.tasks.PLAN_COMPLETE, {
       projectId: id,
       requirementId: planId,
       uid: userInfo.uid,
@@ -63,9 +114,10 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
   return {
     scheduleTask,
     submitAccept,
-    withdrawMyRewards,
+    // withdrawMyRewards,
     // startTask,
     completePlanItem,
+    buttonLoading,
   };
 };
 
@@ -91,9 +143,11 @@ export const useMyTaskDetail = (id: string | string[], address: string) => {
           id,
           address,
         })
-      );
-      setLoading(false);
-      // TODO 取status最后一个值
+      ).finally(() => {
+        setLoading(false);
+      });
+
+      // 取status最后一个值
       res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status;
       // test
       // res.projectDetailInfo.taskStatus = res.projectDetailInfo.projectRawInfo.status =

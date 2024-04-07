@@ -13,7 +13,7 @@ import styles from './index.module.scss';
 import dayjs from 'dayjs';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import WalletAvatar from 'components/WalletAvatar';
-import { useUserInfoByUid } from 'hooks/user';
+import { useUserInfo, useUserInfoByUid } from 'hooks/user';
 export default function TaskBidRecords(props: {
   from?: IPath;
   recordList: any[];
@@ -24,7 +24,13 @@ export default function TaskBidRecords(props: {
   signLoading?: boolean;
 }) {
   const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
-  console.log('taskStatus>>>', taskStatus);
+  const { userInfo } = useUserInfo();
+  // 将自己的评估记录置顶
+  const myRecordIndex = recordList.findIndex((item) => item.wallet === userInfo?.address);
+  if (myRecordIndex > 0) {
+    const myRecord = recordList.splice(myRecordIndex, 1);
+    recordList.unshift(myRecord[0]);
+  }
   return (
     <Box
       display="flex"
@@ -38,14 +44,8 @@ export default function TaskBidRecords(props: {
       className={styles.container}
     >
       <Text fontSize={18} fontWeight="bold">
-        {from === IPath.MYTASKS
-          ? `My Bidding Record:`
-          : `Bidding Records：${recordList?.length || 0}`}
+        {`Bidding Records：${recordList?.length || 0}`}
       </Text>
-
-      {/* test */}
-      {/* <Button background="#7551FF" size="md" height="30px" borderRadius={4} onClick={() => signBid({totalCost: 1, totalTime: 240, uid: `E0341092072504178728`, wallet: `0x01821BfBFFEFeCf0f31C78dd841d2819FdFC1Ef2`})}>签约TA</Button> */}
-
       <Box marginTop="30px" width="100%">
         {recordList?.map((it, index) => {
           return (
@@ -55,14 +55,17 @@ export default function TaskBidRecords(props: {
               alignItems="center"
               margin="20px 0"
               padding="30px 20px"
-              background="rgba(255,255,255,0.03)"
+              // 自己的记录背景色加深
+              background={
+                it.wallet === userInfo?.address ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.03)'
+              }
               borderRadius={8}
             >
               <Flex>
                 <WalletAvatar value={it.wallet} size={30} />
                 {/* <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' /> */}
                 <Flex direction="column" marginLeft="20px" className="w-20">
-                  <Text fontSize={16}>{it?.nickname}</Text>
+                  <Text fontSize={16}>{shortAddress(it?.nickname, 6, 2)}</Text>
                   <Text fontSize={12}>{shortAddress(it?.wallet.toString() || '')}</Text>
                 </Flex>
               </Flex>

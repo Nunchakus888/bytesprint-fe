@@ -4,7 +4,7 @@ import { useUserInfo, useUserInfoByUid } from 'hooks/user';
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { Get } from 'common/utils/axios';
-import { IStatus, TaskBidStatus } from 'common/constant';
+import { IPath, IStatus, TaskBidStatus } from 'common/constant';
 
 export interface IPlanItem extends ISchedule {
   actualCompleteTime: number;
@@ -25,8 +25,8 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
   const planlist = useMemo(() => {
     if (data) {
       let data_ = [];
-      const bidSuc = data?.assetRecordList?.filter(
-        (it: any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS
+      let bidSuc = data?.assetRecordList?.filter(
+        (it: any) => it.signStatus === TaskBidStatus.BID_SUCCESS
       );
       console.log('bidSuc>>>', bidSuc);
       if (bidSuc?.length) {
@@ -105,8 +105,6 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
 export const useTaskEvaluateDetail = (record: any, data: any) => {
   const { userInfoForUid } = useUserInfoByUid(record?.uid);
   const data_ = useMemo(() => {
-    // const rids = record?.requirementAssociation
-    // console.log("rids>>>", rids)
     const list = record?.requirementAssociation;
     console.log('list>>>', list);
     const res = list.map((it: any) => {

@@ -2,15 +2,15 @@ import { Box, Button, Flex, Portal, Text } from '@chakra-ui/react';
 import Back from 'components/back';
 import { requirementTypes } from 'hooks/myrequirements/add';
 import { useState } from 'react';
-import styles from './add.module.scss';
+import styles from './index.module.scss';
 import { IoCheckmarkOutline } from 'react-icons/io5';
 import Link from 'next/link';
 import Navbar from 'components/navbar/Navbar';
 import { IPath, RequirementType } from 'common/constant';
 import { onWarmToast } from 'common/utils/toast';
 
-export default function AddRequirement() {
-  const [selectType, setSelectType] = useState('');
+export default function Index() {
+  const [selectType, setSelectType] = useState('single');
   // 选中
   const handleClick = (it: (typeof requirementTypes)[0]) => {
     if (it.value !== RequirementType.Single) {
@@ -22,21 +22,11 @@ export default function AddRequirement() {
 
   return (
     <>
-      <Box>
-        <Navbar
-          paths={[
-            { path: `/${IPath.TASKS}`, name: 'Crowdsourcing Management' },
-            { path: `/${IPath.MYREQUIREMENT}`, name: 'My Requirements' },
-            { path: '#', name: 'Publish Requirement' },
-          ]}
-        />
-      </Box>
       <Box position="relative">
-        <Back />
         <Box
           className={styles.content}
           marginTop="20px"
-          background="rgba(255,255,255,0.05)"
+          background="#1b1e24"
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -45,17 +35,17 @@ export default function AddRequirement() {
             <Text color="#fff" fontSize={20} fontWeight="bold">
               Select Requirement Type
             </Text>
-            <Flex justifyContent="space-between" gap="10px">
+            <Flex justifyContent="space-between" gap="10px" width="97%">
               {requirementTypes.map((it) => {
                 return (
                   <Box
                     key={it.type}
-                    background="rgba(255,255,255,0.05)"
+                    background="rgb(15, 17, 20)"
                     position="relative"
                     padding="10px 20px"
                     borderRadius={4}
                     cursor="pointer"
-                    _hover={{ background: 'rgba(255,255,255,0.9)', color: '#7551FF' }}
+                    _hover={{ background: 'rgba(255,255,255,0.1)', color: '#7551FF' }}
                     onClick={(e) => handleClick(it)}
                   >
                     {selectType === it.type && (

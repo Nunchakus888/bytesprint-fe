@@ -19,10 +19,9 @@ export default function TaskEvaluateDetail(props: {
   signLoading?: boolean;
 }) {
   const { onClose, signBid, unSignBid, recordId: record, from, originData, signLoading } = props;
-  // test
-  record.uid = 'E0341092072504178728';
+
   const { data, userInfoForUid } = useTaskEvaluateDetail(record, originData);
-  console.log('record>>>', record);
+  // console.log('record>>>', record);
   const columns = [
     {
       title: 'Serial Number',
@@ -92,13 +91,13 @@ export default function TaskEvaluateDetail(props: {
     <ModalDialog title="Evaluation details" onClose={onClose} isOpen={true} btnGroup={<></>}>
       <Flex justifyContent="space-between">
         <Flex justifyContent="space-between" gap="30px" alignItems="flex-start">
-          {userInfoForUid && <WalletAvatar value={userInfoForUid?.data.walletAddress} size={50} />}
+          {userInfoForUid?.walletAddress && (
+            <WalletAvatar value={userInfoForUid?.walletAddress} size={50} />
+          )}
           <Flex justifyContent="space-between" direction="column">
             {/* 职位类型 */}
             <Flex justifyContent="center" gap="10px">
-              {/* {userInfoForUid?.data.engineer.position?.map((positionType: number) => { */}
-              {/* test */}
-              {[1, 5]?.map((positionType: number) => {
+              {userInfoForUid?.engineer?.position?.map((positionType: number) => {
                 return (
                   <Tag
                     key={`positiontype_${positionType}`}
@@ -113,7 +112,7 @@ export default function TaskEvaluateDetail(props: {
               })}
             </Flex>
             <Flex marginTop="20px" direction="column">
-              <Text fontSize={16}>{userInfoForUid?.data.nickname}</Text>
+              <Text fontSize={16}>{userInfoForUid?.nickname}</Text>
               <Text marginTop="10px" fontSize={12}>
                 {shortAddress(record?.wallet.toString() || '')}
               </Text>
@@ -122,7 +121,7 @@ export default function TaskEvaluateDetail(props: {
           <Flex>
             <Tag fontSize={16} padding="10px" className={styles.engineer}>
               {/* @ts-ignore */}
-              {USER_LEVEL[userInfoForUid?.data.level]}
+              {USER_LEVEL[userInfoForUid?.data?.level]}
             </Tag>
           </Flex>
         </Flex>
@@ -165,7 +164,7 @@ export default function TaskEvaluateDetail(props: {
           )}
         </Flex>
       </Flex>
-      <Box marginTop="20px" background="rgba(255,255,255,0.05)" borderRadius={8}>
+      <Box marginTop="20px" background="#1b1e24" borderRadius={8}>
         <BYTable columns={columns} dataSource={data.list}></BYTable>
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize="lg" width="40%">
@@ -180,7 +179,7 @@ export default function TaskEvaluateDetail(props: {
       <Flex justifyContent="flex-start" margin="20px 0">
         <Text fontSize="lg">Estimated Completion Time: </Text>
         <Text color="#7551FF" marginLeft="10px">
-          {dayjs(data.complateTime).format('YYYY-MM-DD HH:mm:ss')}
+          {dayjs(data.complateTime).format('YYYY/MM/DD HH:mm:ss')}
         </Text>
       </Flex>
     </ModalDialog>

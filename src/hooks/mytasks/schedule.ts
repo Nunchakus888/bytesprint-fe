@@ -62,13 +62,11 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
     try {
       const res = await scheduleTask(data.datas);
       toast({
-        title: `Operate SuccessFully`,
+        title: `SuccessFully`,
         status: `success`,
         isClosable: false,
-        onCloseComplete: () => {
-          window.location.reload();
-        },
       });
+      window.location.reload();
       // 保存成功后，可以开始任务
       // setIsStartTask(true)
     } finally {

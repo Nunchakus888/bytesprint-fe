@@ -26,7 +26,7 @@ export default function MyOperatorItem(props: { item: any }) {
             </Text>
             <Box display="flex" justifyContent="space-between">
               <Flex gap="10px">
-                <Tag size="lg" padding="10px" variant="solid" background="rgba(255,255,255,0.05)">
+                <Tag size="lg" padding="10px" variant="solid" background="#1b1e24">
                   珍珠号·1年有效期
                 </Tag>
               </Flex>

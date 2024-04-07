@@ -1,11 +1,11 @@
-import { Box, Button, Code, Container, Flex, Portal, Tag } from '@chakra-ui/react';
+import { Box, Button, Code, Container, Flex, Portal, Tag, useToast } from '@chakra-ui/react';
 import Back from 'components/back';
 import FileReviewer from 'components/fileReview';
 import Loading from 'components/loading';
 import { useMyTaskDetail, useMyTaskDetailStatusAction } from 'hooks/mytasks/detail';
 import { useTaskDetail } from 'hooks/task';
 import { useTaskPlanList } from 'hooks/task/detai';
-import { useUserInfo } from 'hooks/user';
+import { useUserInfo, useWithdraw } from 'hooks/user';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import { Identification, IPath, IStatus, TaskBidStatus } from 'common/constant';
@@ -23,24 +23,26 @@ import TaskUserInfo from 'views/task/detail/taskUserInfo';
 import Evaluate from 'views/task/Evaluate';
 import styles from '../index.module.scss';
 import Navbar from 'components/navbar/Navbar';
+import { useAccount } from 'wagmi';
 
 const TaskDetail = () => {
+  const toast = useToast();
   const router = useRouter();
   const { id = null } = router.query;
   // detail
   const { identification, userInfo } = useUserInfo();
   const { data, isLoading } = useMyTaskDetail(id, userInfo.address);
   // 我的投标记录id
-  const myrecordId = useMemo(() => {
-    const bidSuc = data?.assetRecordList.filter(
+  const myBidSuccessRecord = useMemo(() => {
+    const bidSuc = data?.assetRecordList?.filter(
       (it: any) => it.wallet === userInfo.address && it.signStatus === TaskBidStatus.BID_SUCCESS
     );
     if (bidSuc?.length) {
-      return bidSuc[0].assetRecordId;
+      return bidSuc[0];
     }
   }, [data, userInfo.address]);
-  const { scheduleTask, submitAccept, withdrawMyRewards, completePlanItem } =
-    useMyTaskDetailStatusAction(id, myrecordId);
+  const { scheduleTask, submitAccept, completePlanItem, buttonLoading } =
+    useMyTaskDetailStatusAction(id, myBidSuccessRecord?.assetRecordId);
   // 打开任务排期
   const [openschedule, setSchedule] = useState(false);
   const [scheduledata, setScheduledata] = useState([]);
@@ -84,17 +86,41 @@ const TaskDetail = () => {
   // 完成任务计划
   const completePlan = async (planId: string) => {
     await completePlanItem(planId);
+    toast({
+      title: `SuccessFully`,
+      status: `success`,
+      isClosable: false,
+    });
     window.location.reload();
   };
-
+  const myTaskStatus = useMemo(() => {
+    const myBid = data?.assetRecordList?.filter((it: any) => it.wallet === userInfo.address)[0];
+    // 如果bid 失败了，取失败态
+    if (myBid?.signStatus === TaskBidStatus.BID_FAIL) {
+      return IStatus.UN_BID;
+    }
+    return data?.taskStatus;
+  }, [data?.assetRecordList, data?.taskStatus, userInfo.address]);
+  const { rewardWithdraw, buttonLoading: withdrawLoding } = useWithdraw();
+  const account = useAccount();
   return (
     <>
       <Box>
         <Navbar
           paths={[
-            { path: '#', name: 'Crowdsourcing Management ' },
-            { path: `/${IPath.MYTASKS}`, name: 'My Task' },
-            { path: '#', name: 'Task Details' },
+            {
+              name: 'Crowdsourcing Management ',
+              onClick: () => {
+                router.push('/');
+              },
+            },
+            {
+              name: 'My Task',
+              onClick: () => {
+                router.push(`/${IPath.MYTASKS}`);
+              },
+            },
+            { name: 'Task Details' },
           ]}
         />
       </Box>
@@ -132,10 +158,13 @@ const TaskDetail = () => {
             <Flex direction="column">
               <TaskStatusInfo
                 from={IPath.MYTASKS}
-                taskStatus={data.taskStatus}
+                taskStatus={myTaskStatus}
                 scheduleTask={() => setSchedule(true)}
                 submitAccept={submitAccept}
-                withdrawMyRewards={withdrawMyRewards}
+                withdrawMyRewards={rewardWithdraw}
+                data={data}
+                buttonLoading={buttonLoading}
+                withdrawLoding={withdrawLoding}
               />
               {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
                 <TaskSignedReward recordList={data?.assetRecordList} />
@@ -162,7 +191,7 @@ const TaskDetail = () => {
             </Flex>
           </Box>
         )}
-        <Auth from={IPath.TASKS} />
+        {account?.address && <Auth from={IPath.TASKS} />}
         {openschedule && scheduledata.length && (
           <TaskSchedule
             onClose={() => setSchedule(false)}

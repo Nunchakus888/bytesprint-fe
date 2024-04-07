@@ -42,9 +42,9 @@ export default function EngineerCheck() {
         {data ? (
           <>
             <UserBaseInfo from={IPath.ENGINEERCheck} data={{}} />
-            <UserMajor from={IPath.ENGINEERManage} />
+            <UserMajor from={IPath.ENGINEERManage} userInfo={{}} />
             <UserSkillsTag />
-            <UserExperience data={[{}, {}, {}]} />
+            <UserExperience userInfo={[{}, {}, {}]} />
             <UserCertificates data={[{}, {}, {}]} />
             <UserAttachedResume data={{}} />
             <Flex margin="20px 0" gap="20px">

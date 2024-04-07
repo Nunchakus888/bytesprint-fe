@@ -1,5 +1,6 @@
 // import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { IPath } from 'common/constant';
 import { SearchInput } from 'components/search';
 import FilSelect from 'components/select';
 import { useSingleTaskFilter, useTaskList, useTasks } from 'hooks/task';
@@ -38,6 +39,7 @@ export default function Task() {
       tabs={tabs}
       activeTab={activeTab}
       handleTabChange={handleTabChange}
+      from={IPath.TASKS}
     />
   );
 }

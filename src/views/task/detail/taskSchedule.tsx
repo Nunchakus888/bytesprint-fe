@@ -58,6 +58,9 @@ export default function TaskSchedule(props: {
       title: 'Task Name',
       dataIndex: 'taskname',
       key: 'taskname',
+      render: (_: any, record: any, index: number) => {
+        return <Box width={'300px'}>{record.taskname}</Box>;
+      },
     },
     {
       title: 'Estimated Hours',
@@ -140,34 +143,41 @@ export default function TaskSchedule(props: {
   ];
   return (
     <ModalDialog title="Task scheduling" onClose={onClose} isOpen={true} btnGroup={<></>}>
-      <Box background="rgba(255,255,255,0.05)" padding="10px" margin="10px 0 20px 0">
+      <Box background="#1b1e24" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center">
             Serial Number
           </Flex>
-          <Flex alignItems="center" justifyContent="center" width="300px">
+          <Flex alignItems="center" justifyContent="flex-start" width="300px">
             Task Name
           </Flex>
-          <Flex alignItems="center" justifyContent="center" width="300px">
+          <Flex alignItems="center" justifyContent="center" width="200px">
             Estimated Hours
           </Flex>
-          <Flex width="300px" alignItems="center" justifyContent="center">
+          <Flex width="200px" alignItems="center" justifyContent="center">
             Estimated Start Time
           </Flex>
-          <Flex width="300px" alignItems="center" justifyContent="center">
+          <Flex width="200px" alignItems="center" justifyContent="center">
             Estimated Completion Time
           </Flex>
         </Flex>
         {fields.map((it, index) => {
           return (
-            <Flex key={`line_${index}`} justify="space-between" padding="10px 0">
+            <Flex
+              key={`line_${index}`}
+              justify="space-between"
+              alignItems="flex-start"
+              padding="10px 0"
+            >
               <Flex alignItems="center" justifyContent="center" width="100px">
                 {index + 1}
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px">
-                {it.taskname}
+              <Flex alignItems="center" justifyContent="flex-start" width="300px">
+                <Box width={'300px'} display="inline">
+                  {it.taskname}
+                </Box>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.workhours} isRequired>
                   <Input
                     key={`datas.${index}.workhours`}
@@ -175,7 +185,16 @@ export default function TaskSchedule(props: {
                     type="number"
                     placeholder="Enter"
                     size="md"
-                    {...register(`datas.${index}.workhours`, { required: true, min: 0 })}
+                    {...register(`datas.${index}.workhours`, {
+                      required: true,
+                      min: 0,
+                      valueAsNumber: true,
+                      validate: (value) => {
+                        if (!/^(0|[1-9]\d*)(\.\d{0,2})?$/.test(String(value))) {
+                          return `Maximum 2 decimal places`;
+                        }
+                      },
+                    })}
                   />
                   <FormErrorMessage>
                     {errors?.datas?.[index]?.workhours && (
@@ -184,13 +203,15 @@ export default function TaskSchedule(props: {
                   </FormErrorMessage>
                 </FormControl>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.startTime} isRequired>
                   <SingleDatepicker
                     key={`datas.${index}.startTime`}
                     name="date-input"
                     date={getValues(`datas.${index}.startTime`)}
                     onDateChange={(date) => setValue(`datas.${index}.startTime`, date)}
+                    minDate={new Date()}
+                    maxDate={getValues(`datas.${index}.endTime`)}
                     {...register(`datas.${index}.startTime`, { required: true })}
                   />
                   {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.startTime`, { required: true })}  />  */}
@@ -201,7 +222,7 @@ export default function TaskSchedule(props: {
                   </FormErrorMessage>
                 </FormControl>
               </Flex>
-              <Flex alignItems="center" justifyContent="center" width="300px" paddingRight="10px">
+              <Flex alignItems="center" justifyContent="center" width="200px" paddingRight="10px">
                 <FormControl isInvalid={!!errors?.datas?.[index]?.endTime} isRequired>
                   <SingleDatepicker
                     key={`datas.${index}.endTime`}
@@ -210,6 +231,7 @@ export default function TaskSchedule(props: {
                     // onDateChange={setDate}
                     date={getValues(`datas.${index}.endTime`)}
                     onDateChange={(date) => setValue(`datas.${index}.endTime`, date)}
+                    minDate={getValues(`datas.${index}.startTime`) || new Date()}
                     {...register(`datas.${index}.endTime`, { required: true })}
                   />
                   {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  />  */}

@@ -1,5 +1,5 @@
 import { Box, Button, Text } from '@chakra-ui/react';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { IPath, IStatus, RequirementStatus, TaskStatus } from 'common/constant';
 import styles from './index.module.scss';
 import ModalDialog from 'components/modal';
@@ -11,10 +11,12 @@ export default function TaskStatusInfo(props: {
   acceptTask?: () => void;
   scheduleTask?: () => void;
   submitAccept?: () => void;
-  withdrawMyRewards?: () => void;
+  withdrawMyRewards?: (item: any) => Promise<boolean>;
+  data?: any;
+  buttonLoading?: boolean;
+  withdrawLoding?: boolean;
 }) {
-  const { from, taskStatus } = props;
-
+  const { from, taskStatus, data, buttonLoading, withdrawLoding } = props;
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
       return RequirementStatus.filter((it) => it.value === taskStatus)[0]?.label;
@@ -29,21 +31,52 @@ export default function TaskStatusInfo(props: {
     content: '',
     onSure: () => {},
   });
-
+  // 提取报酬 TODO
+  const handleWithDraw = async () => {
+    debugger;
+    const projectId = String(data.projectRawInfo.id);
+    const isSuccess = await props?.withdrawMyRewards({ projectId });
+    if (isSuccess) {
+      window.location.reload();
+    }
+  };
   const action = useCallback(() => {
     if (from === IPath.MYREQUIREMENT) {
       switch (taskStatus) {
         case IStatus.CLOSED:
           return (
-            <Button className={styles.statusbtn} onClick={props?.openTask}>
-              Open Task
-            </Button>
+            // <Button
+            //   className={styles.statusbtn}
+            //   onClick={() => {
+            //     setIsOpenConfirm(true);
+            //     confirmRef.current.content = `Are you sure open the Task?`;
+            //     confirmRef.current.onSure = () => {
+            //       setIsOpenConfirm(false);
+            //       props?.openTask();
+            //     };
+            //   }}
+            //   isLoading={buttonLoading}
+            // >
+            //   Open Task
+            // </Button>
+            <Text className={styles.statustext}>task closed</Text>
           );
           break;
         case IStatus.EVALUATION:
         case IStatus.WAIT_SIGN:
           return (
-            <Button className={styles.statusbtn} onClick={props?.closeTask}>
+            <Button
+              className={styles.statusbtn}
+              onClick={() => {
+                setIsOpenConfirm(true);
+                confirmRef.current.content = `Are you sure close the Task?`;
+                confirmRef.current.onSure = () => {
+                  setIsOpenConfirm(false);
+                  props?.closeTask();
+                };
+              }}
+              isLoading={buttonLoading}
+            >
               Close Task
             </Button>
           );
@@ -66,13 +99,15 @@ export default function TaskStatusInfo(props: {
                   props?.acceptTask();
                 };
               }}
+              isLoading={buttonLoading}
             >
               I have accepted
             </Button>
           );
           break;
         case IStatus.COMPLETE:
-          return <Button className={styles.statusbtn}>I have completed</Button>;
+          // return <Button className={styles.statusbtn}>I have completed</Button>;
+          return <Text className={styles.statustext}>Completed</Text>;
           break;
         default:
           return <></>;
@@ -88,7 +123,11 @@ export default function TaskStatusInfo(props: {
           break;
         case IStatus.SIGNED:
           return (
-            <Button className={styles.statusbtn} onClick={props?.scheduleTask}>
+            <Button
+              className={styles.statusbtn}
+              onClick={props?.scheduleTask}
+              isLoading={buttonLoading}
+            >
               Task scheduling
             </Button>
           );
@@ -105,6 +144,7 @@ export default function TaskStatusInfo(props: {
                   props?.submitAccept();
                 };
               }}
+              isLoading={buttonLoading}
             >
               Submit for acceptance
             </Button>
@@ -115,7 +155,11 @@ export default function TaskStatusInfo(props: {
           break;
         case IStatus.COMPLETE:
           return (
-            <Button className={styles.statusbtn} onClick={props?.withdrawMyRewards}>
+            <Button
+              className={styles.statusbtn}
+              onClick={handleWithDraw}
+              isLoading={withdrawLoding}
+            >
               Withdraw my rewards
             </Button>
           );
@@ -125,7 +169,7 @@ export default function TaskStatusInfo(props: {
           break;
       }
     }
-  }, [from, taskStatus]);
+  }, [from, taskStatus, buttonLoading, withdrawLoding]);
 
   return (
     <>
@@ -155,7 +199,7 @@ export default function TaskStatusInfo(props: {
             confirmRef.current.content = '';
           }}
           onSure={confirmRef.current.onSure}
-          width="300px"
+          width="400px"
         >
           <Box>{confirmRef.current.content}</Box>
         </ModalDialog>

@@ -3,34 +3,34 @@ import { removeItem } from 'common/utils';
 import { useDisconnect } from 'wagmi';
 import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
-import useListenConnectionEvent from './useListenConnectionEvent';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
-import { Post } from 'common/utils/axios';
+import { Get, Post } from 'common/utils/axios';
+import { useRouter } from 'next/router';
 
 const useConnect = () => {
   const { disconnect: dis } = useDisconnect();
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
-  useListenConnectionEvent();
-
+  const route = useRouter();
   const connect = useCallback(() => {
-    typeof openConnectModal === 'function' && openConnectModal();
+    openConnectModal?.();
   }, [openConnectModal]);
 
   const disconnects = useCallback(
     async function () {
+      await Get(API_ROUTERS.users.LOGOUT, {});
       dis();
-      await Post(API_ROUTERS.users.LOGOUT);
       removeItem('address');
       removeItem('network');
       removeItem('authorization');
       dispatch(setUserInfo({}));
       removeItem('userInfo');
+      route.replace('/guide');
     },
-    [dispatch]
+    [dis, dispatch]
   );
 
   return { isConnected, address, connect, disconnects };

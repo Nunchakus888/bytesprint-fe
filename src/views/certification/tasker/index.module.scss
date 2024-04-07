@@ -1,29 +1,67 @@
 .taskerWrap {
   display: flex;
   min-height: calc(100vh - 136px);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #1b1e24;
   padding: 16px;
   border-radius: 16px;
-  .authorizeCodeWrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
-    max-width: 500px;
+
+  .certificationForm {
+    width: 700px;
     margin: 0 auto;
-    .title {
+    input {
+      font-size: 14px;
+      background-color: transparent !important;
+    }
+    .pageTittle {
       font-size: 20px;
-      font-weight: bolder;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('../../../../public/img/profile/bg.png') no-repeat left center;
+      background-size: 100% 100% !important;
+      height: 120px;
+      margin-bottom: 16px;
+    }
+    .authorizeCodeWrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+      .title {
+        font-size: 20px;
+        font-weight: bolder;
+      }
     }
   }
-}
-.certificationForm {
-  width: 700px;
-  margin: 0 auto;
-  input {
-    font-size: 14px;
-    background-color: transparent !important;
+  .certificationFormConrtent {
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid #404246;
+    padding: 8px;
+    padding-bottom: 32px;
   }
+
+  .formArea {
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.addButton {
+  border: 2px dotted #3a3b3d;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  margin-bottom: 8px;
+  position: relative;
+  top: -8px;
 }

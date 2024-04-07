@@ -45,12 +45,12 @@ export default function MyRequirements() {
       isMine={true}
       from={IPath.MYREQUIREMENT}
     >
-      <Link href={`/myrequirement/add`}>
+      {/* <Link href={`/myrequirement/add`}>
         <Button background="#7551FF" color="#fff">
           <IoMdAdd />
           Publish Requirement
         </Button>
-      </Link>
+      </Link> */}
     </TaskTemplate>
   );
 }
