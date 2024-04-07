@@ -154,6 +154,9 @@ body {
   ) !important; */
   background-position: 5vw 0 !important;
 }
+.v-main-guide {
+  padding: 88px 16px 0px 0px;
+}
 
 @media (max-width: 1200px) {
   .v-main {

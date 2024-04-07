@@ -7,13 +7,14 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import API_ROUTERS from 'api';
 import { Get, Post } from 'common/utils/axios';
+import { useRouter } from 'next/router';
 
 const useConnect = () => {
   const { disconnect: dis } = useDisconnect();
   const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const dispatch = useDispatch();
-
+  const route = useRouter();
   const connect = useCallback(() => {
     openConnectModal?.();
   }, [openConnectModal]);
@@ -27,6 +28,7 @@ const useConnect = () => {
       removeItem('authorization');
       dispatch(setUserInfo({}));
       removeItem('userInfo');
+      route.replace('/guide');
     },
     [dis, dispatch]
   );

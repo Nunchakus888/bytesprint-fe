@@ -47,7 +47,6 @@ const dev = process.env.NODE_ENV !== 'production';
 console.log('dev>>>>', dev);
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
 function checkPortAvailability(port) {
   return new Promise((resolve, reject) => {
     const server = http.createServer();

@@ -192,15 +192,17 @@ export const useUserInfo = () => {
 };
 
 export const useUserRoute = () => {
-  const { identification } = useUserInfo();
+  const { identification, userInfo } = useUserInfo();
   const d = useMemo(() => {
-    console.log('identification>>>>', identification);
-    if (!identification && identification !== Identification.VISITOR) {
-      return noLogin_defaultRoutes;
-    }
+    if (userInfo?.address) {
+      console.log('identification>>>>', identification);
+      if (!identification && identification !== Identification.VISITOR) {
+        return noLogin_defaultRoutes;
+      }
 
-    return routers[identification as Identification];
-  }, [identification]);
+      return routers[identification as Identification];
+    }
+  }, [identification, userInfo]);
   return d;
 };
 

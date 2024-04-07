@@ -9,9 +9,12 @@ import Link from 'next/link';
 import useListenConnectionEvent from 'hooks/useListenConnectionEvent';
 import { FaDiscord, FaFacebook, FaYoutube } from 'react-icons/fa';
 import { BsTwitterX } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 export default function Header() {
   const toast = useToast();
   const { connect } = useConnect();
+  const route = useRouter();
   useListenConnectionEvent();
 
   useEffect(() => {
