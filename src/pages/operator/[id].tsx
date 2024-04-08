@@ -37,7 +37,7 @@ export default function OperatorCheck() {
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         {data ? (
           <>
-            <UserBaseInfo from={IPath.OperatorCheck} data={{}} />
+            <UserBaseInfo from={IPath.OperatorCheck} data={{}} identification={0} />
             <UserMajor from={IPath.OPERATOR} />
             <UserQualify />
             <Flex margin="20px 0" gap="20px">

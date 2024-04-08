@@ -17,7 +17,7 @@ export default function MyOperatorDetail() {
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }} position="relative">
         {data ? (
           <>
-            <UserBaseInfo from={IPath.MYOPERATORDetail} data={{}} />
+            <UserBaseInfo from={IPath.MYOPERATORDetail} data={{}} identification={0} />
             <UserMajor from={IPath.MYOPERATORDetail} />
             <UserQualify />
           </>
