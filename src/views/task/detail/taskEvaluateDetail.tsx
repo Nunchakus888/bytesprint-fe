@@ -91,13 +91,19 @@ export default function TaskEvaluateDetail(props: {
     <ModalDialog title="Evaluation details" onClose={onClose} isOpen={true} btnGroup={<></>}>
       <Flex justifyContent="space-between">
         <Flex justifyContent="space-between" gap="30px" alignItems="flex-start">
-          {userInfoForUid?.walletAddress && (
-            <WalletAvatar value={userInfoForUid?.walletAddress} size={50} />
-          )}
+          {userInfoForUid?.walletAddress ||
+            (userInfoForUid?.data?.walletAddress && (
+              <WalletAvatar
+                value={userInfoForUid?.walletAddress || userInfoForUid?.data?.walletAddress}
+                size={50}
+              />
+            ))}
           <Flex justifyContent="space-between" direction="column">
             {/* 职位类型 */}
             <Flex justifyContent="center" gap="10px">
-              {userInfoForUid?.engineer?.position?.map((positionType: number) => {
+              {(
+                userInfoForUid?.engineer?.position || userInfoForUid?.data?.engineer?.position
+              )?.map((positionType: number) => {
                 return (
                   <Tag
                     key={`positiontype_${positionType}`}
@@ -112,7 +118,9 @@ export default function TaskEvaluateDetail(props: {
               })}
             </Flex>
             <Flex marginTop="20px" direction="column">
-              <Text fontSize={16}>{userInfoForUid?.nickname}</Text>
+              <Text fontSize={16}>
+                {userInfoForUid?.nickname || userInfoForUid?.data?.nickname}
+              </Text>
               <Text marginTop="10px" fontSize={12}>
                 {shortAddress(record?.wallet.toString() || '')}
               </Text>
@@ -121,7 +129,7 @@ export default function TaskEvaluateDetail(props: {
           <Flex>
             <Tag fontSize={16} padding="10px" className={styles.engineer}>
               {/* @ts-ignore */}
-              {USER_LEVEL[userInfoForUid?.data?.level]}
+              {USER_LEVEL[String(userInfoForUid?.data?.level) || userInfoForUid?.level]}
             </Tag>
           </Flex>
         </Flex>
