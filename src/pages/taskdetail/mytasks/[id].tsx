@@ -73,13 +73,24 @@ const TaskDetail = () => {
     }
   }, [openschedule, data, userInfo]);
 
+  // 我的任务状态
+  const myTaskStatus = useMemo(() => {
+    const myBid = data?.assetRecordList?.filter((it: any) => it.wallet === userInfo.address)[0];
+    // 如果bid 失败了，取失败态
+    if (myBid?.signStatus === TaskBidStatus.BID_FAIL) {
+      return IStatus.UN_BID;
+    }
+    return data?.taskStatus;
+  }, [data?.assetRecordList, data?.taskStatus, userInfo.address]);
+  // 是否展示扩展任务信息
   const isShowExtendTaskInfo = useMemo(() => {
-    console.log('data?.taskStatus>>>>', data?.taskStatus);
+    // 若我未中标，不展示
+    if (myTaskStatus === IStatus.UN_BID) return false;
     if ([IStatus.CODEING, IStatus.WAIT_ACCEPT, IStatus.COMPLETE].includes(data?.taskStatus)) {
       return true;
     }
     return false;
-  }, [data?.taskStatus]);
+  }, [data?.taskStatus, myTaskStatus]);
   // 任务计划列表
   const { planlist, openRecordDetailId, handleOpenRecordDetail, closeRecordDetail } =
     useTaskPlanList(data, isShowExtendTaskInfo);
@@ -93,14 +104,7 @@ const TaskDetail = () => {
     });
     window.location.reload();
   };
-  const myTaskStatus = useMemo(() => {
-    const myBid = data?.assetRecordList?.filter((it: any) => it.wallet === userInfo.address)[0];
-    // 如果bid 失败了，取失败态
-    if (myBid?.signStatus === TaskBidStatus.BID_FAIL) {
-      return IStatus.UN_BID;
-    }
-    return data?.taskStatus;
-  }, [data?.assetRecordList, data?.taskStatus, userInfo.address]);
+
   const { rewardWithdraw, buttonLoading: withdrawLoding } = useWithdraw();
   const account = useAccount();
   return (
@@ -166,7 +170,7 @@ const TaskDetail = () => {
                 buttonLoading={buttonLoading}
                 withdrawLoding={withdrawLoding}
               />
-              {(isShowExtendTaskInfo || data?.taskStatus === IStatus.SIGNED) && (
+              {data?.taskStatus >= IStatus.SIGNED && (
                 <TaskSignedReward recordList={data?.assetRecordList} />
               )}
               <TaskUserInfo title="My Information" userInfo={userInfo} />
