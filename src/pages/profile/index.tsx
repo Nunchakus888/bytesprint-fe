@@ -45,7 +45,6 @@ export default function ProfileOverview() {
     if (!identification && identification !== Identification.VISITOR) {
       router.replace('/');
     }
-    debugger;
     getOwnInfo();
   }, []);
 
