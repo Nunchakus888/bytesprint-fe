@@ -359,7 +359,6 @@ export const useMyRequirementDetail = (id: string | string[], address: string) =
       setData(res?.projectDetailInfo || {});
       return res;
     } catch (e) {
-      debugger;
       console.log(e);
       setLoading(false);
     }
