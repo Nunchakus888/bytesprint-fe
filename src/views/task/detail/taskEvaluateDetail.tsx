@@ -129,7 +129,7 @@ export default function TaskEvaluateDetail(props: {
           <Flex>
             <Tag fontSize={16} padding="10px" className={styles.engineer}>
               {/* @ts-ignore */}
-              {USER_LEVEL[String(userInfoForUid?.data?.level) || userInfoForUid?.level]}
+              {USER_LEVEL[0]}
             </Tag>
           </Flex>
         </Flex>
