@@ -105,8 +105,10 @@ export default function UserExperience(props: { userInfo: any }) {
                     <Flex gap="5px">
                       <Text>
                         {EducationTypes.filter((v) => v.value === it.education)[0]?.label}
-                      </Text>{' '}
-                      · <Text>{it.major}</Text>
+                      </Text>
+                    </Flex>
+                    <Flex gap="5px">
+                      <Text>{it.major}</Text>
                     </Flex>
                   </Flex>
                   <Flex minWidth="177px" justifyContent="flex-end" alignItems="flex-start">

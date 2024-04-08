@@ -13,11 +13,10 @@ export default function UserMajor(props: {
   // const from = IPath.ENGINEERManage
   const educationVal = useMemo(() => {
     if (isEngineer) {
-      const maxEdu = userInfo?.data?.engineer?.educationList?.sort((a: any, b: any) =>
-        a.education > b.education ? -1 : 1
-      );
+      const edus = userInfo?.data?.engineer?.educationList?.map((v: any) => v.education);
+      const maxEdu = edus?.sort((a: any, b: any) => (+a > +b ? -1 : 1));
       if (maxEdu?.length > 0) {
-        return EducationTypes.filter((v) => +v.value === +maxEdu[0].education)[0]?.label;
+        return EducationTypes.filter((v) => +v.value === +maxEdu[0])[0]?.label;
       }
       return null;
     }
