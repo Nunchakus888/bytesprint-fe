@@ -17,6 +17,7 @@ export default function TaskStatusInfo(props: {
   withdrawLoding?: boolean;
 }) {
   const { from, taskStatus, data, buttonLoading, withdrawLoding } = props;
+  console.log('>>taskStatus', taskStatus);
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
       return RequirementStatus.filter((it) => it.value === taskStatus)[0]?.label;
@@ -33,7 +34,6 @@ export default function TaskStatusInfo(props: {
   });
   // 提取报酬 TODO
   const handleWithDraw = async () => {
-    debugger;
     const projectId = String(data.projectRawInfo.id);
     const isSuccess = await props?.withdrawMyRewards({ projectId });
     if (isSuccess) {
@@ -152,6 +152,9 @@ export default function TaskStatusInfo(props: {
           break;
         case IStatus.WAIT_ACCEPT:
           return <Text className={styles.statustext}>Waiting accepted</Text>;
+          break;
+        case IStatus.CLOSED:
+          return <Text className={styles.statustext}>task closed</Text>;
           break;
         case IStatus.COMPLETE:
           return (

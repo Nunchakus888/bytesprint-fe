@@ -195,6 +195,10 @@ export const TaskStatus = [
     label: 'Published',
     value: IStatus.PUBLISHED,
   },
+  {
+    label: 'Closed',
+    value: IStatus.CLOSED,
+  },
 ];
 
 // 职位类型

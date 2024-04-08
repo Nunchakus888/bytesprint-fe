@@ -26,7 +26,7 @@ export default function TaskBidRecords(props: {
   const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
   const { userInfo } = useUserInfo();
   // 将自己的评估记录置顶
-  const myRecordIndex = recordList.findIndex((item) => item.wallet === userInfo?.address);
+  const myRecordIndex = recordList?.findIndex((item) => item.wallet === userInfo?.address);
   if (myRecordIndex > 0) {
     const myRecord = recordList.splice(myRecordIndex, 1);
     recordList.unshift(myRecord[0]);
