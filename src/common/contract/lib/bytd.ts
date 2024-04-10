@@ -95,7 +95,8 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
   try {
     // 授权
     let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, totalCost);
+    const approve_ammounts = new BN(totalCost).times(Math.pow(10, 18)).toFixed(0);
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
     if (!eth20Approve) {
       return false;
     }
