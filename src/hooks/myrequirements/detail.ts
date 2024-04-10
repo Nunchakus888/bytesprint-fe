@@ -63,8 +63,8 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
       return false;
     }
-    const isUncorrectChain = await checkChain();
-    if (isUncorrectChain) {
+    const isCorrectChain = await checkChain();
+    if (!isCorrectChain) {
       const isSwitch = await switchChain();
       if (!isSwitch) {
         setButtonLoading(false);
@@ -99,8 +99,8 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
       return false;
     }
-    const isUncorrectChain = await checkChain();
-    if (isUncorrectChain) {
+    const isCorrectChain = await checkChain();
+    if (!isCorrectChain) {
       const isSwitch = await switchChain();
       if (!isSwitch) {
         setSignLoading(false);
@@ -136,8 +136,8 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setSignLoading(false);
       return false;
     }
-    const isUncorrectChain = await checkChain();
-    if (isUncorrectChain) {
+    const isCorrectChain = await checkChain();
+    if (!isCorrectChain) {
       const isSwitch = await switchChain();
       if (!isSwitch) {
         setSignLoading(false);

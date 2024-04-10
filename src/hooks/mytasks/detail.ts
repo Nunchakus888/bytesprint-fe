@@ -27,8 +27,8 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       setButtonLoading(false);
       return false;
     }
-    const isUncorrectChain = await checkChain();
-    if (isUncorrectChain) {
+    const isCorrectChain = await checkChain();
+    if (!isCorrectChain) {
       const isSwitch = await switchChain();
       if (!isSwitch) {
         setButtonLoading(false);
@@ -68,8 +68,8 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       setButtonLoading(false);
       return false;
     }
-    const isUncorrectChain = await checkChain();
-    if (isUncorrectChain) {
+    const isCorrectChain = await checkChain();
+    if (!isCorrectChain) {
       const isSwitch = await switchChain();
       if (!isSwitch) {
         setButtonLoading(false);
