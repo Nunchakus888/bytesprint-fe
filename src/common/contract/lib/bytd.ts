@@ -58,8 +58,8 @@ export const publishTask = async ({ account, projectId }: any) => {
   } catch (e) {
     onErrorToast('Publishing task failed');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 评估质押 接包方质押
@@ -67,13 +67,15 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
   try {
     // 授权
     let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-    console.log('BN(amount)>>>', BN(amount));
-    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, new BN(amount).toNumber());
+    const approve_ammounts = new BN(amount / 10).times(Math.pow(10, 18)).toFixed(0);
+    const evaluate_ammounts = new BN(amount).times(Math.pow(10, 18)).toFixed(0);
+    console.log('eva>>>', approve_ammounts, evaluate_ammounts);
+    const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
     if (!eth20Approve) {
       return false;
     }
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
-    const result = await bytdInstance.evaluateTask(String(projectId), new BN(amount).toNumber());
+    const result = await bytdInstance.evaluateTask(String(projectId), evaluate_ammounts);
     console.log('result>>>', result);
     if (result) {
       const receipt = await result.wait();
@@ -84,8 +86,8 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Pledge failed');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 签约任务
@@ -110,8 +112,8 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Signing task failed');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 开始任务
@@ -129,8 +131,8 @@ export const startTask = async ({ projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Failed to start task');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 提交任务
@@ -148,8 +150,8 @@ export const submitTask = async ({ projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Failed to submit task');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 验收任务
@@ -167,8 +169,8 @@ export const acceptTask = async ({ projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Acceptance task failed');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 关闭任务
@@ -186,8 +188,8 @@ export const closeTask = async ({ projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Failed to close task');
     console.log(e.message);
+    return false;
   }
-  return false;
 };
 
 // 提取质押金，只有tasker才能提取质押金。
@@ -203,8 +205,8 @@ export const withdrawStakedToken = async ({ account, projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw pledged funds');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 // 提取奖励，只有tasker才能提取奖励。
@@ -220,8 +222,8 @@ export const withdrawReward = async ({ account, projectId }: any) => {
   } catch (e: any) {
     onErrorToast(getErrorMessage(e.message) || 'Failed to withdraw reward funds');
     console.log(e);
+    return false;
   }
-  return false;
 };
 
 function getErrorMessage(message: string) {
