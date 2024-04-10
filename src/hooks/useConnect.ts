@@ -28,7 +28,6 @@ const useConnect = () => {
       removeItem('authorization');
       dispatch(setUserInfo({}));
       removeItem('userInfo');
-      route.replace('/guide');
     },
     [dis, dispatch]
   );

@@ -8,6 +8,7 @@ import { Get, Post } from 'common/utils/axios';
 import getSigner from 'common/contract/lib/getSigner';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useCheckLogin } from './useCheckLogin';
+import { useRouter } from 'next/router';
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
@@ -16,6 +17,7 @@ const useListenConnectionEvent = () => {
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
   const { checkLogin } = useCheckLogin();
+  const route = useRouter();
   //监听到登录退出
   useEffect(() => {
     //@ts-ignore
@@ -31,6 +33,12 @@ const useListenConnectionEvent = () => {
 
   useEffect(() => {
     const localAddress = localStorage.getItem('address') || '';
+    console.log('address>>>>', address);
+    // 若没有address （未登录）
+    if (!address) {
+      route.replace('/guide');
+      return;
+    }
     if (address !== undefined && ethers.utils.isAddress(address)) {
       localStorage.setItem('address', address);
       checkLogin();
