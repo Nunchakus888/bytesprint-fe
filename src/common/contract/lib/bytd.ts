@@ -71,7 +71,12 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
     const evaluate_ammounts = new BN(amount).times(Math.pow(10, 18)).toFixed(0);
     console.log('eva>>>', approve_ammounts, evaluate_ammounts);
     const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
-    if (!eth20Approve) {
+    let approveRes = true;
+    if (eth20Approve) {
+      const receipt = await eth20Approve.wait();
+      approveRes = receipt?.status === 1;
+    }
+    if (!approveRes) {
       return false;
     }
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
@@ -97,7 +102,12 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
     let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
     const approve_ammounts = new BN(totalCost).times(Math.pow(10, 18)).toFixed(0);
     const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
-    if (!eth20Approve) {
+    let approveRes = true;
+    if (eth20Approve) {
+      const receipt = await eth20Approve.wait();
+      approveRes = receipt?.status === 1;
+    }
+    if (!approveRes) {
       return false;
     }
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
