@@ -17,7 +17,7 @@ export const useCheckLogin = () => {
     // 新增时间检验，超过了4小时的设置，直接设置为空
     const expireTime = 4 * 60 * 60 * 1000;
     // test
-    // const expireTime = 1 * 1 * 60 * 1000;
+    // const expireTime = 1 * 1 * 10 * 1000;
     if (userInfo && userInfo.timestamp + expireTime < Date.now()) {
       userInfo = {};
     }

@@ -41,9 +41,9 @@ body {
   color: #fff !important;
 }
 
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .theme-button {
   background-color: var(--theme-color) !important;
@@ -194,8 +194,8 @@ select[name='rcrs-region'] {
   }
 }
 
-*::-webkit-scrollbar {
-  width: 0.0001rem;
+/* *::-webkit-scrollbar {
+  width: 4px;
 }
 
 *::-webkit-scrollbar-track {
@@ -205,7 +205,7 @@ select[name='rcrs-region'] {
 *::-webkit-scrollbar-thumb {
   background-color: #111519;
   border-radius: 0.2rem;
-}
+} */
 
 .raw-scrollbar::-webkit-scrollbar {
   height: 1rem;

@@ -116,8 +116,8 @@ export default function Evaluate(props: {
                         min: 0,
                         valueAsNumber: true,
                         validate: (value) => {
-                          if (!/^(0|[1-9]\d*)(\.\d{0,2})?$/.test(String(value))) {
-                            return `Maximum 2 decimal places`;
+                          if (!/^(0|[1-9]\d*)$/.test(String(value))) {
+                            return `Decimal places not supported`;
                           }
                         },
                       })}

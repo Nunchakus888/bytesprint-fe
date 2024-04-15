@@ -1,4 +1,5 @@
 import { Box, Text, Flex, Image, Tag, Tooltip } from '@chakra-ui/react';
+import classNames from 'classnames';
 import { IStatus, PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
 import styles from './index.module.scss';
@@ -25,7 +26,7 @@ export default function UserMyPledge(props: { data: any[]; refresh: () => void }
       height="500px"
       overflow="scroll"
       width="100%"
-      className={styles.container}
+      className={classNames(styles.container)}
     >
       <Text fontSize={18} fontWeight="bold">
         My Pledge

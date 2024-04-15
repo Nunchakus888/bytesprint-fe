@@ -9,6 +9,7 @@ import getSigner from 'common/contract/lib/getSigner';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useCheckLogin } from './useCheckLogin';
 import { useRouter } from 'next/router';
+import _ from 'lodash';
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
@@ -43,7 +44,7 @@ const useListenConnectionEvent = () => {
       localStorage.setItem('address', address);
       checkLogin();
     }
-  }, [address, disconnect, dispatch]);
+  }, [address]);
 };
 
 export default useListenConnectionEvent;

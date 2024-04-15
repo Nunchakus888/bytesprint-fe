@@ -81,11 +81,16 @@ export default function TaskTemplate(props: {
           </Box>
           <div className={styles.line} />
           <TabPanels padding="0">
-            {tabs?.map((it) => {
+            {tabs?.map((it, index) => {
               return (
                 <TabPanel padding="0" key={`${it?.label}_tabcontent`}>
                   {it.label === TabsEnum.SINGLE_TASK && (
-                    <SingleTask single={data} isMine={props.isMine} from={props.from} />
+                    <SingleTask
+                      key={`t_${index}`}
+                      single={data}
+                      isMine={props.isMine}
+                      from={props.from}
+                    />
                   )}
                   {/* {it.label === TabsEnum.PERSON_TASK && (
                     <PersonTask person={data} isMine={props.isMine} from={props.from} />
