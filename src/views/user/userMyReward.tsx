@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { GoLinkExternal } from 'react-icons/go';
 import { PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
+import classNames from 'classnames';
 
 export default function UserMyReward(props: { data: any[]; refresh: () => void }) {
   const { data, refresh } = props;
@@ -27,8 +28,9 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
       paddingBottom="20px"
       height="500px"
       overflow="scroll"
+      overflowX="hidden"
       width="100%"
-      className={styles.container}
+      className={classNames('raw-scrollbar', styles.container)}
     >
       <Text fontSize={18} fontWeight="bold">
         My Rewards

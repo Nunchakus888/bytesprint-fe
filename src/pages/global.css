@@ -209,6 +209,7 @@ select[name='rcrs-region'] {
 
 .raw-scrollbar::-webkit-scrollbar {
   height: 1rem;
+  width: 0.4rem;
 }
 .raw-scrollbar::-webkit-scrollbar-track {
   opacity: 0.8;

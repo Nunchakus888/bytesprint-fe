@@ -25,8 +25,9 @@ export default function UserMyPledge(props: { data: any[]; refresh: () => void }
       paddingBottom="20px"
       height="500px"
       overflow="scroll"
+      overflowX="hidden"
       width="100%"
-      className={classNames(styles.container)}
+      className={classNames('raw-scrollbar', styles.container)}
     >
       <Text fontSize={18} fontWeight="bold">
         My Pledge
