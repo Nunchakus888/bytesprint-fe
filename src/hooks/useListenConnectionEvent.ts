@@ -4,12 +4,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoginLoading, setUserInfo } from 'common/slice/commonSlice';
 import { getItem, removeItem, setItem } from 'common/utils';
-import { Get, Post } from 'common/utils/axios';
-import getSigner from 'common/contract/lib/getSigner';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useCheckLogin } from './useCheckLogin';
 import { useRouter } from 'next/router';
-import _ from 'lodash';
 
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
