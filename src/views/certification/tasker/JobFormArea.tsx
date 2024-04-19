@@ -1,21 +1,23 @@
 import styles from './index.module.scss';
 
 import React, { useCallback, useEffect } from 'react';
-import { FormControl, FormLabel, Input, Box } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Box, FormErrorMessage } from '@chakra-ui/react';
 
 import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import { MdClose, MdOutlineAdd } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
+import { IJobItem } from './CertificationForm';
+import { Controller } from 'react-hook-form';
 
-const defaultItem = {
+const defaultItem: IJobItem = {
   companyName: '',
   department: '',
   position: '',
-  startTime: new Date(),
-  endTime: new Date(),
+  startTime: undefined,
+  endTime: undefined,
 };
 
-export default function EducationFormArea({ value = [], onChange }: any) {
+export default function EducationFormArea({ value = [], onChange, error, register }: any) {
   useEffect(() => {
     if (value?.length === 0) {
       onChange([defaultItem]);
@@ -88,6 +90,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
                   onDateChange={(val) => {
                     handleChange('startTime', val, index);
                   }}
+                  maxDate={value[index].endTime || new Date()}
                 />
                 <span className="mx-4">-</span>
                 <SingleDatepicker
@@ -95,6 +98,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
                   onDateChange={(val) => {
                     handleChange('endTime', val, index);
                   }}
+                  maxDate={new Date()}
                 />
               </div>
             </FormControl>

@@ -26,6 +26,22 @@ import { useCheckLogin } from 'hooks/useCheckLogin';
 import PhoneInput from 'react-phone-number-input';
 import { useRouter } from 'next/router';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import dayjs from 'dayjs';
+
+export interface IJobItem {
+  companyName: string;
+  department: string;
+  position: string;
+  startTime: Date | undefined;
+  endTime: Date | undefined;
+}
+export interface IEducationItem {
+  school: string;
+  startTime: Date | undefined;
+  endTime: Date | undefined;
+  education: string;
+  major: string;
+}
 const CertificationForm = ({ authorizeCode }: any) => {
   const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit, setValue, getValues, reset } = useForm();
@@ -44,23 +60,49 @@ const CertificationForm = ({ authorizeCode }: any) => {
         eductionRange,
         education,
         skillList,
-        educationList,
-        jobList,
+        // educationList,
+        // jobList,
         ...restValues
       } = values;
+      // 过滤jobList
+      const jobList = values.jobList?.reduce((pre: IJobItem[], cur: IJobItem, index: number) => {
+        if (cur.companyName && cur.department && cur.position && cur.startTime && cur.endTime) {
+          pre.push(cur);
+        }
+        return pre;
+      }, []);
+      // 过滤educationList
+      const educationList = values.educationList?.reduce(
+        (pre: IEducationItem[], cur: IEducationItem, index: number) => {
+          if (cur.education && cur.major && cur.school && cur.startTime && cur.endTime) {
+            pre.push(cur);
+          }
+          return pre;
+        },
+        []
+      );
+      console.log('jobList>>>', jobList);
       const params = {
+        ...restValues,
         position: position?.map((it: any) => it.value),
         experience: experience?.value,
         skillList: skillList?.split(','),
-        jobList: jobList,
+        jobList: jobList?.map((it: any) => {
+          return {
+            ...it,
+            startTime: dayjs(it.startTime).format('YYYY-MM-DD HH:mm:ss'),
+            endTime: dayjs(it.endTime).format('YYYY-MM-DD HH:mm:ss'),
+          };
+        }),
         educationList: educationList?.map((it: any) => {
           return {
             ...it,
             education: it.education?.value,
+            startTime: dayjs(it.startTime).format('YYYY-MM-DD HH:mm:ss'),
+            endTime: dayjs(it.endTime).format('YYYY-MM-DD HH:mm:ss'),
           };
         }),
         authorizeCode,
-        ...restValues,
         certificateList: files.map((it) => {
           return {
             expiration: null,
@@ -70,7 +112,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
           };
         }),
       };
-      // console.log('提交表单', values);
+      console.log('提交表单', params);
       const res = await Post(API_ROUTERS.users.CERTIF_ENGINEER(), params);
       setLoading(false);
       onSuccessToast('Submission successful, please wait for approval');
@@ -82,7 +124,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
   };
 
   useEffect(() => {
-    setValue('authorizeCode', authorizeCode);
+    setValue(`authorizeCode`, authorizeCode);
   }, [authorizeCode, setValue]);
 
   useEffect(() => {

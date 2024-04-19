@@ -8,11 +8,12 @@ import { SingleDatepicker } from 'chakra-dayzed-datepicker';
 import { EducationTypes } from 'common/constant';
 import { MdClose, MdOutlineAdd } from 'react-icons/md';
 import { v4 as uuidv4 } from 'uuid';
+import { IEducationItem } from './CertificationForm';
 
-const defaultItem = {
+const defaultItem: IEducationItem = {
   school: '',
-  startTime: new Date(),
-  endTime: new Date(),
+  startTime: undefined,
+  endTime: undefined,
   education: '',
   major: '',
 };
@@ -90,6 +91,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
                   onDateChange={(val) => {
                     handleChange('startTime', val, index);
                   }}
+                  maxDate={value[index].endTime || new Date()}
                 />
                 <span className="mx-4">-</span>
                 <SingleDatepicker
@@ -97,6 +99,7 @@ export default function EducationFormArea({ value = [], onChange }: any) {
                   onDateChange={(val) => {
                     handleChange('endTime', val, index);
                   }}
+                  maxDate={new Date()}
                 />
               </div>
             </FormControl>
