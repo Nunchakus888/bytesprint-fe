@@ -154,18 +154,19 @@ export default function TaskStatusInfo(props: {
           return <Text className={styles.statustext}>Waiting accepted</Text>;
           break;
         case IStatus.CLOSED:
-          return <Text className={styles.statustext}>task closed</Text>;
+          return <Text className={styles.statustext}>Task closed</Text>;
           break;
         case IStatus.COMPLETE:
-          return (
-            <Button
-              className={styles.statusbtn}
-              onClick={handleWithDraw}
-              isLoading={withdrawLoding}
-            >
-              Withdraw my rewards
-            </Button>
-          );
+          // return (
+          //   <Button
+          //     className={styles.statusbtn}
+          //     onClick={handleWithDraw}
+          //     isLoading={withdrawLoding}
+          //   >
+          //     Withdraw my rewards
+          //   </Button>
+          // );
+          return <Text className={styles.statustext}>Completed</Text>;
           break;
         default:
           return <></>;

@@ -47,7 +47,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       projectId: id,
     });
     toast({
-      title: `SuccessFully`,
+      title: `Success`,
       status: `success`,
       isClosable: false,
     });
@@ -84,7 +84,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
     });
     toast({
-      title: `SuccessFully`,
+      title: `Success`,
       status: `success`,
       isClosable: false,
     });
@@ -120,7 +120,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       setButtonLoading(false);
     });
     toast({
-      title: `SuccessFully`,
+      title: `Success`,
       status: `success`,
       isClosable: false,
     });
@@ -169,7 +169,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         return false;
       }
       toast({
-        title: `SuccessFully`,
+        title: `Success`,
         status: `success`,
         isClosable: false,
       });
@@ -189,7 +189,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       // status: TaskBidStatus.BID_FAIL
     });
     toast({
-      title: `SuccessFully`,
+      title: `Success`,
       status: `success`,
       isClosable: true,
       onCloseComplete: () => {

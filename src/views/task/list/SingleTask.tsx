@@ -119,7 +119,7 @@ function SingleTask(props: {
             hasMore={hasMore}
             loader={<Loading />}
             scrollableTarget="items_list_scrollable_box"
-            // className={styles.scrollBox}
+            className="raw-scrollbar"
             scrollThreshold="10px"
           >
             {data.map((item: any, index: number) => {

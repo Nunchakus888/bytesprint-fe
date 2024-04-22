@@ -97,7 +97,7 @@ export const useAddRequirement = () => {
         setButtonLoading(false);
       });
       toast({
-        title: `SuccessFully`,
+        title: `Success`,
         status: `success`,
         isClosable: false,
       });

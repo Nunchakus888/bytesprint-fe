@@ -36,6 +36,8 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       }
     }
     const res1 = await startTask({ projectId: id });
+    console.log('res1>>>>>', res1);
+    debugger;
     if (!res1) {
       setButtonLoading(false);
       return false;
@@ -90,7 +92,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       setButtonLoading(false);
     });
     toast({
-      title: `SuccessFully`,
+      title: `Success`,
       status: `success`,
       isClosable: false,
     });
