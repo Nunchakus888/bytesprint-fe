@@ -96,6 +96,9 @@ export const useAddRequirement = () => {
       const res = await Post(API_ROUTERS.tasks.PROJECT_SUBMIT, _params).finally(() => {
         setButtonLoading(false);
       });
+      if (res?.result?.code !== 0) {
+        return false;
+      }
       toast({
         title: `Success`,
         status: `success`,

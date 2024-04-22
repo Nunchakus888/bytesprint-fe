@@ -46,6 +46,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       walletAddress: userInfo.address,
       projectId: id,
     });
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,
@@ -83,6 +86,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     }).finally(() => {
       setButtonLoading(false);
     });
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,
@@ -119,6 +125,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     }).finally(() => {
       setButtonLoading(false);
     });
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,
@@ -165,7 +174,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
         assetRecordId,
         status: TaskBidStatus.BID_SUCCESS,
       });
-      if (res.result.code !== 0) {
+      if (res?.result?.code !== 0) {
         return false;
       }
       toast({
@@ -188,6 +197,9 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
       assetRecordId,
       // status: TaskBidStatus.BID_FAIL
     });
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,

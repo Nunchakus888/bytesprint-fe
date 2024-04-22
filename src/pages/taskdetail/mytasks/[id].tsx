@@ -96,7 +96,10 @@ const TaskDetail = () => {
     useTaskPlanList(data, isShowExtendTaskInfo);
   // 完成任务计划
   const completePlan = async (planId: string) => {
-    await completePlanItem(planId);
+    const res = await completePlanItem(planId);
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,

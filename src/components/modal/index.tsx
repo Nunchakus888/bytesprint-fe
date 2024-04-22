@@ -20,11 +20,29 @@ export default function ModalDialog(props: {
   btnGroup?: React.ReactNode;
   isLoading?: boolean;
   width?: string;
+  closeOnOverlayClick?: boolean;
 }) {
-  const { isOpen, onClose, title, buttonText, onSure, children, size, btnGroup, isLoading, width } =
-    props;
+  const {
+    isOpen,
+    onClose,
+    title,
+    buttonText,
+    onSure,
+    children,
+    size,
+    btnGroup,
+    isLoading,
+    width,
+    closeOnOverlayClick = true,
+  } = props;
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={size || '6xl'} isCentered={true}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={size || '6xl'}
+      isCentered={true}
+      closeOnOverlayClick={closeOnOverlayClick}
+    >
       <ModalOverlay />
       <ModalContent background="rgb(15, 17, 20)" width={width}>
         <ModalHeader>{title}</ModalHeader>

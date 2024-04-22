@@ -52,6 +52,7 @@ export default function Evaluate(props: {
       buttonText="Evaluate pledge"
       onSure={handleSure}
       isLoading={isLoading}
+      closeOnOverlayClick={false}
     >
       <Box>
         <Text fontSize="lg">Task planList</Text>

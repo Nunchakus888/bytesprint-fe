@@ -148,7 +148,7 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
         requirementList,
       };
       const res = await Post(API_ROUTERS.tasks.EVALUATE, params);
-      if (res.result.code !== 0) {
+      if (res?.result?.code !== 0) {
         return false;
       }
       // 请求成功后返回任务列表

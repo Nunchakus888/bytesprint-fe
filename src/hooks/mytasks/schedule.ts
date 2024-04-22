@@ -61,14 +61,15 @@ export const useSchedule = ({ scheduleTask, startTask, taskId, scheduledata }: a
     console.log('调用任务排期接口>>>>', data.datas);
     try {
       const res = await scheduleTask(data.datas);
-      if (res) {
-        toast({
-          title: `Success`,
-          status: `success`,
-          isClosable: false,
-        });
-        window.location.reload();
+      if (res?.result?.code !== 0) {
+        return false;
       }
+      toast({
+        title: `Success`,
+        status: `success`,
+        isClosable: false,
+      });
+      window.location.reload();
     } finally {
       setSubmitLoading(false);
     }

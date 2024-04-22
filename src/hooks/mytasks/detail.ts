@@ -57,7 +57,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     }).finally(() => {
       setButtonLoading(false);
     });
-    return res?.result?.code === 0;
+    return res;
   };
   // 提交验收
   const submitAccept = async () => {
@@ -88,6 +88,9 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     }).finally(() => {
       setButtonLoading(false);
     });
+    if (res?.result?.code !== 0) {
+      return false;
+    }
     toast({
       title: `Success`,
       status: `success`,

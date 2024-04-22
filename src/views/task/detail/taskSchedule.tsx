@@ -45,104 +45,110 @@ export default function TaskSchedule(props: {
     console.log('fields', fields);
   }, [fields]);
 
-  const columns = [
-    {
-      title: 'Serial Number',
-      dataIndex: 'xuhao',
-      key: 'xuhao',
-      render: (_: any, record: any, index: number) => {
-        return <Box paddingLeft="5px">{index + 1}</Box>;
-      },
-    },
-    {
-      title: 'Task Name',
-      dataIndex: 'taskname',
-      key: 'taskname',
-      render: (_: any, record: any, index: number) => {
-        return <Box width={'300px'}>{record.taskname}</Box>;
-      },
-    },
-    {
-      title: 'Estimated Hours',
-      dataIndex: 'workhours',
-      key: 'workhours',
-      render: (_: any, record: any, index: number) => {
-        return (
-          // <Controller
-          //   render={props => <Input {...props} key={`datas.${index}.workhours`} color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  /> }
-          //   name={`datas.${index}.workhours`}
-          //   control={control}
-          // />
-          <FormControl isInvalid={!!errors?.datas?.[index]?.workhours} isRequired>
-            <Input
-              key={`datas.${index}.workhours`}
-              color="#fff"
-              type="number"
-              placeholder="Enter"
-              size="md"
-              {...register(`datas.${index}.workhours`, { required: true })}
-            />
-            <FormErrorMessage>
-              {errors?.datas?.[index]?.workhours && (
-                <>{errors?.datas?.[index]?.workhours.message}</>
-              )}
-            </FormErrorMessage>
-          </FormControl>
-        );
-      },
-    },
-    {
-      title: 'Estimated Start Time',
-      dataIndex: 'startTime',
-      key: 'startTime',
-      render: (_: any, record: any, index: number) => {
-        return (
-          <FormControl isInvalid={!!errors?.datas?.[index]?.startTime} isRequired>
-            <SingleDatepicker
-              key={`datas.${index}.startTime`}
-              name="date-input"
-              date={getValues(`datas.${index}.startTime`)}
-              onDateChange={(date) => setValue(`datas.${index}.startTime`, date)}
-              {...register(`datas.${index}.startTime`, { required: true })}
-            />
-            {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.startTime`, { required: true })}  />  */}
-            <FormErrorMessage>
-              {errors?.datas?.[index]?.startTime && (
-                <>{errors?.datas?.[index]?.startTime.message}</>
-              )}
-            </FormErrorMessage>
-          </FormControl>
-        );
-      },
-    },
-    {
-      title: 'Estimated Completion Time',
-      dataIndex: 'endTime',
-      key: 'endTime',
-      render: (_: any, record: any, index: number) => {
-        console.log('getValues(`datas.${index}.endTime`)', getValues());
-        return (
-          <FormControl isInvalid={!!errors?.datas?.[index]?.endTime} isRequired>
-            <SingleDatepicker
-              key={`datas.${index}.endTime`}
-              name="date-input"
-              // date={date}
-              // onDateChange={setDate}
-              date={getValues(`datas.${index}.endTime`)}
-              onDateChange={(date) => setValue(`datas.${index}.endTime`, date)}
-              {...register(`datas.${index}.endTime`, { required: true })}
-            />
-            {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  />  */}
-            <FormErrorMessage>
-              {errors?.datas?.[index]?.endTime && <>{errors?.datas?.[index]?.endTime.message}</>}
-            </FormErrorMessage>
-          </FormControl>
-        );
-      },
-    },
-  ];
+  // const columns = [
+  //   {
+  //     title: 'Serial Number',
+  //     dataIndex: 'xuhao',
+  //     key: 'xuhao',
+  //     render: (_: any, record: any, index: number) => {
+  //       return <Box paddingLeft="5px">{index + 1}</Box>;
+  //     },
+  //   },
+  //   {
+  //     title: 'Task Name',
+  //     dataIndex: 'taskname',
+  //     key: 'taskname',
+  //     render: (_: any, record: any, index: number) => {
+  //       return <Box width={'300px'}>{record.taskname}</Box>;
+  //     },
+  //   },
+  //   {
+  //     title: 'Estimated Hours',
+  //     dataIndex: 'workhours',
+  //     key: 'workhours',
+  //     render: (_: any, record: any, index: number) => {
+  //       return (
+  //         // <Controller
+  //         //   render={props => <Input {...props} key={`datas.${index}.workhours`} color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  /> }
+  //         //   name={`datas.${index}.workhours`}
+  //         //   control={control}
+  //         // />
+  //         <FormControl isInvalid={!!errors?.datas?.[index]?.workhours} isRequired>
+  //           <Input
+  //             key={`datas.${index}.workhours`}
+  //             color="#fff"
+  //             type="number"
+  //             placeholder="Enter"
+  //             size="md"
+  //             {...register(`datas.${index}.workhours`, { required: true })}
+  //           />
+  //           <FormErrorMessage>
+  //             {errors?.datas?.[index]?.workhours && (
+  //               <>{errors?.datas?.[index]?.workhours.message}</>
+  //             )}
+  //           </FormErrorMessage>
+  //         </FormControl>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     title: 'Estimated Start Time',
+  //     dataIndex: 'startTime',
+  //     key: 'startTime',
+  //     render: (_: any, record: any, index: number) => {
+  //       return (
+  //         <FormControl isInvalid={!!errors?.datas?.[index]?.startTime} isRequired>
+  //           <SingleDatepicker
+  //             key={`datas.${index}.startTime`}
+  //             name="date-input"
+  //             date={getValues(`datas.${index}.startTime`)}
+  //             onDateChange={(date) => setValue(`datas.${index}.startTime`, date)}
+  //             {...register(`datas.${index}.startTime`, { required: true })}
+  //           />
+  //           {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.startTime`, { required: true })}  />  */}
+  //           <FormErrorMessage>
+  //             {errors?.datas?.[index]?.startTime && (
+  //               <>{errors?.datas?.[index]?.startTime.message}</>
+  //             )}
+  //           </FormErrorMessage>
+  //         </FormControl>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     title: 'Estimated Completion Time',
+  //     dataIndex: 'endTime',
+  //     key: 'endTime',
+  //     render: (_: any, record: any, index: number) => {
+  //       console.log('getValues(`datas.${index}.endTime`)', getValues());
+  //       return (
+  //         <FormControl isInvalid={!!errors?.datas?.[index]?.endTime} isRequired>
+  //           <SingleDatepicker
+  //             key={`datas.${index}.endTime`}
+  //             name="date-input"
+  //             // date={date}
+  //             // onDateChange={setDate}
+  //             date={getValues(`datas.${index}.endTime`)}
+  //             onDateChange={(date) => setValue(`datas.${index}.endTime`, date)}
+  //             {...register(`datas.${index}.endTime`, { required: true })}
+  //           />
+  //           {/* <Input color="#fff" type="number" placeholder='请输入' size='md' {...register(`datas.${index}.workhours`, { required: true })}  />  */}
+  //           <FormErrorMessage>
+  //             {errors?.datas?.[index]?.endTime && <>{errors?.datas?.[index]?.endTime.message}</>}
+  //           </FormErrorMessage>
+  //         </FormControl>
+  //       );
+  //     },
+  //   },
+  // ];
   return (
-    <ModalDialog title="Task scheduling" onClose={onClose} isOpen={true} btnGroup={<></>}>
+    <ModalDialog
+      title="Task scheduling"
+      onClose={onClose}
+      isOpen={true}
+      btnGroup={<></>}
+      closeOnOverlayClick={false}
+    >
       <Box background="#1b1e24" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center">
