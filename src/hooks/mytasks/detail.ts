@@ -36,8 +36,6 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       }
     }
     const res1 = await startTask({ projectId: id });
-    console.log('res1>>>>>', res1);
-    debugger;
     if (!res1) {
       setButtonLoading(false);
       return false;
@@ -59,8 +57,7 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
     }).finally(() => {
       setButtonLoading(false);
     });
-
-    return res;
+    return res?.result?.code === 0;
   };
   // 提交验收
   const submitAccept = async () => {
