@@ -67,17 +67,17 @@ export const Tabs = [
   {
     label: TabsEnum.SINGLE_TASK,
     value: RequirementType.Single,
-    icon: <FaCalendarAlt fontSize={20} />,
+    // icon: <FaCalendarAlt fontSize={20} />,
   },
   {
     label: TabsEnum.PERSON_TASK,
     value: RequirementType.Person,
-    icon: <TbDiscount2 fontSize={22} />,
+    // icon: <TbDiscount2 fontSize={22} />,
   },
   {
     label: TabsEnum.ALL_TASK,
     value: RequirementType.Global,
-    icon: <BiCategory fontSize={22} />,
+    // icon: <BiCategory fontSize={22} />,
   },
 ];
 

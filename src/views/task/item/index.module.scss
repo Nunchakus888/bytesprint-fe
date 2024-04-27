@@ -42,42 +42,42 @@
   // margin-top: 14px;
 }
 .btns {
-  border-top: 1px solid #34353d;
-  padding-top: 16px;
+  // border-top: 1px solid #34353d;
+  // padding-top: 16px;
 }
-.personItemContainer {
-  .itemKeyInfo {
-    margin-bottom: 40px;
-  }
-  .itemTitle {
-    font-size: 22px;
-    margin: 25px 0;
-  }
-  .btns {
-    border-top: 1px solid #34353d;
-    padding-top: 30px;
-  }
-  .educational,
-  .experience,
-  .workPlace,
-  .workTime {
-    background: url('../../../../public/img/education.png') no-repeat left center;
-    background-size: 20px 20px;
-    padding-left: 25px;
-  }
-  .experience {
-    background: url('../../../../public/img/experence.png') no-repeat left center;
-    background-size: 20px 20px;
-  }
-  .workPlace {
-    background: url('../../../../public/img/workplace.png') no-repeat left center;
-    background-size: 20px 20px;
-  }
-  .workTime {
-    background: url('../../../../public/img/worktime.png') no-repeat left center;
-    background-size: 20px 20px;
-  }
-}
+// .personItemContainer {
+//   .itemKeyInfo {
+//     margin-bottom: 40px;
+//   }
+//   .itemTitle {
+//     font-size: 22px;
+//     margin: 25px 0;
+//   }
+//   .btns {
+//     border-top: 1px solid #34353d;
+//     padding-top: 30px;
+//   }
+//   .educational,
+//   .experience,
+//   .workPlace,
+//   .workTime {
+//     background: url('../../../../public/img/education.png') no-repeat left center;
+//     background-size: 20px 20px;
+//     padding-left: 25px;
+//   }
+//   .experience {
+//     background: url('../../../../public/img/experence.png') no-repeat left center;
+//     background-size: 20px 20px;
+//   }
+//   .workPlace {
+//     background: url('../../../../public/img/workplace.png') no-repeat left center;
+//     background-size: 20px 20px;
+//   }
+//   .workTime {
+//     background: url('../../../../public/img/worktime.png') no-repeat left center;
+//     background-size: 20px 20px;
+//   }
+// }
 .auth {
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(5px);
@@ -102,8 +102,7 @@
 }
 
 .hallContainer {
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: #111c43;
   border-radius: 10px;
   width: calc((100% - 60px) / 3);
   display: inline-block;
@@ -111,24 +110,27 @@
   margin: 10px;
   position: relative;
   overflow: hidden;
+  padding-top: 10px;
   .btns {
-    border-top: 1px solid #000;
+    // border-top: 1px solid #000;
+    background: #1b254a;
+    padding: 0 10px;
   }
-  .hallTaskType {
-    width: 120px;
-    height: 45px;
-    padding-bottom: 5px;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.08);
-    font-size: 10px;
-    white-space: nowrap;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    top: -15px;
-    right: -35px;
-    text-indent: 25px;
-    transform: rotate(45deg);
-    transform-origin: center center;
-  }
+  // .hallTaskType {
+  //   width: 120px;
+  //   height: 45px;
+  //   padding-bottom: 5px;
+  //   position: absolute;
+  //   background-color: rgba(255, 255, 255, 0.08);
+  //   font-size: 10px;
+  //   white-space: nowrap;
+  //   display: flex;
+  //   align-items: flex-end;
+  //   justify-content: center;
+  //   top: -15px;
+  //   right: -35px;
+  //   text-indent: 25px;
+  //   transform: rotate(45deg);
+  //   transform-origin: center center;
+  // }
 }

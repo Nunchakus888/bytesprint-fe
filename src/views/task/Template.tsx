@@ -79,7 +79,7 @@ export default function TaskTemplate(props: {
               })}
             </TabList>
           </Box>
-          <div className={styles.line} />
+          {/* <div className={styles.line} /> */}
           <TabPanels padding="0">
             {tabs?.map((it, index) => {
               return (

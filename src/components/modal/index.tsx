@@ -44,7 +44,7 @@ export default function ModalDialog(props: {
       closeOnOverlayClick={closeOnOverlayClick}
     >
       <ModalOverlay />
-      <ModalContent background="rgb(15, 17, 20)" width={width}>
+      <ModalContent background="#0c1437" width={width}>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{children}</ModalBody>

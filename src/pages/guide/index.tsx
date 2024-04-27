@@ -37,6 +37,8 @@ export default function Guide() {
         } else {
           router.replace('/certification/tasker');
         }
+      } else {
+        router.replace('/tasks');
       }
     }
   }, [userInfo, clickType]);

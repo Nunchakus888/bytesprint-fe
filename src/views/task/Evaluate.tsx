@@ -56,8 +56,8 @@ export default function Evaluate(props: {
     >
       <Box>
         <Text fontSize="lg">Task planList</Text>
-        <Box background="#1b1e24" padding="10px" margin="10px 0 20px 0">
-          <Flex justify="space-between">
+        <Box background="rgba(255,255,255,0.1)" padding="10px" margin="10px 0 20px 0">
+          <Flex justify="space-between" alignItems="center">
             <Flex width="100px" alignItems="center" justifyContent="center">
               Serial Number
             </Flex>
@@ -80,7 +80,7 @@ export default function Evaluate(props: {
                 alignItems="flex-start"
                 padding="10px 0"
               >
-                <Flex alignItems="center" justifyContent="top" width="100px">
+                <Flex alignItems="center" justifyContent="top" width="100px" height="40px">
                   {index + 1}
                 </Flex>
                 <Flex alignItems="center" justifyContent="center" width="400px" paddingRight="10px">
@@ -172,7 +172,7 @@ export default function Evaluate(props: {
                   /> */}
                 </Flex>
                 {/* <Flex width="100px" alignItems="center" justifyContent="center" >{cnys[index]}</Flex> */}
-                <Flex width="100px" alignItems="center" justifyContent="center">
+                <Flex width="100px" height="40px" alignItems="center" justifyContent="center">
                   <Link
                     color="#7551FF"
                     onClick={() => {

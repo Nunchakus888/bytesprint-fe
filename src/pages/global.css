@@ -6,11 +6,12 @@
 }
 
 body {
-  background-color: #0f1114 !important;
+  /* 0C1437  0f1114*/
+  background-color: #0c1437 !important;
 }
 
 .quill * {
-  background-color: #1d1f22 !important;
+  background-color: #0c1437 !important;
   color: #fff !important;
 }
 
@@ -106,13 +107,14 @@ body {
 }
 
 .tag-primary {
-  background: linear-gradient(90deg, #de8a8d 0%, #b78fee 52%, #4468fc 100%);
-  border-radius: 8px 8px 0px 8px;
+  /* background: linear-gradient(90deg, #de8a8d 0%, #b78fee 52%, #4468fc 100%); */
+  background: rgba(160, 198, 255, 0.03);
+  border-radius: 8px 8px 8px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 12px;
-  border: 1px solid #394960;
+  /* border: 1px solid #394960; */
 }
 .tag-primary-light {
   border-radius: 8px 8px 0px 8px;
@@ -150,7 +152,7 @@ select {
 .PhoneInputCountrySelect option,
 .PhoneInput--focus option,
 select option {
-  background-color: #1d1f22 !important;
+  background-color: #0c1437 !important;
   color: rgba(255, 255, 255, 0.8);
   appearance: none;
   -webkit-appearance: none;
@@ -158,7 +160,7 @@ select option {
 
 select[name='rcrs-country'],
 select[name='rcrs-region'] {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #0c1437;
   background-color: transparent !important;
   line-height: 40px !important;
   border-radius: 4px !important;

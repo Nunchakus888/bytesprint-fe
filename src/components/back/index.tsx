@@ -4,7 +4,12 @@ import { useRouter } from 'next/router';
 export default function Back() {
   const router = useRouter();
   return (
-    <Button background="#1b1e24" size="sm" borderRadius={4} onClick={() => router.back()}>
+    <Button
+      background="rgba(255,255,255,0.06)"
+      size="sm"
+      borderRadius={4}
+      onClick={() => router.back()}
+    >
       Back
     </Button>
   );

@@ -61,7 +61,7 @@ export default function TaskDescription(props: { description?: string; fileList?
               <Flex
                 key={index}
                 justify="space-between"
-                background="#1b1e24"
+                background="rgba(255,255,255,0.06)"
                 marginBottom="10px"
                 padding="10px"
                 fontSize="14px"
