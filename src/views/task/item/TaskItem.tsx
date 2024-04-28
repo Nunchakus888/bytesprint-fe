@@ -17,78 +17,62 @@ import classNames from 'classnames';
 export default function TaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   const { item } = props;
   return (
-    <Box className={styles.itemContainer}>
-      <Flex justify="space-between" position="relative">
-        {/* 需求类型 single task */}
-        <Box className={styles.imgbox} display="flex" alignItems="center" justifyContent="center">
-          {Tabs.filter((v) => v.value === item.categoryType)[0]?.label}
-        </Box>
-        <Box display="flex" flexDirection="column" width="100%">
-          <Box className="flex items-center justify-between">
-            <Box className="flex items-center gap-2">
-              {/* 任务类型 */}
-              <Tag size="lg" variant="solid" className="task-tag">
-                {TaskTypes.filter((v) => v.value === item.categoryType)[0]?.label}
-              </Tag>
-              <Tag size="lg" variant="solid" className="task-tag">
-                {/* 众包方式 */}
-                {ProTypes.filter((v) => v.value === item.crowdsourcingType)[0]?.label}
-              </Tag>
-            </Box>
-          </Box>
+    <Box className={styles.itemContainer} position="relative" margin="10px 0">
+      <Flex justify="space-between">
+        <Box gap="10px" width="40%">
+          <Tag background="#7551FF" marginRight="10px" marginBottom="10px">
+            {Tabs.filter((v) => v.value === item.categoryType)[0]?.label}-
+            {ProTypes.filter((v) => v.value === item.crowdsourcingType)[0]?.label}
+          </Tag>
           {/* 名称 */}
           <div className={classNames(styles.itemTitle, 'ellipsis')}>{item.name}</div>
-          {/* 介绍 */}
-          <Box
-            className={styles.itemContent}
-            dangerouslySetInnerHTML={{ __html: item.description }}
-          ></Box>
-          <Box className={styles.btns} display="flex" justifyContent="space-between">
-            {/* 职位类型 */}
-            <span className="tag-primary">
-              {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
-            </span>
-            {/* 详情 */}
-            <Button color="#fff" className="btn-primary" width={105}>
-              <Link href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}>
-                Details {' >'}
-              </Link>
-              {/* Test */}
-              {/* <Link href={`/taskdetail/${props.from || IPath.TASKS}/202401082128568241`}> Details</Link> */}
-            </Button>
-          </Box>
         </Box>
-        {props.isMine && props.from === IPath.MYREQUIREMENT && (
-          <Tag
-            position="absolute"
-            top="0"
-            right="0"
-            fontSize={16}
-            color="#7551FF"
-            border="1px solid #7551FF"
-            boxShadow="none"
-            variant="outline"
-            size="md"
+        <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
+          {/* 职位类型 */}
+          <span className="tag-primary">
+            {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
+          </span>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
+          {props.isMine && props.from === IPath.MYREQUIREMENT && (
+            <Tag
+              fontSize={16}
+              color="#7551FF"
+              border="1px solid #7551FF"
+              boxShadow="none"
+              variant="outline"
+              size="md"
+            >
+              {RequirementStatus.filter((it) => it.value === item.status)[0]?.label}
+            </Tag>
+          )}
+          {props.isMine && props.from === IPath.MYTASKS && (
+            <Tag
+              fontSize={16}
+              color="#7551FF"
+              border="1px solid #7551FF"
+              boxShadow="none"
+              variant="outline"
+              size="md"
+            >
+              {TaskStatus.filter((it) => it.value === item.status)[0]?.label}
+            </Tag>
+          )}
+        </Box>
+        <Box display="flex" alignItems="center" width="10%">
+          {/* 详情 */}
+          <Link
+            href={`/taskdetail/${props.from || IPath.TASKS}/${item.id}`}
+            className={styles.primaryBtn}
           >
-            {RequirementStatus.filter((it) => it.value === item.status)[0]?.label}
-          </Tag>
-        )}
-        {props.isMine && props.from === IPath.MYTASKS && (
-          <Tag
-            position="absolute"
-            top="0"
-            right="0"
-            fontSize={16}
-            color="#7551FF"
-            border="1px solid #7551FF"
-            boxShadow="none"
-            variant="outline"
-            size="md"
-          >
-            {TaskStatus.filter((it) => it.value === item.status)[0]?.label}
-          </Tag>
-        )}
+            Details {' >'}
+          </Link>
+        </Box>
       </Flex>
+      <Box className={styles.tasktypes}>
+        {/* 任务类型 */}
+        {TaskTypes.filter((v) => v.value === item.categoryType)[0]?.label}
+      </Box>
     </Box>
   );
 }

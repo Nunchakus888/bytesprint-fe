@@ -1,31 +1,19 @@
 .itemContainer,
 .personItemContainer {
-  padding: 30px;
-  background-color: #18191f;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 10px;
+  background: #111c43;
+  padding: 20px;
 }
 
-.imgbox {
-  width: 162px;
-  min-width: 162px;
-  height: 200px;
-  overflow: hidden;
-  margin-right: 30px;
-  background: linear-gradient(158deg, #3c4897 0%, #1d1e23 100%);
-  border: 1px solid rgba(160, 198, 255, 0.3);
-  border-radius: 8px 8px 8px 8px;
-  font-size: 20px;
-  font-weight: 500;
-  img {
-    max-width: 100%;
-    height: 100%;
-  }
-}
 .itemTitle {
-  font-size: 22px;
   font-weight: 800;
   max-width: 600px;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  // display: -webkit-box;
+  // -webkit-box-orient: vertical;
+  // -webkit-line-clamp: 1; /* 这里是超出几行省略 */
+  overflow: hidden;
 }
 .itemContent {
   color: #ffffff;
@@ -38,46 +26,29 @@
   -webkit-line-clamp: 2; /* 这里是超出几行省略 */
   overflow: hidden;
   margin: 15px 0;
-  // min-height: 96px;
-  // margin-top: 14px;
+  position: relative;
 }
-.btns {
-  // border-top: 1px solid #34353d;
-  // padding-top: 16px;
+.tasktypes {
+  position: absolute;
+  background-color: #202947;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  border-radius: 0 10px 0 10px;
+  font-size: 14px;
+  padding: 0 10px;
 }
-// .personItemContainer {
-//   .itemKeyInfo {
-//     margin-bottom: 40px;
-//   }
-//   .itemTitle {
-//     font-size: 22px;
-//     margin: 25px 0;
-//   }
-//   .btns {
-//     border-top: 1px solid #34353d;
-//     padding-top: 30px;
-//   }
-//   .educational,
-//   .experience,
-//   .workPlace,
-//   .workTime {
-//     background: url('../../../../public/img/education.png') no-repeat left center;
-//     background-size: 20px 20px;
-//     padding-left: 25px;
-//   }
-//   .experience {
-//     background: url('../../../../public/img/experence.png') no-repeat left center;
-//     background-size: 20px 20px;
-//   }
-//   .workPlace {
-//     background: url('../../../../public/img/workplace.png') no-repeat left center;
-//     background-size: 20px 20px;
-//   }
-//   .workTime {
-//     background: url('../../../../public/img/worktime.png') no-repeat left center;
-//     background-size: 20px 20px;
-//   }
-// }
+.primaryBtn {
+  background-color: #7551ff;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 15px;
+  color: #fff;
+  padding: 0 10px;
+}
 .auth {
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(5px);

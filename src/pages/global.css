@@ -97,9 +97,8 @@ body {
 }
 
 .btn-primary {
-  background-image: linear-gradient(135deg, #28bdd9, #7551ff 99%) !important;
-  /* background: #7551ff !important;
-  border-radius: 30px !important; */
+  background: #7551ff !important;
+  border-radius: 10px !important;
 }
 
 .btn-primary:hover {
@@ -160,7 +159,7 @@ select option {
 
 select[name='rcrs-country'],
 select[name='rcrs-region'] {
-  border: 1px solid #0c1437;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background-color: transparent !important;
   line-height: 40px !important;
   border-radius: 4px !important;

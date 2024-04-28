@@ -1,7 +1,6 @@
 .taskerWrap {
   display: flex;
   min-height: calc(100vh - 136px);
-  background-color: #1b1e24;
   padding: 16px;
   border-radius: 16px;
 
@@ -45,7 +44,6 @@
   }
 
   .formArea {
-    background-color: rgba($color: #000000, $alpha: 0.3);
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
