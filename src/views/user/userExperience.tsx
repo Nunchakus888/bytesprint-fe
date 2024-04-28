@@ -109,11 +109,13 @@ export default function UserExperience(props: { userInfo: any }) {
                       </Flex>
                     </Flex>
                   </Flex>
-                  <Flex gap="5px" fontWeight="bold">
-                    <Text>{it.department}</Text>
-                    <Text>·</Text>
-                    <Text>{it.position}</Text>
-                  </Flex>
+                  {(it.department || it.position) && (
+                    <Flex gap="5px" fontWeight="bold">
+                      <Text>{it.department}</Text>
+                      <Text>·</Text>
+                      <Text>{}</Text>
+                    </Flex>
+                  )}
                 </Flex>
               );
             })}
@@ -149,11 +151,15 @@ export default function UserExperience(props: { userInfo: any }) {
                       </Flex>
                     </Flex>
                   </Flex>
-                  <Flex gap="5px" fontWeight="bold">
-                    <Text>{EducationTypes.filter((v) => v.value === it.education)[0]?.label}</Text>
-                    <Text>·</Text>
-                    <Text>{it.major}</Text>
-                  </Flex>
+                  {(it.education || it.major) && (
+                    <Flex gap="5px" fontWeight="bold">
+                      <Text>
+                        {EducationTypes.filter((v) => v.value === it.education)[0]?.label}
+                      </Text>
+                      <Text>·</Text>
+                      <Text>{it.major}</Text>
+                    </Flex>
+                  )}
                 </Flex>
               );
             })}

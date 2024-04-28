@@ -29,9 +29,7 @@ export default function TaskItem(props: { item: any; isMine?: boolean; from?: st
         </Box>
         <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
           {/* 职位类型 */}
-          <span className="tag-primary">
-            {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
-          </span>
+          {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
         </Box>
         <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
           {props.isMine && props.from === IPath.MYREQUIREMENT && (

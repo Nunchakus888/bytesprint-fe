@@ -38,7 +38,10 @@ export default function Guide() {
           router.replace('/certification/tasker');
         }
       } else {
-        router.replace('/tasks');
+        // 若已经是工程师，则跳转到任务大厅；
+        if (identification === Identification.ENGINEER) {
+          router.replace('/tasks');
+        }
       }
     }
   }, [userInfo, clickType]);
