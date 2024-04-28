@@ -48,7 +48,7 @@ export default function HallTaskItem(props: { item: any; isMine?: boolean; from?
             lineHeight="30px"
             height="30px"
             borderRadius="4px"
-            className="font-22"
+            className="font-18"
           >
             {/* 众包方式 */}
             {ProTypes.filter((v) => v.value === item.crowdsourcingType)[0]?.label}

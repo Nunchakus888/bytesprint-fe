@@ -10,9 +10,6 @@
   max-width: 600px;
   word-break: break-word;
   text-overflow: ellipsis;
-  // display: -webkit-box;
-  // -webkit-box-orient: vertical;
-  // -webkit-line-clamp: 1; /* 这里是超出几行省略 */
   overflow: hidden;
 }
 .itemContent {
@@ -87,21 +84,7 @@
     background: #1b254a;
     padding: 0 10px;
   }
-  // .hallTaskType {
-  //   width: 120px;
-  //   height: 45px;
-  //   padding-bottom: 5px;
-  //   position: absolute;
-  //   background-color: rgba(255, 255, 255, 0.08);
-  //   font-size: 10px;
-  //   white-space: nowrap;
-  //   display: flex;
-  //   align-items: flex-end;
-  //   justify-content: center;
-  //   top: -15px;
-  //   right: -35px;
-  //   text-indent: 25px;
-  //   transform: rotate(45deg);
-  //   transform-origin: center center;
-  // }
+  .itemTitle {
+    font-size: 22px;
+  }
 }

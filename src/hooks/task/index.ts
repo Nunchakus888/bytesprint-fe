@@ -80,7 +80,6 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
   const [data, setData] = useState<any>([]);
   const { triger, toggleTiger } = useChange();
   const [hadMore, setHasMore] = useState(true);
-  const oldFilterRef = useRef({});
   const { userInfo } = useUserInfo();
   const [page, setPage] = useState(1);
   const getList = async (params: any, time: number) => {
@@ -90,13 +89,13 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
         ...params,
         timestamp: time || Date.now(),
       };
-      console.log('time>>>', time);
       // TODO 参数 不同类型的区分请求 activeTab
       const res = await Get(API_ROUTERS.tasks.TASKS_LIST(_params));
       const data = res?.projectRawInfoList || [];
       // 当返回的数量跟每页比小，没有更多
-      if (data.length < PAGE_SIZE) {
+      if (data.length === 0) {
         setHasMore(false);
+        console.log('setHasMore', false);
       }
       if (page === 1) {
         setData(data);
@@ -104,6 +103,7 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
         //@ts-ignore
         setData((prevData) => [...prevData, ...data]);
       }
+      setLoading(false);
     } catch (error) {
       // handle error
     } finally {
@@ -122,7 +122,8 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
     setPage(1);
     setTime(Date.now());
     setHasMore(true);
-  }, [filter]);
+    toggleTiger();
+  }, [filter, toggleTiger]);
 
   useEffect(() => {
     // toggleTiger();
@@ -130,20 +131,15 @@ export const useTaskList = (filter: any, activeTab: RequirementType) => {
 
   useEffect(() => {
     console.log('triger', triger);
-    // console.log(JSON.stringify({ user_addresses, page, filter, triger }));
     const params = {
       page,
       filter,
       triger,
     };
-
-    if (JSON.stringify(oldFilterRef.current) !== JSON.stringify(params)) {
-      console.log('params>>>', params, activeTab);
-      oldFilterRef.current = params;
-      getList(filter, time);
-    }
+    console.log('params>>>', params, activeTab);
+    getList(filter, time);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, filter, triger]);
+  }, [page, triger]);
 
   return {
     loading,

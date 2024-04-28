@@ -35,21 +35,16 @@ function SingleTask(props: {
   // const {getData} = useJobTypes()
 
   const { loading, data, hasMore, fetchMoreData, handleSearch, onChange } = props.single;
-  console.log('data>>>>>>>>>>>>>', data);
   const account = useAccount();
   return (
     <Box mt={{ base: '30px' }}>
-      <Flex
-        justify="flex-start"
-        gap="10px"
-        className={props.from === IPath.MYREQUIREMENT ? styles.hasAdd : ''}
-      >
-        {/* <SearchInput
+      {props.from === IPath.TASKS && (
+        <Flex justify="flex-start" gap="10px">
+          {/* <SearchInput
           background="#1b1e24"
           placeholder="Task Name"
           search={handleSearch}
         ></SearchInput> */}
-        {props.from === IPath.TASKS && (
           <Box display="flex" justifyContent="flex-start" style={{ gap: 16 }}>
             {props.isMine ? (
               <>
@@ -103,12 +98,31 @@ function SingleTask(props: {
               </>
             )}
           </Box>
-        )}
-      </Flex>
+        </Flex>
+      )}
+      {/* 我的需求 我的任务 表头 */}
+      {(props.from === IPath.MYTASKS || props.from === IPath.MYREQUIREMENT) && (
+        <Flex justify="space-between" className={styles.itemContainer}>
+          <Box gap="10px" width="40%">
+            Task
+          </Box>
+          <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
+            Job Type
+          </Box>
+          <Box display="flex" alignItems="center" justifyContent="flex-start" width="20%">
+            Task Status
+          </Box>
+          <Box display="flex" alignItems="center" width="10%">
+            Operate
+          </Box>
+        </Flex>
+      )}
+
       <Box
         mt={{ base: '20px' }}
         id="items_list_scrollable_box"
-        style={{ height: 'calc(100vh - 240px)', overflow: 'scroll' }}
+        style={{ height: 'calc(100vh - 240px)', overflowY: 'scroll', overflowX: 'hidden' }}
+        className="raw-scrollbar"
       >
         {loading ? (
           <Loading />
