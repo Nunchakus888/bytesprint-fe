@@ -47,3 +47,15 @@
 .active {
   color: #7551ff;
 }
+.experienceTag {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #1b254a;
+}
+.file {
+  background: url('../../../public/img/file.png') no-repeat left center;
+  background-size: 30px 30px;
+  padding: 0 0 0 40px;
+  width: 100%;
+}

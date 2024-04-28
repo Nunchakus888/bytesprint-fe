@@ -2,9 +2,64 @@ import { Box, Text, Flex, Image, Tag } from '@chakra-ui/react';
 import { EducationTypes } from 'common/constant';
 import dayjs from 'dayjs';
 import styles from './index.module.scss';
-
+import { BiBriefcaseAlt2 } from 'react-icons/bi';
+import { FaGraduationCap } from 'react-icons/fa';
 export default function UserExperience(props: { userInfo: any }) {
   const { userInfo } = props;
+  // test
+  const res = {
+    address: 'Algeria, Eckerö',
+    phone: '+86234234',
+    email: '997785798@qq.com',
+    certificateList: [
+      {
+        expiration: null,
+        name: 'af3b4d28399532b60de3c1465413d8cc.png',
+        path: 'https://bytesprintdata.obs.ap-southeast-1.myhuaweicloud.com:443/af3b4d28399532b60de3c1465413d8cc.png%3A1714291599276',
+        time: 1714291608652,
+      },
+    ],
+    jobList: [
+      {
+        companyName: 'suzhou hanshou jisuanji youxiaogognsi',
+        department: 'jishu bumen',
+        position: 'jishuwajueji',
+        startTime: '2024-04-01 00:00:00',
+        endTime: '2024-04-28 00:00:00',
+      },
+    ],
+    educationList: [
+      {
+        school: 'xianggang zhong fangxingzhe ngda',
+        startTime: '2022-04-10 00:00:00',
+        endTime: '2024-04-14 00:00:00',
+        education: 5,
+        major: 'hualao xingsr',
+      },
+    ],
+    position: [1, 4],
+    experience: 2,
+    skillList: [
+      'java',
+      ' javascript',
+      'react',
+      'vue',
+      'java',
+      ' javascript',
+      'react',
+      'vue',
+      'java',
+      ' javascript',
+      'react',
+      'vue',
+    ],
+    authorizeCode: '',
+    certificateList: [],
+  };
+  userInfo.data = {
+    engineer: res,
+  };
+
   return (
     <>
       {userInfo?.data?.engineer?.jobList ? (
@@ -17,6 +72,7 @@ export default function UserExperience(props: { userInfo: any }) {
           marginTop="20px"
           paddingBottom="20px"
           className={styles.container}
+          width="-webkit-fill-available"
         >
           <Text fontSize={18} fontWeight="bold">
             Work and Education Experience
@@ -28,43 +84,35 @@ export default function UserExperience(props: { userInfo: any }) {
                   key={`ex_${index}`}
                   justifyContent="space-between"
                   gap="10px"
-                  background="#18191F"
+                  background="rgba(255,255,255,0.06)"
                   borderRadius={4}
                   margin="10px 0"
                   padding="30px 25px"
+                  alignItems="center"
                 >
-                  <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    width="60px"
-                    height="60px"
-                    borderRadius={4}
-                    fontSize={12}
-                    background="linear-gradient(158deg, #3c4897 0%, #1d1e23 100%)"
-                  >
-                    {/* <Image
-                  src="https://bit.ly/dan-abramov"
-                  alt="Dan Abramov"
-                  width="30px"
-                  height="30px"
-                /> */}
-                    Work
-                  </Flex>
-                  <Flex width="45%" minWidth="200px" direction="column" gap="5px">
-                    <Box>
-                      <Text>{it.companyName}</Text>
-                    </Box>
-                    <Flex gap="5px">
-                      <Text>{it.department}</Text>
+                  <Flex gap="10px" width="70%" alignItems="center">
+                    <Flex
+                      className={styles.experienceTag}
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <BiBriefcaseAlt2 size={32} color="#999" />
                     </Flex>
-                    <Flex gap="5px">
-                      <Text>{it.position}</Text>
+                    <Flex direction="column" gap="10px">
+                      <Box>
+                        <Text fontWeight="bold">{it.companyName}</Text>
+                      </Box>
+                      <Flex color="#999" fontSize="14">
+                        {it.startTime && dayjs(it.startTime).format('YYYY/MM/DD')}
+                        {it.startTime && '-'}
+                        {it.endTime && dayjs(it.endTime).format('YYYY/MM/DD')}
+                      </Flex>
                     </Flex>
                   </Flex>
-                  <Flex minWidth="177px" justifyContent="flex-end" alignItems="flex-start">
-                    {it.startTime && dayjs(it.startTime).format('YYYY/MM/DD')}
-                    {it.startTime && '-'}
-                    {it.endTime && dayjs(it.endTime).format('YYYY/MM/DD')}
+                  <Flex gap="5px" fontWeight="bold">
+                    <Text>{it.department}</Text>
+                    <Text>·</Text>
+                    <Text>{it.position}</Text>
                   </Flex>
                 </Flex>
               );
@@ -76,45 +124,35 @@ export default function UserExperience(props: { userInfo: any }) {
                   key={`ex_${index}`}
                   justifyContent="space-between"
                   gap="10px"
-                  background="#18191F"
+                  background="rgba(255,255,255,0.06)"
                   borderRadius={4}
                   margin="10px 0"
                   padding="30px 25px"
+                  alignItems="center"
                 >
-                  <Flex
-                    justifyContent="center"
-                    alignItems="center"
-                    width="60px"
-                    height="60px"
-                    borderRadius={4}
-                    fontSize={12}
-                    background="linear-gradient(158deg, #3c4897 0%, #1d1e23 100%)"
-                  >
-                    {/* <Image
-                  src="https://bit.ly/dan-abramov"
-                  alt="Dan Abramov"
-                  width="30px"
-                  height="30px"
-                /> */}
-                    Education
-                  </Flex>
-                  <Flex width="45%" direction="column" gap="10px">
-                    <Box>
-                      <Text>{it.school}</Text>
-                    </Box>
-                    <Flex gap="5px">
-                      <Text>
-                        {EducationTypes.filter((v) => v.value === it.education)[0]?.label}
-                      </Text>
+                  <Flex gap="10px" width="70%" alignItems="center">
+                    <Flex
+                      className={styles.experienceTag}
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <FaGraduationCap size={32} color="#999" />
                     </Flex>
-                    <Flex gap="5px">
-                      <Text>{it.major}</Text>
+                    <Flex width="45%" direction="column" gap="10px">
+                      <Box>
+                        <Text fontWeight="bold">{it.school}</Text>
+                      </Box>
+                      <Flex color="#999" fontSize="14">
+                        {it.startTime && dayjs(it.startTime).format('YYYY/MM/DD')}
+                        {it.startTime && '-'}
+                        {it.endTime && dayjs(it.endTime).format('YYYY/MM/DD')}
+                      </Flex>
                     </Flex>
                   </Flex>
-                  <Flex minWidth="177px" justifyContent="flex-end" alignItems="flex-start">
-                    {it.startTime && dayjs(it.startTime).format('YYYY/MM/DD')}
-                    {it.startTime && '-'}
-                    {it.endTime && dayjs(it.endTime).format('YYYY/MM/DD')}
+                  <Flex gap="5px" fontWeight="bold">
+                    <Text>{EducationTypes.filter((v) => v.value === it.education)[0]?.label}</Text>
+                    <Text>·</Text>
+                    <Text>{it.major}</Text>
                   </Flex>
                 </Flex>
               );

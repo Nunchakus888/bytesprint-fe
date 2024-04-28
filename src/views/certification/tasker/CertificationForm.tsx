@@ -134,7 +134,7 @@ const CertificationForm = ({ authorizeCode }: any) => {
   return (
     <div className={styles.certificationForm}>
       <Container my={8} as="form" noValidate onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.pageTittle}>Tasker Certification</div>
+        {/* <div className={styles.pageTittle}>Tasker Certification</div> */}
 
         <div className={styles.certificationFormConrtent}>
           {authorizeCode && (

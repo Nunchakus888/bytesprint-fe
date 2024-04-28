@@ -74,16 +74,10 @@ export default function ProfileOverview() {
         {/* 水手展示以下信息 */}
         {isEngineer && (
           <Flex gap="20px" justifyContent="space-between" width="100%">
-            <Box width="50%">
-              {/* <UserCertificates data={[{}, {}, {}]} /> */}
-              {/* TODO 附件 */}
-              <UserAttachedResume data={userInfo} />
-            </Box>
-            <Box width="50%">
-              {/* 任务经历 */}
-              {/* <UserTaskExperience data={[{}, {}, {}]} /> */}
-              <UserExperience userInfo={userInfo} />
-            </Box>
+            {/* 附件 */}
+            <UserAttachedResume data={userInfo} />
+            {/* 工作教育经历 */}
+            <UserExperience userInfo={userInfo} />
           </Flex>
         )}
       </Box>

@@ -164,6 +164,7 @@ select[name='rcrs-region'] {
   width: 49%;
   text-align: center;
   margin-right: 1%;
+  font-size: 14px;
 }
 select[name='rcrs-region'] {
   margin-right: 0;
