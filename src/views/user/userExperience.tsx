@@ -7,58 +7,58 @@ import { FaGraduationCap } from 'react-icons/fa';
 export default function UserExperience(props: { userInfo: any }) {
   const { userInfo } = props;
   // test
-  const res = {
-    address: 'Algeria, Eckerö',
-    phone: '+86234234',
-    email: '997785798@qq.com',
-    certificateList: [
-      {
-        expiration: null,
-        name: 'af3b4d28399532b60de3c1465413d8cc.png',
-        path: 'https://bytesprintdata.obs.ap-southeast-1.myhuaweicloud.com:443/af3b4d28399532b60de3c1465413d8cc.png%3A1714291599276',
-        time: 1714291608652,
-      },
-    ],
-    jobList: [
-      {
-        companyName: 'suzhou hanshou jisuanji youxiaogognsi',
-        department: 'jishu bumen',
-        position: 'jishuwajueji',
-        startTime: '2024-04-01 00:00:00',
-        endTime: '2024-04-28 00:00:00',
-      },
-    ],
-    educationList: [
-      {
-        school: 'xianggang zhong fangxingzhe ngda',
-        startTime: '2022-04-10 00:00:00',
-        endTime: '2024-04-14 00:00:00',
-        education: 5,
-        major: 'hualao xingsr',
-      },
-    ],
-    position: [1, 4],
-    experience: 2,
-    skillList: [
-      'java',
-      ' javascript',
-      'react',
-      'vue',
-      'java',
-      ' javascript',
-      'react',
-      'vue',
-      'java',
-      ' javascript',
-      'react',
-      'vue',
-    ],
-    authorizeCode: '',
-    certificateList: [],
-  };
-  userInfo.data = {
-    engineer: res,
-  };
+  // const res = {
+  //   address: 'Algeria, Eckerö',
+  //   phone: '+86234234',
+  //   email: '997785798@qq.com',
+  //   certificateList: [
+  //     {
+  //       expiration: null,
+  //       name: 'af3b4d28399532b60de3c1465413d8cc.png',
+  //       path: 'https://bytesprintdata.obs.ap-southeast-1.myhuaweicloud.com:443/af3b4d28399532b60de3c1465413d8cc.png%3A1714291599276',
+  //       time: 1714291608652,
+  //     },
+  //   ],
+  //   jobList: [
+  //     {
+  //       companyName: 'suzhou hanshou jisuanji youxiaogognsi',
+  //       department: 'jishu bumen',
+  //       position: 'jishuwajueji',
+  //       startTime: '2024-04-01 00:00:00',
+  //       endTime: '2024-04-28 00:00:00',
+  //     },
+  //   ],
+  //   educationList: [
+  //     {
+  //       school: 'xianggang zhong fangxingzhe ngda',
+  //       startTime: '2022-04-10 00:00:00',
+  //       endTime: '2024-04-14 00:00:00',
+  //       education: 5,
+  //       major: 'hualao xingsr',
+  //     },
+  //   ],
+  //   position: [1, 4],
+  //   experience: 2,
+  //   skillList: [
+  //     'java',
+  //     ' javascript',
+  //     'react',
+  //     'vue',
+  //     'java',
+  //     ' javascript',
+  //     'react',
+  //     'vue',
+  //     'java',
+  //     ' javascript',
+  //     'react',
+  //     'vue',
+  //   ],
+  //   authorizeCode: '',
+  //   certificateList: [],
+  // };
+  // userInfo.data = {
+  //   engineer: res,
+  // };
 
   return (
     <>
