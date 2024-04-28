@@ -91,13 +91,12 @@ export default function TaskEvaluateDetail(props: {
     <ModalDialog title="Evaluation details" onClose={onClose} isOpen={true} btnGroup={<></>}>
       <Flex justifyContent="space-between">
         <Flex justifyContent="space-between" gap="30px" alignItems="flex-start">
-          {userInfoForUid?.walletAddress ||
-            (userInfoForUid?.data?.walletAddress && (
-              <WalletAvatar
-                value={userInfoForUid?.walletAddress || userInfoForUid?.data?.walletAddress}
-                size={50}
-              />
-            ))}
+          {(userInfoForUid?.walletAddress || userInfoForUid?.data?.walletAddress) && (
+            <WalletAvatar
+              value={userInfoForUid?.walletAddress || userInfoForUid?.data?.walletAddress}
+              size={50}
+            />
+          )}
           <Flex justifyContent="space-between" direction="column">
             {/* 职位类型 */}
             <Flex justifyContent="center" gap="10px">
@@ -172,7 +171,7 @@ export default function TaskEvaluateDetail(props: {
           )}
         </Flex>
       </Flex>
-      <Box marginTop="20px" background="#1b1e24" borderRadius={8}>
+      <Box marginTop="20px" background="rgba(255,255,255,0.05)" borderRadius={8}>
         <BYTable columns={columns} dataSource={data.list}></BYTable>
         <Flex marginTop="30px" padding="20px" justifyContent="space-around">
           <Text textAlign="left" fontSize="lg" width="40%">

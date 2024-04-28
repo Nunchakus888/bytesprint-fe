@@ -26,7 +26,6 @@ export default function Index() {
         <Box
           className={styles.content}
           marginTop="20px"
-          // background="#1b1e24"
           display="flex"
           justifyContent="center"
           alignItems="center"
