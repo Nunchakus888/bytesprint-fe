@@ -108,7 +108,7 @@ body {
 .tag-primary {
   /* background: linear-gradient(90deg, #de8a8d 0%, #b78fee 52%, #4468fc 100%); */
   background: rgba(160, 198, 255, 0.03);
-  border-radius: 8px 8px 8px 0px;
+  border-radius: 8px 8px 0px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,12 +126,10 @@ body {
 }
 
 .task-tag {
-  background: linear-gradient(158deg, #3c4897 0%, #1d1e23 100%) !important;
-  border: 1px solid rgba(160, 198, 255, 0.3);
-  border-radius: 4px 4px 4px 4px;
+  background: rgba(160, 198, 255, 0.1);
+  border-radius: 8px 8px 0px 8px;
   font-weight: 800;
-  /* background-color: #7551ff !important;
-  color: #fff; */
+  color: #7551ff;
 }
 
 .ellipsis {

@@ -61,15 +61,13 @@ export default function ProfileOverview() {
           userInfo={userInfo}
           identification={identification}
         />
-        {/* 水手展示个人信息 */}
-        {isEngineer && (
-          <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />
-        )}
+        {/* 水手skillsTag */}
+        {isEngineer && <UserSkillsTag userInfo={userInfo} />}
         <Flex gap="20px">
-          <Flex basis="50%">
+          <Flex width="50%">
             <UserMyPledge data={mypledge} refresh={pledgeRefresh} />
           </Flex>
-          <Flex basis="50%">
+          <Flex width="50%">
             <UserMyReward data={myrewards} refresh={rewardsRefresh} />
           </Flex>
         </Flex>
@@ -77,7 +75,6 @@ export default function ProfileOverview() {
         {isEngineer && (
           <Flex gap="20px" justifyContent="space-between" width="100%">
             <Box width="50%">
-              <UserSkillsTag userInfo={userInfo} />
               {/* <UserCertificates data={[{}, {}, {}]} /> */}
               {/* TODO 附件 */}
               <UserAttachedResume data={userInfo} />

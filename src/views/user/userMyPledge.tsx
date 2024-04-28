@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Image, Tag, Tooltip } from '@chakra-ui/react';
+import { Box, Text, Flex, Image, Tag, Tooltip, Button } from '@chakra-ui/react';
 import classNames from 'classnames';
 import { IStatus, PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
@@ -40,64 +40,39 @@ export default function UserMyPledge(props: { data: any[]; refresh: () => void }
               justifyContent="space-between"
               alignItems="center"
               gap="10px"
-              background="#1b1e24"
+              background="rgba(255,255,255,0.06)"
               borderRadius={4}
               margin="10px 0"
-              padding="30px 25px"
+              padding="40px 15px 20px"
+              position="relative"
             >
-              <Flex
-                justifyContent="center"
-                alignItems="center"
-                width="60px"
-                minWidth="60px"
-                height="60px"
-                borderRadius={4}
-                background="#7551FF"
-                fontSize="14px"
-              >
-                Contract
-              </Flex>
-              <Flex direction="column" gap="5px">
-                <Box maxWidth="200px">
-                  <Text className={styles.textOverflow} fontSize="16px">
-                    {it.taskName}
-                  </Text>
-                </Box>
-                <Flex gap="5px">
-                  <Text fontSize="14px" whiteSpace="nowrap">
-                    Task Status
-                  </Text>
-                  {/* @ts-ignore */}
-                  <Text fontSize="14px">
-                    {TaskStatus.filter((v) => v.value === it.taskStatus)[0]?.label}
-                  </Text>
+              <Flex direction="column" gap="10px" width="60%">
+                <Text className={styles.textOverflow} fontSize="18px" fontWeight="600">
+                  {it.taskName}
+                </Text>
+                <Flex gap="5px" fontSize="14px">
+                  <Text color="#999">Task Status:</Text>
+                  {TaskStatus.filter((v) => v.value === it.taskStatus)[0]?.label}
                 </Flex>
-              </Flex>
-              <Flex fontSize="16px" direction="column" gap="10px">
-                <Box>
-                  <Text>{it.stakingAmount} USDT</Text>
-                </Box>
-                {/* <Flex gap="10px"><Text>约合</Text> <Text>4380.00 CNY</Text></Flex> */}
-              </Flex>
-              {/* <Flex direction="column" gap="10px">
-                <Box>
-                  <Text fontSize="12px">{PledgeStatus[it.stakingStatus]}</Text>
-                </Box>
-              </Flex> */}
-              <Flex direction="column" gap="10px">
-                <Box>
-                  {/* @ts-ignore */}
-                  <Tooltip label={PledgeStatus[it.stakingStatus]}>
-                    <Text
-                      fontSize="16px"
-                      opacity={it.stakingStatus === 3 ? 1 : 0.6}
-                      onClick={() => handleWithdraw(it)}
-                    >
-                      Withdraw to Wallet
-                    </Text>
-                  </Tooltip>
+                <Box mt="20px">
+                  <Tag className={styles.itemStatus}>{PledgeStatus[it.stakingStatus]}</Tag>
                 </Box>
               </Flex>
+              <Flex direction="column" gap="50px" justifyContent="space-between">
+                <Text textAlign="right" fontWeight="bold">
+                  {it.stakingAmount} USDT
+                </Text>
+                <Button
+                  borderRadius="20px"
+                  onClick={() => handleWithdraw(it)}
+                  disabled={it.stakingStatus === 3 ? false : true}
+                  backgroundColor={it.stakingStatus === 3 ? '#7551ff' : '#111C43'}
+                  height="35px"
+                >
+                  Withdraw to Wallet<span className="font-20">{'>'}</span>
+                </Button>
+              </Flex>
+              <Tag className={styles.uTag}>Task evaluation</Tag>
             </Flex>
           );
         })}

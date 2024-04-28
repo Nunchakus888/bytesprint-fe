@@ -311,7 +311,7 @@ export const USER_LEVEL = {
   3: `Pirate`,
 };
 // 质押状态
-export const PledgeStatus = {
+export const PledgeStatus: keyObject = {
   1: `Pledging`,
   2: `Frozen`,
   3: `Withdrawable`,
@@ -322,4 +322,8 @@ export const PledgeStatus = {
 export enum QUERYTYPE {
   MY_REQUIREMENT = 1,
   MY_TASKS = 2,
+}
+
+export interface keyObject {
+  [key: string]: string;
 }

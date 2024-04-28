@@ -18,6 +18,7 @@ import { shortAddress } from 'common/utils';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { onSuccessToast } from 'common/utils/toast';
 import { useRouter } from 'next/router';
+import UserMajor from './userMajor';
 
 export default function UserBaseInfo(props: {
   from?: IPath;
@@ -61,21 +62,35 @@ export default function UserBaseInfo(props: {
   // 头像
   const avatar = useMemo(() => {
     if (identification === Identification.VISITOR) {
-      return `img/employer.png`;
+      return [`img/employer.png`, 'Employer'];
     } else if (identification === Identification.ENGINEER) {
-      return `img/tasker.png`;
+      return [`img/tasker.png`, 'Tasker'];
     } else if (identification === Identification.OPERATOR) {
-      return `img/navigator.png`;
+      return [`img/navigator.png`, 'Navigator'];
+    } else {
+      return [`img/employer.png`, 'Employer'];
     }
   }, [identification]);
 
   return (
     <Box className={styles.baseinfoContainer}>
-      <div style={{ position: 'relative', width: '100%' }}>
-        <div className="flex gap-4">
-          {/* <WalletAvatar value={userInfo?.address || ''} size={100} /> */}
-          <Image src={avatar} alt="" width="80px" height="80px" borderRadius="50%" />
-          <div>
+      <Flex width="100%" mb="40px">
+        <Flex width="70%" gap="30px">
+          <Box position="relative" height="120px">
+            <Image src={avatar[0]} alt="" width="120px" height="100%" borderRadius="50%" />
+            <Tag
+              position="absolute"
+              bottom="-10px"
+              left="10px"
+              color="#fff"
+              // backgroundColor="rgba(255,255,255,0.9)"
+              width="100px"
+              justifyContent="center"
+            >
+              {avatar[1]}
+            </Tag>
+          </Box>
+          <Box>
             <Flex alignItems="center" gap="10px" mb={2}>
               {modify && (
                 <Flex alignItems="center" gap="10px">
@@ -89,154 +104,103 @@ export default function UserBaseInfo(props: {
                     onChange={(e) => handleChangeText(e)}
                   />
                   <Box cursor="pointer">
-                    <GrCheckmark fontSize={28} onClick={handleModify} />
+                    <GrCheckmark fontSize={16} onClick={handleModify} />
                   </Box>
                   <Box cursor="pointer">
-                    <GrClose fontSize={28} onClick={() => setModify(false)} />
+                    <GrClose fontSize={16} onClick={() => setModify(false)} />
                   </Box>
                 </Flex>
               )}
               {!modify && (
                 <>
-                  <Text fontSize={24} fontWeight="bold">
+                  <Text fontSize={20} fontWeight="bold">
                     {shortAddress(nickName)}
                   </Text>
                   {from === IPath.PROFILE && (
                     <RiEdit2Fill
                       className="cursor-pointer"
-                      fontSize="22"
+                      color="#7551ff"
+                      fontSize="16"
                       onClick={() => setModify(true)}
                     />
                   )}
                 </>
               )}
             </Flex>
-            {/* 用户中心 */}
-            {from === IPath.PROFILE && (
-              <div>
-                <span className="tag-primary" style={{ maxWidth: 120 }}>
-                  {isEngineer ? `Tasker` : isOperator ? `Navigator` : `Crew`}
-                </span>
-                {/* Tasker */}
-                {isEngineer && (
-                  <Box
-                    position="absolute"
-                    top="0"
-                    right="0"
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    gap="20px"
+            {!(isEngineer || isOperator) && (
+              <Box width="50%">
+                <Flex gap="10px" alignItems="center">
+                  <Button
+                    onClick={() => router.push(`/certification/tasker`)}
+                    className="flex items-center"
+                    border="1px dotted #7551ff"
+                    color="#7551ff"
+                    borderRadius="5px"
+                    padding="0 10px"
+                    _hover={{
+                      border: '1px dotted #7551ff',
+                      background: 'rgba(255,255,255,0.06)',
+                    }}
+                    height="30px"
                   >
-                    <Flex alignItems="center" justifyContent="center" gap="20px">
-                      {/* @ts-ignore */}
-                      <Box>
-                        <Text>
-                          Level：
-                          {
-                            //@ts-ignore
-                            USER_LEVEL[+data?.level]
-                          }
-                        </Text>
-                      </Box>
-                      {/* <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box> */}
-                    </Flex>
-                    <Flex gap="20px">
-                      {userInfo?.data?.engineer?.position?.map((positionType: number) => {
-                        return (
-                          // <Box
-                          //   key={`positiontype_${positionType}`}
-                          //   background="#7551FF"
-                          //   padding="8px 20px"
-                          //   color="#fff"
-                          //   borderRadius={4}
-                          // >
-                          //   {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
-                          // </Box>
-                          <span key={`positiontype_${positionType}`} className="tag-primary">
-                            {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
-                          </span>
-                        );
-                      })}
-                    </Flex>
-                  </Box>
-                )}
-                {/* Navigator */}
-                {/* {identification === Identification.OPERATOR && <Flex alignItems="center" justifyContent="center" gap="20px">
-          <Box><Text>到期：2024/11/24</Text></Box>
-          <Flex justifyContent="center" gap="10px">
-            <Text>授权码：</Text>
-            <Text color="#7551FF" marginLeft="10px">BTYD32423942</Text>
-            <Copy text="BTYD32423942"></Copy>
-          </Flex>
-        </Flex>} */}
-              </div>
+                    <Text fontSize={16}>Tasker Certification </Text>
+                  </Button>
+                  Or
+                  <Button
+                    className="flex items-center"
+                    border="1px dotted #7551ff"
+                    color="#7551ff"
+                    borderRadius="5px"
+                    padding="0 10px"
+                    _hover={{
+                      border: '1px dotted #7551ff',
+                      background: 'rgba(255,255,255,0.06)',
+                    }}
+                    disabled
+                    height="30px"
+                  >
+                    <Text fontSize={16}>Navigator Certification </Text>
+                  </Button>
+                </Flex>
+                <Text color="red.300" mt="20px">
+                  Note: <br />
+                  After the user enters the platform, it defaults to Employer, Tasker and Navigator
+                  can only choose one authentication option
+                </Text>
+              </Box>
             )}
-          </div>
-        </div>
-
-        {/* Navigator 审核 */}
-        {/* {from === IPath.OperatorCheck && <Box background="#7551FF" padding="10px 20px" color="#fff" borderRadius={4}>珍珠号 · 一年有效期</Box>} */}
-
-        {/* 我的Navigator 详情 */}
-        {/* {from === IPath.MYOPERATORDetail && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
-          Navigator
-        </Tag>
-        <Flex alignItems="center" justifyContent="center" gap="20px">
-          <Box><Text>到期：2024/11/24</Text></Box>
-          <Flex justifyContent="center" gap="10px">
-            <Text>授权码：</Text>
-            <Text color="#7551FF" marginLeft="10px">BTYD32423942</Text>
-            <Copy text="BTYD32423942"></Copy>
-          </Flex>
+            {/* 用户中心 */}
+            {isEngineer && (
+              <Box>
+                <Text display="flex">
+                  Grade：
+                  <Text color="#7551ff">
+                    {
+                      //@ts-ignore
+                      USER_LEVEL[+data?.level]
+                    }
+                  </Text>
+                </Text>
+                <Flex gap="10px" mt="20px">
+                  {userInfo?.data?.engineer?.position?.map((positionType: number) => {
+                    return (
+                      <Tag key={`positiontype_${positionType}`} backgroundColor="#7551ff">
+                        {ProfessionTypes.filter((v) => v.value === positionType)[0]?.label}
+                      </Tag>
+                    );
+                  })}
+                </Flex>
+              </Box>
+            )}
+          </Box>
         </Flex>
-        <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>珍珠号</Box>
-      </>} */}
+        {/* TODO balance */}
+        <Box width="30%">1000</Box>
+      </Flex>
 
-        {/* Tasker审核详情 */}
-        {/* {from === IPath.ENGINEERCheck && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
-          Tasker
-        </Tag>
-        <Flex gap="20px">
-        <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>前端开发工程师</Box>
-        <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box>
-        </Flex>
-      </>} */}
-
-        {/* TODO Tasker有3个等级 */}
-        {/* 我的Tasker 详情 */}
-        {/* {from === IPath.MYENGINEERDetail && <>
-        <Tag size="lg" padding="15px 30px" variant='solid' background='#1b1e24'>  
-          Tasker
-        </Tag>
-        <Flex alignItems="center" justifyContent="center" gap="20px">
-          <Box><Text>等级：Tasker</Text></Box>
-          <Box><Text>Navigator：上海奇石信息技术有限公司</Text></Box>
-        </Flex>
-        <Flex gap="20px">
-          <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>前端开发工程师</Box>
-          <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box>
-        </Flex>
-      </>} */}
-      </div>
-
-      {!(isEngineer || isOperator) && (
-        <Flex gap="20px">
-          <Link
-            onClick={() => router.push(`/certification/tasker`)}
-            className="flex items-center underline"
-          >
-            <Text fontSize={16} fontWeight="600">
-              Tasker Certification{' '}
-            </Text>
-            <MdArrowForward className="ml-2" />
-          </Link>
-          {/* <Text>or</Text>
-          <Box background="#7551FF" padding="8px 20px" color="#fff" borderRadius={4}>Java开发工程师</Box> */}
-        </Flex>
-      )}
+      {/* engineer major */}
+      {/* 水手展示个人信息 */}
+      {isEngineer && <UserMajor from={IPath.PROFILE} isEngineer={isEngineer} userInfo={userInfo} />}
     </Box>
   );
 }

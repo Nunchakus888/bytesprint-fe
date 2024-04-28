@@ -33,7 +33,6 @@ export default function UserMajor(props: {
           position="relative"
           marginTop="20px"
           paddingBottom="20px"
-          height="150px"
           className={styles.container}
         >
           {/* Navigator */}

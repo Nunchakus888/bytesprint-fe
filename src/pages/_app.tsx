@@ -88,7 +88,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
               <LanguageProvider>
                 <Header />
                 {isGuide ? '' : <Sidebar />}
-                <main className={classNames(isGuide ? 'v-main-guide' : '', 'v-main')}>
+                <main
+                  className={classNames(isGuide ? 'v-main-guide' : '', 'v-main', 'raw-scrollbar')}
+                >
                   <Component {...pageProps} />
                 </main>
                 <ToastContainer />
