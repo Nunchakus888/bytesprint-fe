@@ -194,18 +194,18 @@ select[name='rcrs-region'] {
   }
 }
 
-/* *::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 4px;
 }
 
 *::-webkit-scrollbar-track {
-  background-color: inherit;
+  opacity: 0.8;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #111519;
+  background-color: #000;
   border-radius: 0.2rem;
-} */
+}
 
 .raw-scrollbar::-webkit-scrollbar {
   height: 1rem;
