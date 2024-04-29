@@ -83,9 +83,9 @@ export function SidebarLinks(props: SidebarLinksProps) {
                 </AccordionButton>
 
                 <AccordionPanel paddingTop="0" paddingBottom="0">
-                  {route.children?.map((cit: any) => {
+                  {route.children?.map((cit: any, i: number) => {
                     return (
-                      <Link key={`cit${index}`} href={cit.path}>
+                      <Link key={`${index}_cit${i}`} href={cit.path}>
                         <Box>
                           <HStack spacing={activeRoute(cit.path.toLowerCase()) ? '22px' : '26px'}>
                             <Flex w="100%" alignItems="center" justifyContent="center">

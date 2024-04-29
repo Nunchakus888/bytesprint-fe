@@ -32,10 +32,6 @@ export default function UserSkillsTag({ userInfo }: any) {
                     </span>
                   )}
                 </>
-
-                // <Tag  size="lg" variant="solid" background="#7551FF">
-                //   {item}
-                // </Tag>
               );
             })}
           </Flex>

@@ -94,12 +94,12 @@ const CustomConnectButton = () => {
                           styles.address_wrap
                         )}
                       >
-                        <span>
+                        {/* <span>
                           {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol}
-                        </span>
-                        <Box className="px-1" color={'#3a3a3a'}>
+                        </span> */}
+                        {/* <Box className="px-1" color={'#3a3a3a'}>
                           |
-                        </Box>
+                        </Box> */}
                         <span> {account.displayName}</span>
                         <div className="w-6 h-6 ml-2">
                           <WalletAvatar value={account?.address} />

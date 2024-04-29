@@ -62,6 +62,31 @@ export const publishTask = async ({ account, projectId }: any) => {
   }
 };
 
+export const balanceFormat = async ({ account }: any) => {
+  try {
+    if (!account?.address) return;
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+    // test
+    const b = await eth20Instance.balanceOf(account.address);
+    const symbol = await eth20Instance.symbol();
+    console.log('b', b);
+    // 将 balance 转换成 BigNumber 对象
+    const balanceBigNumber = new BN(b.toString());
+
+    // 将以太币数量除以 10 的 18 次方
+    const etherAmount = balanceBigNumber.dividedBy(new BN(10).exponentiatedBy(18));
+    // const etherAmount = balanceBigNumber;
+    console.log('etherAmount', etherAmount);
+    return {
+      symbol,
+      data: etherAmount,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 // 评估质押 接包方质押
 export const evaluateTask = async ({ account, projectId, amount }: any) => {
   try {

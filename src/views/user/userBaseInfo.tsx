@@ -11,7 +11,7 @@ import { Post } from 'common/utils/axios';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import _ from 'lodash';
-import { setItem } from 'common/utils';
+import { setItem, transferNum } from 'common/utils';
 import WalletAvatar from 'components/WalletAvatar';
 import { MdArrowForward } from 'react-icons/md';
 import { shortAddress } from 'common/utils';
@@ -19,7 +19,9 @@ import { RiEdit2Fill } from 'react-icons/ri';
 import { onSuccessToast } from 'common/utils/toast';
 import { useRouter } from 'next/router';
 import UserMajor from './userMajor';
-
+import { useAccount } from 'wagmi';
+import { balanceFormat } from 'common/contract/lib/bytd';
+import useConect from '../../hooks/useConnect';
 export default function UserBaseInfo(props: {
   from?: IPath;
   userInfo?: any; // 信息
@@ -32,6 +34,9 @@ export default function UserBaseInfo(props: {
   const data = userInfo?.data;
   const [modify, setModify] = useState(false);
   const [modifyText, setModifyText] = useState('');
+  const account = useAccount();
+  const { connect } = useConect();
+  const [balance, setBalance] = useState<any>(); // 余额
   const router = useRouter();
   const dispatch = useDispatch();
   const handleChangeText = (e: any) => {
@@ -58,6 +63,26 @@ export default function UserBaseInfo(props: {
       onSuccessToast('Successfully');
     }
   };
+  // 获取余额
+  useEffect(() => {
+    if (account) {
+      balanceFormat({ account }).then((data) => {
+        setBalance(data);
+      });
+    }
+  }, []);
+
+  // 处理余额
+  const handleRefreshBalance = () => {
+    debugger;
+    if (!account?.address) {
+      connect();
+      return false;
+    }
+    balanceFormat({ account }).then((data) => {
+      setBalance(data);
+    });
+  };
 
   // 头像
   const avatar = useMemo(() => {
@@ -74,7 +99,7 @@ export default function UserBaseInfo(props: {
 
   return (
     <Box className={styles.baseinfoContainer}>
-      <Flex width="100%" mb="40px">
+      <Flex width="100%" mb="40px" justifyContent="space-between">
         <Flex width="70%" gap="30px">
           <Box position="relative" height="120px">
             <Image src={avatar[0]} alt="" width="120px" height="100%" borderRadius="50%" />
@@ -194,8 +219,28 @@ export default function UserBaseInfo(props: {
             )}
           </Box>
         </Flex>
-        {/* TODO balance */}
-        <Box width="30%">1000</Box>
+        {/* balance */}
+        <Box width="30%" position="relative">
+          <Flex direction="column" justifyContent="center" height="100%" gap="30px">
+            {balance?.symbol && (
+              <Text fontWeight="bold" className={styles[`${balance?.symbol?.toLowerCase()}`]}>
+                {balance?.symbol}
+              </Text>
+            )}
+            <Text fontWeight="bold" fontSize={20}>
+              {transferNum(balance?.data || 0, 0)}
+            </Text>
+          </Flex>
+          <Link
+            color="#7551ff"
+            position="absolute"
+            right="0"
+            top="0"
+            onClick={handleRefreshBalance}
+          >
+            Refresh
+          </Link>
+        </Box>
       </Flex>
 
       {/* engineer major */}
