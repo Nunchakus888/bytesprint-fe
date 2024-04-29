@@ -149,7 +149,7 @@ export default function TaskSchedule(props: {
       btnGroup={<></>}
       closeOnOverlayClick={false}
     >
-      <Box background="#1b1e24" padding="10px" margin="10px 0 20px 0">
+      <Box background="rgba(255,255,255,0.06)" padding="10px" margin="10px 0 20px 0">
         <Flex justify="space-between">
           <Flex width="100px" alignItems="center" justifyContent="center">
             Serial Number
