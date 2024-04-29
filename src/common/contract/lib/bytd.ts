@@ -90,10 +90,19 @@ export const balanceFormat = async ({ account }: any) => {
 // 评估质押 接包方质押
 export const evaluateTask = async ({ account, projectId, amount }: any) => {
   try {
-    // 授权
-    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
     const approve_ammounts = new BN(amount / 10).times(Math.pow(10, 18)).toFixed(0);
     const evaluate_ammounts = new BN(amount).times(Math.pow(10, 18)).toFixed(0);
+    // 评估时需判断balance是否足够
+    const balance = await balanceFormat({ account });
+    if (+balance?.data.times(Math.pow(10, 18)).toFixed() < +evaluate_ammounts) {
+      onErrorToast(
+        `Insufficient balance. Please ensure that the address has a sufficient balance and try again.`
+      );
+      return false;
+    }
+    // 授权
+    let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
+
     console.log('eva>>>', approve_ammounts, evaluate_ammounts);
     const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
     let approveRes = true;
@@ -104,6 +113,7 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
     if (!approveRes) {
       return false;
     }
+
     const bytdInstance = await getBYTDInstance(BYTD_ADDRESS);
     const result = await bytdInstance.evaluateTask(String(projectId), evaluate_ammounts);
     console.log('result>>>', result);
@@ -134,9 +144,17 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
 // 签约任务
 export const signTask = async ({ account, projectId, taskerAddress, totalCost }: any) => {
   try {
+    const approve_ammounts = new BN(totalCost).times(Math.pow(10, 18)).toFixed(0);
+    // 评估时需判断balance是否足够
+    const balance = await balanceFormat({ account });
+    if (+balance?.data.times(Math.pow(10, 18)).toFixed() < +approve_ammounts) {
+      onErrorToast(
+        `Insufficient balance. Please ensure that the address has a sufficient balance and try again.`
+      );
+      return false;
+    }
     // 授权
     let eth20Instance = await getUSDTInstance(USDT_B_ADDRESS);
-    const approve_ammounts = new BN(totalCost).times(Math.pow(10, 18)).toFixed(0);
     const eth20Approve = await eth20Instance.approve(BYTD_ADDRESS, approve_ammounts);
     let approveRes = true;
     if (eth20Approve) {

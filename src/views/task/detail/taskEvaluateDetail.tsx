@@ -3,7 +3,7 @@ import ModalDialog from 'components/modal';
 import { IPath, ProfessionTypes, TaskBidStatus, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
 import Image from 'next/image';
-import { shortAddress } from 'common/utils';
+import { shortAddress, shortAddress2 } from 'common/utils';
 import BYTable from 'components/table';
 import { useTaskEvaluateDetail } from 'hooks/task/detai';
 import { useMemo } from 'react';
@@ -118,7 +118,7 @@ export default function TaskEvaluateDetail(props: {
             </Flex>
             <Flex marginTop="20px" direction="column">
               <Text fontSize={16}>
-                {userInfoForUid?.nickname || userInfoForUid?.data?.nickname}
+                {shortAddress(userInfoForUid?.nickname || userInfoForUid?.data?.nickname, 4)}
               </Text>
               <Text marginTop="10px" fontSize={12}>
                 {shortAddress(record?.wallet.toString() || '')}

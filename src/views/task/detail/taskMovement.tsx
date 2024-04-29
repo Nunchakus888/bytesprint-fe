@@ -41,7 +41,7 @@ export default function TaskMovement(props: { data: any }) {
             return (
               <Box
                 marginTop="30px"
-                key={it}
+                key={`time_${index}`}
                 className={styles.movementTime}
                 display="flex"
                 flexDirection="column"
@@ -64,15 +64,20 @@ export default function TaskMovement(props: { data: any }) {
           <Box className={styles.line} overflow="hidden"></Box>
           {statusRes.map((it: any, index: number) => {
             return (
-              <Box marginTop="30px" key={`${it}_buble_${index}}`} className={styles.buble}></Box>
+              <Box marginTop="30px" key={`status_buble_${index}}`} className={styles.buble}></Box>
             );
           })}
         </Flex>
 
         <Flex direction="column" height="100%" justifyContent="space-around">
-          {statusRes.reverse().map((it: any) => {
+          {statusRes.reverse().map((it: any, index: number) => {
             return (
-              <Box display="flex" alignItems="center" marginTop="30px" key={`${it}`}>
+              <Box
+                display="flex"
+                alignItems="center"
+                marginTop="30px"
+                key={`status_reverse_${index}`}
+              >
                 {/* @ts-ignore */}
                 <Text>{[...RequirementStatus].filter((ts) => ts.value === it)[0]?.label}</Text>
               </Box>

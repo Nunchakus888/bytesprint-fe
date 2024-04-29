@@ -19,7 +19,7 @@ export default function BYTable(props: { columns: any[]; dataSource: any[] }) {
               const { width, textAlign } = it;
               return (
                 <Th
-                  key={`${it.key}_${Date.now()}`}
+                  key={`th_${index}`}
                   width={width}
                   textAlign={textAlign}
                   padding="10px"
@@ -42,11 +42,7 @@ export default function BYTable(props: { columns: any[]; dataSource: any[] }) {
                   return (
                     <>
                       {isRender ? (
-                        <Td
-                          key={`${value || Date.now()}_${index}_${ci}`}
-                          borderBottom="none"
-                          padding="10px"
-                        >
+                        <Td key={`tr_${index}_${ci}`} borderBottom="none" padding="10px">
                           {c.render(dataSource, data, index)}
                         </Td>
                       ) : (
