@@ -1,6 +1,4 @@
 import { Avatar, Box, Button, Flex, Image, Input, Link, Tag, Text } from '@chakra-ui/react';
-import Copy from 'components/copy';
-import { useUserInfo } from 'hooks/user';
 import { useEffect, useMemo, useState } from 'react';
 import { Identification, IPath, ProfessionTypes, USER_LEVEL } from 'common/constant';
 import styles from './index.module.scss';
@@ -12,16 +10,12 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from 'common/slice/commonSlice';
 import _ from 'lodash';
 import { setItem, transferNum } from 'common/utils';
-import WalletAvatar from 'components/WalletAvatar';
-import { MdArrowForward } from 'react-icons/md';
 import { shortAddress } from 'common/utils';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { onSuccessToast } from 'common/utils/toast';
 import { useRouter } from 'next/router';
 import UserMajor from './userMajor';
-import { useAccount } from 'wagmi';
-import { balanceFormat } from 'common/contract/lib/bytd';
-import useConect from '../../hooks/useConnect';
+import useAcountBalance from 'hooks/useAcountBalance';
 export default function UserBaseInfo(props: {
   from?: IPath;
   userInfo?: any; // 信息
@@ -34,9 +28,7 @@ export default function UserBaseInfo(props: {
   const data = userInfo?.data;
   const [modify, setModify] = useState(false);
   const [modifyText, setModifyText] = useState('');
-  const account = useAccount();
-  const { connect } = useConect();
-  const [balance, setBalance] = useState<any>(); // 余额
+  const { balance, refresh: handleRefreshBalance } = useAcountBalance(); // 余额
   const router = useRouter();
   const dispatch = useDispatch();
   const handleChangeText = (e: any) => {
@@ -62,25 +54,6 @@ export default function UserBaseInfo(props: {
       // 新增提示
       onSuccessToast('Successfully');
     }
-  };
-  // 获取余额
-  useEffect(() => {
-    if (account) {
-      balanceFormat({ account }).then((data) => {
-        setBalance(data);
-      });
-    }
-  }, []);
-
-  // 处理余额
-  const handleRefreshBalance = () => {
-    if (!account?.address) {
-      connect();
-      return false;
-    }
-    balanceFormat({ account }).then((data) => {
-      setBalance(data);
-    });
   };
 
   // 头像

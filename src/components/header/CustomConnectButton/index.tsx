@@ -7,17 +7,19 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { useAccount } from 'wagmi';
 import classnames from 'classnames';
 //@ts-ignore
-import { maxDecimal } from 'common/utils';
+import { maxDecimal, transferNum } from 'common/utils';
 import { Box, Popover, PopoverTrigger, PopoverContent, Button } from '@chakra-ui/react';
 import WalletAvatar from 'components/WalletAvatar';
 import useConect from 'hooks/useConnect';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/loading';
+import useAcountBalance from 'hooks/useAcountBalance';
 
 const CustomConnectButton = () => {
-  const { isConnecting, address } = useAccount();
+  const { isConnecting } = useAccount();
   const { disconnects } = useConect();
-  const { userInfo, loginLoading } = useSelector((state: any) => state.common);
+  const { loginLoading } = useSelector((state: any) => state.common);
+  const { balance } = useAcountBalance(); // 余额
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
@@ -94,12 +96,13 @@ const CustomConnectButton = () => {
                           styles.address_wrap
                         )}
                       >
-                        {/* <span>
-                          {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol}
-                        </span> */}
-                        {/* <Box className="px-1" color={'#3a3a3a'}>
+                        <span>
+                          {/* {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol} */}
+                          {transferNum(balance?.data.toFixed(0) || 0)} {balance?.symbol}
+                        </span>
+                        <Box className="px-1" color={'#3a3a3a'}>
                           |
-                        </Box> */}
+                        </Box>
                         <span> {account.displayName}</span>
                         <div className="w-6 h-6 ml-2">
                           <WalletAvatar value={account?.address} />
