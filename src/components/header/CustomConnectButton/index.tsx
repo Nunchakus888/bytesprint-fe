@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 
@@ -19,7 +19,12 @@ const CustomConnectButton = () => {
   const { isConnecting } = useAccount();
   const { disconnects } = useConect();
   const { loginLoading } = useSelector((state: any) => state.common);
-  const { balance } = useAcountBalance(); // 余额
+  const { balance, refresh } = useAcountBalance(); // 余额
+  useEffect(() => {
+    if (!balance?.symbol) {
+      refresh();
+    }
+  }, [balance, refresh]);
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
@@ -98,7 +103,7 @@ const CustomConnectButton = () => {
                       >
                         <span>
                           {/* {maxDecimal(account?.balanceFormatted || 0)} {account?.balanceSymbol} */}
-                          {transferNum(balance?.data.toFixed(0) || 0)} {balance?.symbol}
+                          {transferNum(balance?.data.toFixed(0) || 0, 0)} {balance?.symbol}
                         </span>
                         <Box className="px-1" color={'#3a3a3a'}>
                           |
