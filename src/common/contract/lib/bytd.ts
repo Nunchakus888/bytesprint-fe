@@ -77,7 +77,7 @@ export const balanceFormat = async ({ account }: any) => {
     // 将以太币数量除以 10 的 18 次方
     const etherAmount = balanceBigNumber.dividedBy(new BN(10).exponentiatedBy(18));
     // const etherAmount = balanceBigNumber;
-    console.log('etherAmount', etherAmount);
+    console.log('etherAmount', etherAmount.toFixed(0));
     return {
       symbol,
       data: etherAmount,

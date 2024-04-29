@@ -143,14 +143,16 @@ export const transferNum = (num: any, decimal = 2) => {
   if (num <= 0) {
     return '-';
   }
-  // 大于9999，换成k为单位, K为单位的情况保留1位小数
-  if (num <= 9999) {
+  // 大于1000000000，换成B为单位
+  if (num <= 1000000000) {
     return num;
-  } else if (num > 9999 && num <= 9999999) {
-    return `${(num / 1000).toFixed(decimal)}K`;
-  } else if (num > 9999999 && num <= 1000000000) {
-    return `${(num / 1000000).toFixed(decimal)}M`;
   }
+  // else if (num > 9999 && num <= 9999999) {
+  //   return `${(num / 1000).toFixed(decimal)}K`;
+  // }
+  // else if (num > 9999999 && num <= 1000000000) {
+  //   return `${(num / 1000000).toFixed(decimal)}M`;
+  // }
   return `${(num / 1000000000).toFixed(decimal)}B`;
 };
 

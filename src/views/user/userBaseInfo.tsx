@@ -74,7 +74,6 @@ export default function UserBaseInfo(props: {
 
   // 处理余额
   const handleRefreshBalance = () => {
-    debugger;
     if (!account?.address) {
       connect();
       return false;
@@ -228,7 +227,7 @@ export default function UserBaseInfo(props: {
               </Text>
             )}
             <Text fontWeight="bold" fontSize={20}>
-              {transferNum(balance?.data || 0, 0)}
+              {transferNum(balance?.data.toFixed(0) || 0, 0)}
             </Text>
           </Flex>
           <Link
