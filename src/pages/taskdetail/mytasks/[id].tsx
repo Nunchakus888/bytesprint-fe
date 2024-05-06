@@ -172,6 +172,7 @@ const TaskDetail = () => {
                 data={data}
                 buttonLoading={buttonLoading}
                 withdrawLoding={withdrawLoding}
+                myBidSuccessRecord={myBidSuccessRecord}
               />
               {data?.taskStatus >= IStatus.SIGNED && (
                 <TaskSignedReward recordList={data?.assetRecordList} />

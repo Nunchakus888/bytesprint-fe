@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { IPath, IStatus, RequirementStatus, TaskStatus } from 'common/constant';
 import styles from './index.module.scss';
 import ModalDialog from 'components/modal';
+import { onErrorToast } from 'common/utils/toast';
 export default function TaskStatusInfo(props: {
   taskStatus: IStatus;
   from: string;
@@ -15,8 +16,9 @@ export default function TaskStatusInfo(props: {
   data?: any;
   buttonLoading?: boolean;
   withdrawLoding?: boolean;
+  myBidSuccessRecord?: any[];
 }) {
-  const { from, taskStatus, data, buttonLoading, withdrawLoding } = props;
+  const { from, taskStatus, data, buttonLoading, withdrawLoding, myBidSuccessRecord } = props;
   console.log('>>taskStatus', taskStatus);
   const statusTitle = useMemo(() => {
     if (from === IPath.MYREQUIREMENT) {
@@ -40,6 +42,16 @@ export default function TaskStatusInfo(props: {
       window.location.reload();
     }
   };
+  // tasker 是否能够提交验收
+  const isSubmitValid = useMemo(() => {
+    if (taskStatus === IStatus.CODEING) {
+      // @ts-ignore
+      const noCompletedCount = myBidSuccessRecord?.requirementAssociation.filter(
+        (v: any) => !v.requirementPlan.requirementStatus
+      );
+      return noCompletedCount.length ? false : true;
+    }
+  }, [myBidSuccessRecord, taskStatus]);
   const action = useCallback(() => {
     if (from === IPath.MYREQUIREMENT) {
       switch (taskStatus) {
@@ -137,6 +149,11 @@ export default function TaskStatusInfo(props: {
             <Button
               className={styles.statusbtn}
               onClick={() => {
+                // TODO 判断是否能提交
+                if (!isSubmitValid) {
+                  onErrorToast(`Please complete task schedule first`);
+                  return;
+                }
                 setIsOpenConfirm(true);
                 confirmRef.current.content = `Are you sure you want to submit the task?`;
                 confirmRef.current.onSure = () => {

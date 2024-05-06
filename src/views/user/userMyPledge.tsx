@@ -2,13 +2,16 @@ import { Box, Text, Flex, Image, Tag, Tooltip, Button } from '@chakra-ui/react';
 import classNames from 'classnames';
 import { IStatus, PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
+import { useState } from 'react';
 import styles from './index.module.scss';
 
 export default function UserMyPledge(props: { data: any[]; refresh: () => void }) {
   const { data, refresh } = props;
-  const { stakingWithdraw } = useWithdraw();
+  const { stakingWithdraw, buttonLoading } = useWithdraw();
+  const [clickItem, setClickItem] = useState<any>();
   const handleWithdraw = async (item: any) => {
     if (item.stakingStatus !== 3) return;
+    setClickItem(item);
     const isSuccess = await stakingWithdraw(item);
     if (isSuccess) {
       refresh();
@@ -68,6 +71,7 @@ export default function UserMyPledge(props: { data: any[]; refresh: () => void }
                   disabled={it.stakingStatus === 3 ? false : true}
                   backgroundColor={it.stakingStatus === 3 ? '#7551ff' : '#111C43'}
                   height="35px"
+                  isLoading={clickItem?.stakingId === it.stakingId && buttonLoading}
                 >
                   Withdraw to Wallet<span className="font-20">{'>'}</span>
                 </Button>

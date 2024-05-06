@@ -5,6 +5,7 @@ import { GoLinkExternal } from 'react-icons/go';
 import { PledgeStatus, TaskStatus } from 'common/constant';
 import { useWithdraw } from 'hooks/user';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 export default function UserMyReward(props: { data: any[]; refresh: () => void }) {
   // test
@@ -130,9 +131,11 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
   // };
   // const data = res.stakings;
   const { data, refresh } = props;
-  const { rewardWithdraw } = useWithdraw();
+  const { rewardWithdraw, buttonLoading } = useWithdraw();
+  const [clickItem, setClickItem] = useState<any>();
   const handleWithdraw = async (item: any) => {
     if (item.rewardStatus !== 3) return;
+    setClickItem(item);
     const isSuccess = await rewardWithdraw(item);
     if (isSuccess) {
       refresh();
@@ -188,6 +191,7 @@ export default function UserMyReward(props: { data: any[]; refresh: () => void }
                   disabled={it.rewardStatus === 3 ? false : true}
                   backgroundColor={it.rewardStatus === 3 ? '#7551ff' : '#111C43'}
                   height="35px"
+                  isLoading={clickItem?.rewardId === it.rewardId && buttonLoading}
                 >
                   Withdraw to Wallet<span className="font-20">{'>'}</span>
                 </Button>
