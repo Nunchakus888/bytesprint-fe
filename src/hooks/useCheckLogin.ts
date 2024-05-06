@@ -99,10 +99,12 @@ export const useCheckLogin = () => {
       dispatch(setUserInfo(newuseInfo));
       setItem('userInfo', newuseInfo);
       setItem('authorization', authorization);
+      return true;
     } else {
       dispatch(setLoginLoading(false));
       dispatch(setUserInfo(userInfo));
       setItem('authorization', userInfo.authorization);
+      return true;
     }
   };
 

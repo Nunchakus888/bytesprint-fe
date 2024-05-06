@@ -39,7 +39,12 @@ const useListenConnectionEvent = () => {
     }
     if (address !== undefined && ethers.utils.isAddress(address)) {
       localStorage.setItem('address', address);
-      checkLogin();
+      // 检测login后,如果换了address 直接进入到大厅
+      checkLogin().then((res) => {
+        if (res && localAddress && address !== localAddress) {
+          route.push('/');
+        }
+      });
     }
   }, [address]);
 };

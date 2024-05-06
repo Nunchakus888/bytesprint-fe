@@ -39,7 +39,7 @@ export const useTaskPlanList = (data: any, isShow: boolean) => {
           return {
             taskname: it.requirementName,
             usdt: it.requirementCost,
-            startTime: it.requirementPlan?.expectedstartTime,
+            startTime: it.requirementPlan?.expectedStartTime,
             endTime: it.requirementPlan?.expectedFinishTime,
             workhours: it.requirementPlan?.expectedWorkTime,
             actualCompleteTime: it.requirementPlan?.actualFinishTime,

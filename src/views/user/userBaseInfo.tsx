@@ -74,7 +74,14 @@ export default function UserBaseInfo(props: {
       <Flex width="100%" mb="40px" justifyContent="space-between">
         <Flex width="70%" gap="30px">
           <Box position="relative" height="120px">
-            <Image src={avatar[0]} alt="" width="120px" height="100%" borderRadius="50%" />
+            <Image
+              src={avatar[0]}
+              alt=""
+              width="120px"
+              minW="120px"
+              height="100%"
+              borderRadius="50%"
+            />
             <Tag
               position="absolute"
               bottom="-10px"
@@ -125,7 +132,7 @@ export default function UserBaseInfo(props: {
               )}
             </Flex>
             {!(isEngineer || isOperator) && (
-              <Box width="50%">
+              <Box>
                 <Flex gap="10px" alignItems="center">
                   <Button
                     onClick={() => router.push(`/certification/tasker`)}

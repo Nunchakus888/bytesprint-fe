@@ -113,7 +113,7 @@ export default function UserExperience(props: { userInfo: any }) {
                     <Flex gap="5px" fontWeight="bold">
                       <Text>{it.department}</Text>
                       <Text>·</Text>
-                      <Text>{}</Text>
+                      <Text>{it.position}</Text>
                     </Flex>
                   )}
                 </Flex>
@@ -154,7 +154,7 @@ export default function UserExperience(props: { userInfo: any }) {
                   {(it.education || it.major) && (
                     <Flex gap="5px" fontWeight="bold">
                       <Text>
-                        {EducationTypes.filter((v) => v.value === it.education)[0]?.label}
+                        {EducationTypes.filter((v) => +v.value === +it.education)[0]?.label}
                       </Text>
                       <Text>·</Text>
                       <Text>{it.major}</Text>
