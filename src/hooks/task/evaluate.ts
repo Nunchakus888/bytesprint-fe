@@ -132,7 +132,6 @@ export const useEvaluate = (projectId: string, onSuccessCb: () => void) => {
         setLoading(false);
         return false;
       }
-      debugger;
       // 调用接口
       const requirementList = data.datas.map((it: any) => {
         return {

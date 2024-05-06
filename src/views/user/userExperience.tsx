@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import styles from './index.module.scss';
 import { BiBriefcaseAlt2 } from 'react-icons/bi';
 import { FaGraduationCap } from 'react-icons/fa';
+import { useMemo } from 'react';
 export default function UserExperience(props: { userInfo: any }) {
   const { userInfo } = props;
   // test
@@ -59,10 +60,18 @@ export default function UserExperience(props: { userInfo: any }) {
   // userInfo.data = {
   //   engineer: res,
   // };
-
+  const isShow = useMemo(() => {
+    if (
+      userInfo?.data?.engineer?.jobList.length === 0 &&
+      userInfo?.data?.engineer?.educationList.length === 0
+    ) {
+      return false;
+    }
+    return true;
+  }, [userInfo]);
   return (
     <>
-      {userInfo?.data?.engineer?.jobList ? (
+      {isShow ? (
         <Box
           display="flex"
           flexDirection="column"

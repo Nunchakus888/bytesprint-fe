@@ -46,6 +46,7 @@ const TaskDetail = () => {
     openRecordDetail,
     buttonLoading,
     signLoading,
+    clickSignItem,
   } = useMyRequirementDetailStatusAction(id);
 
   // 中标记录
@@ -123,6 +124,7 @@ const TaskDetail = () => {
                 unSignBid={unSignBid}
                 signLoading={signLoading}
                 openRecordDetail={handleOpenRecordDetail}
+                clickSignItem={clickSignItem}
               />
               <TaskDescription
                 description={data?.projectRawInfo?.description}

@@ -41,7 +41,6 @@ export const useMyTaskDetailStatusAction = (id: string | string[], myrecordId: s
       return false;
     }
     const data = list?.map((it) => {
-      debugger;
       return {
         expectedStartTime: dayjs(it.startTime).unix() * 1000,
         expectedFinishTime: dayjs(it.endTime).unix() * 1000,

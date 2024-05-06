@@ -26,6 +26,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
   const [signLoading, setSignLoading] = useState(false);
   const { chain } = useNetwork();
   const { checkChain, switchChain } = useCheckChain(chain?.id);
+  const [clickSignItem, setClickSignItem] = useState<any>();
   // 打开任务
   const openTask = async () => {
     setButtonLoading(true);
@@ -138,6 +139,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
 
   // 签约TA
   const signBid = async (record: any) => {
+    setClickSignItem(record);
     setSignLoading(true);
     // 判断是否登录
     if (!userInfo.address) {
@@ -221,6 +223,7 @@ export const useMyRequirementDetailStatusAction = (id: string | string[]) => {
     openRecordDetail,
     buttonLoading,
     signLoading,
+    clickSignItem,
   };
 };
 

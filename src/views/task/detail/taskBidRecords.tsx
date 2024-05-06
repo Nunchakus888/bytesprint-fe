@@ -22,8 +22,18 @@ export default function TaskBidRecords(props: {
   unSignBid?: (recordId: string) => void; // 淘汰TA
   openRecordDetail?: (recordId: string) => void; // 详情
   signLoading?: boolean;
+  clickSignItem?: any;
 }) {
-  const { recordList, taskStatus, signBid, unSignBid, openRecordDetail, from, signLoading } = props;
+  const {
+    recordList,
+    taskStatus,
+    signBid,
+    unSignBid,
+    openRecordDetail,
+    from,
+    signLoading,
+    clickSignItem,
+  } = props;
   const { userInfo } = useUserInfo();
   // 将自己的评估记录置顶
   const myRecordIndex = recordList?.findIndex((item) => item.wallet === userInfo?.address);
@@ -120,7 +130,7 @@ export default function TaskBidRecords(props: {
                             height="30px"
                             borderRadius={4}
                             onClick={() => signBid(it)}
-                            isLoading={signLoading}
+                            isLoading={clickSignItem?.id === it.id && signLoading}
                           >
                             Sign
                           </Button>
