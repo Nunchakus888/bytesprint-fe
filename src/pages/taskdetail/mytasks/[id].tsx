@@ -140,7 +140,7 @@ const TaskDetail = () => {
           <Loading />
         ) : (
           <Box display="flex" gap="20px">
-            <Flex direction="column" width="900px">
+            <Flex direction="column" width="-webkit-fill-available">
               <TaskBaseInfo from={IPath.MYTASKS} data={data?.projectRawInfo} />
               {isShowExtendTaskInfo && (
                 <TaskPlanList

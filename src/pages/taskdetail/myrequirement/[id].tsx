@@ -107,7 +107,7 @@ const TaskDetail = () => {
           <Loading />
         ) : (
           <Box display="flex" gap="20px">
-            <Flex direction="column" width="900px">
+            <Flex direction="column" width="-webkit-fill-available">
               <TaskBaseInfo
                 from={IPath.MYREQUIREMENT}
                 setIsOpenEvaluate={setIsOpenEvaluate}
