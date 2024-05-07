@@ -18,13 +18,13 @@ import useAcountBalance from 'hooks/useAcountBalance';
 const CustomConnectButton = () => {
   const { isConnecting } = useAccount();
   const { disconnects } = useConect();
-  const { loginLoading } = useSelector((state: any) => state.common);
+  const { loginLoading, userInfo } = useSelector((state: any) => state.common);
   const { balance, refresh } = useAcountBalance(); // 余额
   useEffect(() => {
-    if (!balance?.symbol) {
+    if (userInfo?.address && !balance?.symbol) {
       refresh();
     }
-  }, [balance, refresh]);
+  }, [balance, refresh, userInfo]);
   return (
     <ConnectButton.Custom>
       {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {

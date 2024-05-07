@@ -7,10 +7,11 @@ import { getItem, removeItem, setItem } from 'common/utils';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useCheckLogin } from './useCheckLogin';
 import { useRouter } from 'next/router';
-
+import useConect from './useConnect';
 const useListenConnectionEvent = () => {
   const { address, isDisconnected } = useAccount();
   const { disconnect } = useDisconnect();
+  const { disconnects } = useConect();
   const dispatch = useDispatch();
   const { chain } = useNetwork();
   const { userInfo } = useSelector((state: any) => state.common);
@@ -37,14 +38,13 @@ const useListenConnectionEvent = () => {
       route.replace('/guide');
       return;
     }
-    if (address !== undefined && ethers.utils.isAddress(address)) {
+    if (localAddress && address !== localAddress) {
+      route.push('/');
+      disconnects();
+    } else if (address !== undefined && ethers.utils.isAddress(address)) {
       localStorage.setItem('address', address);
       // 检测login后,如果换了address 直接进入到大厅
-      checkLogin().then((res) => {
-        if (res && localAddress && address !== localAddress) {
-          route.push('/');
-        }
-      });
+      checkLogin();
     }
   }, [address]);
 };
