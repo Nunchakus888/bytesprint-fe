@@ -84,6 +84,10 @@ export const balanceFormat = async ({ account }: any) => {
     };
   } catch (e) {
     console.log(e);
+    return {
+      symbol: '',
+      data: 0,
+    };
   }
 };
 

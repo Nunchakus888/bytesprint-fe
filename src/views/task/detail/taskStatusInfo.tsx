@@ -49,7 +49,7 @@ export default function TaskStatusInfo(props: {
       const noCompletedCount = myBidSuccessRecord?.requirementAssociation.filter(
         (v: any) => !v.requirementPlan.requirementStatus
       );
-      return noCompletedCount.length ? false : true;
+      return noCompletedCount?.length ? false : true;
     }
   }, [myBidSuccessRecord, taskStatus]);
   const action = useCallback(() => {

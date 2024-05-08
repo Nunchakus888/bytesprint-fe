@@ -40,6 +40,10 @@ export default function UserBaseInfo(props: {
     setNickName(data?.nickname);
   }, [data]);
 
+  useEffect(() => {
+    handleRefreshBalance();
+  }, []);
+
   const handleModify = async () => {
     const txt = modifyText.trim();
     if (txt) {
