@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/api2r/:path*',
-        destination: 'https://api.btyd.io/api/:path*',
+        destination: 'http://119.13.77.237:8080/api/:path*',
       },
     ];
   },
