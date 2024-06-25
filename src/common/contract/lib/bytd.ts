@@ -98,6 +98,7 @@ export const evaluateTask = async ({ account, projectId, amount }: any) => {
     const evaluate_ammounts = new BN(amount).times(Math.pow(10, 18)).toFixed(0);
     // 评估时需判断balance是否足够
     const balance = await balanceFormat({ account });
+    // @ts-ignore
     if (+balance?.data.times(Math.pow(10, 18)).toFixed() < +evaluate_ammounts) {
       onErrorToast(
         `Insufficient balance. Please ensure that the address has a sufficient balance and try again.`
@@ -151,6 +152,7 @@ export const signTask = async ({ account, projectId, taskerAddress, totalCost }:
     const approve_ammounts = new BN(totalCost).times(Math.pow(10, 18)).toFixed(0);
     // 评估时需判断balance是否足够
     const balance = await balanceFormat({ account });
+    // @ts-ignore
     if (+balance?.data.times(Math.pow(10, 18)).toFixed() < +approve_ammounts) {
       onErrorToast(
         `Insufficient balance. Please ensure that the address has a sufficient balance and try again.`
