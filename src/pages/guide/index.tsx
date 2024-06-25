@@ -138,7 +138,7 @@ export default function Guide() {
           </div>
         ))}
       </div>
-      <p className="mt-[30px]">
+      <p className="mt-[30px] text-gray-100">
         Note: After the user enters the platform, it defaults to Employer, Tasker and Navigator can
         only choose one authentication option
       </p>
