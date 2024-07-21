@@ -83,7 +83,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "dev": "node server",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

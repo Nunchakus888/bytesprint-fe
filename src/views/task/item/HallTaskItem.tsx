@@ -13,6 +13,7 @@ import {
   TaskTypes,
 } from 'common/constant';
 import classNames from 'classnames';
+import TaskStatusBadge from "components/TaskStatusBadge";
 // 任务大厅
 export default function HallTaskItem(props: { item: any; isMine?: boolean; from?: string }) {
   const { item } = props;
@@ -21,17 +22,20 @@ export default function HallTaskItem(props: { item: any; isMine?: boolean; from?
       <Flex direction="column" position="relative">
         <Box display="flex" flexDirection="column" padding="0 10px">
           {/* 名称 */}
-          <div className={classNames(styles.itemTitle, 'ellipsis')}>{item.name}</div>
-          {/* 职位类型 */}
-          <Flex direction="column">
-            <span className="font-14 opacity-80">
+          <div className="flex items-center justify-between">
+            <div className="ellipsis itemTitle flex-1" >{item.name}</div >
+            <TaskStatusBadge>
+              {
+                RequirementStatus.find((it) => it.value === item.status)?.label
+              }
+            </TaskStatusBadge>
+          </div >
+          
+          {/* 职位类型 */} <Flex direction="column" >
+            <span className="font-14 opacity-80" >
               {ProfessionTypes.filter((v) => v.value === item.positionType)[0]?.label}
-            </span>
-            <span className="font-14 text-[#999]">Select job type</span>
-          </Flex>
-          {/* 介绍 */}
-          <Box
-            className={classNames(styles.itemContent, 'h-[50px]')}
+            </span > <span className="font-14 text-[#999]" >Select job type</span > </Flex > {/* 介绍 */} <Box
+          className={classNames(styles.itemContent, 'h-[50px]')}
             dangerouslySetInnerHTML={{ __html: item.description }}
           ></Box>
         </Box>

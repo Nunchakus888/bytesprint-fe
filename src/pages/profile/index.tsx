@@ -74,10 +74,10 @@ export default function ProfileOverview() {
         {/* 水手展示以下信息 */}
         {isEngineer && (
           <Flex gap="20px" justifyContent="space-between" width="100%">
-            {/* 附件 */}
-            <UserAttachedResume data={userInfo} />
             {/* 工作教育经历 */}
             <UserExperience userInfo={userInfo} />
+            {/* 附件 */}
+            <UserAttachedResume data={userInfo} />
           </Flex>
         )}
       </Box>

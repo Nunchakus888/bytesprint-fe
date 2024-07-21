@@ -65,16 +65,20 @@ export default function UserMyPledge(props: { data: any[]; refresh: () => void }
                 <Text textAlign="right" fontWeight="bold">
                   {it.stakingAmount} USDT
                 </Text>
-                <Button
-                  borderRadius="20px"
-                  onClick={() => handleWithdraw(it)}
-                  disabled={it.stakingStatus === 3 ? false : true}
-                  backgroundColor={it.stakingStatus === 3 ? '#7551ff' : '#111C43'}
-                  height="35px"
-                  isLoading={clickItem?.stakingId === it.stakingId && buttonLoading}
-                >
-                  Withdraw to Wallet<span className="font-20">{'>'}</span>
-                </Button>
+                {
+                  PledgeStatus[it.stakingStatus] !== 'Completed' && (
+                    <Button
+                      borderRadius="20px"
+                      onClick={() => handleWithdraw(it)}
+                      disabled={it.stakingStatus !== 3}
+                      backgroundColor={it.stakingStatus === 3 ? '#7551ff' : '#111C43'}
+                      height="35px"
+                      isLoading={clickItem?.stakingId === it.stakingId && buttonLoading}
+                    >
+                      Withdraw to Wallet<span className="font-20">{'>'}</span>
+                    </Button>
+                  )
+                }
               </Flex>
               <Tag className={styles.uTag}>Task evaluation</Tag>
             </Flex>

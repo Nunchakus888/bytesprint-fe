@@ -125,11 +125,14 @@ export enum IStatus {
   SIGNED = 4, // 已签约
   CODEING = 5, // 进行中
   WAIT_ACCEPT = 6, //待验收
-  // ACCEPTED = 7, //已验收
   COMPLETE = 7, // 已完成
   UN_BID = 2, // 未中标
   PUBLISHED = -1, // 前端自定义，需求发布成功
 }
+
+
+//  已签约、进行中、待验收、已完成状态未参与此任务的用户从任务大厅中点击查看任务详情，只显示任务状态，不能进行操作
+export const Disable2joinTask = [4, 5, 6, 7]
 
 export const RequirementStatus = [
   {
