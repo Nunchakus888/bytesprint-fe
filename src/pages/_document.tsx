@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 import { ColorModeScript } from '@chakra-ui/react';
 import theme from 'common/theme/theme';
-import { GoogleAnalytics } from '@next/third-parties/google';
+// import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default function Document() {
   return (
@@ -14,7 +14,7 @@ export default function Document() {
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Main />
         <NextScript />
-        <GoogleAnalytics gaId="G-4F9CC518TD" />
+        {/*<GoogleAnalytics gaId="G-4F9CC518TD" />*/}
       </body>
     </Html>
   );
